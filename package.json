@@ -1,0 +1,27 @@
+{
+  "name": "las-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:essencial": "jest -t Essencial",
+    "test:desejavel": "jest -t Desejável",
+    "test:desafio": "jest -t Desafio",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiagolpadua/las-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tiagolpadua/las-api/issues"
+  },
+  "homepage": "https://github.com/tiagolpadua/las-api#readme",
+  "devDependencies": {
+    "jest": "^27.4.5"
+  }
+}
