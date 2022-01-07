@@ -3,16 +3,27 @@
 // =========
 
 // Escreva uma função que receba um nome e retorne uma saudação para este nome: Tiago -> Olá, Tiago
-function saudar() { }
+function saudar(name) { 
+  return  `Olá, ${name}`;
+}
 
-// Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
-function extrairPrimeiroNome() { }
+// Escreva uma função que clearreceba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
+function extrairPrimeiroNome(fullName) { 
+   const firstName = fullName.split(' ').shift();
+    return firstName;
+}
+console.log(extrairPrimeiroNome("Tauane Sales"))
 
 // Escreva uma função que receba uma palavra e torna a primeira letra maiúscula e as outras minúsculas: tIaGo -> Tiago
-function capitalizar() { }
+function capitalizar(word) { 
+    const capitalized = word[0].toUpperCase() + word.substr(1) ;
+    sli = capitalized.slice(1, );
+    return capitalized[0] + sli.toLowerCase();
+}
+console.log(capitalizar("tAUANE"));
 
 // Escreva uma função que recebe um preço original e uma categoria de produto e calcula o valor do imposto. Produtos da categoria Alimentação são isentos. Outros produtos tem um imposto de 10%.
-// (30, Alimentação) => 0
+// (30, Alimentação) => 0clear
 // (10, Bebida) => 1
 function calculaImposto() { }
 
