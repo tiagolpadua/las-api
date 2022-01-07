@@ -63,7 +63,6 @@ function truncar(texto , comprimento = 5) {
 // "   " -> undefined
 // "      Maria " -> "Maria"
 function validaTextoPreenchido(texto) {
-    let a
     if(texto.trim() === ""){
         return undefined
     }else{
