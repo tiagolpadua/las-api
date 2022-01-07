@@ -60,7 +60,15 @@ function calculaImposto(preco , categoria) {
 // (10, Bebida, NULABSSA) => 10
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
-function calculaDesconto() { }
+function calculaDesconto(preco , categoria , cupom) {
+
+    const taxaDesconto = 0.5;
+
+    const valorComDesconto = preco * taxaDesconto;
+    
+    return categoria === "Alimentação" && cupom === 'NULABSSA' ?  valorComDesconto : preco ;
+
+ }
 
 // =========
 // Desejável
