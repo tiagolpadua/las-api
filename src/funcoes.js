@@ -108,25 +108,25 @@ function validaTextoPreenchido(texto) {
 // 99/99/9999 -> NaN
 function validaData(data) {
 
-//   let reg = /[0-3][0-9]\/[0-1][0-9]\/[1-2][0-9]+/g;
+  let reg = /[0-3][0-9]\/[0-1][0-9]\/[1-2][0-9]+/g;
 
-//   let arrayData = data.split("/");
+  let arrayData = data.split("/");
 
-//   let dataReverse = arrayData.reverse();
+  let dataReverse = arrayData.reverse();
 
-//   let dataFormatada = dataReverse.join("/", ",")
+  let dataFormatada = dataReverse.join("/", ",")
 
-//   let objetoData = new Date(dataFormatada);
+  let objetoData = new Date(dataFormatada);
 
 
-//     if(reg.test(data)){
+    if(reg.test(data)){
 
-//         return typeof objetoData
+        return typeof objetoData
 
-//     }else{
+    }else{
 
-//         return NaN
-//     }
+        return NaN
+    }
 
 
  }
