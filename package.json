@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/tiagolpadua/las-api#readme",
   "devDependencies": {
-    "jest": "^27.4.5"
+    "jest": "^27.4.7"
   }
 }
