@@ -8,16 +8,17 @@ function saudar(nome) {
  }
 
 // Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
-function extrairPrimeiroNome() {
-
+function extrairPrimeiroNome(extrairPrimeiroNome ) {
+    return extrairPrimeiroNome.substr(0,5);
  }
 
 // Escreva uma função que receba uma palavra e torna a primeira letra maiúscula e as outras minúsculas: tIaGo -> Tiago
-function capitalizar() { 
-
+function capitalizar(nome) { 
+    return nome[0].toUpperCase() + nome.slice(1).toLowerCase();
 }
 
-// Escreva uma função que recebe um preço original e uma categoria de produto e calcula o valor do imposto. Produtos da categoria Alimentação são isentos. Outros produtos tem um imposto de 10%.
+// Escreva uma função que recebe um preço original e uma categoria de produto e calcula o valor do imposto. 
+// Produtos da categoria Alimentação são isentos. Outros produtos tem um imposto de 10%.
 // (30, Alimentação) => 0
 // (10, Bebida) => 1
 function calculaImposto() { 
