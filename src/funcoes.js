@@ -12,9 +12,11 @@ function saudar(nome) {
 // Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
 function extrairPrimeiroNome(nome) { 
 
-    const capturaNome = /(\b[A-Z][a-z]+)/g;
+    const capturaNome = /\b[A-Z][a-z]+/g;
 
-    return capturaNome.exec(nome)
+    const primeiroNome = capturaNome.exec(nome);
+
+    return primeiroNome[0];
 
 }
 
