@@ -92,10 +92,10 @@ function truncar(palavra , limiteCaracteres = 5 ) {
 // "      Maria " -> "Maria"
 function validaTextoPreenchido(texto) { 
 
-    // const validaTexto = texto.trim();
+    const validaTexto = texto.trim();
 
-    // if(!validaTexto) return undefined
-    // else return validaTexto
+    if(!validaTexto) return undefined
+    else return validaTexto
         
 }
 
