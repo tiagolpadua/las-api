@@ -84,6 +84,13 @@ function validaTextoPreenchido(texto) {
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() { }
+function validaData(dataDeNascimento) { 
+    let valida = dataDeNascimento instanceof Date && !isNaN(dataDeNascimento);
+    if(!valida){
+        return "Nan";
+    }else{
+        return "Ok";
+    }
+}
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
