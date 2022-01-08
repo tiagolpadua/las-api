@@ -37,7 +37,13 @@ function calculaImposto(valor, categoria) {
 // (10, Bebida, NULABSSA) => 10
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
-function calculaDesconto() { }
+function calculaDesconto(valor, categoria, cupom) {
+  if (categoria == 'Alimentação' && cupom == 'NULABSSA') {
+    return valor * .5;
+  } else {
+    return valor;
+  }
+}
 
 // =========
 // Desejável
