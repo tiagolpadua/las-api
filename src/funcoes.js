@@ -21,7 +21,7 @@ function capitalizar(palavra){
 // (30, Alimentação) => 0
 // (10, Bebida) => 1
 function calculaImposto(preco,categoria){
-  return categoria === 'Alimentação' ? 0 : preco / 10;
+  return categoria === `Alimentação` ? 0 : preco / 10;
 }
 
 // Escreva uma função que recebe um preço original, uma categoria de produto e um cupom de desconto e calcula o preço com desconto. 
@@ -44,10 +44,7 @@ function calculaDesconto(preco,categoria,cupom){
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
 function truncar(palavra, limiteMax = 5){
-  if(palavra.length > limiteMax){
-    return novaPalavra = palavra.substring(palavra, limiteMax) + "...";
-  }
-    return palavra;
+  return (palavra.length > limiteMax) ? `${palavra.substring(0, limiteMax)}...` : palavra;
 }
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
@@ -55,14 +52,8 @@ function truncar(palavra, limiteMax = 5){
 // "   " -> undefined
 // "      Maria " -> "Maria"
 function validaTextoPreenchido(texto){
-  let re = /S*[A-Za-z]/;
-  if(texto === ""){
-    console.log("Entrou no if do text");
-    return undefined;
-  }else if(!re.test(texto)){
-    return undefined;
-  }
-  return texto.trim();
+  let palavra = texto.trim();
+  return palavra.length != 0 ? palavra : undefined;
 }
 
 // =======
@@ -73,8 +64,9 @@ function validaTextoPreenchido(texto){
 // sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData(){
-
+function validaData(data){
+  let re = /(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d{2}/;
+  return re.test(data) ? true : NaN;
 }
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
