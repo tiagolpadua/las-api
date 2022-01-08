@@ -42,12 +42,7 @@ function calculaDesconto(preco, categoria, cupom) {
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
 function truncar(palavra, comprimento = 5) { 
-    if (palavra.length > comprimento) {
-        return `${palavra.slice(0, 4)}...`;
-    }
-    else {
-        return palavra
-    }
+    return palavra.length > comprimento ? `${palavra.slice(0, 4)}...` : palavra;
 }
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
