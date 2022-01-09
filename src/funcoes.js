@@ -54,8 +54,8 @@ function calculaDesconto(valor, categoria, cupom) {
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
 function truncar(palavra, tamanho = 5) {
-  if (palavra <= tamanho) {
-    return palavra.slice(0, tamanho);
+  if (palavra.length <= tamanho) {
+    return palavra;
   } else {
     return palavra.slice(0, tamanho).concat('...');
   }
@@ -65,7 +65,13 @@ function truncar(palavra, tamanho = 5) {
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() { }
+function validaTextoPreenchido(texto) {
+  if (!texto.trim()) {
+    return undefined;
+  } else {
+    return texto.trim();
+  }
+}
 
 // =======
 // Desafio
