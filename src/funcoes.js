@@ -62,7 +62,7 @@ function validaTextoPreenchido(texto) {
 // 99/99/9999 -> NaN
 function validaData(date) {
     let valida = /^(0[1-9]|1[\d]|2[\d]|3[01])\/(0[1-9]|1[0-2])\/(1[9][\d][3-9]|2[0][0-2][0-1])$/; 
-    return valida.test(date) ? date : NaN;
+    return valida.test(date) ? "Ok" : NaN;
 } 
  
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
