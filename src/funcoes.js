@@ -25,7 +25,7 @@ function capitalizar(palavra) {
 function calculaImposto(valor, categoria) {
   let imposto;
   if (categoria != 'Alimentação') {
-    return imposto = 1;
+    return imposto = valor * .1;
   } else {
     return imposto = 0;
   }
@@ -54,7 +54,11 @@ function calculaDesconto(valor, categoria, cupom) {
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
 function truncar(palavra, tamanho = 5) {
-  return palavra.slice(0, tamanho);
+  if (palavra <= tamanho) {
+    return palavra.slice(0, tamanho);
+  } else {
+    return palavra.slice(0, tamanho).concat('...');
+  }
 }
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
