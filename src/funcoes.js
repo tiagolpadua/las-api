@@ -29,7 +29,6 @@ function calculaImposto(valor, categoria) {
   } else {
     return imposto = 0;
   }
-  // O preço não tem serventia para esta função.
 }
 
 // Escreva uma função que recebe um preço original, uma categoria de produto e um cupom de desconto e calcula o preço com desconto. Se a categoria for Alimentação e o cupom for NULABSSA, deve ser feito um desconto de 50%. Caso contrário, não há nenhum desconto.
@@ -80,6 +79,25 @@ function validaTextoPreenchido(texto) {
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() { }
+function validaData(data) {
+  let arrData = new Array;
+  const ExpReg = new RegExp('(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}');
+  let err = false;
+  arrData = data.split('/');
+
+  if (data.search(ExpReg) == -1) {
+    err = true;
+  } else if (((arrData[1]==4)||(arrData[1]==6)||(arrData[1]==9)||(arrData[1]==11))&&(arrData[0]>30)) {
+    err = true;
+  } else if ( arrData[1]==2) {
+    err = true;
+  }
+
+  if (err) {
+    return NaN
+  }
+
+  return 'Ok'
+}
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
