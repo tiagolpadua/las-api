@@ -42,14 +42,16 @@ function calculaDesconto(preco, categoria, cupom) {
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
 function truncar(palavra, comprimento = 5) { 
-    return palavra.length > comprimento ? `${palavra.slice(0, 4)}...` : palavra;
+    return palavra.length > comprimento ? `${palavra.substr(palavra, comprimento)}...` : palavra;
 }
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() { }
+function validaTextoPreenchido(texto) {
+    return texto.trim().length === 0 ? undefined : texto.trim(); 
+}
 
 // =======
 // Desafio
@@ -58,6 +60,12 @@ function validaTextoPreenchido() { }
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() { }
+function validaData() {
+    if (f) {
+        
+    } else {
+
+    }
+ }
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
