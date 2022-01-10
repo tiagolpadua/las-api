@@ -54,13 +54,22 @@ function calculaDesconto(preco, categoria, cupom) {
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar() { }
+function truncar(palavra, compri) {
+    const padrao = 5;
+    if (palavra.length > compri){
+        return palavra.slice(0,padrao);
+    } else {
+        return palavra;
+    }
+ }
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() { }
+function validaTextoPreenchido() {
+
+ }
 
 // =======
 // Desafio
