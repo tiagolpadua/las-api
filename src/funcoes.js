@@ -3,7 +3,9 @@
 // =========
 
 // Escreva uma função que receba um nome e retorne uma saudação para este nome: Tiago -> Olá, Tiago
-function saudar() { }
+function saudar(nome) { 
+    return("Olá, "+ nome);
+}
 
 // Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
 function extrairPrimeiroNome() { }
@@ -43,7 +45,7 @@ function validaTextoPreenchido() { }
 // Desafio
 // =======
 
-// Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
+// Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date se a data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
 function validaData() { }
