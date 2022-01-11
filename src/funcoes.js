@@ -85,20 +85,17 @@ function validaTextoPreenchido(texto) {
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
 function validaData(data) { 
+    let dataHoje = new Date();
     let dia = +data.substr(0,2);
     let mes = +data.substr(3,2);
     let ano = +data.substr(6,4);
-    let dataFormata = new Date(ano,mes,dia);
-    let dataHoje = new Date();
-    if(dataFormata.getFullYear<dataHoje.getFullYear||
-        dataFormata.getFullYear===dataHoje.getFullYear&&dataFormata.getMonth<dataHoje.getMonth||
-        dataFormata.getFullYear===dataHoje.getFullYear&&dataFormata.getMonth===dataHoje.getMonth&&
-        dataFormata.getDate()<dataHoje.getDate()||
-        isNaN(dia)!=true||isNaN(mes)!=true||isNaN(ano)!=true||dataFormata.getDate>31||dataFormata.getMonth>12){
-        return "OK"
-    }else {              
+ 
+    if((dia>0&&dia<=31)&&(mes>0&&mes<=12)&&(ano>=1970&&ano<=dataHoje.getFullYear())){
+        return new Date(ano,mes,dia);
+    } else {
         return NaN;
     }
+ 
 }
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
