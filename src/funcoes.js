@@ -13,19 +13,36 @@ function extrairPrimeiroNome(nome) {
  }
 
 // Escreva uma função que receba uma palavra e torna a primeira letra maiúscula e as outras minúsculas: tIaGo -> Tiago
-function capitalizar() { }
+function capitalizar(nome) { 
+    return nome[0].toUpperCase() + nome.slice(1).toLowerCase()
+} 
 
 // Escreva uma função que recebe um preço original e uma categoria de produto e calcula o valor do imposto. Produtos da categoria Alimentação são isentos. Outros produtos tem um imposto de 10%.
 // (30, Alimentação) => 0
 // (10, Bebida) => 1
-function calculaImposto() { }
+function calculaImposto(valor, categoria) {
+    if(categoria === "Alimentação"){
+        valorImposto = 0;
+    } else {
+        valorImposto = (valor/100) * 10;
+    }
+    return valorImposto;
+ }
 
 // Escreva uma função que recebe um preço original, uma categoria de produto e um cupom de desconto e calcula o preço com desconto. Se a categoria for Alimentação e o cupom for NULABSSA, deve ser feito um desconto de 50%. Caso contrário, não há nenhum desconto.
 // (30, Alimentação, NULABSSA) => 15
 // (10, Bebida, NULABSSA) => 10
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
-function calculaDesconto() { }
+function calculaDesconto(valor, categoria, cupom) {
+    if(categoria === "Alimentação" && cupom === "NULABSSA"){
+        valorFinal = valor - (valor/100 * 50);
+    } else{
+        valorFinal = valor;
+    }
+    return valorFinal;
+ }
+ 
 
 // =========
 // Desejável
