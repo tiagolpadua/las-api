@@ -8,8 +8,7 @@ function saudar(nome) {
  }
 
 // Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
-function extrairPrimeiroNome() { 
-    let nomeCompleto = "Tiago Lage Payne de Pádua";
+function extrairPrimeiroNome(nomeCompleto) { 
     let primeiroNome = nomeCompleto.substring(0, nomeCompleto.indexOf(" "));
     return primeiroNome;
 }
@@ -60,9 +59,14 @@ function calculaDesconto(precoOriginal, categoriaDoProduto, cupomDeDesconto) {
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar(palavra, comprimentoMaximo) { 
-    let palavraTruncada = palavra.substring(0, comprimentoMaximo);
-    return palavraTruncada;
+function truncar(palavra, comprimentoMaximo = 5) { 
+    let truncado = "";
+    if(palavra.length <= comprimentoMaximo){
+        truncado = palavra
+    }else if(palavra.length > comprimentoMaximo){
+        truncado =  palavra.substring(0, comprimentoMaximo)+"...";
+    }
+    return truncado;
 }
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
@@ -81,15 +85,21 @@ function validaTextoPreenchido(texto) {
 // Desafio
 // =======
 
-// Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
+// Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date se a data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData(dataDeNascimento) { 
-    let valida = dataDeNascimento instanceof Date && !isNaN(dataDeNascimento);
-    if(!valida){
-        return "Nan";
-    }else{
+function validaData(data) { 
+
+    let dataAux = data.split("/");
+    let ano = parseInt(dataAux[2]);
+    let mes = parseInt(dataAux[1]);
+    let dia = parseInt(dataAux[0]);
+    const anoAtual = new Date().getFullYear();
+
+    if((dia <= 31 === true) && (mes <= 12 === true) && (ano <= anoAtual == true)){
         return "Ok";
+    }else{
+        return NaN
     }
 }
 
