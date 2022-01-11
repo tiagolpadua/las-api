@@ -55,11 +55,17 @@ function calculaDesconto(preco, categoria, cupom) {
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
 function truncar(palavra, compri) {
+
     const padrao = 5;
+    let saida;
     if (palavra.length > compri){
-        return palavra.slice(0,padrao);
-    } else {
+        saida = palavra.substr(0, compri);
+        return saida.concat('...');
+    } else if(palavra.length < compri){
         return palavra;
+    }else {
+        saida = palavra.substr(0, padrao);
+        return saida.concat('...');
     }
  }
 
@@ -67,13 +73,17 @@ function truncar(palavra, compri) {
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() {
-
+function validaTextoPreenchido(texto) {
+    let saida = texto.replace(/\s/g, "");
+    if (saida.length === 0){
+        return undefined;
+    } else {
+        return saida;
+    }
  }
 
 // =======
 // Desafio
-// =======
 
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date se a data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
