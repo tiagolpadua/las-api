@@ -3,25 +3,48 @@
 // =========
 
 // Escreva uma função que receba um nome e retorne uma saudação para este nome: Tiago -> Olá, Tiago
-function saudar() { }
+function saudar(nome) { 
+    return("Olá, "+ nome);
+}
 
 // Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
-function extrairPrimeiroNome() { }
+function extrairPrimeiroNome(nome) { 
+    const nomeVetor = nome.split(" ");
+    return nomeVetor[0];
+}
 
 // Escreva uma função que receba uma palavra e torna a primeira letra maiúscula e as outras minúsculas: tIaGo -> Tiago
-function capitalizar() { }
+function capitalizar(nome) {
+    return nome[0].toUpperCase() + nome.slice(1).toLowerCase();
+}
 
 // Escreva uma função que recebe um preço original e uma categoria de produto e calcula o valor do imposto. Produtos da categoria Alimentação são isentos. Outros produtos tem um imposto de 10%.
 // (30, Alimentação) => 0
 // (10, Bebida) => 1
-function calculaImposto() { }
+function calculaImposto(preco, categoria) {
+    const alimentacao = "Alimentação"
+    if (categoria === alimentacao){
+        return 0;
+    } else {
+        return (preco * 0.1);
+    }
+ }
 
 // Escreva uma função que recebe um preço original, uma categoria de produto e um cupom de desconto e calcula o preço com desconto. Se a categoria for Alimentação e o cupom for NULABSSA, deve ser feito um desconto de 50%. Caso contrário, não há nenhum desconto.
 // (30, Alimentação, NULABSSA) => 15
 // (10, Bebida, NULABSSA) => 10
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
-function calculaDesconto() { }
+function calculaDesconto(preco, categoria, cupom) {
+    const desconto = "NULABSSA";
+    const tipo = "Alimentação";
+    if (cupom === desconto && categoria === tipo){
+        return preco / 2;
+    }
+    else {
+        return preco;
+    }
+ }
 
 // =========
 // Desejável
@@ -31,21 +54,49 @@ function calculaDesconto() { }
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar() { }
+function truncar(palavra, compri) {
+
+    const padrao = 5;
+    let saida;
+    if (palavra.length > compri){
+        saida = palavra.substr(0, compri);
+        return saida.concat('...');
+    } else if(palavra.length < compri){
+        return palavra;
+    }else {
+        saida = palavra.substr(0, padrao);
+        return saida.concat('...');
+    }
+ }
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() { }
+function validaTextoPreenchido(texto) {
+    let saida = texto.replace(/\s/g, "");
+    if (saida.length === 0){
+        return undefined;
+    } else {
+        return saida;
+    }
+ }
 
 // =======
 // Desafio
-// =======
 
-// Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
+// Escreva uma função que valida se a string passada é uma data de nascimento válida,
+// deve retornar um objeto Date se a data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() { }
+function validaData(data) {
+    let dia = data.slice(0,2);
+    let mes = data.slice(3,5);
+    if ((dia <= 31) && (mes <= 12)) {
+        return "Ok";
+    } else {
+        return NaN;
+    }
+ }
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
