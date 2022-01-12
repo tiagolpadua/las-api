@@ -68,7 +68,7 @@ function validaTextoPreenchido(texto) {
     if(texto === null){
         return undefined
     }
-    texto = texto.replaceAll(' ', '');
+    texto = texto.trim();
     let confere = Boolean(texto);
     if(confere === false&&texto != null){
         return undefined;
