@@ -79,6 +79,34 @@ function validaTextoPreenchido(texto) {
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() { }
+function validaData(data) {
+    const divisorData = data.split("/");
+    if(divisorData.length !== 3){
+        return NaN;
+    }
+
+    const dia = divisorData[0];
+    const mes = divisorData[1];
+    const ano = divisorData[2];
+
+    if(dia > 28 && mes == 2){
+        return NaN;
+    }
+    
+    if(mes == 4 || mes == 6 || mes == 9 || mes == 11){
+        if(dia < 1 || dia > 30){
+            return NaN;
+        } else {
+            return (dia/mes/ano);
+        }
+    }
+    
+    if(dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano > 2023){
+        return NaN;
+    } else{
+        return (dia/mes/ano);
+    }
+
+ }
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
