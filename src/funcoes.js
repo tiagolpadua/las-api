@@ -8,8 +8,8 @@ function saudar(nome) {
  }
 
 // Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
-function extrairPrimeiroNome(extrairPrimeiroNome ) {
-    return extrairPrimeiroNome.substr(0,5);
+function extrairPrimeiroNome(PrimeiroNome ) {
+    return PrimeiroNome.substr(0,5);
  }
 
 // Escreva uma função que receba uma palavra e torna a primeira letra maiúscula e as outras minúsculas: tIaGo -> Tiago
@@ -21,7 +21,8 @@ function capitalizar(nome) {
 // Produtos da categoria Alimentação são isentos. Outros produtos tem um imposto de 10%.
 // (30, Alimentação) => 0
 // (10, Bebida) => 1
-function calculaImposto() { 
+function calculaImposto(precoOriginal,categoriaProduto) { 
+    return categoriaProduto !== "Alimentação" ? (precoOriginal * 10) / 100:0;
 
 }
 
@@ -30,7 +31,8 @@ function calculaImposto() {
 // (10, Bebida, NULABSSA) => 10
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
-function calculaDesconto() { 
+function calculaDesconto(precoOriginal,categoriaProduto,cupom) { 
+return categoriaProduto === "Alimentação" && cupom === "NULABSSA" ? precoOriginal - (precoOriginal * 50)/100 : precoOriginal;
 
 }
 
@@ -42,7 +44,10 @@ function calculaDesconto() {
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar() { 
+function truncar(palavra, comprimento) { 
+    let comprimentoPadrao = comprimento === undefined ? 5 : comprimento;
+
+    return palavra.length > comprimentoPadrao ? palavra.split("").slice(0, comprimentoPadrao).join("") + "..." : palavra;
 
 }
 
@@ -50,7 +55,9 @@ function truncar() {
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() { 
+function validaTextoPreenchido(texto) { 
+let palavra = texto.trim();
+return palavra.length !==0 ? palavra : undefined; 
 
 }
 
