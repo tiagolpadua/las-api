@@ -49,11 +49,11 @@ function calculaDesconto(precoOriginal, categoriaProduto, cupom) {
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
 function truncar(palavra, comprimentoMaximo=5) { 
-    palavra = palavra.replaceAll(" ","");
+    palavra = palavra.trim();
     let confere = Boolean(palavra);
     if(palavra != null || confere === true){
          if(palavra.length > comprimentoMaximo){
-            palavra = palavra.replace(palavra[comprimentoMaximo], '...');
+            palavra = palavra.substr(0,comprimentoMaximo)+'...';
             return palavra.substr(0,comprimentoMaximo+3);
         } else{
             return palavra;
