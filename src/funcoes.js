@@ -84,12 +84,9 @@ function truncar(palavra, comprimento = 5) {
 
 function validaTextoPreenchido(texto) {
 
-    if (texto.match(/^\s+$/) === null) {
+    if (texto.trim() !== "") {
         return texto.trim();
-    } else {
-        return "undefined";
     }
-
 }
 
 // =======
@@ -99,8 +96,29 @@ function validaTextoPreenchido(texto) {
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() {
+function validaData(data) {
 
+    function toDate(dateStr) {
+        var parts = dateStr.split("/");
+
+    }
+
+    let separaData = data.split("/");
+
+    let dia = separaData[0]
+    let mes = separaData[1]
+    let ano = separaData[2]
+
+    let verificaData = `${dia}/${mes}/${ano}`;
+
+    if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (ano >= 1900 && ano <= 2022)) {
+
+        return verificaData;
+
+    } else if ((dia < 1 || dia > 31) && (mes < 1 || mes > 12) && (ano < 1900 || ano > 2022)) {
+
+        return "NaN";
+    }
 
 }
 
