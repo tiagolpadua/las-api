@@ -3,7 +3,10 @@
 // =========
 
 // Escreva uma função que receba um nome e retorne uma saudação para este nome: Tiago -> Olá, Tiago
-function saudar() { }
+function saudar() { 
+let nome ='Tiago';
+return `Olá, ${nome}`
+}
 
 // Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
 function extrairPrimeiroNome() { }
