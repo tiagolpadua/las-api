@@ -6,8 +6,8 @@
 const saudar = nome => `Olá, ${nome}`;
 
 // Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
-function extrairPrimeiroNome() { 
-    let nomeCompleto = "Tiago Lage Payne de Pádua".split(' ');
+function extrairPrimeiroNome(nome) { 
+    let nomeCompleto = nome.split(' ');
     return nomeCompleto[0];    
 }
 
