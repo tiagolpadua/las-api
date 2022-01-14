@@ -26,12 +26,13 @@ return `${nomePrimeiraLetraMaiuscula}`
 // (10, Bebida) => 1
 function calculaImposto(preço, categoria) {
   let valorDoImposto;
-  let preçoFormatado = parseFloat (preço);
  if (categoria === "Alimentação"){
+    
    valorDoImposto = 0;
  }
  else {
-   valorDoImposto = preçoFormatado * 0.1;
+
+   valorDoImposto = preço * 0.1;
    
  }
  return valorDoImposto;
@@ -42,7 +43,16 @@ function calculaImposto(preço, categoria) {
 // (10, Bebida, NULABSSA) => 10
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
-function calculaDesconto() { }
+function calculaDesconto(preço, categoria, cupom) {
+ let preçoComDesconto 
+  if (categoria=== 'Alimentação' && cupom=== 'NULABSSA') {
+    preçoComDesconto = preço * 0.5
+  }
+   else {
+       preçoComDesconto= preço
+   }
+   return preçoComDesconto
+ }
 
 // =========
 // Desejável
