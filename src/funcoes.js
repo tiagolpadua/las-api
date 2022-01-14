@@ -117,7 +117,7 @@ function validaData(data) {
 
     } else if ((dia < 1 || dia > 31) && (mes < 1 || mes > 12) && (ano < 1900 || ano > 2022)) {
 
-        return "NaN";
+        return NaN;
     }
 
 }
