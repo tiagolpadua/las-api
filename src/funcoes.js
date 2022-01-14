@@ -62,22 +62,33 @@ function calculaDesconto(preço, categoria, cupom) {
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar(palavra, comprimento) { 
-let palavraTruncada
-if ( palavra.length > 5) {
-palavraTruncada = palavra.slice(0, 4);
+function truncar(palavra, comprimento=5) { 
+
+if ( palavra.length > comprimento) {
+
+return  palavra.slice(0,comprimento) + "...";
 }
 else{
-     palavraTruncada = palavra
+    return palavra;
  }
-  return `${palavraTruncada}...`
 }
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() { }
+function validaTextoPreenchido(texto) { 
+
+    if (texto.length !="" && texto.trim().length != "") {
+
+     return texto.trim();
+
+    }
+    else {
+     return undefined
+    }
+
+}
 
 // =======
 // Desafio
@@ -86,6 +97,16 @@ function validaTextoPreenchido() { }
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() { }
+function validaData(data) { 
+  let modeloData = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+ if ( modeloData.test(data)){
+     return "Ok"
+ }
+  else {
+      return NaN
+  }
+
+
+}
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
