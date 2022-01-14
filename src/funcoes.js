@@ -44,14 +44,14 @@ function calculaImposto(preço, categoria) {
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
 function calculaDesconto(preço, categoria, cupom) {
- let preçoComDesconto 
+ let preçoComDesconto; 
   if (categoria=== 'Alimentação' && cupom=== 'NULABSSA') {
-    preçoComDesconto = preço * 0.5
+    preçoComDesconto = preço * 0.5;
   }
    else {
-       preçoComDesconto= preço
+       preçoComDesconto= preço;
    }
-   return preçoComDesconto
+   return preçoComDesconto;
  }
 
 // =========
@@ -62,7 +62,16 @@ function calculaDesconto(preço, categoria, cupom) {
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar() { }
+function truncar(palavra, comprimento) { 
+let palavraTruncada
+if ( palavra.length > 5) {
+palavraTruncada = palavra.slice(0, 4);
+}
+else{
+     palavraTruncada = palavra
+ }
+  return `${palavraTruncada}...`
+}
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
 // "" -> undefined
