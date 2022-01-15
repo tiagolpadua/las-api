@@ -50,34 +50,25 @@ function truncar(palavra, tamanho) {
 
         if (typeof tamanho === "undefined"){
             for (let i = 0; i < 8; i++){
-                if (i < comprimento){
-                    resultado += palavra[i];
-                }else{
-                    resultado += ".";
-                }
+                (i < comprimento ? resultado += palavra[i] : resultado += ".");                
             }
             return resultado;
         }else{
             if (palavra.length > comprimento ){
                 for (let i = 0; i <= palavra.length; i++){
-                    if (i < comprimento){
-                        resultado += palavra[i];
-                    }else{
-                        resultado += ".";
-                    }                   
+                    (i < comprimento ? resultado += palavra[i] : resultado += ".");                           
                 }
                 return resultado;                        
             }else {
                 resultado = palavra;
                 return resultado;
             }
-        }        
-        
+        }         
     
     function comprimentoMax (valor){
         let valor1 = valor;
-        typeof valor1 === "undefined" ? valor1 = tamMaximo : valor1 = valor;
-        return valor1;         
+            (typeof valor1 === "undefined" ? valor1 = tamMaximo : valor1 = valor);
+            return valor1;         
     }   
 }
 
