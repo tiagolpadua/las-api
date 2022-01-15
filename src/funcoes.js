@@ -67,10 +67,11 @@ function truncar(palavra, argumento = 5) {
 // "   " -> undefined
 // "      Maria " -> "Maria"
 function validaTextoPreenchido(texto) { 
-    if(texto == ""){
+    texto = texto.trim();
+    if(texto.length === 0){
         return undefined;
     }else {
-        return texto.trim();
+        return texto;
     }
 }
 
@@ -81,6 +82,19 @@ function validaTextoPreenchido(texto) {
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() { }
+function validaData(data) {
+
+    let validaString = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26]))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;;
+
+   if(
+       validaString
+       .test(data) == false){
+        return NaN;
+    }else {
+        return 'Ok';
+    } 
+ }
+ 
+
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
