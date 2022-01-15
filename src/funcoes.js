@@ -43,7 +43,43 @@ function calculaDesconto(preco, categoria, cupomDesconto) {
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar() { }
+function truncar(palavra, tamanho) { 
+    let resultado = "";
+    let tamMaximo = 5;    
+    let comprimento = comprimentoMax(tamanho);
+
+        if (typeof tamanho === "undefined"){
+            for (let i = 0; i < 8; i++){
+                if (i < comprimento){
+                    resultado += palavra[i];
+                }else{
+                    resultado += ".";
+                }
+            }
+            return resultado;
+        }else{
+            if (palavra.length > comprimento ){
+                for (let i = 0; i <= palavra.length; i++){
+                    if (i < comprimento){
+                        resultado += palavra[i];
+                    }else{
+                        resultado += ".";
+                    }                   
+                }
+                return resultado;                        
+            }else {
+                resultado = palavra;
+                return resultado;
+            }
+        }        
+        
+    
+    function comprimentoMax (valor){
+        let valor1 = valor;
+        typeof valor1 === "undefined" ? valor1 = tamMaximo : valor1 = valor;
+        return valor1;         
+    }   
+}
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
 // "" -> undefined
