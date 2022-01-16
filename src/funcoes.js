@@ -97,8 +97,7 @@ function validaTextoPreenchido(texto) {
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData(datas) {   
-    
+function validaData(datas) {     
     if (verificaDia(datas) === true && verificaMes(datas) === true && verificaAno(datas)){
         let resultado = "Ok";
         return resultado;
