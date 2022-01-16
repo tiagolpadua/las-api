@@ -47,7 +47,6 @@ function truncar(palavra, tamanho) {
     let resultado = "";
     let tamMaximo = 5;    
     let comprimento = comprimentoMax(tamanho);
-
         if (typeof tamanho === "undefined"){
             for (let i = 0; i < 8; i++){
                 (i < comprimento ? resultado += palavra[i] : resultado += ".");                
@@ -63,8 +62,8 @@ function truncar(palavra, tamanho) {
                 resultado = palavra;
                 return resultado;
             }
-        }         
-    
+        } 
+
     function comprimentoMax (valor){
         let valor1 = valor;
             (typeof valor1 === "undefined" ? valor1 = tamMaximo : valor1 = valor);
@@ -76,7 +75,20 @@ function truncar(palavra, tamanho) {
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() { }
+function validaTextoPreenchido(texto) {
+    let resultado;
+    procuraEspaco(texto) === false ? resultado : procuraTexto(texto) === true ? resultado = texto.trim() : resultado; return resultado;   
+    function procuraEspaco(texto) {
+        let regexp = new RegExp('[\s \S]');
+        let string = regexp.test(texto);     
+        return string;          
+    }
+    function procuraTexto(texto){
+        let regexp = new RegExp(/[a-z]/i);
+        let string = regexp.test(texto);
+        return string;
+    }
+ }
 
 // =======
 // Desafio
