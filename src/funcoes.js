@@ -97,6 +97,99 @@ function validaTextoPreenchido(texto) {
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() { }
+function validaData(datas) {   
+    
+    if (verificaDia(datas) === true && verificaMes(datas) === true && verificaAno(datas)){
+        let resultado = "Ok";
+        return resultado;
+    }else{
+        let resultado = NaN;
+        return resultado;
+    }
+
+    function verificaDia(dia){
+        let data = dia.slice(0, 2);
+        let resultadoDia;
+        let string1, string2;
+            for (let i = 0; i < data.length; i++){
+                switch (i){
+                    case 0:
+                        let regexp1 = new RegExp(/[0-3]/);
+                        string1 = regexp1.test(data[i]);
+                        break;
+                    case 1:
+                        let regexp2 = new RegExp(/[0-9]/);    
+                        string2 = regexp2.test(data[i]); 
+                        break;                   
+                }
+                if (i === 1){
+                    if ( string1 === true && string2 === true){
+                        resultadoDia = true;
+                    }else{
+                        resultadoDia = false;
+                    }
+                    return resultadoDia;
+                }
+            }
+    }
+    function verificaMes(mes){
+        let meses = mes.slice(3, 5);
+        let resultadoMes;
+        let string1, string2;
+            for (let i = 0; i < meses.length; i++){
+                switch (i){
+                    case 0:
+                        let regexp1 = new RegExp(/[0-1]/);
+                        string1 = regexp1.test(meses[i]);
+                        break;
+                    case 1:
+                        let regexp2 = new RegExp(/[1-9]/);    
+                        string2 = regexp2.test(meses[i]); 
+                        break;                   
+                }
+                if (i === 1){
+                    if ( string1 === true && string2 === true){
+                        resultadoMes = true;
+                    }else{
+                        resultadoMes = false;
+                    }
+                    return resultadoMes;
+                }
+            }
+    }
+    function verificaAno(ano){
+        let anos = ano.slice(6, 10);
+        let resultadoAno; 
+        let string1, string2, string3, string4;       
+            for (let i = 0; i < anos.length; i++){
+                switch (i){
+                    case 0:
+                        let regexp1 = new RegExp(/[2]/);
+                        string1 = regexp1.test(anos[i]);
+                        break;
+                    case 1:
+                        let regexp2 = new RegExp(/[0-9]/);    
+                        string2 = regexp2.test(anos[i]); 
+                        break; 
+                    case 2:
+                        let regexp3 = new RegExp(/[0-9]/);    
+                        string3 = regexp3.test(anos[i]); 
+                        break;
+                    case 3:
+                        let regexp4 = new RegExp(/[0-9]/);    
+                        string4 = regexp4.test(anos[i]); 
+                        break;  
+                }
+                if (i === 3){
+                    if ( string1 === true && string2 === true && string3 === true && string4 === true){
+                        resultadoAno = true;
+                    }else{
+                        resultadoAno = false;
+                    }
+                    return resultadoAno;
+                }
+            }
+    }            
+ }
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
