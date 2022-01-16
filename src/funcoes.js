@@ -78,28 +78,81 @@ function truncar(palavra, comprimentoMax = 5) {
     }else{
         
         return palavraSemEspacos.substring(0, comprimentoPadrao).trim();
-    }
-    
-       
-    
-    
-
-    
+    } 
 }
 
-// Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
+// Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem 
+//espaços antes ou depois.
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() { }
+function validaTextoPreenchido(texto) { 
+    
+    textoSemEspaco = texto.trim();
+
+    if(textoSemEspaco.length === 0){
+        return undefined;
+    }else{
+        return textoSemEspaco;
+    }
+}
 
 // =======
 // Desafio
 // =======
 
-// Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
+// Escreva uma função que valida se a string passada é uma data de nascimento 
+//válida, deve retornar um objeto Date se a data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() { }
+function validaData(stringData) { 
+
+    function adicionaZeroNaData(numero){
+        if (numero <=9){
+            return "0"+ numero;
+        }else{
+            return numero;
+        }
+    }
+
+    function verificaSeDiferenteDeData(data){
+        //return data.length === 1 && data.match(/[a-z]/i);
+        let n = data.charCodeAt(0);
+        return (n >= 65 && n < 91) || (n >= 97 && n < 123);
+    }
+
+    if(verificaSeDiferenteDeData(stringData)){
+        return NaN;
+    }else{
+
+    const arrayStringData = stringData.split('/');
+    const dia1 = (arrayStringData[0]);
+    const mes1 = (arrayStringData[1]);
+    const ano1 = (arrayStringData[2]);
+    const dataConvertida = mes1.concat("/", dia1, "/", ano1).toString();                                                //30/12/2000
+    const stringDataValidada = dataConvertida;
+    
+    const dataParaValidar = Date.parse(stringDataValidada);
+    console.log("dataParaValidar: " + dataParaValidar);
+    let data = new Date(dataParaValidar);
+    let dataFormatada = (adicionaZeroNaData(data.getDate().toString() )) + "/" + (adicionaZeroNaData(data.getMonth() + 1).toString())+ "/" + data.getFullYear();
+
+    const splitData = dataFormatada.split('/');
+    const dia = (splitData[0]);//30 - 12
+    const mes = (splitData[1]);//12 - 30
+    const ano = (splitData[2]);//2000 - 2000 
+
+    if(dataFormatada === stringData){
+        if(dia > 31 || mes > 12 || ano >= 9999){
+            return NaN;
+        }else{
+            return "Ok";
+        }
+    }else{
+        return NaN;
+    }
+}
+    
+}
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
