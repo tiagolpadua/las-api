@@ -25,7 +25,7 @@ function calculaImposto(precoOriginalImposto, categoriaProdutoImposto) {
     if (categoriaProdutoImposto === "Alimentação"){
         return 0;
     }
-    if (categoriaProdutoImpostos === "Bebida"){
+    if (categoriaProdutoImposto === "Bebida"){
         return precoOriginalImposto*0.10;
     }
  }
@@ -49,14 +49,26 @@ function calculaDesconto(precoOriginalDesconto,categoriaProdutoDesconto, cumpomD
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar() { }
+function truncar(palavraTruncar, comprimentoPalavra) { 
+    if(comprimentoPalavra === undefined){
+        return (`${palavraTruncar.substr(0,5)}...`);
+    }
+    if (palavraTruncar.length <= comprimentoPalavra){
+        return palavraTruncar;
+    } else{
+        return (`${palavraTruncar.substr(0,(comprimentoPalavra))}...`);
+         }
+}
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() { }
-
+function validaTextoPreenchido(textoRecebido) { 
+   if(textoRecebido.trim() === ""){
+       return   undefined;
+   }else return textoRecebido.trim();
+}
 // =======
 // Desafio
 // =======
