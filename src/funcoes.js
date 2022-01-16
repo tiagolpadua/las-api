@@ -9,14 +9,14 @@ function saudar(nome) {
 
 // Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
 function extrairPrimeiroNome(nomeCompleto) {
-    const primeiroNome = nomeCompleto.split(" ");
-    return primeiroNome[0];
+    const primeiroNome = nomeCompleto.split(" ")[0];
+    return primeiroNome;
  }
 
 // Escreva uma função que receba uma palavra e torna a primeira letra maiúscula e as outras minúsculas: tIaGo -> Tiago
 function capitalizar(palavra) { 
     let primeiraLetra = palavra[0].toUpperCase();
-    let restante = palavra.substr(1, palavra.length).toLowerCase();
+    let restante = palavra.substr(1).toLowerCase();
     return primeiraLetra + restante;
 }
 
@@ -40,16 +40,12 @@ function calculaImposto(valor, categoria) {
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
 function calculaDesconto(preço, categoria, cupom) {
-    if (categoria === "Alimentação") {
-        if(cupom === "NULABSSA") {
-            preço = preço * .5;
-            return preço;
-        } else {
-            return preço;
-        }
+    if (categoria === "Alimentação" && cupom === "NULABSSA") {
+        preçoFinal = preço * .5;
     } else {
-        return preço;
+        preçoFinal = preço;
     }
+    return preçoFinal;
  }
 
 // =========
@@ -62,11 +58,9 @@ function calculaDesconto(preço, categoria, cupom) {
 // (fulano, 4) -> fula...
 function truncar(palavra, comprimentoMax = 5) {
     if (palavra.length > comprimentoMax) {
-        palavra = palavra.slice(0, comprimentoMax);
-        return palavra + "...";
-    } else {
-        return palavra;
-    }    
+        palavra = palavra.slice(0, comprimentoMax) + "...";
+    }
+        return palavra;    
  }
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
@@ -86,9 +80,44 @@ function validaTextoPreenchido(texto) {
 // Desafio
 // =======
 
-// Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
+// Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date se a data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() { }
+function validaData(data) {
+    const divideData = data.split("/");
+    if (divideData.length !== 3) {
+        return NaN;
+    }
+
+    const dia = divideData[0];
+    const mes = divideData[1];
+    const ano = divideData[2];
+
+    if (ano % 4 === 0) {
+        anoBicesto = true;
+    } else {
+        anoBicesto = false;
+    }
+
+    if (mes === 2) {
+        if (anoBicesto && dia > 29 || !anoBicesto && dia > 28) {
+            return NaN;
+        }
+    }
+
+    if (mes === 4 || mes === 6 || mes === 9 || mes === 11) {
+        if (dia < 1 || dia > 30) {
+            return NaN;
+        } else {
+            return `${dia}/${mes}/${ano}`;
+        }
+    }
+
+    if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano > new Date().getFullYear()) {
+        return NaN; 
+    } else {
+        return `${dia}/${mes}/${ano}`;
+    }
+ }
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
