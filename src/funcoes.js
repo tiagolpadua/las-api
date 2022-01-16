@@ -28,9 +28,8 @@ function capitalizar(palavra) {
 function calculaImposto(precoOriginal, categoria) { 
     let percentualImposto = 10;
     let impostoSobProduto = (precoOriginal * percentualImposto)/100;
-
-    let verificaisencao = categoria === "Alimentação" ? 0 : 1;
-    return verificaisencao;
+    
+    return categoria === "Alimentação"? impostoSobProduto = 0:impostoSobProduto;
 }
 
 // Escreva uma função que recebe um preço original, uma categoria de produto e um cupom de desconto e calcula o preço com desconto. Se a categoria for Alimentação e o cupom for NULABSSA, deve ser feito um desconto de 50%. Caso contrário, não há nenhum desconto.
@@ -59,7 +58,34 @@ function calculaDesconto(precoOriginal, categoria, cupomDesconto) {
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar() { }
+function truncar(palavra, comprimentoMax = 5) { 
+    
+    const comprimentoPadrao = 5;
+    const palavraSemEspacos = palavra.trim();
+
+    if(palavraSemEspacos.length === 0){
+        
+        return undefined;
+
+    }else if(palavraSemEspacos.length <= comprimentoMax){
+        
+        return palavraSemEspacos.trim();
+        //teste   5  ->              //4                                     //5
+    }else if(palavraSemEspacos.length > comprimentoMax && comprimentoMax <= comprimentoPadrao){
+        
+        //console.log(`Tamanho da palavra: ${palavraSemEspacos.length}`);
+        return palavraSemEspacos.substring(0, comprimentoMax).concat('...');
+    }else{
+        
+        return palavraSemEspacos.substring(0, comprimentoPadrao).trim();
+    }
+    
+       
+    
+    
+
+    
+}
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
 // "" -> undefined
