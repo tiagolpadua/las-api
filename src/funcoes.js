@@ -61,15 +61,11 @@ function calculaDesconto(preço, categoria, cupom) {
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
 function truncar(palavra, comprimentoMax = 5) {
-    if (palavra.length !== 0) {
-        if (palavra.length > comprimentoMax) {
-            palavra = palavra.slice(0, comprimentoMax);
-            return palavra + "...";
-        } else {
-            return palavra;
-        }
+    if (palavra.length > comprimentoMax) {
+        palavra = palavra.slice(0, comprimentoMax);
+        return palavra + "...";
     } else {
-        return undefined;
+        return palavra;
     }    
  }
 
@@ -77,7 +73,14 @@ function truncar(palavra, comprimentoMax = 5) {
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido() { }
+function validaTextoPreenchido(texto) { 
+    texto = texto.trim();
+    if (texto.length > 0) {
+        return texto;
+    } else {
+        return undefined;
+    }
+}
 
 // =======
 // Desafio
