@@ -129,11 +129,8 @@ function validaData(stringData) {
     const dia1 = (arrayStringData[0]);
     const mes1 = (arrayStringData[1]);
     const ano1 = (arrayStringData[2]);
-    const dataConvertida = mes1.concat("/", dia1, "/", ano1).toString();                                                //30/12/2000
-    const stringDataValidada = dataConvertida;
-    
+    const stringDataValidada = mes1.concat("/", dia1, "/", ano1).toString();                                                //30/12/2000
     const dataParaValidar = Date.parse(stringDataValidada);
-    console.log("dataParaValidar: " + dataParaValidar);
     let data = new Date(dataParaValidar);
     let dataFormatada = (adicionaZeroNaData(data.getDate().toString() )) + "/" + (adicionaZeroNaData(data.getMonth() + 1).toString())+ "/" + data.getFullYear();
 
