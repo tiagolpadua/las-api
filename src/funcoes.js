@@ -25,14 +25,31 @@ function capitalizar(palavra) {
 // Escreva uma função que recebe um preço original e uma categoria de produto e calcula o valor do imposto. Produtos da categoria Alimentação são isentos. Outros produtos tem um imposto de 10%.
 // (30, Alimentação) => 0
 // (10, Bebida) => 1
-function calculaImposto() { }
+function calculaImposto(precoOriginal, categoria) { 
+    let percentualImposto = 10;
+    let impostoSobProduto = (precoOriginal * percentualImposto)/100;
+
+    let verificaisencao = categoria === "Alimentação" ? 0 : 1;
+    return verificaisencao;
+}
 
 // Escreva uma função que recebe um preço original, uma categoria de produto e um cupom de desconto e calcula o preço com desconto. Se a categoria for Alimentação e o cupom for NULABSSA, deve ser feito um desconto de 50%. Caso contrário, não há nenhum desconto.
 // (30, Alimentação, NULABSSA) => 15
 // (10, Bebida, NULABSSA) => 10
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
-function calculaDesconto() { }
+function calculaDesconto(precoOriginal, categoria, cupomDesconto) { 
+
+    const cupomValido = "NULABSSA";
+    const percentualDesconto = 50;
+    const descontoSobProduto = (precoOriginal * percentualDesconto)/100;
+
+    if(categoria === "Alimentação" && cupomDesconto === cupomValido){
+        return precoOriginal - descontoSobProduto;
+    }else{
+        return precoOriginal;
+    }
+}
 
 // =========
 // Desejável
