@@ -32,7 +32,7 @@ function calculaImposto(precoOriginal,categoriaProduto) {
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
 function calculaDesconto(precoOriginal,categoriaProduto,cupom) { 
-return categoriaProduto === "Alimentação" && cupom === "NULABSSA" ? precoOriginal - (precoOriginal * 50)/100 : precoOriginal;
+return ((categoriaProduto === "Alimentação") && (cupom === "NULABSSA")) ? precoOriginal - (precoOriginal * 50)/100 : precoOriginal;
 
 }
 
@@ -68,7 +68,16 @@ return palavra.length !==0 ? palavra : undefined;
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() {
+function validaData(data) {
+    let ano = data[6] + data[7] + data[8] + data[9];
+    let mes = data[3] + data[4];
+    let dia = data[0] + data[1];
+    if (new Date(mes + '/' + dia + '/' + ano) === NaN || dia > '31' || mes > '12'){
+        return NaN;
+    }
+    else {
+        return ('Ok');
+    }
 
  }
 
