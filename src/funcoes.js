@@ -95,7 +95,10 @@ function validaData(string) {
         return NaN;
     } else if (ano > dataAtual.getFullYear()) {
         return NaN;
-    } else {
+    } else if (new Date(ano, 1, 29).getDate() === 29) {
+        return new Date(ano, mes, dia);
+    }
+     else {
         return new Date(ano, mes, dia);
     }
 }
