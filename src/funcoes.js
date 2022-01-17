@@ -93,12 +93,9 @@ function validaData(string) {
     if ((mes in meses30 && dia > 30) || (mes > 11 || mes < 0)
      || (dia > 31 || dia < 1) || (mes === 1 && dia > 29)) {
         return NaN;
-    } else if (ano > dataAtual.getFullYear()) {
+    } else if (!(new Date(ano, 1, 29).getDate() === 29) && dia > 28) {
         return NaN;
-    } else if (new Date(ano, 1, 29).getDate() === 29) {
-        return new Date(ano, mes, dia);
-    }
-     else {
+    } else {
         return new Date(ano, mes, dia);
     }
 }
