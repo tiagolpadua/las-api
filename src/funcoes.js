@@ -50,12 +50,10 @@ function calculaDesconto(preco, categoria, cupom) {
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar(palavra, comprimento) { 
-    let retic = "...";
-    if (typeof comprimento === "undefined") {
-        return palavra.slice(0, 5) + retic;
-    } else if (palavra.length > comprimento){
-        return palavra.slice(0, comprimento)+retic;
+function truncar(palavra, comprimento=5) { 
+    let reticencias = "...";
+    if (palavra.length > comprimento){
+        return palavra.slice(0, comprimento)+reticencias;
     } else {
         return palavra;
     }
@@ -82,6 +80,24 @@ function validaTextoPreenchido(texto) {
 // deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData() {}
+function validaData(string) {
+    let splitted = string.split("/");
+    let ano = parseInt(splitted[2]);
+    let mes = parseInt(splitted[1])-1;    // o formato date conta os meses a partir do 0 = janeiro
+    let dia = parseInt(splitted[0]);
+    let dataAtual = new Date();
+    let meses30 = [3, 5, 8, 10];
+
+    if (splitted[0] === string) return NaN;
+
+    if ((mes in meses30 && dia > 30) || (mes > 11 || mes < 0)
+     || (dia > 31 || dia < 1) || (mes === 1 && dia > 29)) {
+        return NaN;
+    } else if (ano > dataAtual.getFullYear()) {
+        return NaN;
+    } else {
+        return new Date(ano, mes, dia);
+    }
+}
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
