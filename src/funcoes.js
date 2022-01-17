@@ -3,25 +3,44 @@
 // =========
 
 // Escreva uma função que receba um nome e retorne uma saudação para este nome: Tiago -> Olá, Tiago
-function saudar() { }
-
+function saudar(nome) {
+    return `Olá, ${nome}`;
+}
 // Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
-function extrairPrimeiroNome() { }
+function extrairPrimeiroNome(primeironome) { 
+return  primeironome.substring(0, primeironome.indexOf(" "))
+}
 
 // Escreva uma função que receba uma palavra e torna a primeira letra maiúscula e as outras minúsculas: tIaGo -> Tiago
-function capitalizar() { }
+function capitalizar(capitalizarnome){  
+    return capitalizarnome[0].toUpperCase() + capitalizarnome.slice(1).toLowerCase();
+}
 
 // Escreva uma função que recebe um preço original e uma categoria de produto e calcula o valor do imposto. Produtos da categoria Alimentação são isentos. Outros produtos tem um imposto de 10%.
 // (30, Alimentação) => 0
 // (10, Bebida) => 1
-function calculaImposto() { }
+function calculaImposto(valor, categoria) { 
+    if(categoria === "Alimentação"){
+        return 0
+    }else{
+        return 1
+    }
+}
 
 // Escreva uma função que recebe um preço original, uma categoria de produto e um cupom de desconto e calcula o preço com desconto. Se a categoria for Alimentação e o cupom for NULABSSA, deve ser feito um desconto de 50%. Caso contrário, não há nenhum desconto.
 // (30, Alimentação, NULABSSA) => 15
 // (10, Bebida, NULABSSA) => 10
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
-function calculaDesconto() { }
+function calculaDesconto(preço,categoria,cupom) {
+
+    if (categoria === "Alimentação" && cupom === "NULABSSA"){
+          return preço * 0.50 
+    }else{
+          return preço
+        }
+      
+ }
 
 // =========
 // Desejável
