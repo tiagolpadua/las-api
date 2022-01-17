@@ -82,10 +82,9 @@ function validaTextoPreenchido(texto) {
 // 99/99/9999 -> NaN
 function validaData(string) {
     let splitted = string.split("/");
-    let ano = parseInt(splitted[2]);
-    let mes = parseInt(splitted[1])-1;    // o formato date conta os meses a partir do 0 = janeiro
-    let dia = parseInt(splitted[0]);
-    let dataAtual = new Date();
+    const ano = parseInt(splitted[2]);
+    const mes = parseInt(splitted[1])-1;    // o formato date conta os meses a partir do 0 = janeiro
+    const dia = parseInt(splitted[0]);
     let meses30 = [3, 5, 8, 10];
 
     if (splitted[0] === string) return NaN;
@@ -94,6 +93,8 @@ function validaData(string) {
      || (dia > 31 || dia < 1) || (mes === 1 && dia > 29)) {
         return NaN;
     } else if (!(new Date(ano, 1, 29).getDate() === 29) && dia > 28) {
+        return NaN;
+    } else if ((new Date(ano, mes, dia)) > (new Date())) {
         return NaN;
     } else {
         return new Date(ano, mes, dia);
