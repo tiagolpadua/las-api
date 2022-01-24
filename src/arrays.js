@@ -27,6 +27,8 @@ function capitalizarNomes(nomes) {
 // ('Alimentação') => 30
 // ('Infantil') => 15
 function obterDescontoCategoria(categoria) {
+    const categorias = ['Alimentação', 'Infantil'];
+    const descontos = [30, 15]
 }
 
 // Crie uma função que recebe uma lista de preços de produtos e um valor máximo de orçamento
