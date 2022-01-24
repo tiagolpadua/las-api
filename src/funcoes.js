@@ -63,11 +63,8 @@ function validaTextoPreenchido(text) {
 // 99/99/9999 -> NaN
 
 function validaData(date) {
-    
     const regEx = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/
     return regEx.test(date) ? 'Ok' : NaN
-
-
 }
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
