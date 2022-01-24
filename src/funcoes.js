@@ -80,13 +80,20 @@ function validaData(data) {
 
     let mes = data.split("/")[1] > 0 && data.split("/")[1] <= 12 ? true : false;
 
-    let dia = data.split("/")[0] > 0 && data.split("/")[0] < 31 ? true : false;
+    let dia = data.split("/")[0] > 0 && data.split("/")[0] <= 31 ? true : false;
     let anoAtual = new Date().getFullYear;
 
     let ano = data.split("/")[2]>1900 && data.split("/")[2]<= anoAtual? true : false;
+    let lista=[10,30,20];
+    lista.forEach((x,i)=>function(){
+        console.log(x,"-",i);
+    })
     
 
     return dia && mes && ano ? Date(ano, mes, dia) : NaN;
+
+
+
 
 
 
