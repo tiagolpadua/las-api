@@ -99,6 +99,12 @@ function calcularTotalDaCompra(lista) {
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
+  if(!Array.isArray(lista) || lista.length === 0){
+    return undefined  
+  }else{
+    const MenorEMaiorPreco = [lista.reduce((a, b) => Math.min(a,b)), lista.reduce((a, b) => Math.max(a,b))]
+    return MenorEMaiorPreco
+  }
 }
 
 // Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
@@ -106,6 +112,12 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
+  if(!Array.isArray(lista) || lista.length === 0){
+    return undefined  
+  }else{
+    const valoresNoOrcamento = lista.filter(valor => valor >= menorValor && valor <= maiorValor)
+    return valoresNoOrcamento.length === 0? undefined : valoresNoOrcamento
+  }
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
@@ -118,6 +130,12 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
+  let valorCategoria = obterDescontoCategoria(categoria)
+  if (cupom !== 'CUPOM-INVALIDO' && cupom !== 'INVALIDO'){
+    return valorCategoria + 10 
+  }else{
+    return valorCategoria    
+  }
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -125,12 +143,31 @@ function obterDescontoTotal(categoria, cupom) {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
+  let ValorFinal = 0
+  if(!Array.isArray(precos) || precos.length === 0){
+    return undefined  
+  }else{
+    for(i=0; i < categorias.length; i++){
+      ValorFinal +=  precos[i] - (precos[i] * (obterDescontoTotal(categorias[i], cupom) / 100))
+     } 
+      return ValorFinal
+  }
 }
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
+  let capitalizar = nomeCompleto.toLowerCase().split(" ");
+  for (var i = 0; i < capitalizar.length; i++) {
+    let letras = capitalizar[i]
+    if(letras.slice(0).length <= 3){
+      capitalizar[i] = letras.slice(0).toLowerCase()
+    }else{
+    capitalizar[i] = letras[0].toUpperCase() + letras.slice(1)
+    }
+  }
+return capitalizar.join(" ")
 }
 
 // =======
