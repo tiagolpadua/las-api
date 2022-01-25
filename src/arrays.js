@@ -142,25 +142,24 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Subtotal                                   R$  24,30 
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
+
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
 
-    const checarTipoETamanho = arr => {
-        return arr.every(element => Array.isArray(element) && element.length !== 0)
-    }
+    const checarTipoETamanho = arr => arr.every(element => Array.isArray(element) && element.length !== 0)
+    const obterDescontoSemAcrescimo = categoria => ( {Alimentação : 30, Infantil : 15 }[categoria] | 0 )
 
     if (!checarTipoETamanho([listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos])) return undefined
-
-    const obterDescontoSemAcrescimo = categoria => {
-        return  {Alimentação : 30, Infantil : 15 }[categoria] | 0
-    }
 
     const imposto = 15
     const subtotais = []
     const descontos = []
     const descontosSemAcrescimo = []
+    const valorImposto = listaPrecosProdutos[0] * imposto / 100
     const total = calcularTotalDaCompraComDescontos(listaPrecosProdutos, listaCategoriasProdutos, cupom).toFixed(2)
 
     let resp = "Nome           Valor     Desconto  Imposto Total     \n"
+
+    // ============================= Cálculos de subtotal e descontos ===============================================
     
     listaCategoriasProdutos.forEach((categoria, index) => {
         const desconto =  listaPrecosProdutos[index] * (obterDescontoTotal(categoria, cupom) / 100 )
@@ -168,17 +167,42 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
         const subtotal = listaPrecosProdutos[index] - desconto
 
         index === 0 
-        ? subtotais.push(subtotal + listaPrecosProdutos[0] * (imposto / 100))
+        ? subtotais.push((subtotal + listaPrecosProdutos[0] * (imposto / 100)))
         : subtotais.push(subtotal)
 
         descontos.push(desconto.toFixed(2))
-        descontosSemAcrescimo.push(descontoSemAcrescimo)
+        descontosSemAcrescimo.push(descontoSemAcrescimo.toFixed(2))
     })
+    //=================================================================================================================
+
+    // ============= Encontrando maior palavra para igualar os espaços das demais ===================
+    let maiorPalavra = listaNomesProdutos[0]
+
+    for (let i = 1; i < listaNomesProdutos.length; i++ ) {
+        if (listaNomesProdutos[i].length > maiorPalavra.length) maiorPalavra = listaNomesProdutos[i]
+    }
+
+    maiorPalavra += ' '.repeat(3)
+    //===============================================================================================
 
     for (let i = 0; i < listaNomesProdutos.length; i++) {
+
+        const precoProduto = listaPrecosProdutos[i].toFixed(2)
+        const precoTotalProduto = (listaPrecosProdutos[i] - (descontos[i] - descontosSemAcrescimo[i])).toFixed(2)
+        const valorComImpostoDebitado = (listaPrecosProdutos[i] - descontos[i] + valorImposto).toFixed(2)
+        let nomeAtual = listaNomesProdutos[i]
+        
+        //=============================== Aplicando espaços à palavra menor ================================
+        if (nomeAtual.length < maiorPalavra.length) {
+            const lengthDifference = maiorPalavra.length - nomeAtual.length
+            
+            nomeAtual += ' '.repeat(lengthDifference)
+        }
+         //=================================================================================================
+
         i === 0 
-        ? resp += `${listaNomesProdutos[i]}     R$  ${listaPrecosProdutos[i].toFixed(2)} R$   ${descontos[i]}     ${imposto}% R$  ${(listaPrecosProdutos[i] - (descontos[i] - descontosSemAcrescimo[i])).toFixed(2)} \n` 
-        : resp += `${listaNomesProdutos[i]}   R$  ${listaPrecosProdutos[i].toFixed(2)} R$   ${descontos[i]}         R$  ${(listaPrecosProdutos[i] - (descontos[i] - descontosSemAcrescimo[i])).toFixed(2)} \n` 
+        ? resp += `${nomeAtual}R$  ${precoProduto} R$   ${descontos[i]}     ${imposto}% R$  ${valorComImpostoDebitado} \n` 
+        : resp += `${nomeAtual}R$   ${precoProduto} R$   ${descontos[i]}         R$   ${precoTotalProduto} \n` 
     }
 
     const subTotal = subtotais.reduce((a, b) => a + b, 0).toFixed(2)
@@ -186,13 +210,11 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
 
     descontosSemAcrescimo.forEach(desconto => {
         desconto > 0 
-        ? resp += `Cupom de Desconto: ${cupom}                R$   ${desconto.toFixed(2)} \n`
+        ? resp += `Cupom de Desconto: ${cupom}                R$   ${valorImposto.toFixed(2)} \n`
         : ''
     })
-
     resp += `Total                                      R$  ${total}`
-
-    return resp
+    return resp.replace(/[.]/g, ',')
 }
 
 module.exports = {
