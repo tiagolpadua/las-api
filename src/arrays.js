@@ -16,6 +16,8 @@ function obterMenorPreco(lista) {
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
+
+    return (lista.length === 0 || typeof lista === 'string') ? undefined : Math.max(...lista);
 }
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
@@ -31,6 +33,8 @@ function capitalizarNomes(nomes) {
 function obterDescontoCategoria(categoria) {
     const categorias = ['Alimentação', 'Infantil'];
     const descontos = [30, 15]
+
+    
 }
 
 // Crie uma função que recebe uma lista de preços de produtos e um valor máximo de orçamento
