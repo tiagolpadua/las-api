@@ -6,4 +6,4 @@ Para executar os testes das atividades desejáveis, rode o comando: `npm run tes
 
 Para executar os testes do desafio, rode o comando: `npm run test:desafio`
 
-modelo nomes commits : teste1 - func saudação ok
+modelo nomes commits : desejavel - func menorPreco ok
