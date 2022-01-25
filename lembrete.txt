@@ -1,0 +1,9 @@
+Para executar os testes continuamente, rode o comando: `npm run test:watch`
+
+Para executar os testes das atividades essenciais, rode o comando: `npm run test:essencial`
+
+Para executar os testes das atividades desejáveis, rode o comando: `npm run test:desejavel`
+
+Para executar os testes do desafio, rode o comando: `npm run test:desafio`
+
+modelo nomes commits : teste1 - func saudação ok
