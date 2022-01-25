@@ -10,9 +10,6 @@
     "test:desafio": "jest -t Desafio",
     "test:watch": "jest --watch"
   },
-<<<<<<< HEAD
-  "repository": "git+https://github.com/tiagolpadua/las-api.git",
-=======
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tiagolpadua/las-api.git"
@@ -20,7 +17,6 @@
   "engines": {
     "node": "14"
   },
->>>>>>> b478beee15138909a7a7a969b5b30644337c3523
   "keywords": [],
   "author": "imagno <igor.magno@protonmail.com>",
   "license": "ISC",
