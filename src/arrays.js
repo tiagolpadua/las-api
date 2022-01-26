@@ -9,7 +9,7 @@ const { capitalizar } = require('./funcoes');
 // Crie uma função que recebe uma lista de preços e devolve o menor preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 
-function entradaInvalida(lista){
+function entradaInvalida(lista) {
 
     if (typeof lista !== "object" || lista.join("") === "" || Object.keys(lista).length === 0) {
 
@@ -25,11 +25,11 @@ function entradaInvalida(lista){
 function obterMenorPreco(lista) {
     let menor = 0;
 
- 
-  if(entradaInvalida(lista)){
-      return undefined;
-  };
- 
+
+    if (entradaInvalida(lista)) {
+        return undefined;
+    };
+
 
 
     lista.forEach((number) => {
@@ -48,10 +48,10 @@ function obterMenorPreco(lista) {
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
-    
-   
-    let maior =0;
-    if(entradaInvalida(lista)){
+
+
+    let maior = 0;
+    if (entradaInvalida(lista)) {
         return undefined;
     };
     entradaInvalida(lista);
@@ -65,21 +65,21 @@ function obterMaiorPreco(lista) {
 
     })
     return maior;
-    
+
 }
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
 // (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
 function capitalizarNomes(nomes) {
-    if(entradaInvalida(nomes)){
+    if (entradaInvalida(nomes)) {
         return undefined;
     };
-  
 
-        return nomes.map(nome=>nome[0].toUpperCase()+ nome.replace(/^./, "").toLowerCase());
- 
 
-  
+    return nomes.map(nome => nome[0].toUpperCase() + nome.replace(/^./, "").toLowerCase());
+
+
+
 
 }
 
@@ -92,13 +92,13 @@ function obterDescontoCategoria(categoria) {
     const categorias = ['Alimentação', 'Infantil'];
     const descontos = [30, 15]
 
-    if(categorias.indexOf(categoria)<0){
+    if (categorias.indexOf(categoria) < 0) {
         return 0;
     }
-   
-   return descontos[categorias.indexOf(categoria)];
 
-  
+    return descontos[categorias.indexOf(categoria)];
+
+
 
 
 }
@@ -108,26 +108,28 @@ function obterDescontoCategoria(categoria) {
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
 
-    if(entradaInvalida(lista)){
+    if (entradaInvalida(lista)) {
         return undefined;
     };
- 
 
 
-    return  lista.filter(preco=>preco<=precoMaximo);
+
+    return lista.filter(preco => preco <= precoMaximo);
 }
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
-    if(entradaInvalida(lista)){
+    if (entradaInvalida(lista)) {
         return undefined;
     };
-    let total =0;
-lista.map(valor=>total+=valor);
+    const reducer = (anterior, atual) => anterior + atual;
 
-    return total;
+
+    ;
+
+    return lista.reduce(reducer);;
 }
 
 // =========
@@ -137,12 +139,12 @@ lista.map(valor=>total+=valor);
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
-    if(entradaInvalida(lista)){
+    if (entradaInvalida(lista)) {
         return undefined;
     };
-    let maiorPreco =  obterMaiorPreco(lista);
+    let maiorPreco = obterMaiorPreco(lista);
     let menorPreco = obterMenorPreco(lista);
-    const maiorMenorPrecos=[menorPreco,maiorPreco];
+    const maiorMenorPrecos = [menorPreco, maiorPreco];
 
     return maiorMenorPrecos;
 }
@@ -152,17 +154,17 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
-    if(entradaInvalida(lista)){
+    if (entradaInvalida(lista)) {
         return undefined;
     };
-    if(menorValor>maiorValor){
+    if (menorValor > maiorValor) {
         return undefined;
     }
 
 
 
 
-return lista.filter(valor=>valor>=menorValor && valor<=maiorValor);
+    return lista.filter(valor => valor >= menorValor && valor <= maiorValor);
 
 
 }
@@ -178,17 +180,16 @@ return lista.filter(valor=>valor>=menorValor && valor<=maiorValor);
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
 
-let desconto  = obterDescontoCategoria(categoria);
+    let desconto = obterDescontoCategoria(categoria);
 
-    if(cupom==="CUPOM-INVALIDO"){
+    if (cupom === "CUPOM-INVALIDO" || cupom === "INVALIDO") {
 
         return desconto;
-    
+
     }
 
-   desconto+=10;
+    return desconto += 10;
 
-return desconto;
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -197,8 +198,30 @@ return desconto;
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
 
-   
-console.log(precos);
+    let total = 0;
+    let desconto = 0;
+
+
+    if (entradaInvalida(precos) || entradaInvalida(categorias)) {
+        return undefined;
+    };
+
+    categorias.forEach((categoria, indice) => {
+
+
+        desconto = (obterDescontoTotal(categoria, cupom) / 100) * precos[indice];
+
+
+
+        total += precos[indice] - desconto;
+
+    });
+
+
+    return total;
+
+
+
 
 }
 
@@ -206,6 +229,36 @@ console.log(precos);
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
+
+   
+
+    const separarNomeCompleto = nomeCompleto.split(" ");
+    nomeCompletoCapitalizado =  capitalizarNomes(separarNomeCompleto);
+    nomeCompleto = nomeCompletoCapitalizado.join(" ");
+
+    nomeCompletoCapitalizado.forEach((nome)=>{
+    
+   
+        if(nome.length<3){
+            nomeCompleto=  nomeCompleto.replace(nome,nome.toLowerCase());
+          }
+      
+
+     
+    }
+    
+    );
+
+    
+  return nomeCompleto;
+
+  
+    
+
+
+
+
+   
 }
 
 // =======
