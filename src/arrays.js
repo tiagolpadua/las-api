@@ -9,11 +9,30 @@ const { capitalizar } = require('./funcoes');
 // Crie uma função que recebe uma lista de preços e devolve o menor preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
+    var menorElemento = 10;
+    if(lista.isArray){
+        lista.forEach(elemento => {
+            if(elemento < menorElemento){
+                menorElemento = elemento;
+            }
+        });
+        return menorElemento;
+    }
 }
+
 
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
+    var maiorElemento = 10;
+    
+    lista.forEach(elemento => {
+        if(elemento > maiorElemento){
+            maiorElemento = elemento;
+        }
+    });
+    return maiorElemento;
+
 }
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
@@ -41,7 +60,20 @@ function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
+    
+    let totalCompra = 0;
+    let verificaLista = lista.length;
+
+    if(lista.construtor == Array){
+     
+            for(i = 0; i< verificaLista; i++){
+                totalCompra += i;
+            }
+
+            return totalCompra;
+        }
 }
+
 
 // =========
 // Desejável
