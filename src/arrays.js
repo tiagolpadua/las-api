@@ -54,6 +54,10 @@ function obterDescontoCategoria(categoria) {
 // e retorna uma lista com os preços menores ou iguais ao valor do orçamento informado
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
+
+    if (lista.length === 0 || typeof lista === 'string') return undefined;
+    
+    return lista.filter(precos => precos <= precoMaximo && precos > 0);
 }
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
