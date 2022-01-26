@@ -74,9 +74,9 @@ function capitalizarNomes(nomes) {
     if(entradaInvalida(nomes)){
         return undefined;
     };
-    const nomesCapitalizados = nomes.map(nome=>nome[0].toUpperCase()+ nome.replace(/^./, "").toLowerCase());
+  
 
-        return nomesCapitalizados;
+        return nomes.map(nome=>nome[0].toUpperCase()+ nome.replace(/^./, "").toLowerCase());
  
 
   
@@ -111,10 +111,10 @@ function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
     if(entradaInvalida(lista)){
         return undefined;
     };
-    const precosLimitadosOrcamento= lista.filter(preco=>preco<=precoMaximo);
+ 
 
 
-    return precosLimitadosOrcamento;
+    return  lista.filter(preco=>preco<=precoMaximo);
 }
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
@@ -137,6 +137,14 @@ lista.map(valor=>total+=valor);
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
+    if(entradaInvalida(lista)){
+        return undefined;
+    };
+    let maiorPreco =  obterMaiorPreco(lista);
+    let menorPreco = obterMenorPreco(lista);
+    const maiorMenorPrecos=[menorPreco,maiorPreco];
+
+    return maiorMenorPrecos;
 }
 
 // Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
@@ -144,6 +152,19 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
+    if(entradaInvalida(lista)){
+        return undefined;
+    };
+    if(menorValor>maiorValor){
+        return undefined;
+    }
+
+
+
+
+return lista.filter(valor=>valor>=menorValor && valor<=maiorValor);
+
+
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
@@ -156,6 +177,18 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
+
+let desconto  = obterDescontoCategoria(categoria);
+
+    if(cupom==="CUPOM-INVALIDO"){
+
+        return desconto;
+    
+    }
+
+   desconto+=10;
+
+return desconto;
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -163,6 +196,10 @@ function obterDescontoTotal(categoria, cupom) {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
+
+   
+console.log(precos);
+
 }
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
