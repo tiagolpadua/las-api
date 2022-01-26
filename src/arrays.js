@@ -1,41 +1,23 @@
 const { capitalizar } = require('./funcoes');
+const ehValido = (arr) => Array.isArray(arr) && arr.length !== 0;
+const somaElementos = (anterior,atual) => anterior + atual;
 
 // Observação: Para todas funções que recebem listas, se o parâmetro não for uma lista ou se a lista for vazia, retorne undefined.
 
 // =========
 // Essencial
 // =========
-const ehValido = (arr) => Array.isArray(arr) && arr.length !== 0;
-
 const obterMenorPreco = (lista) => ehValido(lista) ? Math.min(...lista) : undefined;
+
 const obterMaiorPreco = (lista) => ehValido(lista) ? Math.max(...lista) : undefined;
 
-// Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
-// (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
-function capitalizarNomes(nomes) {
-  if (!ehValido(nomes)) {
-      return undefined;
-  }
-  const a = [];
-  const b = [];
-  const c = [];
-  for (let i = 0; i < nomes.length; i++) {
-      a.push(nomes[i].toLowerCase());
-  }
-  for (let i = 0; i < nomes.length; i++) {
-      b.push(a[i].charAt(0).toUpperCase());
-  }
-  for (let i = 0; i < nomes.length; i++) {
-      c.push(`${b[i]}${a[i].slice(1, a[i].length)}`);
-  }
-  return c;
-}
+const capitalizarNomes = (nomes) => !ehValido(nomes) ?  undefined : nomes.map((el) => capitalizar(el));
 
 const obterDescontoCategoria = (categoria) => {
-	const categorias = ['Alimentação', 'Infantil'];
+	const categorias = ["Alimentação", "Infantil"];
 	const descontos = [30, 15];
 	if(!categorias.includes(categoria)){
-		return 0;c
+		return 0;
 	}
 	return (descontos.at(categorias.indexOf(categoria)));
 }
@@ -51,13 +33,14 @@ const calcularTotalDaCompra = (lista) => {
   if(!ehValido(lista)){ 
 		return undefined;
 	}
-	return lista.reduce((anterior, atual) => anterior + atual);
+	//return lista.reduce((anterior, atual) => anterior + atual);
+	return lista.reduce(somaElementos);
 }
 
 // =========
 // Desejável
 // =========
-const obterMenorEMaiorPrecos = function (lista) {
+const obterMenorEMaiorPrecos = (lista) => {
 	if (!ehValido(lista)) {
       return undefined;
   }
@@ -66,25 +49,19 @@ const obterMenorEMaiorPrecos = function (lista) {
 	valoresMinMax.push(lista.reduce((anterior, atual) => anterior > atual ? anterior : atual));
 	return valoresMinMax;
 }
-
-// Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
-// Retorne uma lista de preços dentro do orçamento.
-// Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
-// ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
-function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
-
+const obterPrecosDentroDoOrcamento = (lista, menorValor, maiorValor) => {
+	if (!ehValido(lista) || !(menorValor <= maiorValor)) {
+		return undefined;
+	}
+	return lista.filter((preco) => preco < maiorValor && preco >= menorValor ? preco : false);
 }
 
-// Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
-// Utilize a função obterDescontoCategoria
-// ('Alimentação', 'NULABSSA') => 40
-// ('Alimentação', 'ALURANU') => 40
-// ('Infantil', 'ALURANU') => 25
-// ('Bebida', 'ALURANU') => 10
-// ('Bebida', 'CUPOM-INVALIDO') => 0
-// ('Alimentação', 'CUPOM-INVALIDO') => 30
-// Utilize a função descontoCategoria criada anteriormente
-function obterDescontoTotal(categoria, cupom) {
+const obterDescontoTotal = (categoria, cupom) => {
+	const cuponsValidos = ["ALURANU", "NULABSSA"];
+	if (cuponsValidos.includes(cupom)){
+		return obterDescontoCategoria(categoria) + 10;
+	}
+	return obterDescontoCategoria(categoria);
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -92,14 +69,23 @@ function obterDescontoTotal(categoria, cupom) {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
+	if(!ehValido(precos) || !ehValido(categorias)){
+		return undefined;
+	}
+	const d = [];
+	for (let index = 0; index < categorias.length; index++) {
+		d.push(precos[index] * (100 - obterDescontoTotal(categorias[index], cupom)) / 100);
+	}
+	return d.reduce(somaElementos);
 }
 
-// Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
-// Desconsidere palavras com menos de 3 letras
-// ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
-function capitalizarNomeCompleto(nomeCompleto) {
-}
+calcularTotalDaCompraComDescontos([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU');
 
+const capitalizarNomeCompleto = (nomeCompleto) => {
+	const a = nomeCompleto.split(" ");
+	const b = a.map((el) => el.length > 3 ? capitalizar(el) : el);
+	return b.reduce((anterior, atual) => `${anterior} ${atual}`);
+}
 // =======
 // Desafio
 // =======
