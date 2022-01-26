@@ -23,6 +23,16 @@ function obterMaiorPreco(lista) {
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
 // (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
 function capitalizarNomes(nomes) {
+    const reg = /^[A-Z][a-z]+$/g;
+
+    if (nomes.length === 0 || typeof nomes === 'string') return undefined;
+    
+    return nomes.map(nome => { 
+        
+    if(!nome.match(reg)) return capitalizar(nome);
+    
+    return nome;
+    });
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
