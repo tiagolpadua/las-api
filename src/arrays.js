@@ -42,7 +42,10 @@ function capitalizarNomes(nomes) {
 // ('Infantil') => 15
 function obterDescontoCategoria(categoria) {
     const categorias = ['Alimentação', 'Infantil'];
-    const descontos = [30, 15]
+    const descontos = [30, 15];
+    const indexDesconto = categorias.indexOf(categoria);
+    
+    return indexDesconto !== -1 ?  descontos[indexDesconto] :  0;
 
     
 }
