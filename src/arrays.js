@@ -1,8 +1,36 @@
 const { capitalizar } = require('./funcoes');
+
+const Cp = class {
+	constructor(nome, preco, categoria, cupom) {
+		this.nome = nome;
+		this.preco = preco;
+		this.categoria = categoria;
+		this.cupom = cupom;
+	}
+	calcDesconto() {
+		return (this.preco * (obterDescontoTotal(this.categoria, this.cupom) / 100)).toFixed(2);
+	}
+	calcImposto() {
+		return this.preco * 0.15;
+	}
+	calcTotal() {
+		return (this.preco + this.calcImposto()) - this.calcDesconto(this.cupom);
+	}
+	printar() {
+		console.log(`
+	Nome: ${this.nome}
+	Preco: R$${this.preco}
+	Categoria: ${this.categoria}
+	Desconto: R$${this.calcDesconto()}
+	Imposto: 15% -> R$${this.calcImposto()}
+	Cupom de Desconto: ${this.cupom}
+	Total: R$${this.calcTotal().toFixed(2)}`
+		);
+	}
+}
+
 const ehValido = (arr) => Array.isArray(arr) && arr.length !== 0;
 const somaElementos = (anterior,atual) => anterior + atual;
-
-// Observação: Para todas funções que recebem listas, se o parâmetro não for uma lista ou se a lista for vazia, retorne undefined.
 
 // =========
 // Essencial
@@ -30,10 +58,9 @@ const obterPrecosLimitadosAoOrcamento = (lista,precoMaximo) => {
 }
 
 const calcularTotalDaCompra = (lista) => {
-  if(!ehValido(lista)){ 
+	if(!ehValido(lista)){ 
 		return undefined;
 	}
-	//return lista.reduce((anterior, atual) => anterior + atual);
 	return lista.reduce(somaElementos);
 }
 
@@ -42,13 +69,14 @@ const calcularTotalDaCompra = (lista) => {
 // =========
 const obterMenorEMaiorPrecos = (lista) => {
 	if (!ehValido(lista)) {
-      return undefined;
+		return undefined;
   }
 	const valoresMinMax = [];
 	valoresMinMax.push(lista.reduce((anterior, atual) => anterior < atual ? anterior : atual));
 	valoresMinMax.push(lista.reduce((anterior, atual) => anterior > atual ? anterior : atual));
 	return valoresMinMax;
 }
+
 const obterPrecosDentroDoOrcamento = (lista, menorValor, maiorValor) => {
 	if (!ehValido(lista) || !(menorValor <= maiorValor)) {
 		return undefined;
@@ -64,22 +92,15 @@ const obterDescontoTotal = (categoria, cupom) => {
 	return obterDescontoCategoria(categoria);
 }
 
-// Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
-// devolve o valor total da compra, considerando os descontos de cada categoria e o cupom informado
-// ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
-// Utilize a função obterDescontoTotal criada anteriormente
-function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
+const calcularTotalDaCompraComDescontos = (precos, categorias, cupom) => {
 	if(!ehValido(precos) || !ehValido(categorias)){
 		return undefined;
 	}
-	const d = [];
-	for (let index = 0; index < categorias.length; index++) {
-		d.push(precos[index] * (100 - obterDescontoTotal(categorias[index], cupom)) / 100);
-	}
-	return d.reduce(somaElementos);
+	const total = precos.map((el) => {
+		return el * (100 - obterDescontoTotal((categorias.shift()), cupom)) / 100;
+	});
+	return total.reduce(somaElementos);
 }
-
-calcularTotalDaCompraComDescontos([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU');
 
 const capitalizarNomeCompleto = (nomeCompleto) => {
 	const a = nomeCompleto.split(" ");
@@ -90,28 +111,30 @@ const capitalizarNomeCompleto = (nomeCompleto) => {
 // Desafio
 // =======
 
-// Crie uma função que recebe uma lista de preços e categorias e devolve um cupom fiscal conforme abaixo:
-// (['Serpentina', 'Refrigerante'], [20, 7], ['Infantil', 'Bebida'], 'NULABSSA') => 
-// Nome           Valor     Desconto  Imposto Total     
-// Serpentina     R$  20,00 R$   5,00     15% R$  18,00 
-// Refrigerante   R$   7,00 R$   0,70         R$   6,30 
-// Subtotal                                   R$  24,30 
-// Cupom de Desconto: NULABSSA                R$   3,00 
-// Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
+	const arrAux = [listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos];
+	if (!arrAux.every((el) => ehValido(el))){
+		return undefined;
+	}
+	const cps = [];
+	//Um for clássico para variar
+	for(let i = 0; i < 2; i++){
+		cps.push(new Cp(listaNomesProdutos[i], listaPrecosProdutos[i], listaCategoriasProdutos[i], cupom));
+	}
+	cps.forEach((el) => el.printar());
 }
 
 module.exports = {
-    obterMenorPreco,
-    obterMaiorPreco,
-    capitalizarNomes,
-    obterDescontoCategoria,
-    obterPrecosLimitadosAoOrcamento,
-    calcularTotalDaCompra,
-    obterMenorEMaiorPrecos,
-    obterPrecosDentroDoOrcamento,
-    obterDescontoTotal,
-    calcularTotalDaCompraComDescontos,
-    capitalizarNomeCompleto,
-    gerarCupomFiscal
+	obterMenorPreco,
+	obterMaiorPreco,
+	capitalizarNomes,
+	obterDescontoCategoria,
+	obterPrecosLimitadosAoOrcamento,
+	calcularTotalDaCompra,
+	obterMenorEMaiorPrecos,
+	obterPrecosDentroDoOrcamento,
+	obterDescontoTotal,
+	calcularTotalDaCompraComDescontos,
+	capitalizarNomeCompleto,
+	gerarCupomFiscal
 };
