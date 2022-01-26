@@ -102,6 +102,8 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
+
+   return (/CUPOM-INVALIDO/g).test(cupom) ? obterDescontoCategoria(categoria) : obterDescontoCategoria(categoria) + 10;
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
