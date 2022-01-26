@@ -9,14 +9,10 @@ const { capitalizar } = require('./funcoes');
 // Crie uma função que recebe uma lista de preços e devolve o menor preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
-    var menorElemento = 10;
-    if(lista.isArray){
-        lista.forEach(elemento => {
-            if(elemento < menorElemento){
-                menorElemento = elemento;
-            }
-        });
-        return menorElemento;
+    if(lista.constructor == Array && lista.length > 0){
+        return Math.min(...lista);
+    }else{
+        return undefined;
     }
 }
 
@@ -24,20 +20,27 @@ function obterMenorPreco(lista) {
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
-    var maiorElemento = 10;
-    
-    lista.forEach(elemento => {
-        if(elemento > maiorElemento){
-            maiorElemento = elemento;
-        }
-    });
-    return maiorElemento;
+    if(lista.constructor == Array && lista.length > 0){
+        return Math.max(...lista);
+    }else{
+        return undefined;
+    }
 
 }
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
 // (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
 function capitalizarNomes(nomes) {
+    let nome = '';
+    if(nomes.constructor == Array && nomes.length > 0){
+        for(i = 0; i< nomes.length; i++){
+            nome = nomes[i][0].toUpperCase() + nomes[i].slice(1).toLowerCase();
+            nomes[i] = nome;
+        }
+        return nomes;
+    }else{
+        return undefined;
+    }
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
@@ -47,31 +50,38 @@ function capitalizarNomes(nomes) {
 // ('Infantil') => 15
 function obterDescontoCategoria(categoria) {
     const categorias = ['Alimentação', 'Infantil'];
-    const descontos = [30, 15]
+    const descontos = [30, 15];
+
+    return categoria === categorias[0] ? descontos[0] : categoria === categorias[1] ? descontos[1] : 0;
 }
 
 // Crie uma função que recebe uma lista de preços de produtos e um valor máximo de orçamento
 // e retorna uma lista com os preços menores ou iguais ao valor do orçamento informado
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
+    if(lista.constructor == Array && lista.length > 0){   
+        return lista.filter( elemento => elemento <= precoMaximo);
+        //OBSERVAÇÃO >>>>>>>>>>>>> => não é um operador de atribuição, para entender pense no forEach 2<<<<<<<<<<<<<<<<<<<<
+     }else{
+         return undefined;
+    }
 }
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
-    
     let totalCompra = 0;
-    let verificaLista = lista.length;
 
-    if(lista.construtor == Array){
-     
-            for(i = 0; i< verificaLista; i++){
-                totalCompra += i;
-            }
-
-            return totalCompra;
-        }
+    if(lista.constructor == Array){
+        lista.forEach(element => {
+            totalCompra += element;
+        });
+    }if(totalCompra > 0){
+        return totalCompra;
+    }else{
+        return undefined;
+    }
 }
 
 
@@ -82,6 +92,17 @@ function calcularTotalDaCompra(lista) {
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
+    let menor = 10;
+    let maior = 0;
+
+    if(lista.constructor == Array && lista.length > 0){   
+       maior = Math.max(...lista);
+       menor =  Math.min(...lista);
+       let listaAtualziada = [menor, maior];
+       return listaAtualziada;
+    }else{
+        return undefined;
+    }
 }
 
 // Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
@@ -89,6 +110,12 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
+    if(lista.constructor == Array && lista.length > 0 && menorValor <= maiorValor){   
+        return lista.filter( elemento => elemento >= menorValor && elemento <= maiorValor );
+        //OBSERVAÇÃO >>>>>>>>>>>>> => não é um operador de atribuição, para entender pense no forEach <<<<<<<<<<<<<<<<<<<<
+     }else{
+         return undefined;
+    }
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
@@ -101,6 +128,9 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
+    let desconto = obterDescontoCategoria(categoria);
+
+    return desconto !== undefined ? cupom !== 'CUPOM-INVALIDO' ? desconto + 10 : desconto : 0 ;
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
