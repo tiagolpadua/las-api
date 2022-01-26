@@ -73,6 +73,7 @@ describe('Essencial', () => {
     });
 });
 
+
 describe('Desejável', () => {
     test('Deve retornar o menor e o maior preços.', () => {
         expect(obterMenorEMaiorPrecos([])).toBeUndefined();
@@ -149,6 +150,7 @@ describe('Desejável', () => {
             .toEqual("Alexandre Aquiles");
     });
 });
+
 
 describe('Desafio', () => {
     const cupom1 = "Nome           Valor     Desconto  Imposto Total     \n" +
