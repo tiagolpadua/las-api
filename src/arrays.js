@@ -9,16 +9,69 @@ const { capitalizar } = require('./funcoes');
 // Crie uma função que recebe uma lista de preços e devolve o menor preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
+    if (!Array.isArray(lista) || lista.length === 0) {
+
+        return undefined
+
+    } else {
+        var menor = lista[0];
+
+        for (let i = 1; i < lista.length; ++i) {
+
+            if (lista[i] < menor) {
+                menor = lista[i];
+            }
+        }
+
+        return menor;
+    }
 }
+
 
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
+    if (!Array.isArray(lista) || lista.length === 0) {
+
+        return undefined
+
+    } else {
+        var maior = lista[0];
+
+        for (let i = 1; i < lista.length; ++i) {
+
+            if (lista[i] > maior) {
+                maior = lista[i];
+            }
+        }
+
+        return maior;
+    }
 }
+
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
 // (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
 function capitalizarNomes(nomes) {
+
+    if (!Array.isArray(nomes) || nomes.length === 0) {
+
+        return undefined
+
+    } else {
+
+        let nomeCorrigido = [];
+
+        for (let i = 0; i < nomes.length; i++) {
+            nomeCorrigido.push(nomes[i][0].toUpperCase() + nomes[i].substr(1).toLowerCase());
+
+        }
+
+        return nomeCorrigido
+
+
+    }
+
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
