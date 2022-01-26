@@ -64,6 +64,10 @@ function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
+
+    if (lista.length === 0 || typeof lista === 'string') return undefined;
+    return lista.reduce((anterior , atual) => anterior + atual);
+
 }
 
 // =========
