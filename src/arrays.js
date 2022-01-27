@@ -16,22 +16,45 @@ function obterMenorPreco(lista) {
                 menorNumero = lista[i]
             }else{
                 if(lista[i]< menorNumero){
-                    menorNumero = lista
+                    menorNumero = lista[i]
                 }
             }
-
         }
+    }else{
+        return undefined
     }
+    return menorNumero
 }
 
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
+    let maiorNumero;
+    if(Array.isArray(lista)){
+        for (let i = 0; i < lista.length; i++){
+            if(i === 0){
+                maiorNumero = lista[i]
+            }else{
+                if(lista[i]>maiorNumero){
+                    maiorNumero = lista[i]
+                }
+            }
+        }
+    }else{return undefined}
+    return maiorNumero
 }
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
 // (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
 function capitalizarNomes(nomes) {
+    let nomesCapitalizados = []
+    if(Array.isArray(nomes)=== false|| nomes.length === 0){
+        return undefined
+    }
+    nomes.forEach(nome =>{
+        nomesCapitalizados.push(capitalizar(nome))
+    })
+    return nomesCapitalizados
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
@@ -55,7 +78,7 @@ function obterDescontoCategoria(categoria) {
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
     const novaLista = []
     const antigaLista = lista
-    if(typeof antigaLista != typeof novaLista || antigaLista.length == 0){
+    if(Array.isArray(lista)=== false|| antigaLista.length == 0){
         return undefined
     }
     for(let i = 0; i < antigaLista.length; i++) {
@@ -70,6 +93,16 @@ function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
+    let valorTotal=0;
+    if(Array.isArray(lista)=== false|| lista.length == 0){
+        return undefined
+    }
+    lista.forEach(valor => {
+
+        valorTotal += valor
+        
+    })
+    return valorTotal
 }
 
 // =========
@@ -79,6 +112,10 @@ function calcularTotalDaCompra(lista) {
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
+    if(Array.isArray(lista)=== false|| lista.length == 0){
+        return undefined
+    }
+    return [obterMenorPreco(lista),obterMaiorPreco(lista)]
 }
 
 // Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
@@ -86,6 +123,16 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
+    let valoresDentroDoOrcamento = []
+    if(Array.isArray(lista)=== false|| lista.length == 0|| menorValor>= maiorValor){
+        return undefined
+    }
+    lista.forEach(valor =>{
+        if(menorValor<=valor&& valor <= maiorValor){
+            valoresDentroDoOrcamento.push(valor)
+        }
+    })
+    return valoresDentroDoOrcamento
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
