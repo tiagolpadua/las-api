@@ -79,8 +79,7 @@ function obterDescontoCategoria(categoria) {
     }else{
       return 0;
     }
-    
-           
+               
     //const desconto = descontos.filter((_, indice) => categorias[indice] === categoria )
     //let desc = desconto[0] ;
 
@@ -90,12 +89,33 @@ function obterDescontoCategoria(categoria) {
 // e retorna uma lista com os preços menores ou iguais ao valor do orçamento informado
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
+
+    if(Array.isArray(lista) && (lista != 0) ){
+        return  menoresPrecos = lista.filter( preco => preco <= precoMaximo)
+    }else{
+        return undefined;
+    }
+    
 }
+
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
+
+    let soma = 0;
+
+    if(!Array.isArray(lista) || (lista.length === 0) ){
+        return  undefined;
+    }
+        for(let i = 0; i < lista.length; i++){
+        
+        soma = soma + lista[i];
+     
+        }
+        
+        return soma
 }
 
 // =========
