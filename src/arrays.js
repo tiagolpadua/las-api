@@ -230,35 +230,56 @@ function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
 
-   
+
 
     const separarNomeCompleto = nomeCompleto.split(" ");
-    nomeCompletoCapitalizado =  capitalizarNomes(separarNomeCompleto);
+    nomeCompletoCapitalizado = capitalizarNomes(separarNomeCompleto);
+
+
+
     nomeCompleto = nomeCompletoCapitalizado.join(" ");
 
-    nomeCompletoCapitalizado.forEach((nome)=>{
-    
-   
-        if(nome.length<3){
-            nomeCompleto=  nomeCompleto.replace(nome,nome.toLowerCase());
-          }
-      
+    nomeCompletoCapitalizado.forEach((nome) => {
 
-     
+
+        if (nome.length < 3) {
+            nomeCompleto = nomeCompleto.replace(nome, nome.toLowerCase());
+        }
+
+
+
     }
-    
+
     );
 
-    
-  return nomeCompleto;
 
+    return nomeCompleto;
+
+
+
+
+
+
+
+
+}
+
+function adicionaEspacos(texto){
+    let tamanhoCarateres;
+ if(texto.length===1){
+    tamanhoCarateres=(15-texto.toString().length);
+ }else{
+    tamanhoCarateres=(15-texto.toString().length);
+ }
+ 
+
+  return " ".repeat(tamanhoCarateres);
   
-    
 
+}
 
-
-
-   
+function formataMoeda(valor){
+return valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
 }
 
 // =======
@@ -275,35 +296,34 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
 
-    /*    let cupomFiscal="Nome                Valor          Desconto      Imposto     Total     \n";
-        let tamanhoCaracteresNomeProduto=0;
+    let cupomFiscal = "Nome                Valor          Desconto      Imposto     Total     \n";
+    let total=0;
+
     
-    
-    
-        
-       if(typeof listaNomesProdutos==="object"&& typeof listaPrecosProdutos==="object"&& typeof listaCategoriasProdutos==="object"){
-            listaNomesProdutos.forEach((element,index) => {
-                if(element!=undefined){
-                tamanhoCaracteresNomeProduto=40-element.length;
-                console.log("Tamanho de caracteres: ", element.length);
-                console.log("operação sobre o Tamanho de caracteres: ", tamanhoCaracteresNomeProduto);
-                    cupomFiscal+=" - "+element/*.padEnd(tamanhoCaracteresNomeProduto);
-                    cupomFiscal+="R$ "+listaPrecosProdutos[index]+"\n";
-    
-                 
-                }  
-            });
-        
-    
-        }else{
-            return undefined;
-        }
-      
-    
+
+    if (entradaInvalida(listaNomesProdutos) || entradaInvalida(listaPrecosProdutos) || entradaInvalida(listaCategoriasProdutos)) {
+        return undefined;
+    }
+   
+
+
+    listaNomesProdutos.forEach((produto, i) => {
+
+total = listaPrecosProdutos[i]-(listaPrecosProdutos[i]*0.10);
+
+   cupomFiscal += `- ${produto}${adicionaEspacos(produto)}${formataMoeda(listaPrecosProdutos[i])}${adicionaEspacos(produto)}    ${formataMoeda(total)}\n`;
+
+
+
+    });
+
+
     console.log(cupomFiscal);
-    
-    return cupomFiscal;*/
+
+    return cupomFiscal;
 }
+
+
 
 module.exports = {
     obterMenorPreco,
