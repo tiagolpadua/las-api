@@ -9,7 +9,19 @@ const { capitalizar } = require('./funcoes');
 // Crie uma função que recebe uma lista de preços e devolve o menor preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
-    
+    let menorNumero;
+    if (Array.isArray(lista)){
+        for (let i = 0; i <lista.length; i++){
+            if (i === 0){
+                menorNumero = lista[i]
+            }else{
+                if(lista[i]< menorNumero){
+                    menorNumero = lista
+                }
+            }
+
+        }
+    }
 }
 
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
@@ -30,12 +42,28 @@ function capitalizarNomes(nomes) {
 function obterDescontoCategoria(categoria) {
     const categorias = ['Alimentação', 'Infantil'];
     const descontos = [30, 15]
+    if (categorias.indexOf(categoria)=== -1){
+        return 0
+    }
+    return descontos[categorias.indexOf(categoria)]
+
 }
 
 // Crie uma função que recebe uma lista de preços de produtos e um valor máximo de orçamento
 // e retorna uma lista com os preços menores ou iguais ao valor do orçamento informado
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
+    const novaLista = []
+    const antigaLista = lista
+    if(typeof antigaLista != typeof novaLista || antigaLista.length == 0){
+        return undefined
+    }
+    for(let i = 0; i < antigaLista.length; i++) {
+        if (antigaLista[i] <= precoMaximo){
+            novaLista.push(antigaLista[i])
+        }
+    }
+    return novaLista
 }
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
