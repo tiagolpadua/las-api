@@ -103,7 +103,7 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
 
-   return (/CUPOM-INVALIDO/g).test(cupom) ? obterDescontoCategoria(categoria) : obterDescontoCategoria(categoria) + 10;
+   return (/INVALIDO/g).test(cupom) ? obterDescontoCategoria(categoria) : obterDescontoCategoria(categoria) + 10;
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -111,6 +111,21 @@ function obterDescontoTotal(categoria, cupom) {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
+
+    const verificar = Object.values(arguments);
+    let totalCompraDesconto = 0;
+
+    for(let i = 0 ; i < verificar.length-1; i++){
+
+      if(verificar[i].length === 0 || typeof verificar[i] === 'string') return undefined;
+    }
+
+    for(let i = 0; i < precos.length; i++){
+        
+         totalCompraDesconto += (precos[i] * ( 1 - (obterDescontoTotal(categorias[i], cupom)/100)) );
+    }
+
+    return totalCompraDesconto;
 }
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
