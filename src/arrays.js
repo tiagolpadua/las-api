@@ -8,7 +8,7 @@ const somaElementos = (anterior,atual) => anterior + atual;
 // =========
 const obterMenorPreco = (lista) => validarArray(lista) ? Math.min(...lista) : undefined;
 const obterMaiorPreco = (lista) => validarArray(lista) ? Math.max(...lista) : undefined;
-const capitalizarNomes = (nomes) => !validarArray(nomes) ?  undefined : nomes.map((el) => capitalizar(el));
+const capitalizarNomes = (nomes) => !validarArray(nomes) ? undefined : nomes.map((el) => capitalizar(el));
 
 const obterDescontoCategoria = (categoria) => {
 	const categorias = ["Alimentação", "Infantil"];
@@ -65,9 +65,7 @@ const calcularTotalDaCompraComDescontos = (precos, categorias, cupom) => {
 	if(!validarArray(precos) || !validarArray(categorias)){
 		return undefined;
 	}
-	return precos.map((el,i) => {
-		return el * (100 - obterDescontoTotal((categorias[i]), cupom)) / 100;
-	}).reduce(somaElementos);
+	return precos.map((el,i) => el * (100 - obterDescontoTotal((categorias[i]), cupom)) / 100).reduce(somaElementos);
 }
 
 const capitalizarNomeCompleto = (nomeCompleto) => {
