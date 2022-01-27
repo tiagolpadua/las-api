@@ -1,5 +1,4 @@
 const { capitalizar } = require('./funcoes');
-const { CupomFiscal, Produto } = require("./cupom_template");
 
 const ehValido = (arr) => Array.isArray(arr) && arr.length !== 0;
 const somaElementos = (anterior,atual) => anterior + atual;
@@ -68,17 +67,16 @@ const calcularTotalDaCompraComDescontos = (precos, categorias, cupom) => {
 	if(!ehValido(precos) || !ehValido(categorias)){
 		return undefined;
 	}
-	const total = [];
-	for(let index = 0; index < categorias.length; index++) {
-		total.push(precos[index] * (100 - obterDescontoTotal(categorias[index], cupom)) / 100);
-	}
+	const total = precos.map((el,i) => {
+		return el * (100 - obterDescontoTotal((categorias[i]), cupom)) / 100;
+	});
 	return total.reduce(somaElementos);
 }
 
 const capitalizarNomeCompleto = (nomeCompleto) => {
-	const a = nomeCompleto.split(" ");
-	const b = a.map((el) => el.length > 3 ? capitalizar(el) : el);
-	return b.reduce((anterior, atual) => `${anterior} ${atual}`);
+	const nomes = nomeCompleto.split(" ");
+	const nomesCapitalizados = nomes.map((el) => el.length > 3 ? capitalizar(el) : el);
+	return nomesCapitalizados.reduce((anterior, atual) => `${anterior} ${atual}`);
 }
 // =======
 // Desafio
@@ -86,14 +84,12 @@ const capitalizarNomeCompleto = (nomeCompleto) => {
 
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
 	const arrAux = [listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos];
-	
-	if (!arrAux.every((el) => ehValido(el))){
+	if (!arrAux.every((el) => ehValido(el))) {
 		return undefined;
 	}
-	const total = () => arrAux[1].reduce((somaElementos));
-	const desconto = (calcularTotalDaCompraComDescontos(arrAux[1], arrAux[2],cupom));
+	const totalDesconto = (calcularTotalDaCompraComDescontos(arrAux[1], arrAux[2],cupom));
+	return cuponTest.replace(/[.]/g, ',');
 }
-gerarCupomFiscal(['Serpentina', 'Refrigerante'], [20,7], ['Infantil', 'Bebida'], 'NULABSSA');
 module.exports = {
 	obterMenorPreco,
 	obterMaiorPreco,
@@ -107,5 +103,4 @@ module.exports = {
 	calcularTotalDaCompraComDescontos,
 	capitalizarNomeCompleto,
 	gerarCupomFiscal,
-	somaElementos
 };
