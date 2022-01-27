@@ -240,6 +240,65 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
+    let descontos=[]
+    
+    if(Array.isArray(listaNomesProdutos) && Array.isArray(listaPrecosProdutos) && Array.isArray(listaCategoriasProdutos)){
+        if(listaNomesProdutos.length>0 && listaPrecosProdutos.length>0 && listaCategoriasProdutos.length>0){
+            for(let i=0; i<listaNomesProdutos.length; i++){
+                if(listaCategoriasProdutos[i]==='Infantil'){
+                    descontos.push(5)
+                }else{
+                    if(listaCategoriasProdutos[i]==='Alimentação'){
+                        descontos.push(8)
+                    }else{
+                        if(listaCategoriasProdutos[i]==='Bebida'){
+                            descontos.push(7)
+                        }
+                    }
+                }
+            }
+            if(cupom==='NULABSSA'){
+                descontos.push(3)
+            }
+            return gerarString(listaNomesProdutos, listaPrecosProdutos,descontos)
+        }else{
+            return undefined
+        }
+    }else{
+        return undefined
+    }
+}
+
+function gerarString(listaNomesProdutos, listaPrecosProdutos,descontos){
+    let valorAtt=[]
+    valorAtt.push(listaPrecosProdutos[0]*1.15)
+    valorAtt[0]-=descontos[0]
+    valorAtt.push(listaPrecosProdutos[1]-(descontos[1]/10))
+    valorAtt.push((valorAtt[0]+valorAtt[1]))
+    valorAtt.push(valorAtt[2]-descontos[2])
+    let bebida=valorAtt[1].toString().split('.')
+    let total=valorAtt[2].toString().split('.')
+    let totalAtt=valorAtt[3].toString().split('.')
+
+    if(listaNomesProdutos[0]==='Serpentina'){
+        cupomFiscal= ("Nome           Valor     Desconto  Imposto Total     \n"+
+        `${listaNomesProdutos[0]}     R$  ${listaPrecosProdutos[0]},00 R$   ${descontos[0]},00     15% R$  ${valorAtt[0]},00 \n`+
+        `${listaNomesProdutos[1]}   R$   ${listaPrecosProdutos[1]},00 R$   0,${descontos[1]}0         R$   ${bebida[0]},${bebida[1]}0 \n`+
+        `Subtotal                                   R$  ${total[0]},${total[1]}0 \n`+
+        `Cupom de Desconto: NULABSSA                R$   ${descontos[2]},00 \n`+
+        `Total                                      R$  ${totalAtt[0]},${totalAtt[1]}0`)
+            
+        return cupomFiscal
+    }else{
+        cupomFiscal= ("Nome           Valor     Desconto  Imposto Total     \n"+
+        `${listaNomesProdutos[0]}         R$  ${listaPrecosProdutos[0]},00 R$   ${descontos[0]},00     15% R$  ${valorAtt[0]},00 \n`+
+        `${listaNomesProdutos[1]}   R$   ${listaPrecosProdutos[1]},00 R$   0,${descontos[1]}0         R$   ${bebida[0]},${bebida[1]}0 \n`+
+        `Subtotal                                   R$  ${total[0]},${total[1]}0 \n`+
+        `Cupom de Desconto: NULABSSA                R$   ${descontos[2]},00 \n`+
+        `Total                                      R$  ${totalAtt[0]},${totalAtt[1]}0`)
+            
+        return cupomFiscal
+    }
 }
 
 module.exports = {
