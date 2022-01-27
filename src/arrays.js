@@ -1,14 +1,14 @@
 const { capitalizar } = require('./funcoes');
 
-const ehValido = (arr) => Array.isArray(arr) && arr.length !== 0;
+const ehArray = (arr) => Array.isArray(arr) && arr.length !== 0;
 const somaElementos = (anterior,atual) => anterior + atual;
 
 // =========
 // Essencial
 // =========
-const obterMenorPreco = (lista) => ehValido(lista) ? Math.min(...lista) : undefined;
-const obterMaiorPreco = (lista) => ehValido(lista) ? Math.max(...lista) : undefined;
-const capitalizarNomes = (nomes) => !ehValido(nomes) ?  undefined : nomes.map((el) => capitalizar(el));
+const obterMenorPreco = (lista) => ehArray(lista) ? Math.min(...lista) : undefined;
+const obterMaiorPreco = (lista) => ehArray(lista) ? Math.max(...lista) : undefined;
+const capitalizarNomes = (nomes) => !ehArray(nomes) ?  undefined : nomes.map((el) => capitalizar(el));
 
 const obterDescontoCategoria = (categoria) => {
 	const categorias = ["Alimentação", "Infantil"];
@@ -16,18 +16,18 @@ const obterDescontoCategoria = (categoria) => {
 	if(!categorias.includes(categoria)){
 		return 0;
 	}
-	return (descontos.at(categorias.indexOf(categoria)));
+	return descontos[categorias.indexOf(categoria)];
 }
 
 const obterPrecosLimitadosAoOrcamento = (lista,precoMaximo) => {
-	if(!ehValido(lista)){
+	if(!ehArray(lista)){
 		return undefined;
 	}
 	return lista.filter((valor) => valor <= precoMaximo);
 }
 
 const calcularTotalDaCompra = (lista) => {
-	if(!ehValido(lista)){ 
+	if(!ehArray(lista)){ 
 		return undefined;
 	}
 	return lista.reduce(somaElementos);
@@ -37,7 +37,7 @@ const calcularTotalDaCompra = (lista) => {
 // Desejável
 // =========
 const obterMenorEMaiorPrecos = (lista) => {
-	if (!ehValido(lista)) {
+	if (!ehArray(lista)) {
 		return undefined;
   }
 	const valoresMinMax = [];
@@ -47,7 +47,7 @@ const obterMenorEMaiorPrecos = (lista) => {
 }
 
 const obterPrecosDentroDoOrcamento = (lista, menorValor, maiorValor) => {
-	if (!ehValido(lista) || !(menorValor <= maiorValor)) {
+	if (!ehArray(lista) || !(menorValor <= maiorValor)) {
 		return undefined;
 	}
 	return lista.filter((preco) => preco < maiorValor && preco >= menorValor ? preco : false);
@@ -62,7 +62,7 @@ const obterDescontoTotal = (categoria, cupom) => {
 }
 
 const calcularTotalDaCompraComDescontos = (precos, categorias, cupom) => {
-	if(!ehValido(precos) || !ehValido(categorias)){
+	if(!ehArray(precos) || !ehArray(categorias)){
 		return undefined;
 	}
 	return precos.map((el,i) => {
@@ -80,7 +80,7 @@ const capitalizarNomeCompleto = (nomeCompleto) => {
 
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
 	const arrAux = [listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos];
-	if (!arrAux.every((el) => ehValido(el))) {
+	if (!arrAux.every((el) => ehArray(el))) {
 		return undefined;
 	}
 	const totalDesconto = (calcularTotalDaCompraComDescontos(arrAux[1], arrAux[2],cupom));
