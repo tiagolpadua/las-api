@@ -6,4 +6,4 @@ O processo de licenciamento dos ambulantes pode ser simplificado através do apl
 
 Através desse projeto será possível realizar todo o processo desde a solicitação até o credenciamento, que ocorrerá através de QR Code. Trazendo mais conforto e segurança para os aplicantes que muitas vezes precisam enfrentar filas imensas.
 
-Teste no repo original kkkk
+Teste no repo original kkkkfofofo
