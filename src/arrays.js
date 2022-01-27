@@ -52,7 +52,11 @@ function capitalizarNomes(nomes) {
         return undefined
     }
     nomes.forEach(nome =>{
+        if(nome.length >=3){
         nomesCapitalizados.push(capitalizar(nome))
+    }else{
+        nomesCapitalizados.push(nome)
+    }
     })
     return nomesCapitalizados
 }
@@ -78,7 +82,7 @@ function obterDescontoCategoria(categoria) {
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
     const novaLista = []
     const antigaLista = lista
-    if(Array.isArray(lista)=== false|| antigaLista.length == 0){
+    if(Array.isArray(lista)=== false|| antigaLista.length === 0){
         return undefined
     }
     for(let i = 0; i < antigaLista.length; i++) {
@@ -94,7 +98,7 @@ function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
     let valorTotal=0;
-    if(Array.isArray(lista)=== false|| lista.length == 0){
+    if(Array.isArray(lista)=== false|| lista.length === 0){
         return undefined
     }
     lista.forEach(valor => {
@@ -112,7 +116,7 @@ function calcularTotalDaCompra(lista) {
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
-    if(Array.isArray(lista)=== false|| lista.length == 0){
+    if(Array.isArray(lista)=== false|| lista.length === 0){
         return undefined
     }
     return [obterMenorPreco(lista),obterMaiorPreco(lista)]
@@ -124,7 +128,7 @@ function obterMenorEMaiorPrecos(lista) {
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
     let valoresDentroDoOrcamento = []
-    if(Array.isArray(lista)=== false|| lista.length == 0|| menorValor>= maiorValor){
+    if(Array.isArray(lista)=== false|| lista.length === 0|| menorValor>= maiorValor){
         return undefined
     }
     lista.forEach(valor =>{
@@ -145,6 +149,10 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
+    if(cupom === 'NULABSSA'||cupom === 'ALURANU'){
+        return obterDescontoCategoria(categoria) + 10
+    }
+    return obterDescontoCategoria(categoria)
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -152,12 +160,24 @@ function obterDescontoTotal(categoria, cupom) {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
+    let valorFinal = 0;
+    if(Array.isArray(precos)=== false|| precos.length === 0){
+        return undefined
+    }
+    for(let i = 0; i < precos.length;i++){
+        valorFinal += precos[i]-(precos[i]*(obterDescontoTotal(categorias[i],cupom)/100))
+    }
+    return valorFinal
 }
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
+    let nomeAProcessar = nomeCompleto.split(' ')
+    let processandoNome= capitalizarNomes(nomeAProcessar)
+    let nomeProcessado = processandoNome.join(' ')
+    return nomeProcessado
 }
 
 // =======
@@ -173,6 +193,7 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
+    
 }
 
 module.exports = {
