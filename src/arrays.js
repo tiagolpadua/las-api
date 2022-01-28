@@ -125,6 +125,18 @@ function calcularTotalDaCompra(lista) {
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
+    
+    const menorMaiorPrecos = [];
+
+    if(!Array.isArray(lista) || (lista.length === 0) ){
+        return  undefined;
+    }
+    const menorPreco = obterMenorPreco(lista);
+    const maioPreco = obterMaiorPreco(lista);    
+    menorMaiorPrecos[0] = menorPreco;
+    menorMaiorPrecos[1] = maioPreco;
+   return menorMaiorPrecos;     
+    
 }
 
 // Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
