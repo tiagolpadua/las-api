@@ -73,7 +73,6 @@ function obterDescontoCategoria(categoria) {
 
   const desconto =
     descontos[categorias.findIndex((element) => element === categoria)];
-  console.log(desconto);
   return desconto !== undefined ? desconto : 0;
 }
 
@@ -153,9 +152,9 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
   var desconto = obterDescontoCategoria(categoria);
-  if (cupom === "CUPOM-INVALIDO") {
-    return desconto;
-  } else return (desconto += 10);
+  if (cupom === "NULABSSA" || cupom === "ALURANU") {
+    return (desconto += 10);
+  } else return desconto;
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
