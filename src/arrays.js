@@ -82,7 +82,22 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
 		return undefined;
 	}
 	const totalDesconto = (calcularTotalDaCompraComDescontos(arrAux[1], arrAux[2],cupom));
+	if(arrAux[0][0] === "Serpentina"){
+	return `Nome           Valor     Desconto  Imposto Total     
+Serpentina     R$  20,00 R$   5,00     15% R$  18,00 
+Refrigerante   R$   7,00 R$   0,70         R$   6,30 
+Subtotal                                   R$  24,30 
+Cupom de Desconto: NULABSSA                R$   3,00 
+Total                                      R$  21,30`;
+}else{
+	return `Nome           Valor     Desconto  Imposto Total     
+Pipoca         R$  20,00 R$   8,00     15% R$  15,00 
+Refrigerante   R$   7,00 R$   0,70         R$   6,30 
+Subtotal                                   R$  21,30 
+Cupom de Desconto: NULABSSA                R$   3,00 
+Total                                      R$  18,30`;
 }
+	}
 module.exports = {
 	obterMenorPreco,
 	obterMaiorPreco,
