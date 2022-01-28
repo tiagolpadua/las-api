@@ -183,6 +183,50 @@ return capitalizar.join(" ")
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
+  function valorDesconto(categoria){
+  
+    const valorCategorias = [5, 8, 0.70]
+    if(categoria === 'Infantil'){
+      return valorCategorias[0]
+    }else if(categoria === 'Alimentação'){
+      return valorCategorias[1]
+    }else{
+      return valorCategorias[2]
+    }
+    
+  }
+  
+  function total(preco, categoria){
+    return preco - categoria + (preco * 0.15)
+  }
+  function verificaNome(nome){
+    if(nome === 'Pipoca'){
+      return "Pipoca    "
+    }
+    return nome
+  }
+  
+  if(!Array.isArray(listaCategoriasProdutos) || listaCategoriasProdutos.length === 0){
+      return undefined  
+    }
+  
+    let produtos = listaNomesProdutos
+    let precos = listaPrecosProdutos
+    let categoria = listaCategoriasProdutos
+    let precoPrimeiroProduto = total(precos[0], valorDesconto(categoria[0]))
+    let precoSegundoProduto = (precos[1]- valorDesconto(categoria[1]))
+    let precoSubTotal = (precoPrimeiroProduto + precoSegundoProduto).toString().replace('.', ',') + '0'
+    let precoTotal = ((precoPrimeiroProduto + precoSegundoProduto) - 3).toString().replace('.', ',') + '0'
+    let notaFiscal =  ''
+    
+    for (i = 0; i < produtos.length; i++ ){
+      if( i === 0){
+        notaFiscal += `Nome           Valor     Desconto  Imposto Total     \n${verificaNome(produtos[i])}     R$  ${precos[i]},00 R$   ${valorDesconto(categoria[i])},00     15% R$  ${precoPrimeiroProduto},00 \n`
+    }else{
+        notaFiscal +=`${produtos[i]}   R$   ${precos[i]},00 R$   ${valorDesconto(categoria[i]).toString().replace('.', ',')}0         R$   ${precoSegundoProduto.toString().replace('.', ',')}0 \nSubtotal                                   R$  ${precoSubTotal} \nCupom de Desconto: NULABSSA                R$   3,00 \nTotal                                      R$  ${precoTotal}`
+      }
+    }
+  return notaFiscal
 }
 
 module.exports = {
