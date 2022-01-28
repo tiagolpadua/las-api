@@ -9,7 +9,7 @@ const { capitalizar } = require("./funcoes");
 // Crie uma função que recebe uma lista de preços e devolve o menor preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
-  if (lista.length > 0) {
+  if (listaOk(lista)) {
     let menorPreco = parseInt(lista[0]);
 
     for (var element of lista) {
@@ -30,7 +30,7 @@ function obterMenorPreco(lista) {
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
-  if (lista.length > 0) {
+  if (listaOk(lista)) {
     let menorPreco = parseInt(lista[0]);
 
     for (var element of lista) {
@@ -53,7 +53,7 @@ function obterMaiorPreco(lista) {
 function capitalizarNomes(nomes) {
   var nomesCapitalizados = [];
 
-  if (nomes.length > 0) {
+  if (listaOk(nomes)) {
     for (var element of nomes) {
       if (element.length > 3) nomesCapitalizados.push(capitalizar(element));
       else return undefined;
@@ -73,6 +73,7 @@ function obterDescontoCategoria(categoria) {
 
   const desconto =
     descontos[categorias.findIndex((element) => element === categoria)];
+  console.log(desconto);
   return desconto !== undefined ? desconto : 0;
 }
 
@@ -81,11 +82,8 @@ function obterDescontoCategoria(categoria) {
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
   const precosOrcamento = [];
-  if (lista.length > 0) {
+  if (listaOk(lista)) {
     for (var element of lista) {
-      if (typeof element !== "number") {
-        return undefined;
-      }
       if (parseInt(element) <= precoMaximo) {
         precosOrcamento.push(element);
       }
@@ -98,12 +96,12 @@ function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
-  if (lista.length > 0) {
+  if (listaOk(lista)) {
     var totalCompra = 0;
     for (const element of lista) {
       totalCompra += element;
     }
-    return typeof totalCompra === "number" ? totalCompra : undefined;
+    return totalCompra;
   } else return undefined;
 }
 
@@ -134,12 +132,8 @@ function obterMenorEMaiorPrecos(lista) {
 
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
   const precosOrcamento = [];
-  if (lista.length > 0 && menorValor < maiorValor) {
+  if (listaOk(lista) && menorValor < maiorValor) {
     for (var element of lista) {
-      if (typeof element !== "number") {
-        return undefined;
-      }
-
       if (parseInt(element) >= menorValor && parseInt(element) <= maiorValor) {
         precosOrcamento.push(element);
       }
@@ -218,9 +212,9 @@ function gerarCupomFiscal(
   cupom
 ) {
   if (
-    listaNomesProdutos.length > 0 &&
-    listaPrecosProdutos.length > 0 &&
-    listaCategoriasProdutos.length > 0
+    listaOk(listaNomesProdutos) &&
+    listaOk(listaPrecosProdutos) &&
+    listaOk(listaCategoriasProdutos)
   ) {
     var subtotal = 0;
     var descontoCupom = cupom === "NULABSSA" ? 3 : 0;
@@ -287,6 +281,16 @@ function gerarCupomFiscal(
 
     return cupomFiscal;
   } else return undefined;
+}
+
+// FUNÇÕES AUXILIARES
+
+function listaOk(lista) {
+  if (!Array.isArray(lista) || lista.length === 0) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function padronizaTamPalavra(palavra) {
