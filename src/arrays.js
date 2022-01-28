@@ -162,14 +162,17 @@ function obterDescontoTotal(categoria, cupom) {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
-  var valorTotalCompra = calcularTotalDaCompra(precos);
-  var valorTotalDescontos = 0;
+  var valorTotalCompraComDesconto = 0;
+  var valorCompra = 0;
 
-  if (precos.length > 0 && categorias.length > 0) {
+  if (listaOk(precos) && listaOk(categorias)) {
     for (let i = 0; i < categorias.length; i++) {
-      valorTotalDescontos += obterDescontoTotal(categorias[i], cupom);
+      valorCompra =
+        precos[i] -
+        (precos[i] *= obterDescontoTotal(categorias[i], cupom) / 100);
+      valorTotalCompraComDesconto += valorCompra;
     }
-    return valorTotalCompra - valorTotalDescontos;
+    return valorTotalCompraComDesconto;
   } else return undefined;
 }
 
