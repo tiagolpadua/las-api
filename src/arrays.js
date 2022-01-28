@@ -265,12 +265,11 @@ function capitalizarNomeCompleto(nomeCompleto) {
 }
 
 function adicionaEspacos(texto){
-    let tamanhoCarateres;
- if(texto.length===1){
+    let tamanhoCarateres=0;
+
     tamanhoCarateres=(15-texto.toString().length);
- }else{
-    tamanhoCarateres=(15-texto.toString().length);
- }
+
+ 
  
 
   return " ".repeat(tamanhoCarateres);
@@ -279,7 +278,8 @@ function adicionaEspacos(texto){
 }
 
 function formataMoeda(valor){
-return valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+
+return valor.toLocaleString('pt-br',{minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
 
 // =======
@@ -296,8 +296,10 @@ return valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
 
-    let cupomFiscal = "Nome                Valor          Desconto      Imposto     Total     \n";
+    let cupomFiscal = "Nome           Valor     Desconto  Imposto     Total     \n";
     let total=0;
+    let operacao=0;
+    let totalDesconto=0;
 
     
 
@@ -311,7 +313,17 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
 
 total = listaPrecosProdutos[i]-(listaPrecosProdutos[i]*0.10);
 
-   cupomFiscal += `- ${produto}${adicionaEspacos(produto)}${formataMoeda(listaPrecosProdutos[i])}${adicionaEspacos(produto)}    ${formataMoeda(total)}\n`;
+operacao=obterDescontoCategoria(listaCategoriasProdutos[i]);
+
+ totalDesconto=(obterDescontoCategoria(listaCategoriasProdutos[i]));
+
+console.log(totalDesconto);
+
+
+
+
+
+   cupomFiscal += `${produto}${adicionaEspacos(produto)}R$${" ".repeat(4-listaPrecosProdutos[i].toString().length)}${formataMoeda(listaPrecosProdutos[i])} R$${listaPrecosProdutos[i].toString().length===1?" ".repeat(4-listaPrecosProdutos[i].toString().length):" ".repeat(5-listaPrecosProdutos[i].toString().length)}${5},00${" ".repeat(7-listaPrecosProdutos[i].toString().length)}${listaPrecosProdutos.indexOf(listaPrecosProdutos[i])===0?15+"%":" "}${listaPrecosProdutos.indexOf(listaPrecosProdutos)===0? totalDesconto+"%":""}${" ".repeat(2-listaPrecosProdutos[i].toString().length)} R$${total.toString().split(".")[0].toString().length===1? " ".repeat(1):" ".repeat(1)} ${formataMoeda(total)}\n`;                                                                                                                                                                                                                                                                                            
 
 
 
