@@ -339,9 +339,8 @@ cupomFiscal += `${produto}${adicionaEspacos(produto,15)}R$${adicionaEspacos(list
 
 
     });
-    cupomFiscal+=`Subtotal                                   R$  ${totalComDescontos.toFixed(2).replace(".",",")} \nCupom de Desconto: ${cupom}                R$   3,00 \nTotal                                      R$  ${(totalComDescontos-3).toFixed(2).replace(".",",")}`;
+    cupomFiscal+=`Subtotal${adicionaEspacos(totalComDescontos,39)}R$  ${totalComDescontos.toFixed(2).replace(".",",")} \nCupom de Desconto: ${cupom}${adicionaEspacos(cupom,24)}R$   3,00 \nTotal                                      R$  ${(totalComDescontos-3).toFixed(2).replace(".",",")}`;
 
-    console.log(cupomFiscal);
 
     return cupomFiscal;
 }
