@@ -10,14 +10,14 @@ const { capitalizar } = require('./funcoes');
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
 
-    return (lista.length === 0 || typeof lista === 'string') ? undefined : Math.min(...lista);
+    return (lista.length === 0 || !Array.isArray(lista)) ? undefined : Math.min(...lista);
 }
 
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
 
-    return (lista.length === 0 || typeof lista === 'string') ? undefined : Math.max(...lista);
+    return (lista.length === 0 || !Array.isArray(lista)) ? undefined : Math.max(...lista);
 }
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
@@ -25,7 +25,7 @@ function obterMaiorPreco(lista) {
 function capitalizarNomes(nomes) {
     const reg = /^[A-Z][a-z]+$/g;
 
-    if (nomes.length === 0 || typeof nomes === 'string') return undefined;
+    if (nomes.length === 0 || !Array.isArray(nomes)) return undefined;
     
     return nomes.map(nome => { 
         
@@ -46,8 +46,6 @@ function obterDescontoCategoria(categoria) {
     const indexDesconto = categorias.indexOf(categoria);
     
     return indexDesconto !== -1 ?  descontos[indexDesconto] :  0;
-
-    
 }
 
 // Crie uma função que recebe uma lista de preços de produtos e um valor máximo de orçamento
@@ -55,7 +53,7 @@ function obterDescontoCategoria(categoria) {
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
 
-    if (lista.length === 0 || typeof lista === 'string') return undefined;
+    if (lista.length === 0 || !Array.isArray(lista)) return undefined;
     
     return lista.filter(precos => precos <= precoMaximo && precos > 0);
 }
@@ -65,7 +63,7 @@ function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
 
-    if (lista.length === 0 || typeof lista === 'string') return undefined;
+    if (lista.length === 0 || !Array.isArray(lista)) return undefined;
     return lista.reduce((anterior , atual) => anterior + atual);
 
 }
@@ -78,7 +76,7 @@ function calcularTotalDaCompra(lista) {
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
     
-    if (lista.length === 0 || typeof lista === 'string') return undefined;
+    if (lista.length === 0 || !Array.isArray(lista)) return undefined;
     return lista.sort((precoA, precoB) => precoA - precoB).filter((item , index) => index === 0 || index === lista.length-1);
 }
 
@@ -87,6 +85,9 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
+    
+    if (lista.length === 0 || !Array.isArray(lista)) return undefined;
+
     if(menorValor >= maiorValor) return undefined;
     
     return lista.filter(preco => preco >= menorValor && preco <= maiorValor);
@@ -103,7 +104,7 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
 
-   return (/INVALIDO/g).test(cupom) ? obterDescontoCategoria(categoria) : obterDescontoCategoria(categoria) + 10;
+   return (/(CUPOM-)?INVALIDO/g).test(cupom) ? obterDescontoCategoria(categoria) : obterDescontoCategoria(categoria) + 10;
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -117,7 +118,7 @@ function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
 
     for(let i = 0 ; i < verificar.length-1; i++){
 
-      if(verificar[i].length === 0 || typeof verificar[i] === 'string') return undefined;
+      if(verificar[i].length === 0 || !Array.isArray(verificar[i])) return undefined;
     }
 
     for(let i = 0; i < precos.length; i++){
@@ -161,7 +162,7 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
 
     for(let i = 0 ; i < verificar.length-1; i++){
 
-      if(verificar[i].length === 0 || typeof verificar[i] === 'string') return undefined;
+      if(verificar[i].length === 0 || !Array.isArray(verificar[i])) return undefined;
     }
   
     // variaveis da nota
@@ -246,9 +247,7 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
             return header;
         }
     
-   
-   
-    let cupomFiscal = criarHeader(title)+ '\n' + criarLinhaProduto(nome[0] , v[0] , d1 , imposto , tot1)+ '\n' + criarLinhaProduto(nome[1] , v[1] , d2, '' , tot2)+ '\n' + criarRodape('Subtotal' , subT)+ '\n' + criarRodape('Cupom de Desconto: '+ cupom, cup)+ '\n' + criarFinal('Total', totF);
+   let cupomFiscal = criarHeader(title)+ '\n' + criarLinhaProduto(nome[0] , v[0] , d1 , imposto , tot1)+ '\n' + criarLinhaProduto(nome[1] , v[1] , d2, '' , tot2)+ '\n' + criarRodape('Subtotal' , subT)+ '\n' + criarRodape('Cupom de Desconto: '+ cupom, cup)+ '\n' + criarFinal('Total', totF);
    
 
     return cupomFiscal
