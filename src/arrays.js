@@ -264,10 +264,10 @@ function capitalizarNomeCompleto(nomeCompleto) {
 
 }
 
-function adicionaEspacos(texto){
+function adicionaEspacos(texto,espacos){
     let tamanhoCarateres=0;
 
-    tamanhoCarateres=(15-texto.toString().length);
+    tamanhoCarateres=(espacos-texto.toString().length);
 
  
  
@@ -281,6 +281,28 @@ function formataMoeda(valor){
 
 return valor.toLocaleString('pt-br',{minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
+
+function  verificarCategoria(categoria){
+
+return categoria==="Infantil"?true:false;
+
+}
+
+function calcularDescontoValorCupom(valor,imposto,categoria){
+
+    
+    let total =0;
+    let desconto=0;
+    let subtotal=verificarCategoria()?(valor+((valor*imposto)/100)):valor;
+    let valorDescontoPorcentagem =verificarCategoria(categoria)?obterDescontoCategoria(categoria)+10:10;
+    desconto = subtotal*(valorDescontoPorcentagem/100);
+  
+
+
+  return desconto;
+}
+
+
 
 // =======
 // Desafio
@@ -297,9 +319,10 @@ return valor.toLocaleString('pt-br',{minimumFractionDigits: 2, maximumFractionDi
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
 
     let cupomFiscal = "Nome           Valor     Desconto  Imposto     Total     \n";
-    let total=0;
-    let operacao=0;
-    let totalDesconto=0;
+
+ 
+    const imposto=15;
+  
 
     
 
@@ -311,19 +334,21 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
 
     listaNomesProdutos.forEach((produto, i) => {
 
-total = listaPrecosProdutos[i]-(listaPrecosProdutos[i]*0.10);
+desconto = calcularDescontoValorCupom(listaPrecosProdutos[i],imposto,listaCategoriasProdutos[i])
+totalOperacao =listaPrecosProdutos[i];
 
-operacao=obterDescontoCategoria(listaCategoriasProdutos[i]);
-
- totalDesconto=(obterDescontoCategoria(listaCategoriasProdutos[i]));
-
-console.log(totalDesconto);
+console.log()
 
 
 
 
 
-   cupomFiscal += `${produto}${adicionaEspacos(produto)}R$${" ".repeat(4-listaPrecosProdutos[i].toString().length)}${formataMoeda(listaPrecosProdutos[i])} R$${listaPrecosProdutos[i].toString().length===1?" ".repeat(4-listaPrecosProdutos[i].toString().length):" ".repeat(5-listaPrecosProdutos[i].toString().length)}${5},00${" ".repeat(7-listaPrecosProdutos[i].toString().length)}${listaPrecosProdutos.indexOf(listaPrecosProdutos[i])===0?15+"%":" "}${listaPrecosProdutos.indexOf(listaPrecosProdutos)===0? totalDesconto+"%":""}${" ".repeat(2-listaPrecosProdutos[i].toString().length)} R$${total.toString().split(".")[0].toString().length===1? " ".repeat(1):" ".repeat(1)} ${formataMoeda(total)}\n`;                                                                                                                                                                                                                                                                                            
+
+
+
+
+
+   cupomFiscal += `${produto}${adicionaEspacos(produto,15)}R$${adicionaEspacos(listaPrecosProdutos[i],4)}${formataMoeda(listaPrecosProdutos[i])} R$${listaPrecosProdutos[i].toString().length===1?" ".repeat(4-listaPrecosProdutos[i].toString().length):" ".repeat(5-listaPrecosProdutos[i].toString().length)}${desconto.toFixed(2)}${" ".repeat(7-listaPrecosProdutos[i].toString().length)}${listaPrecosProdutos.indexOf(listaPrecosProdutos[i])===0?imposto+"%":" "}${" ".repeat(2-listaPrecosProdutos[i].toString().length)} R$${totalOperacao.toString().split(".")[0].toString().length===1? " ".repeat(2):" ".repeat(1)} ${formataMoeda(totalOperacao)}\n`;                                                                                                                                                                                                                                                                                            
 
 
 
