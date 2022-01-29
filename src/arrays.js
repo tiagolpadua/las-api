@@ -10,13 +10,24 @@ const { capitalizar } = require('./funcoes');
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
 
-    return Math.min.apply(Math, lista);
+    if(!Array.isArray(lista) || lista.length <=0){
+        return undefined;
+    }else{
+        
+        return Math.min.apply(Math, lista);
+    }
 }
 
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
-
+    
+    if(!Array.isArray(lista) || lista.length <=0){
+        return undefined;
+    }else{
+        return Math.max.apply(Math, lista);
+    }
+    
 }
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
