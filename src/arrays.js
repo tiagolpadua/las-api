@@ -144,6 +144,29 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
+    let preocosDentroOrcamento = [];
+
+    if(!Array.isArray(lista) || (lista.length === 0) ){
+        return  undefined;
+    }
+            if(menorValor > maiorValor) {
+              return undefined;
+            }
+              
+            preocosDentroOrcamento = lista.filter(function(valor){
+            return valor >= menorValor && valor <= maiorValor;
+          });  
+        
+      return preocosDentroOrcamento;
+    }
+
+
+function validarCupom(cupom){
+    if(cupom === 'NULABSSA' || cupom === 'ALURANU'){
+       return 10;
+    }else{
+       return 0;
+    }
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
@@ -156,6 +179,7 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
+    return  descontoTotal = obterDescontoCategoria(categoria) + validarCupom(cupom);
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -163,7 +187,22 @@ function obterDescontoTotal(categoria, cupom) {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
-}
+    let somaCategorias = 0;
+
+    if(!Array.isArray(precos) || (precos.length === 0) ){
+        return  undefined;
+    }
+     
+    if(!Array.isArray(categorias) || (categorias.length === 0) ){
+        return  undefined;
+    }
+
+    for (let i = 0; i < categorias.length; i++){
+      somaCategorias += precos[i] - precos[i] * (obterDescontoTotal(categorias[i], cupom) / 100) ;
+    }
+  
+    return somaCategorias;
+  }
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
 // Desconsidere palavras com menos de 3 letras
