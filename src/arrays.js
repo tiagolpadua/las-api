@@ -220,66 +220,76 @@ function gerarCupomFiscal(
   ) {
     var subtotal = 0;
     var descontoCupom = cupom === "NULABSSA" ? 3 : 0;
-    var cupomFiscal =
-      padronizaTamPalavra("Nome") +
-      padronizaTamPalavra("Valor") +
-      padronizaTamPalavra("Desconto") +
-      padronizaTamPalavra("Imposto") +
-      padronizaTamPalavra("Total");
+
+    var cupomFiscal = `Nome           Valor     Desconto  Imposto Total     `;
 
     cupomFiscal += "\n";
 
     for (let i = 0; i < listaNomesProdutos.length; i++) {
-      cupomFiscal += padronizaTamPalavra(listaNomesProdutos[i]);
+      let desconto =
+        listaPrecosProdutos[i] *
+        (obterDescontoTotal(listaCategoriasProdutos[i], cupom) / 100);
+
+      cupomFiscal += padronizaTamPalavra(listaNomesProdutos[i], "nome");
+
+      cupomFiscal += `R$ ${padronizaTamPalavra(
+        parseFloat(listaPrecosProdutos[i])
+          .toFixed(2)
+          .toString()
+          .replace(".", ","),
+        "valor"
+      )} `;
 
       cupomFiscal += padronizaTamPalavra(
-        `R$ ${parseFloat(listaPrecosProdutos[i]).toFixed(2)}`
-      );
-
-      cupomFiscal += padronizaTamPalavra(
-        obterDescontoTotal(listaCategoriasProdutos[i], cupom)
+        `R$   ${desconto.toFixed(2).toString().replace(".", ",")}`,
+        "desconto"
       );
 
       if (i === 0) {
-        cupomFiscal += padronizaTamPalavra("15%");
+        cupomFiscal += "    15%";
+        cupomFiscal += padronizaTamPalavra(
+          ` R$  ${(
+            listaPrecosProdutos[i] +
+            listaPrecosProdutos[i] * 0.15 -
+            desconto
+          )
+            .toFixed(2)
+            .toString()
+            .replace(".", ",")} `,
+          "total"
+        );
+        subtotal +=
+          listaPrecosProdutos[i] + listaPrecosProdutos[i] * 0.15 - desconto;
       } else {
-        cupomFiscal += padronizaTamPalavra("");
+        cupomFiscal += padronizaTamPalavra("", "imposto");
+        cupomFiscal += `R$   ${padronizaTamPalavra(
+          parseFloat(listaPrecosProdutos[i] - desconto)
+            .toFixed(2)
+            .toString()
+            .replace(".", ","),
+          "total"
+        )}`;
+        subtotal += listaPrecosProdutos[i] - desconto;
       }
-
-      cupomFiscal += padronizaTamPalavra(
-        listaPrecosProdutos[i] +
-          obterDescontoTotal(listaCategoriasProdutos[i], cupom)
-      );
-
-      subtotal +=
-        listaPrecosProdutos[i] +
-        obterDescontoTotal(listaCategoriasProdutos[i], cupom);
-
       cupomFiscal += "\n";
     }
 
-    cupomFiscal +=
-      padronizaTamPalavra("Subotal") +
-      padronizaTamPalavra("") +
-      padronizaTamPalavra("") +
-      padronizaTamPalavra("") +
-      padronizaTamPalavra(subtotal) +
-      "\n";
+    cupomFiscal += `Subtotal                                   R$  ${subtotal
+      .toFixed(2)
+      .toString()
+      .replace(".", ",")} \n`;
 
-    cupomFiscal +=
-      padronizaTamPalavra("Cupom de Desconto:") +
-      padronizaTamPalavra(cupom) +
-      padronizaTamPalavra("") +
-      padronizaTamPalavra("") +
-      padronizaTamPalavra(descontoCupom) +
-      "\n";
-    cupomFiscal +=
-      padronizaTamPalavra("Total") +
-      padronizaTamPalavra("") +
-      padronizaTamPalavra("") +
-      padronizaTamPalavra("") +
-      padronizaTamPalavra(subtotal - descontoCupom) +
-      "\n";
+    cupomFiscal += `Cupom de Desconto: ${cupom}                R$   ${descontoCupom
+      .toFixed(2)
+      .toString()
+      .replace(".", ",")} \n`;
+
+    cupomFiscal += `Total                                      R$  ${(
+      subtotal - descontoCupom
+    )
+      .toFixed(2)
+      .toString()
+      .replace(".", ",")}`;
 
     return cupomFiscal;
   } else return undefined;
@@ -295,11 +305,39 @@ function listaOk(lista) {
   }
 }
 
-function padronizaTamPalavra(palavra) {
-  const tamPadrao = 20;
+function padronizaTamPalavra(palavra, campo = "defalt") {
+  var tamPadrao = 0;
+
+  tamPadrao = campo === "defalt" || campo === "nome" ? 15 : 10;
+
+  switch (campo) {
+    case "defalt":
+    case "nome":
+      tamPadrao = 15;
+      break;
+    case "imposto":
+      tamPadrao = 8;
+      break;
+    case "valor":
+      tamPadrao = 6;
+      break;
+    case "total":
+      tamPadrao = 5;
+      break;
+    default:
+      break;
+  }
+
+  if (campo === "valor") {
+    let palavraAux = "";
+    for (let i = 0; i < tamPadrao - palavra.toString().length; i++) {
+      palavraAux += " ";
+    }
+    return palavraAux + palavra;
+  }
 
   if (palavra === undefined) {
-    return;
+    return "";
   } else {
     while (palavra.toString().length < tamPadrao) {
       palavra += " ";
@@ -307,6 +345,8 @@ function padronizaTamPalavra(palavra) {
     return palavra;
   }
 }
+
+function precoProdutoComDesconto(preco) {}
 
 module.exports = {
   obterMenorPreco,
