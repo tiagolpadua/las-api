@@ -155,6 +155,103 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
+
+    const verificar = Object.values(arguments);
+    let totalCompraDesconto = 0;
+
+    for(let i = 0 ; i < verificar.length-1; i++){
+
+      if(verificar[i].length === 0 || typeof verificar[i] === 'string') return undefined;
+    }
+  
+    // variaveis da nota
+    let nome = listaNomesProdutos;
+    let v = listaPrecosProdutos;
+    let d1 = v[0] * (obterDescontoTotal(listaCategoriasProdutos[0], cupom)/100);
+    let d2 = v[1] * (obterDescontoTotal(listaCategoriasProdutos[1], cupom)/100);
+    let imposto = 15;
+    let tot1 = (listaPrecosProdutos[0] * 1.15) - d1;
+    let tot2 =  (listaPrecosProdutos[1]) - d2;
+    let subT = tot1 + tot2;
+    let cup = 3;
+    let totF = subT - cup;
+
+    // variaveis montar cupom
+    let title = ['Nome', 'Valor' , 'Desconto', 'Imposto', 'Total' ];
+  
+    function criarHeader(titulo){
+    
+    const [nome , valor, desconto, imposto, total] = titulo ;
+    let space = ["" , "" , "" , "" , ""];
+    
+        if(nome.length < 15) space[0] = " ".repeat(15 - nome.length );
+        if(valor.length < 10) space[1] = " ".repeat(10 - valor.length );
+        if(desconto.length < 10) space[2] = " ".repeat(10 - desconto.length );
+        if(imposto.length < 8) space[3] = " ".repeat(8 - imposto.length );
+        if(total.length < 8) space[4] = " ".repeat(9 - total.length );
+    
+    let header =`${nome}${space[0]}${valor}${space[1]}${desconto}${space[2]}${imposto}${space[3]}${total}     `
+    
+        return header;
+    }
+
+    function criarLinhaProduto(nome , valor , desconto , imposto , total){
+        
+        let novoValor = valor.toFixed(2).replace(".", ",");
+        let novoDesconto = desconto.toFixed(2).replace(".", ",");
+        let novoImposto = imposto+"%";
+        let notoTotal = total.toFixed(2).replace(".", ",");
+        let space = ["" , "" , "" , "" , ""];
+    
+        if(!imposto) novoImposto = "";
+        
+        if(nome.length < 15) space[0] = " ".repeat(15 - nome.length );
+        if(novoValor.length < 9) space[1] = " ".repeat(9 - (novoValor.length + 2) );
+        if(novoDesconto.length < 9) space[2] = " ".repeat(9 - (novoDesconto.length + 2) );
+        if(novoImposto.length < 7) space[3] = " ".repeat(7 - (novoImposto.length) );
+        else " ".repeat(7);
+        if(notoTotal.length < 9) space[4] = " ".repeat(9 - (notoTotal.length + 2) );
+       
+        
+        let linha =`${nome}${space[0]}R$${space[1]}${novoValor} R$${space[2]}${novoDesconto} ${space[3]}${novoImposto} R$${space[4]}${notoTotal} `;
+        
+        return linha;
+    }
+
+    function criarRodape(nome , valor){
+    
+    let novoValor = valor.toFixed(2).replace(".", ",");
+  
+    let space = ["" , "" , "" , "" , ""];
+
+        if(nome.length < 43) space[0] = " ".repeat(43 - nome.length );
+        if(novoValor.length < 9) space[1] = " ".repeat(9 - (novoValor.length + 2) );
+        
+    let header =`${nome}${space[0]}R$${space[1]}${novoValor} `;
+    
+        return header;
+    }
+
+    function criarFinal(nome , valor){
+    
+        let novoValor = valor.toFixed(2).replace(".", ",");
+      
+        let space = ["" , "" , "" , "" , ""];
+    
+            if(nome.length < 43) space[0] = " ".repeat(43 - nome.length );
+            if(novoValor.length < 9) space[1] = " ".repeat(9 - (novoValor.length + 2) );
+            
+        let header =`${nome}${space[0]}R$${space[1]}${novoValor}`;
+        
+            return header;
+        }
+    
+   
+   
+    let cupomFiscal = criarHeader(title)+ '\n' + criarLinhaProduto(nome[0] , v[0] , d1 , imposto , tot1)+ '\n' + criarLinhaProduto(nome[1] , v[1] , d2, '' , tot2)+ '\n' + criarRodape('Subtotal' , subT)+ '\n' + criarRodape('Cupom de Desconto: '+ cupom, cup)+ '\n' + criarFinal('Total', totF);
+   
+
+    return cupomFiscal
 }
 
 module.exports = {
