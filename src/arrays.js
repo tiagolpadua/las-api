@@ -282,36 +282,8 @@ function formataMoeda(valor){
 return valor.toLocaleString('pt-br',{minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
 
-function  verificarCategoria(categoria){
-
-return categoria==="Infantil"?true:false;
-
-}
-
-function calcularDescontoValorCupom(valor,imposto,categoria){
-
-    
-  
-    let desconto=0;
-    let subtotal=verificarCategoria()?(valor+((valor*imposto)/100)):valor;
-    let valorDescontoPorcentagem =verificarCategoria(categoria)?obterDescontoCategoria(categoria)+10:10;
-    desconto = subtotal*(valorDescontoPorcentagem/100);
-  
 
 
-  return desconto;
-}
-
-function CalcularSubtotal(valor,desconto,imposto,categoria){
-
-    let subtotal=verificarCategoria(categoria)?(valor+((valor*imposto)/100)):valor;
-
-    console.log(subtotal);
-
-    return subtotal-desconto;
-
-
-}
 
 
 
@@ -329,10 +301,11 @@ function CalcularSubtotal(valor,desconto,imposto,categoria){
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
 
-    let cupomFiscal = "Nome           Valor     Desconto  Imposto Total\n";
+    let cupomFiscal = "Nome           Valor     Desconto  Imposto Total     \n";
+ 
 
  
-    const imposto=15;
+    let imposto=0;
     let totalComDescontos =0;
   
 
@@ -345,10 +318,11 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
 
 
     listaNomesProdutos.forEach((produto, i) => {
+imposto=i===0?15:0;
+desconto = (obterDescontoTotal(listaCategoriasProdutos[i],cupom)/100)*listaPrecosProdutos[i];
 
-desconto = calcularDescontoValorCupom(listaPrecosProdutos[i],imposto,listaCategoriasProdutos[i]);
 
-totalOperacao =CalcularSubtotal(listaPrecosProdutos[i],desconto,imposto,listaCategoriasProdutos[i]);
+totalOperacao =(listaPrecosProdutos[i]+((listaPrecosProdutos[i]*imposto)/100))-desconto;
 
 
 totalComDescontos+=totalOperacao;
@@ -358,15 +332,14 @@ totalComDescontos+=totalOperacao;
 
 
 
+   
 
 
-
-   cupomFiscal += `${produto}${adicionaEspacos(produto,15)}R$${adicionaEspacos(listaPrecosProdutos[i],4)}${formataMoeda(listaPrecosProdutos[i])} R$${listaPrecosProdutos[i].toString().length===1?adicionaEspacos(listaPrecosProdutos[i],4):adicionaEspacos(listaPrecosProdutos[i],5)}${desconto.toFixed(2).replace(".",",")}${adicionaEspacos(listaPrecosProdutos[i],7)}${listaPrecosProdutos.indexOf(listaPrecosProdutos[i])===0?imposto+"%":" "}${ adicionaEspacos(listaPrecosProdutos[i],2)} R$${totalOperacao.toString().split(".")[0].toString().length===1?"  ":" "} ${formataMoeda(totalOperacao)}`+"\n";                                                                                                                                                                                                                                                                                            
-
+cupomFiscal += `${produto}${adicionaEspacos(produto,15)}R$${adicionaEspacos(listaPrecosProdutos[i],4)}${formataMoeda(listaPrecosProdutos[i])} R$${listaPrecosProdutos[i].toString().length===1?adicionaEspacos(listaPrecosProdutos[i],4):adicionaEspacos(listaPrecosProdutos[i],5)}${formataMoeda(desconto)}${adicionaEspacos(listaPrecosProdutos[i],7)}${listaPrecosProdutos.indexOf(listaPrecosProdutos[i])===0?imposto+"%":" "}${ adicionaEspacos(listaPrecosProdutos[i],2)} R$${totalOperacao.toString().split(".")[0].toString().length===1?"  ":" "} ${formataMoeda(totalOperacao)}`+" \n";                                                                                                                                                                                                                                                                                            
 
 
     });
-    cupomFiscal+=`Subtotal                                   R$  ${totalComDescontos.toFixed(2).replace(".",",")}\nCupom de Desconto: ${cupom}                R$   3,00 \nTotal                                      R$  ${(totalComDescontos-3).toFixed(2).replace(".",",")}`;
+    cupomFiscal+=`Subtotal                                   R$  ${totalComDescontos.toFixed(2).replace(".",",")} \nCupom de Desconto: ${cupom}                R$   3,00 \nTotal                                      R$  ${(totalComDescontos-3).toFixed(2).replace(".",",")}`;
 
     console.log(cupomFiscal);
 
