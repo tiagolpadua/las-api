@@ -9,40 +9,110 @@ const { capitalizar } = require('./funcoes');
 // Crie uma função que recebe uma lista de preços e devolve o menor preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
-}
+
+    if (lista.length > 0) {
+
+        let menorPreco = parseInt(lista[0]);
+    
+        for (var item of lista) {
+          if (parseInt(item) < parseInt(menorPreco))
+            menorPreco = parseInt(item);
+        }
+        if(typeof item === "number"){
+            return menorPreco;
+        }else{
+            return undefined;
+        }
+      } 
+}   
+   
 
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
-}
+      
+       
+    if (lista.length <  1){
+        return undefined;
+     }
+     let maiorPreco = parseInt(lista[0]);
+     for (var item of lista){
+         if(parseInt(item) > parseInt (maiorPreco)) {
+             maiorPreco = parseInt(item)
+         }
+     }
+     if(typeof item === "number"){
+         return maiorPreco;
+     }else{
+         return undefined;
+     }
+    }
+     
+     
+    
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
 // (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
 function capitalizarNomes(nomes) {
-}
+
+    let nomesCapitalizados = []
+    if(!Array.isArray(nomes)  || nomes.length === 0){
+        return undefined
+    }
+    nomes.forEach(nomeCap => {nomesCapitalizados.push(capitalizar(nomeCap))})
+    return nomesCapitalizados
+   
+      }  
+        
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 // ('Alimentação') => 30
 // ('Infantil') => 15
+
 function obterDescontoCategoria(categoria) {
+    
     const categorias = ['Alimentação', 'Infantil'];
-    const descontos = [30, 15]
+    const descontos = [30, 15];
+
+    const desconto = descontos[categorias.findIndex((item) => item === categoria)];
+
+    if (desconto !== undefined) {
+        return desconto
+     }else {
+       return 0;
+     }
 }
 
 // Crie uma função que recebe uma lista de preços de produtos e um valor máximo de orçamento
 // e retorna uma lista com os preços menores ou iguais ao valor do orçamento informado
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
+    
+    if(!Array.isArray(lista) || lista.length === 0){
+        return undefined
+    }
+	const precoDoOrcamento = (lista, precoMaximo)
+	return lista.filter((valor) => valor <= precoMaximo ? valor : false);
+
+    
 }
+
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
-}
+    
+    if(!Array.isArray(lista) || lista.length === 0){
+        return undefined
+    }
 
+    const totalCompras = (acc, valorAtual) => acc + valorAtual;
+    return lista.reduce(totalCompras);
+
+}
 // =========
 // Desejável
 // =========
@@ -50,14 +120,24 @@ function calcularTotalDaCompra(lista) {
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
-}
+    if(!Array.isArray(lista) || lista.length === 0){
+        return undefined
+    }
+    return [obterMenorPreco(lista),obterMaiorPreco(lista)];
+    }
+
 
 // Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
 // Retorne uma lista de preços dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
+
+    return Array.isArray(lista) && lista.length !== 0 && menorValor <= maiorValor ? 
+    lista.filter(valor => valor >= menorValor && valor <= maiorValor) : undefined
+    
 }
+
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
 // Utilize a função obterDescontoCategoria
@@ -69,20 +149,66 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
+   
+    let descontoTotal = obterDescontoCategoria(categoria);
+
+    if (cupom == "NULABSSA") {
+
+       return  descontoTotal += 10;
+
+    } else if (cupom == 'ALURANU') {
+
+       return descontoTotal +=10;
+        
+    } else {
+        return descontoTotal;
+    }
 }
+
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
 // devolve o valor total da compra, considerando os descontos de cada categoria e o cupom informado
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
+    
+    if(!Array.isArray(precos) || !Array.isArray(categorias)){
+        return undefined
+    }
+
+
+    let totalComDesconto = [];
+    for (let i = 0; i < precos.length; i++) {
+        totalComDesconto.push(precos[i] - (precos[i] * (obterDescontoTotal(categorias[i], cupom)/100)));   
+    }
+
+    return calcularTotalDaCompra(totalComDesconto);
 }
+
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
+
 function capitalizarNomeCompleto(nomeCompleto) {
-}
+     
+    let textoMinusculo = nomeCompleto.toLowerCase();
+    let nomeArray = textoMinusculo.split(" ");
+
+    let capitalizar = nomeArray.map((nome)=> {
+        let primeiraLetra = nome[0];
+        if( nome.length > 2){
+            return primeiraLetra.toUpperCase() + nome.slice(1);
+        } else {
+            return primeiraLetra + nome.slice(1);
+        }
+    });
+    return capitalizar.join(" ");
+    
+    
+
+}           
+
 
 // =======
 // Desafio
