@@ -168,6 +168,15 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
+  function validarCupom(cupom){
+   if(cupom === 'NULABSSA' || cupom === 'ALURANU'){
+      return 10;
+   }else{
+      return 0;
+    }
+  } 
+  return  descontoTotal = obterDescontoCategoria(categoria) + validarCupom(cupom);
+  
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
