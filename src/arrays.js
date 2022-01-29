@@ -144,6 +144,18 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
+  
+  let preocosDentroOrcamento = [];
+  
+  if(!Array.isArray(lista) || (lista.length === 0) ){
+        return  undefined;
+  }else{
+        preocosDentroOrcamento = lista.filter(function(valor){
+        return valor >= menorValor && valor <= maiorValor;
+      });  
+      
+    }
+  return preocosDentroOrcamento;
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
