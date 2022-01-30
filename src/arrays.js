@@ -114,11 +114,32 @@ function obterMenorEMaiorPrecos(lista) {
 
 }
 
-// Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
+// Crie uma função que recebe uma lista de preços de produtos, 
+//um valor inferior e um valor superior de orçamento.
 // Retorne uma lista de preços dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
+
+    const dentroDoOrcamento = [];
+
+    if(!Array.isArray(lista) || lista.length <= 0 || menorValor > maiorValor){
+        return undefined;
+    }else{
+
+        const validaPreco = lista.map((valorProduto) => {
+
+            if(valorProduto >= menorValor && valorProduto <= maiorValor){
+                dentroDoOrcamento.push(valorProduto);
+            }
+
+        });
+
+        return dentroDoOrcamento;
+
+    }
+
+
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
