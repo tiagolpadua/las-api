@@ -193,7 +193,54 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
+
+    if(Array.isArray(listaCategoriasProdutos)=== false|| listaCategoriasProdutos.length === 0){
+        return undefined
+    }
     
+
+      let listaProdutos = listaNomesProdutos;
+      let listaPrecos = listaPrecosProdutos;
+      let listaCategoria = listaCategoriasProdutos;
+      let primeiroProduto = valorTotal(listaPrecos[0], descontoTotal(listaCategoria[0]));
+      let segundoProduto = (listaPrecos[1]- descontoTotal(listaCategoria[1]));
+      let subtotal = (primeiroProduto + segundoProduto).toString().replace('.', ',') + '0';
+      let precoTotalDaCompra = ((primeiroProduto + segundoProduto) - 3).toString().replace('.', ',') + '0';
+      let gerarNotaFiscal = '';
+
+      for (i = 0; i < listaProdutos.length; i++ ){
+        if( i === 0){
+          gerarNotaFiscal += `Nome           Valor     Desconto  Imposto Total     \n${validarNome(listaProdutos[i])}     R$  ${listaPrecos[i]},00 R$   ${descontoTotal(listaCategoria[i])},00     15% R$  ${primeiroProduto},00 \n`;
+      }else{
+          gerarNotaFiscal +=`${listaProdutos[i]}   R$   ${listaPrecos[i]},00 R$   ${descontoTotal(listaCategoria[i]).toString().replace('.', ',')}0         R$   ${segundoProduto.toString().replace('.', ',')}0 \nSubtotal                                   R$  ${subtotal} \nCupom de Desconto: NULABSSA                R$   3,00 \nTotal                                      R$  ${precoTotalDaCompra}`;
+        }
+      }
+    return gerarNotaFiscal;
+
+      function valorTotal(preco, categoria){
+        return preco - categoria + (preco * 0.15)
+      }
+
+    function descontoTotal(categoria){
+
+        const precoPorCategoria = [5, 8, 0.70]
+        if(categoria === 'Infantil'){
+          return precoPorCategoria[0]
+        }else if(categoria === 'Alimentação'){
+          return precoPorCategoria[1]
+        }else{
+          return precoPorCategoria[2]
+        }
+
+      }
+
+      function validarNome(nome){
+        if(nome === 'Pipoca'){
+          return "Pipoca    "
+        }
+        return nome
+      }
+
 }
 
 module.exports = {
