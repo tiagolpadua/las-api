@@ -62,6 +62,23 @@ function obterDescontoCategoria(categoria) {
 // e retorna uma lista com os preços menores ou iguais ao valor do orçamento informado
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
+
+    let cabeNoOrcamento = [];
+
+    if(!Array.isArray(lista) || lista.length <= 0){
+        
+        return undefined;
+
+    }else{
+        const verificaPreco = lista.map((valorProduto) => {
+
+            if(valorProduto <= precoMaximo){
+                cabeNoOrcamento.push(valorProduto);
+            }
+        });
+       return cabeNoOrcamento; 
+    }
+
 }
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
