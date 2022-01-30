@@ -96,11 +96,11 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
         return undefined;
     }
     
-    // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
-    // Utilize a função obterDescontoCategoria
-    // ('Alimentação', 'NULABSSA') => 40
-    // ('Alimentação', 'ALURANU') => 40
-    // ('Infantil', 'ALURANU') => 25
+// Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
+// Utilize a função obterDescontoCategoria
+// ('Alimentação', 'NULABSSA') => 40
+// ('Alimentação', 'ALURANU') => 40
+// ('Infantil', 'ALURANU') => 25
 // ('Bebida', 'ALURANU') => 10
 // ('Bebida', 'CUPOM-INVALIDO') => 0
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
@@ -134,8 +134,8 @@ function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
         
     }
     
-    // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
-    // Desconsidere palavras com menos de 3 letras
+// Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
+// Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
     const nomes = nomeCompleto.split(' ');
