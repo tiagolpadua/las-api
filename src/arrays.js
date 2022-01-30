@@ -23,13 +23,13 @@ function obterMaiorPreco(lista) {
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
 // (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
 function capitalizarNomes(nomes) {
-    const reg = /^[A-Z][a-z]+$/g;
+    const nomesCapitalizados = /^[A-Z][a-z]+$/g;
 
     if (nomes.length === 0 || !Array.isArray(nomes)) return undefined;
     
     return nomes.map(nome => { 
         
-    if(!nome.match(reg)) return capitalizar(nome);
+    if(!nome.match(nomesCapitalizados)) return capitalizar(nome);
     
     return nome;
     });
@@ -113,7 +113,7 @@ function obterDescontoTotal(categoria, cupom) {
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
 
-    const verificar = Object.values(arguments);
+    const verificar = Array.from(arguments);
     let totalCompraDesconto = 0;
 
     for(let i = 0 ; i < verificar.length-1; i++){
@@ -157,9 +157,8 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
 
-    const verificar = Object.values(arguments);
-    let totalCompraDesconto = 0;
-
+    const verificar = Array.from(arguments);
+    
     for(let i = 0 ; i < verificar.length-1; i++){
 
       if(verificar[i].length === 0 || !Array.isArray(verificar[i])) return undefined;
@@ -191,7 +190,7 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
         if(imposto.length < 8) space[3] = " ".repeat(8 - imposto.length );
         if(total.length < 8) space[4] = " ".repeat(9 - total.length );
     
-    let header =`${nome}${space[0]}${valor}${space[1]}${desconto}${space[2]}${imposto}${space[3]}${total}     `
+    let header =`${nome}${space[0]}${valor}${space[1]}${desconto}${space[2]}${imposto}${space[3]}${total}     `;
     
         return header;
     }
