@@ -181,7 +181,23 @@ function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
-}
+    
+    const prep = ["da", "do", "das", "dos", "a", "e", "de", "o" ];
+    const nomeCompletoArray = nomeCompleto.split(' ');
+    //console.log(nomeCompletoArray);
+
+    // const nomeCapitalizado = capitalizarNomes(nomeCompletoArray);
+    // console.log(nomeCapitalizado);
+    const capitalizaNomeCompleto = nomeCompletoArray.map((palavra) => {
+        
+        if(prep.includes(palavra)){
+            return palavra;
+        }
+        return palavra.charAt(0).toUpperCase() + palavra.slice(1);
+    }).join(' ');
+
+    return capitalizaNomeCompleto; 
+} 
 
 // =======
 // Desafio
