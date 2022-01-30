@@ -185,7 +185,6 @@ function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
         for (let i = 0; i < categorias.length; i++){
             valorPercentualDescontoCategoria.push(obterDescontoTotal(categorias[i],cupom));
         }
-
         const precoXValorCat = [precos, valorPercentualDescontoCategoria];
         let valorTotalProdutos = 0;
         for(let i = 0; i < precoXValorCat[0].length; i++){
