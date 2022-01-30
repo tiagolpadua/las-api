@@ -136,10 +136,7 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
         });
 
         return dentroDoOrcamento;
-
     }
-
-
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
@@ -152,6 +149,25 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
+
+    const cupomValido = ['NULABSSA','ALURANU']
+    const desconto = 10;
+    const descontoCategoriaValida = obterDescontoCategoria(categoria);
+    const cupomDescontoValido = cupomValido.includes(cupom);
+
+
+    if(descontoCategoriaValida && cupomDescontoValido){
+        return descontoCategoriaValida + desconto;
+
+    }else if(descontoCategoriaValida && !cupomDescontoValido){
+        return descontoCategoriaValida;
+    
+    }else if(!descontoCategoriaValida && cupomDescontoValido){
+        return desconto;
+    
+    }else {
+        return 0;
+    }
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
