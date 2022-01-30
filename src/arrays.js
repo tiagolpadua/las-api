@@ -209,11 +209,12 @@ function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
     if (nomeCompleto != null) {
-		let splitFrase = nomeCompleto.toLowerCase().split(' ');
-    	for (let i = 0; i < splitFrase.length; i++) {
+	let splitFrase = nomeCompleto.toLowerCase().split(' ');
       
-          for(let j = 0; j < splitFrase[i].length; j++){
-               if(splitFrase[j].length <= 3 ){
+    	for (let i = 0; i < splitFrase.length; i++) {
+       		 for(let j = 0; j < splitFrase.length; j++){
+             	  if(splitFrase[j].length <= 3 ){
+                 
                   }else{
                            splitFrase[j] = splitFrase[j].charAt(0).toUpperCase() + splitFrase[j].substring(1)        
            }
