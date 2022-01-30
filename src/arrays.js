@@ -78,13 +78,19 @@ function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
         });
        return cabeNoOrcamento; 
     }
-
 }
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
+
+    if(!Array.isArray(lista) || lista.length <= 0){
+        return undefined;
+    }else{
+        const valorTotalDaCompra = lista.reduce((acc, atual) => atual + acc, 0);
+        return valorTotalDaCompra;
+    }
 }
 
 // =========
