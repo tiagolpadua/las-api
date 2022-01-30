@@ -164,6 +164,34 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
+    let descontos =[];
+    let impostos = [];
+    let total = [];
+    for(i = 0; i < listaCategoriasProdutos.length; i ++){
+        if(listaCategoriasProdutos[i] === 'Infantil'){
+            impostos[i] = 15;
+        } else{
+            impostos[i] = 0;
+        }
+    } 
+    for(i = 0; i < impostos.length; i++){
+        if(impostos[i] > 0){
+            descontos[i] = (listaPrecosProdutos[i]/100*10) + (listaPrecosProdutos[i]/100*impostos[i]); 
+        }else{
+            let numeroTemporario = listaPrecosProdutos[i]/100*10;
+            descontos[i] = numeroTemporario.toFixed(2); 
+        }
+    }
+    for(i = 0; i < listaPrecosProdutos.length; i++){
+        total[i] = listaPrecosProdutos[i] - descontos[i] + listaPrecosProdutos[i]/100*impostos[i];
+    }
+
+    const imprimeNota = listaNomesProdutos.forEach((preco, categoria, cupom, desconto, imposto, total) => {
+        for(i = 0; i < listaNomesProdutos.length; i++) {
+            	return "Nome           Valor     Desconto  Imposto Total    \n" +
+                `${listaNomesProdutos[i]}   R$${listaPrecosProdutos[i]} `
+        }})
+
 }
 
 module.exports = {
