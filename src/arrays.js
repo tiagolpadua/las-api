@@ -175,6 +175,27 @@ function obterDescontoTotal(categoria, cupom) {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
+    
+    if(!Array.isArray(precos,categorias) || precos.length <= 0 || categorias.length <=0){
+        return undefined;
+    }else{
+    
+        const valorPercentualDescontoCategoria = [];
+
+        for (let i = 0; i < categorias.length; i++){
+            valorPercentualDescontoCategoria.push(obterDescontoTotal(categorias[i],cupom));
+        }
+
+        const precoXValorCat = [precos, valorPercentualDescontoCategoria];
+        let valorTotalProdutos = 0;
+        for(let i = 0; i < precoXValorCat[0].length; i++){
+
+            const desconto = (precoXValorCat[0][i] * precoXValorCat[1][i])/100;
+            valorTotalProdutos += desconto;
+        }
+        const valorFinal = precoXValorCat[0].reduce((acum, atual) => atual +acum,0);
+        return valorFinal - valorTotalProdutos;
+    }
 }
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
