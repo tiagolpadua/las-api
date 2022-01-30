@@ -88,6 +88,11 @@ const calcularTotalDaCompra = (lista: number[]) => {
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 const obterMenorEMaiorPrecos = (lista: number[]) => {
+  if (lista.length === 0 || !Array.isArray(lista)) {
+    return undefined;
+  }
+ 
+  return [Math.min(...lista), Math.max(...lista)];
 }
 
 // Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
@@ -95,6 +100,11 @@ const obterMenorEMaiorPrecos = (lista: number[]) => {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 const obterPrecosDentroDoOrcamento = (lista: number[], menorValor: number, maiorValor: number) => {
+  if (menorValor > maiorValor || lista.length === 0 || !Array.isArray(lista)) return undefined;
+  
+  const novoArr: number[] = lista.filter(iterador => iterador >= menorValor && iterador <= maiorValor);
+
+  return novoArr;
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
@@ -106,7 +116,12 @@ const obterPrecosDentroDoOrcamento = (lista: number[], menorValor: number, maior
 // ('Bebida', 'CUPOM-INVALIDO') => 0
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
-const obterDescontoTotal = (categoria: string[], cupom: string[]) => {
+const obterDescontoTotal = (categoria: string, cupom: string) => {
+  const descontoCategoria = obterDescontoCategoria(categoria);
+    
+  return descontoCategoria !== undefined
+    ? cupom !== 'CUPOM-INVALIDO' && cupom !== 'INVALIDO' ? descontoCategoria + 10  
+    : descontoCategoria : 0;
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -114,12 +129,32 @@ const obterDescontoTotal = (categoria: string[], cupom: string[]) => {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 const calcularTotalDaCompraComDescontos = (precos: number[], categorias: string[], cupom: string) => {
+  let result = 0;
+
+  if (!Array.isArray(precos) ||!Array.isArray(categorias))
+    return undefined;
+  
+  for (let i = 0; i < categorias.length; i++)  {
+    result += precos[i] - (precos[i] * (obterDescontoTotal(categorias[i], cupom) * .01));
+  }
+  
+  return  result;
 }
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 const capitalizarNomeCompleto = (nomeCompleto: string) => {
+  const arrayNomes = nomeCompleto.split(' ');
+
+  for (let i = 0; i < arrayNomes.length; i++) {
+    if (arrayNomes[i].length > 2) {
+      arrayNomes[i] = arrayNomes[i][0].toUpperCase()
+        + arrayNomes[i].slice(1).toLowerCase();
+    }
+  }
+
+  return arrayNomes.join(' ');
 }
 
 // =======
