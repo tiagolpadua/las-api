@@ -33,6 +33,14 @@ function obterMaiorPreco(lista) {
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
 // (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
 function capitalizarNomes(nomes) {
+    
+    if(!Array.isArray(nomes) || nomes.length <= 0){
+        return undefined;
+    }else{const nomecapitalizado = nomes.map(nome => nome[0].toUpperCase() + 
+        nome.slice(1).toLowerCase());
+        
+        return nomecapitalizado;
+    }
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
@@ -43,6 +51,11 @@ function capitalizarNomes(nomes) {
 function obterDescontoCategoria(categoria) {
     const categorias = ['Alimentação', 'Infantil'];
     const descontos = [30, 15]
+    const categoriasEDescontos = [categorias, descontos];
+    const indexCategoria = categorias.indexOf(categoria);
+
+    return categorias.includes(categoria) ? categoriasEDescontos[1][indexCategoria] :  0
+
 }
 
 // Crie uma função que recebe uma lista de preços de produtos e um valor máximo de orçamento
