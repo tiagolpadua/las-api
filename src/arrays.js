@@ -101,6 +101,19 @@ function obterMenorEMaiorPrecos(lista) {
     if (!Array.isArray(lista) || lista.length === 0){
         return undefined
     } 
+    let menorValor;
+    let maiorValor;
+    for(let i = 0; i<lista.length; i++){
+        if (menorValor === undefined && maiorValor === undefined){
+        menorValor = lista[i]
+        maiorValor = lista[i]
+        }else if(lista[i] < menorValor){
+            menorValor = lista[i]
+        }else if(lista[i] > maiorValor){
+            maiorValor = lista[i]
+        }
+    }
+    return [menorValor, maiorValor]
 }
 
 // Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
@@ -111,6 +124,13 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
     if (!Array.isArray(lista) || lista.length === 0 || menorValor > maiorValor){
         return undefined
     } 
+    let novaLista = [];
+    for (let i = 0; i < lista.length; i++){
+        if(lista[i] >= menorValor && lista[i] <= maiorValor){
+            novaLista.push(lista[i]);
+        }
+    }
+    return novaLista
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
@@ -123,7 +143,9 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 // ('Alimentação', 'CUPOM-INVALIDO') => 30
 // Utilize a função descontoCategoria criada anteriormente
 function obterDescontoTotal(categoria, cupom) {
-
+    const desconto = ((cupom === 'NULABSSA' || cupom === 'ALURANU') ? 10 : 0);
+    
+    return (obterDescontoCategoria(categoria) + desconto)
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -131,15 +153,33 @@ function obterDescontoTotal(categoria, cupom) {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
-    if (!Array.isArray(preços) || precos.length === 0 || !Array.isArray(categorias) || categoria.length === 0){
+    if (!Array.isArray(precos) || precos.length === 0){
         return undefined
-    } 
+    }
+
+    const valorTotal = precos.reduce((valor, atual, indice) => {
+        valor += (atual - (atual * (obterDescontoTotal(categorias[indice], cupom) / 100)));
+       
+        return valor
+
+    }, 0);
+
+    return valorTotal
 }
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) { 
+    let sepadorNomes = nomeCompleto.split(" ");
+
+    for(let i = 0; i < sepadorNomes.length; i++){
+        if(sepadorNomes[i].length > 2){
+            sepadorNomes[i] = sepadorNomes[i][0].toUpperCase() + sepadorNomes[i].slice(1).toLowerCase()
+        }
+    }
+    return sepadorNomes.join(" ")
+
 }
 
 // =======
