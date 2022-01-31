@@ -236,8 +236,53 @@ return splitFrase.join(' ');
 // Subtotal                                   R$  24,30 
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
-function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
-}
+function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom){
+  
+
+    if(!Array.isArray(listaNomesProdutos) || (listaNomesProdutos.length === 0) ){
+        return  undefined;
+    }
+     
+    if(!Array.isArray(listaPrecosProdutos) || (listaPrecosProdutos.length === 0) ){
+        return  undefined;
+    }
+
+    if(!Array.isArray(listaCategoriasProdutos) || (listaCategoriasProdutos.length === 0) ){
+        return  undefined;
+    }
+
+    let valorTotalProduto;
+    let subTotal = 0.00;
+    const notaStr = ['Nome           Valor     Desconto  Imposto Total     '];
+    let imposto = 15;  
+    let valorTotalimposto;
+    let desconto;
+    let total = .00;
+    for (let i = 0; i < 2; i++){
+      
+      desconto = listaPrecosProdutos[i] * obterDescontoTotal(listaCategoriasProdutos[i], cupom) / 100;
+  
+          if(i === 0){
+            valorTotalimposto = listaPrecosProdutos[i] * imposto / 100;
+            let valorTotalProdutoComImposto = (listaPrecosProdutos[i] + valorTotalimposto) - desconto;
+            notaStr.push(`${listaNomesProdutos[i]}     R$  ${listaPrecosProdutos[i].toFixed(2).replace(".",",")} R$   ${desconto.toFixed(2).replace(".",",")}     ${imposto}% R$  ${valorTotalProdutoComImposto.toFixed(2).replace(".",",")} `);
+            subTotal = subTotal + valorTotalProdutoComImposto;
+          }else if(listaNomesProdutos[1]){
+            let valorTotalProdutoSemImposto = listaPrecosProdutos[i] - desconto;
+            notaStr.push( `${listaNomesProdutos[i]}   R$   ${listaPrecosProdutos[i].toFixed(2).replace(".",",")} R$   ${desconto.toFixed(2).replace(".",",")}         R$   ${valorTotalProdutoSemImposto.toFixed(2).replace(".",",")} ` );
+            subTotal = subTotal + valorTotalProdutoSemImposto;
+          }
+    }
+  
+    total = subTotal - 3;
+    notaStr.push(`Subtotal                                   R$  ${subTotal.toFixed(2).replace(".",",")} `);
+    notaStr.push(`Cupom de Desconto: ${cupom}                R$   3,00 `);
+    notaStr.push(`Total                                      R$  ${total.toFixed(2).replace(".",",")}`);
+    return nota = notaStr.join('\n');
+         
+  }
+
+
 
 module.exports = {
     obterMenorPreco,
