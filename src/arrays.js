@@ -203,7 +203,7 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
 
     let palavraP = listaNomesProdutos.map((tamanho, i) => {
         if(tamanho.length < palavra){
-            const comprimentoP = palavra - tamanho.length;
+            let comprimentoP = palavra - tamanho.length;
             listaNomesProdutos[i] = tamanho + ' '.repeat(comprimentoP);
         }
     });
