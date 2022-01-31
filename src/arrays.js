@@ -130,7 +130,7 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 function obterDescontoTotal(categoria, cupom) {
     let desconto = obterDescontoCategoria(categoria);
 
-    return desconto !== undefined ? cupom !== 'CUPOM-INVALIDO' ? desconto + 10 : desconto : 0 ;
+    return desconto !== undefined ? cupom === 'NULABSSA' || cupom === 'ALURANU' ? desconto + 10 : desconto : 0 ;
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -138,13 +138,25 @@ function obterDescontoTotal(categoria, cupom) {
 // ([50, 25, 30, 22], ['Infantil', 'Bebida', 'Alimentação', 'Bebida'], 'ALURANU') => 97.80
 // Utilize a função obterDescontoTotal criada anteriormente
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
-}
+    let total = 0;
+
+    if(precos.constructor == Array && precos.length > 0 && categorias.constructor == Array && categorias.length > 0){
+        for(i = 0; i < categorias.length; i++){
+            total += precos[i] - (precos[i] * (obterDescontoTotal(categorias[i], cupom) / 100));
+        }
+        return total;
+    }return undefined;
+} 
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
+    return nomeCompleto.split(' ').map(palavra => {
+        return palavra.length > 2 ? palavra[0].toUpperCase() + palavra.slice(1).toLowerCase() : palavra;
+    }).join(' ');    
 }
+    
 
 // =======
 // Desafio
@@ -159,6 +171,57 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
+    let total = [];
+    let desconto = [];
+    let cupomDesconto = 3;
+    let subTotal = 0;
+    let fatura = '';
+
+    listaNPC = [listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos];
+
+    for(i=0; i<listaNPC.length; i++){
+        if(listaNPC[i].constructor !== Array || listaNPC[i] === 0){
+            return undefined;
+        }
+    }
+
+    listaCategoriasProdutos.forEach((element, index) => {
+        desconto.push(listaPrecosProdutos[index]*obterDescontoTotal(element, cupom)/100);
+    });
+
+    listaPrecosProdutos.forEach((element, index) => {
+        if(index === 0){
+            total.push(listaPrecosProdutos[index]+(listaPrecosProdutos[index]*0.15)-desconto[index])
+            subTotal+=total[index]
+        }else{
+            total.push(listaPrecosProdutos[index]-desconto[index])
+            subTotal += total[index]
+        }
+    });
+
+    let palavra = Math.max(...listaNomesProdutos.map(tamnho => tamnho.length));
+
+    let palavraP = listaNomesProdutos.map((tamanho, i) => {
+        if(tamanho.length < palavra){
+            const comprimentoP = palavra - tamanho.length;
+            listaNomesProdutos[i] = tamanho + ' '.repeat(comprimentoP);
+        }
+    });
+
+    for (i = 0; i < listaNomesProdutos.length; i++ ){
+        if(i===0){
+        fatura += `Nome           Valor     Desconto  Imposto Total     \n`;
+        }if (i===0){
+            fatura +=`${listaNomesProdutos[i]}   R$  ${listaPrecosProdutos[i]},00 R$   ${desconto[i].toString().replace('.', ',')},00     15% R$  ${total[i].toString().replace('.', ',')},00 \n`;
+        }if (i===1){
+            fatura +=`${listaNomesProdutos[i]}   R$   ${listaPrecosProdutos[i]},00 R$   ${desconto[i].toString().replace('.', ',')}0         R$   ${total[i].toString().replace('.', ',')}0 \nSubtotal                                   R$  ${subTotal.toString().replace('.',',')}0 \nCupom de Desconto: NULABSSA                R$   3,00 \nTotal                                      R$  ${(subTotal-cupomDesconto).toString().replace('.', ',')}0`;}
+
+    }   
+
+    return fatura;
+
+
+    
 }
 
 module.exports = {
