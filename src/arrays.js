@@ -220,7 +220,7 @@ function capitalizarNomeCompleto(nomeCompleto) {
 } 
 
 // =======
-// Desafio
+// Desafio 
 // =======
 
 // Crie uma função que recebe uma lista de preços e categorias e devolve um cupom fiscal conforme abaixo:
