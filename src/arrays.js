@@ -178,6 +178,35 @@ function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
+  let partesDoNome = nomeCompleto.split(' ')
+
+  const reducer = (palavraAnterior, palavraAtual) => palavraAnterior + ' ' + palavraAtual
+  
+  partesCapitalizadas = partesDoNome.map( parte => {
+      if ( parte.length >= 3) {
+        return capitalizar(parte)
+      } else {
+        return parte.toLowerCase()
+      }
+  })
+
+  return partesCapitalizadas.reduce(reducer)
+
+}
+
+// =======
+// Desafio
+// =======
+
+// Crie uma função que recebe uma lista de preços e categorias e devolve um cupom fiscal conforme abaixo:
+// (['Serpentina', 'Refrigerante'], [20, 7], ['Infantil', 'Bebida'], 'NULABSSA') => 
+// Nome           Valor     Desconto  Imposto Total     
+// Serpentina     R$  20,00 R$   5,00     15% R$  18,00 
+// Refrigerante   R$   7,00 R$   0,70         R$   6,30 
+// Subtotal                                   R$  24,30 
+// Cupom de Desconto: NULABSSA                R$   3,00 
+// Total                                      R$  21,30
+function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {  
 }
 
 module.exports = {
