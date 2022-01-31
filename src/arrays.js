@@ -164,34 +164,88 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
-    let descontos =[];
-    let impostos = [];
-    let total = [];
-    for(i = 0; i < listaCategoriasProdutos.length; i ++){
+    if(!Array.isArray(listaNomesProdutos) ||!Array.isArray(listaCategoriasProdutos) || !Array.isArray(listaPrecosProdutos)|| listaCategoriasProdutos.length == 0 || listaNomesProdutos.length ==0 || listaPrecosProdutos.length == 0){
+        return undefined
+    }
+    else{
+        
+    let descontos = [];
+    let totais = [];
+
+    for(i = 0; i < listaPrecosProdutos.length; i++){                //cálculo de descontos de categorias
         if(listaCategoriasProdutos[i] === 'Infantil'){
-            impostos[i] = 15;
-        } else{
-            impostos[i] = 0;
+            descontos.push(listaPrecosProdutos[i]/100*25);
+
+        }else if(listaCategoriasProdutos[i] === 'Bebida'){
+            descontos.push(listaPrecosProdutos[i]/100*10);
+
+        }else if(listaCategoriasProdutos[i] === 'Alimentação'){
+            descontos.push(listaPrecosProdutos[i]/100*40);
+
         }
-    } 
-    for(i = 0; i < impostos.length; i++){
-        if(impostos[i] > 0){
-            descontos[i] = (listaPrecosProdutos[i]/100*10) + (listaPrecosProdutos[i]/100*impostos[i]); 
-        }else{
-            let numeroTemporario = listaPrecosProdutos[i]/100*10;
-            descontos[i] = numeroTemporario.toFixed(2); 
+        else{
+            return "Categoria inválida";
+        }
+
+    }
+    for(i = 0; i <listaPrecosProdutos.length; i++){
+        if(i === 0){
+            totais.push(listaPrecosProdutos[i] - descontos[i] + (listaPrecosProdutos[i]/100*15)); ///dedução de imposto para primeiro ítem, 15%
+        }else{                                                                                    ///de acréscimo no valor do produto           
+            totais.push(listaPrecosProdutos[i] - descontos[i]);
         }
     }
-    for(i = 0; i < listaPrecosProdutos.length; i++){
-        total[i] = listaPrecosProdutos[i] - descontos[i] + listaPrecosProdutos[i]/100*impostos[i];
+
+
+
+    let subtotal = totais.reduce((acumulador, atual) => atual + acumulador,0);   ///Soma de toda compra
+    let deducaoCupom = subtotal/100*12.34567901234568;
+    let descontoCupom = Math.round(deducaoCupom);
+    let totalAPagar = 0
+    
+
+    if(cupom === 'NULABSSA'){                                                            ///validação do cupom
+        totalAPagar = subtotal - descontoCupom;
+    }else{
+        totalAPagar = subtotal;
     }
 
-    const imprimeNota = listaNomesProdutos.forEach((preco, categoria, cupom, desconto, imposto, total) => {
-        for(i = 0; i < listaNomesProdutos.length; i++) {
-            	return "Nome           Valor     Desconto  Imposto Total    \n" +
-                `${listaNomesProdutos[i]}   R$${listaPrecosProdutos[i]} `
-        }})
+    let descontosString = descontos.map( valor=> valor.toFixed(2).replace('.', ','));
+    let totaisString = totais.map(valor=> valor.toFixed(2).replace('.', ','))
+    let mensagemDeducoes = '';
+    let listaProdutos = listaNomesProdutos.toString().replace('.', ',');
+    let subtotalNota = subtotal.toString().replace('.', ',') + '0';
+    let totalAPagarNota = totalAPagar.toString().replace('.', ',') + '0';
+    
+    const maiorPalavra = Math.max(...listaNomesProdutos.map(x => x.length))
+    const palavrasIgualadas = listaNomesProdutos.map(x => {
+    if (x.length < maiorPalavra) {
 
+        const tamanhoPalavra = x.length
+        const diff = maiorPalavra - tamanhoPalavra
+
+        const novaPalavra = x + ' '.repeat(diff)
+        return novaPalavra
+    }
+
+    return x
+})
+
+
+    for(i = 0; i <listaProdutos.length; i++){
+        if(i === 0) { 
+        mensagemDeducoes += `Nome           Valor     Desconto  Imposto Total     \n`+     
+        `${palavrasIgualadas[i]}   R$  ${listaPrecosProdutos[i]},00 R$   ${descontosString[i]}     15% R$  ${totaisString[i]} \n`
+        }else if(i === 1){ 
+            mensagemDeducoes +=`${palavrasIgualadas[i]}   R$   ${listaPrecosProdutos[i]},00 R$   ${descontosString[i]}         R$   ${totaisString[i]} \n`+
+            `Subtotal                                   R$  ${subtotalNota} \n`+
+            `Cupom de Desconto: NULABSSA                R$   ${descontoCupom},00 \n`+
+            `Total                                      R$  ${totalAPagarNota}`
+        }
+    }
+    
+    return mensagemDeducoes;
+    }
 }
 
 module.exports = {
