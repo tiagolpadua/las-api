@@ -251,6 +251,8 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
+
+    
 }
 
 module.exports = {
