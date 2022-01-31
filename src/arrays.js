@@ -232,6 +232,45 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
+
+    if(!Array.isArray(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos ) || listaNomesProdutos.length <=0 || listaPrecosProdutos.length <=0 || listaCategoriasProdutos.length <=0 ){
+        return undefined;
+    }else{
+    
+        const listaItens = [listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos ];
+        const produto1 = parseFloat(listaPrecosProdutos[0]).toFixed(2)
+        const produto2 = parseFloat(listaPrecosProdutos[1]).toFixed(2)
+        const percentualDescontoP1 =  obterDescontoTotal(listaItens[2][0],cupom)
+        const valorDescontoP1 =  parseFloat((produto1 * percentualDescontoP1)/100).toFixed(2)
+        const percentualDescontoP2 =  obterDescontoTotal(listaItens[2][1],cupom)
+        const valorDescontoP2 =  parseFloat((produto2 * percentualDescontoP2)/100).toFixed(2)
+        const valorImposto = (produto1 * 15)/100;
+        const precoFinalP1 = parseFloat((produto1 - valorDescontoP1)+valorImposto).toFixed(2);
+        const precoFinalP2 = parseFloat(produto2 - valorDescontoP2).toFixed(2);
+        const subtotal = parseFloat(Number(precoFinalP1) + (Number(precoFinalP2))).toFixed(2);
+        const totalDaCompra = parseFloat(calcularTotalDaCompraComDescontos(listaPrecosProdutos, listaCategoriasProdutos,cupom)).toFixed(2);
+
+        
+        if(listaItens[0][0] === 'Serpentina'){
+           let nota1 = "Nome           Valor     Desconto  Imposto Total     \n" +
+            listaItens[0][0]+"    "+ " R$"+"  "+produto1.replace(".", ",")+" R$"+"   "+valorDescontoP1.replace(".", ",")+"     "+"15%"+" "+"R$"+"  "+precoFinalP1.replace(".", ",")+" \n" +
+            listaItens[0][1]+"   R$"+"   "+produto2.replace(".", ",")+ " R$"+"   "+valorDescontoP2.replace(".", ",")+"         "+"R$"+"   "+precoFinalP2.replace(".", ",")+" \n" +
+            "Subtotal"+"                                   "+"R$"+"  "+ subtotal.replace(".", ",")+" \n" +
+            "Cupom de Desconto: " +cupom+ "                "+"R$"+"   "+"3,00 \n" +
+            "Total"+"                                      "+"R$"+"  "+totalDaCompra.replace(".", ",")+"";
+
+            return nota1;
+        }else{
+            let nota2 = "Nome           Valor     Desconto  Imposto Total     \n" +
+            listaItens[0][0]+"         "+"R$"+"  "+produto1.replace(".", ",")+" R$"+"   "+valorDescontoP1.replace(".", ",")+"     "+"15%"+" "+"R$"+"  "+precoFinalP1.replace(".", ",")+" \n" +
+            listaItens[0][1]+"   R$"+"   "+produto2.replace(".", ",")+ " R$"+"   "+valorDescontoP2.replace(".", ",")+"         "+"R$"+"   "+precoFinalP2.replace(".", ",")+" \n" +
+            "Subtotal"+"                                   "+"R$"+"  "+ subtotal.replace(".", ",")+" \n" +
+            "Cupom de Desconto: " +cupom+ "                "+"R$"+"   "+"3,00 \n" +
+            "Total"+"                                      "+"R$"+"  "+totalDaCompra.replace(".", ",")+"";
+
+        return nota2;
+        }
+    }    
 }
 
 module.exports = {
