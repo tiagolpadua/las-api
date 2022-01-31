@@ -10,18 +10,7 @@ const { capitalizar } = require("./funcoes");
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
   if (listaOk(lista)) {
-    let menorPreco = parseInt(lista[0]);
-
-    for (var element of lista) {
-      if (parseInt(element) < parseInt(menorPreco))
-        menorPreco = parseInt(element);
-    }
-    // lista.forEach((element) => {
-    //   if (element < menorPreco) menorPreco = element;
-    // });
-
-    //            Verificar element que era pra ser menorPreco
-    return typeof element === "number" ? menorPreco : undefined;
+    return Math.min(...lista);
   } else {
     return undefined;
   }
@@ -31,18 +20,7 @@ function obterMenorPreco(lista) {
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
   if (listaOk(lista)) {
-    let menorPreco = parseInt(lista[0]);
-
-    for (var element of lista) {
-      if (parseInt(element) > parseInt(menorPreco))
-        menorPreco = parseInt(element);
-    }
-    // lista.forEach((element) => {
-    //   if (element > menorPreco) menorPreco = element;
-    // });
-
-    // Verificar element que era pra ser menorPreco
-    return typeof element === "number" ? menorPreco : undefined;
+    return Math.max(...lista);
   } else {
     return undefined;
   }
@@ -54,10 +32,7 @@ function capitalizarNomes(nomes) {
   var nomesCapitalizados = [];
 
   if (listaOk(nomes)) {
-    for (var element of nomes) {
-      if (element.length > 3) nomesCapitalizados.push(capitalizar(element));
-      else return undefined;
-    }
+    nomes.forEach((nome) => nomesCapitalizados.push(capitalizar(nome)));
     return nomesCapitalizados;
   } else return undefined;
 }
