@@ -95,6 +95,13 @@ function calcularTotalDaCompra(lista) {
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
+    if (!Array.isArray(lista) || lista.length == 0){
+        return undefined;
+    }
+    const max = Math.max(...lista);
+    const min = Math.min(...lista);
+    const novaLista = [min,max];
+    return novaLista
 }
 
 // Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
@@ -102,6 +109,11 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
+    if (!Array.isArray(lista) || lista.length == 0 || menorValor > maiorValor){
+        return undefined;
+    }
+    const novaLista = lista.filter((item) => (!Number.isNaN(item) && item <= maiorValor && item >= menorValor))
+    return novaLista
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
