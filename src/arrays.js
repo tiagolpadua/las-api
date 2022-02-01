@@ -117,16 +117,11 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
-    if (!listaValida(lista)){
+    if (!listaValida(lista) || menorValor > maiorValor){
         return undefined
+    } else {
+        return lista.filter( el => el >= menorValor && el <= maiorValor)
     }
-
-    if (menorValor > maiorValor) {
-        return undefined
-    }
-
-    return lista.filter( valor => valor >= menorValor && valor <= maiorValor);
-
 }
 
 // Crie uma função que recebe uma categoria e um cupom e aplica um acréscimo de 10% no desconto da categoria, se o cupom for válido
@@ -172,18 +167,9 @@ function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
-    const separaNome = nomeCompleto.split(" ")
-    const nomeCapitalizado = capitalizarNomes(separaNome)
-    nomeCompleto = nomeCapitalizado.join(" ")
-
-    nomeCapitalizado.forEach((nome) => {
-        if (nome.length < 3) {
-            nomeCapitalizado = nomeCapitalizado.replace(nome, nome.toLowerCase())
-        }
-    })
-
-    return nomeCapitalizado
-    
+    let nomeCapitalizado = capitalizarNomes(nomeCompleto.split(" "))
+    nomeCapitalizado = nomeCapitalizado.map( nome => nome.length < 3 ? nome.toLowerCase() : nome )
+    return nomeCapitalizado.join(" ")
 }
 
 // =======
