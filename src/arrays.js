@@ -6,19 +6,26 @@ const { capitalizar } = require('./funcoes');
 // Essencial
 // =========
 
+const listaValida = (lista) => Array.isArray(lista) && lista.length > 0;
+
 // Crie uma função que recebe uma lista de preços e devolve o menor preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
+    return Array.isArray(lista) && lista.length > 0 ? Math.min(...lista) : undefined
 }
 
 // Crie uma função que recebe uma lista de preços e devolve o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
+    return Array.isArray(lista) && lista.length > 0 ? Math.max(...lista) : undefined
 }
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
 // (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
 function capitalizarNomes(nomes) {
+    return Array.isArray(nomes) && nomes.length > 0 ? 
+    nomes.map(num => num.charAt(0).toUpperCase() + num.substr(1).toLowerCase()) :
+    undefined
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
@@ -29,18 +36,32 @@ function capitalizarNomes(nomes) {
 function obterDescontoCategoria(categoria) {
     const categorias = ['Alimentação', 'Infantil'];
     const descontos = [30, 15]
+if(categorias.includes(categoria)){
+    return descontos[categorias.indexOf(categoria)]
+}else{
+    return 0;
 }
-
+}
 // Crie uma função que recebe uma lista de preços de produtos e um valor máximo de orçamento
 // e retorna uma lista com os preços menores ou iguais ao valor do orçamento informado
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
+    if (!listaValida(lista)){
+        return undefined;
+    }else{
+        return lista.filter((priceGreaterThanMaximumPrice) => priceGreaterThanMaximumPrice <= precoMaximo ? priceGreaterThanMaximumPrice : false)  
+    }
 }
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
+    if(!listaValida(lista)){
+        return undefined;
+    }else{
+        return lista.reduce((previousValue,laterValue) => previousValue+laterValue);
+    }
 }
 
 // =========
