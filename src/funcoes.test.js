@@ -7,6 +7,7 @@ describe('Essencial', () => {
 
     test('Deve extrair o primeiro nome.', () => {
         expect(extrairPrimeiroNome("Tiago Lage Payne de Pádua")).toBe("Tiago");
+        expect(extrairPrimeiroNome("Glauber da Silva")).toBe("Glauber");
     });
 
     test('Deve capitalizar uma palavra.', () => {
@@ -16,6 +17,7 @@ describe('Essencial', () => {
     test('Deve calcular o imposto de um preço e categoria fornecidos.', () => {
         expect(calculaImposto(30, "Alimentação")).toBe(0);
         expect(calculaImposto(10, "Bebida")).toBe(1);
+        expect(calculaImposto(30, "Educação")).toBe(3);
     });
 
     test('Deve calcular o desconto de um preço, categoria e cupom fornecidos.', () => {

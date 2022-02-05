@@ -152,18 +152,18 @@ describe('Desejável', () => {
 
 describe('Desafio', () => {
     const cupom1 = "Nome           Valor     Desconto  Imposto Total     \n" +
-        "Serpentina     R$  20,00 R$   5,00     15% R$  18,00 \n" +
-        "Refrigerante   R$   7,00 R$   0,70         R$   6,30 \n" +
-        "Subtotal                                   R$  24,30 \n" +
-        "Cupom de Desconto: NULABSSA                R$   3,00 \n" +
-        "Total                                      R$  21,30";
+        "Serpentina     R$  20,00 R$   3,00         R$  17,00 \n" +
+        "Refrigerante   R$   7,00 R$   0,00     15% R$   8,05 \n" +
+        "Subtotal                                   R$  25,05 \n" +
+        "Cupom de Desconto: NULABSSA                R$   2,51 \n" +
+        "Total                                      R$  22,54";
 
     const cupom2 = "Nome           Valor     Desconto  Imposto Total     \n" +
-        "Pipoca         R$  20,00 R$   8,00     15% R$  15,00 \n" +
-        "Refrigerante   R$   7,00 R$   0,70         R$   6,30 \n" +
-        "Subtotal                                   R$  21,30 \n" +
-        "Cupom de Desconto: NULABSSA                R$   3,00 \n" +
-        "Total                                      R$  18,30";
+        "Pipoca         R$  20,00 R$   6,00         R$  14,00 \n" +
+        "Refrigerante   R$   7,00 R$   0,00     15% R$   8,05 \n" +
+        "Subtotal                                   R$  22,05 \n" +
+        "Cupom de Desconto: NULABSSA                R$   2,21 \n" +
+        "Total                                      R$  19,84";
 
     test('Deve gerar o cupom fiscal.', () => {
         expect(gerarCupomFiscal([], 1, [], 'foo')).toBeUndefined();

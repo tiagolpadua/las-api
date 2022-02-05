@@ -149,6 +149,7 @@ function capitalizarNomeCompleto(nomeCompleto) {
 
 // Crie uma função que recebe uma lista de preços e categorias e devolve um cupom fiscal conforme abaixo:
 // (['Serpentina', 'Refrigerante'], [20, 7], ['Infantil', 'Bebida'], 'NULABSSA') => 
+
 // Nome           Valor     Desconto  Imposto Total     
 // Serpentina     R$  20,00 R$   5,00     15% R$  18,00 
 // Refrigerante   R$   7,00 R$   0,70         R$   6,30 
@@ -294,6 +295,7 @@ function criarColunas(item, alinhamento, espacamento){
   }
 
 //                            ---- fim funcoes ----
+
 
 
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
