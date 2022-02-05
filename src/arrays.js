@@ -136,7 +136,7 @@ function capitalizarNomeCompleto(nomeCompleto) {
 
     let nomeCaptalizado = nomeCompleto.split(" ").map(nome => {
 
-        return nome.length > 3 ? capitalizar(nome) : nome ;
+        return nome.length > 3 ? capitalizar(nome) : nome;
 
     });
 
@@ -155,6 +155,147 @@ function capitalizarNomeCompleto(nomeCompleto) {
 // Subtotal                                   R$  24,30 
 // Cupom de Desconto: NULABSSA                R$   3,00 
 // Total                                      R$  21,30
+
+//                            ---- funcoes ----
+
+function alinharEsquerda(texto , tamanho){
+
+    while(texto.length < tamanho) {
+
+        texto += " ";
+    }
+    return texto;
+};
+
+
+function alinharDireita(texto , tamanho){
+
+    let espaco = "";
+    for(let i = texto.length; i < tamanho ; i++){
+
+          espaco += " ";
+        
+    }
+    return espaco + texto;
+}
+
+function criarColunas(item, alinhamento, espacamento){
+
+    let coluna = "";
+
+    if(alinhamento === 'esquerda' ){
+
+       
+         coluna += alinharEsquerda(item.toString(), espacamento) ;
+    
+    }else{
+
+         
+          coluna += alinharDireita(item.toString() , espacamento) ;
+      
+    }
+   
+    return coluna;
+
+  }
+
+   function calcularDesconto(listaPrecosProdutos , listaCategoriasProdutos, cupom){
+            
+        const desconto = [];
+            
+        for(let i = 0 ; i < listaPrecosProdutos.length ; i++){
+              
+        desconto.push(
+            listaPrecosProdutos[i] * (obterDescontoTotal(listaCategoriasProdutos[i], cupom) / 100)
+        );   
+            
+        }
+
+        return desconto;
+  }
+
+  function calcularTotal(listaPrecosProdutos , desconto, imposto){
+
+        const total = [];
+            
+        for(let i = 0 ; i < listaPrecosProdutos.length ; i++){
+
+        if(i === 0) total.push( (listaPrecosProdutos[i] * (1 + imposto/100)) - desconto[i]); 
+        else   total.push( (listaPrecosProdutos[i] ) - desconto[i]);
+      
+      }
+
+        return total;
+
+  }
+
+
+ function criarCabecalho(quantidadeColunas){
+
+  let listaNomesHeader = ['Nome' , 'Valor' , 'Desconto' , 'Imposto' , 'Total' ];
+  let listaEspacamentos = [15 , 10 , 10 , 8 , 10];
+  let cabecalho = "";     
+        for(let i = 0; i < quantidadeColunas; i++){
+
+          cabecalho += alinharEsquerda(listaNomesHeader[i] , listaEspacamentos[i]) ;
+        }
+
+        return cabecalho + "\n";
+
+  }
+
+  function criarCorpo(listaNomesProdutos , listaPrecosProdutos, imposto , desconto , total){
+
+      let corpo = "";
+      let taxa = imposto + '%'; 
+      let listaEspacamentos = [14 , 7 , 7 , 8 , 7];
+      let espaco = " " + "\n";
+        for(let i = 0; i < listaNomesProdutos.length; i++){
+
+         if(i !== 0) taxa = "";
+         corpo += 
+         criarColunas(listaNomesProdutos[i], 'esquerda' , listaEspacamentos[0]) + 
+         criarColunas('R$', 'direita' , 3) + 
+         criarColunas(listaPrecosProdutos[i].toFixed(2).replace("." , ","), 'right' , listaEspacamentos[1]) + 
+         criarColunas('R$', 'direita' , 3) + 
+         criarColunas(desconto[i].toFixed(2).replace("." , ","), 'right' , listaEspacamentos[2]) + 
+         criarColunas(`${taxa}`, 'right' , listaEspacamentos[3] ) + 
+         criarColunas('R$', 'direita' , 3) + 
+         criarColunas(total[i].toFixed(2).replace("." , ","), 'direita' , listaEspacamentos[4] ) + espaco;
+
+
+        }
+
+        return corpo;
+
+  };
+
+  function criarRodape(listaNomesRodape , valoresRodape){
+
+  let listaEspacamentos = [42 , 7];
+  let rodape = "";
+  let espaco = " " + "\n";    
+        for(let i = 0; i < listaNomesRodape.length; i++){
+
+          
+          if(i < listaNomesRodape.length - 1){
+
+              rodape += criarColunas(listaNomesRodape[i], 'esquerda' , listaEspacamentos[0]) + criarColunas('R$', 'direita' , 3) + criarColunas(valoresRodape[i].toFixed(2).replace("." , ","), 'direita' , listaEspacamentos[1]) + espaco;
+
+          }else{
+
+            rodape += criarColunas(listaNomesRodape[i], 'esquerda' , listaEspacamentos[0]) + criarColunas('R$', 'direita' , 3) + criarColunas(valoresRodape[i].toFixed(2).replace("." , ",").replace(" " , ""), 'direita' , listaEspacamentos[1]);
+
+          }
+        }
+
+        return rodape;
+
+  }
+
+//                            ---- fim funcoes ----
+
+
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
 
     const verificar = Array.from(arguments);
@@ -164,92 +305,17 @@ function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategori
         if (verificar[i].length === 0 || !Array.isArray(verificar[i])) return undefined;
     }
 
-    // variaveis da nota
-    let nome = listaNomesProdutos;
-    let valorProduto = listaPrecosProdutos;
-    let desconto1 = valorProduto[0] * (obterDescontoTotal(listaCategoriasProdutos[0], cupom) / 100);
-    let desconto2 = valorProduto[1] * (obterDescontoTotal(listaCategoriasProdutos[1], cupom) / 100);
+    let desconto = calcularDesconto(listaPrecosProdutos , listaCategoriasProdutos, cupom);
     let imposto = 15;
-    let total1 = (listaPrecosProdutos[0] * 1.15) - desconto1;
-    let total2 = (listaPrecosProdutos[1]) - desconto2;
-    let subTotal = total1 + total2;
+    let total = calcularTotal(listaPrecosProdutos , desconto, imposto);
+    let subTotal = total.reduce((a,b) => a + b , 0);
     let cupomRodape = 3;
     let totalFinal = subTotal - cupomRodape;
-
-    // variaveis montar cupom
-    let title = ['Nome', 'Valor', 'Desconto', 'Imposto', 'Total'];
-
-    function criarHeader(titulo) {
-
-        const [nome, valor, desconto, imposto, total] = titulo;
-        let space = ["", "", "", "", ""];
-
-        if (nome.length < 15) space[0] = " ".repeat(15 - nome.length);
-        if (valor.length < 10) space[1] = " ".repeat(10 - valor.length);
-        if (desconto.length < 10) space[2] = " ".repeat(10 - desconto.length);
-        if (imposto.length < 8) space[3] = " ".repeat(8 - imposto.length);
-        if (total.length < 8) space[4] = " ".repeat(9 - total.length);
-
-        let header = `${nome}${space[0]}${valor}${space[1]}${desconto}${space[2]}${imposto}${space[3]}${total}     `;
-
-        return header;
-    }
-
-    function criarLinhaProduto(nome, valor, desconto, imposto, total) {
-
-        let novoValor = valor.toFixed(2).replace(".", ",");
-        let novoDesconto = desconto.toFixed(2).replace(".", ",");
-        let novoImposto = imposto + "%";
-        let notoTotal = total.toFixed(2).replace(".", ",");
-        let space = ["", "", "", "", ""];
-
-        if (!imposto) novoImposto = "";
-
-        if (nome.length < 15) space[0] = " ".repeat(15 - nome.length);
-        if (novoValor.length < 9) space[1] = " ".repeat(9 - (novoValor.length + 2));
-        if (novoDesconto.length < 9) space[2] = " ".repeat(9 - (novoDesconto.length + 2));
-        if (novoImposto.length < 7) space[3] = " ".repeat(7 - (novoImposto.length));
-        else " ".repeat(7);
-        if (notoTotal.length < 9) space[4] = " ".repeat(9 - (notoTotal.length + 2));
-
-
-        let linha = `${nome}${space[0]}R$${space[1]}${novoValor} R$${space[2]}${novoDesconto} ${space[3]}${novoImposto} R$${space[4]}${notoTotal} `;
-
-        return linha;
-    }
-
-    function criarRodape(nome, valor) {
-
-        let novoValor = valor.toFixed(2).replace(".", ",");
-
-        let space = ["", "", "", "", ""];
-
-        if (nome.length < 43) space[0] = " ".repeat(43 - nome.length);
-        if (novoValor.length < 9) space[1] = " ".repeat(9 - (novoValor.length + 2));
-
-        let rodape = `${nome}${space[0]}R$${space[1]}${novoValor} `;
-
-        return rodape;
-    }
-
-    function criarFinal(nome, valor) {
-
-        let novoValor = valor.toFixed(2).replace(".", ",");
-
-        let space = ["", "", "", "", ""];
-
-        if (nome.length < 43) space[0] = " ".repeat(43 - nome.length);
-        if (novoValor.length < 9) space[1] = " ".repeat(9 - (novoValor.length + 2));
-
-        let final = `${nome}${space[0]}R$${space[1]}${novoValor}`;
-
-        return final;
-    }
-
-    let cupomFiscal = criarHeader(title) + '\n' + criarLinhaProduto(nome[0], valorProduto[0], desconto1, imposto, total1) + '\n' + criarLinhaProduto(nome[1], valorProduto[1], desconto2, '', total2) + '\n' + criarRodape('Subtotal', subTotal) + '\n' + criarRodape('Cupom de Desconto: ' + cupom, cupomRodape) + '\n' + criarFinal('Total', totalFinal);
-
-
-    return cupomFiscal
+    let listaNomesRodape = ['Subtotal' , `Cupom de Desconto: ${cupom}` , 'Total'];
+    let valoresRodape = [subTotal , cupomRodape , totalFinal ];
+   
+    
+    return criarCabecalho(5) + criarCorpo(listaNomesProdutos , listaPrecosProdutos, imposto , desconto , total) + criarRodape(listaNomesRodape , valoresRodape);
 }
 
 module.exports = {
