@@ -54,24 +54,17 @@ function calculaDesconto(valor, categoria, cupom) {
 // o valor default do comprimento máximo deve ser 5:
 // (teste, 10) -> teste
 // (fulano, 4) -> fula...
-function truncar(texto, comprimento = 5) {
-    if (texto.length > comprimento) {
-        return `${texto.slice(0, comprimento) + "..."}`
-    } else {
-        return `${texto.slice(0, 6)}`
-    }
+function truncar(word, length = 5) { 
+    return word.length > length ?  word.slice(0, length) + '...' : word
 }
+
 
 // Escreva uma função que valida se o texto informado está preenchido e retorna o texto sem espaços antes ou depois.
 // "" -> undefined
 // "   " -> undefined
 // "      Maria " -> "Maria"
-function validaTextoPreenchido(texto) {
-    if (texto.trim() === "") {
-        return undefined
-    } else {
-        return texto.trim()
-    }
+function validaTextoPreenchido(text) { 
+    return text === '' || text.trim().length === 0 ? undefined : text.trim()
 }
 
 // =======
@@ -81,17 +74,10 @@ function validaTextoPreenchido(texto) {
 // Escreva uma função que valida se a string passada é uma data de nascimento válida, deve retornar um objeto Date sea data for válida ou NaN caso seja inválida.
 // 01/01/2000 -> Ok
 // 99/99/9999 -> NaN
-function validaData(dataDeNascimento) {
-    let dia = dataDeNascimento.split("/")[0];
-    let mes = dataDeNascimento.split("/")[1];
-    let ano = dataDeNascimento.split("/")[2];
-    let dataCorreta = `${mes + "/" + dia + "/" + ano}`
-    if (Date.parse(dataCorreta)) {
-        return "Ok"
-    } else {
-        return Date.parse(dataCorreta)
-    }
 
+function validaData(date) {
+    const regEx = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/
+    return regEx.test(date) ? 'Ok' : NaN
 }
 
 module.exports = { saudar, extrairPrimeiroNome, capitalizar, calculaImposto, calculaDesconto, truncar, validaTextoPreenchido, validaData };
