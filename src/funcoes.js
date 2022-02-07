@@ -25,7 +25,7 @@ function capitalizar(nome) {
 // (10, Bebida) => 1
 function calculaImposto(valor, categoria) {
     if (categoria === "Alimentação") {
-        return 0
+        return 0;
     } else {
         return valor * 0.1;
     }
@@ -56,9 +56,9 @@ function calculaDesconto(valor, categoria, cupom) {
 // (fulano, 4) -> fula...
 function truncar(texto, comprimento = 5) {
     if (texto.length > comprimento) {
-        return `${texto.slice(0, comprimento) + "..."}`
+        return `${texto.slice(0, comprimento) + "..."}`;
     } else {
-        return `${texto.slice(0, 6)}`
+        return `${texto.slice(0, 6)}`;
     }
 }
 
@@ -68,9 +68,9 @@ function truncar(texto, comprimento = 5) {
 // "      Maria " -> "Maria"
 function validaTextoPreenchido(texto) {
     if (texto.trim() === "") {
-        return undefined
+        return undefined;
     } else {
-        return texto.trim()
+        return texto.trim();
     }
 }
 
@@ -85,11 +85,11 @@ function validaData(dataDeNascimento) {
     let dia = dataDeNascimento.split("/")[0];
     let mes = dataDeNascimento.split("/")[1];
     let ano = dataDeNascimento.split("/")[2];
-    let dataCorreta = `${mes + "/" + dia + "/" + ano}`
+    let dataCorreta = `${mes + "/" + dia + "/" + ano}`;
     if (Date.parse(dataCorreta)) {
-        return "Ok"
+        return "Ok";
     } else {
-        return Date.parse(dataCorreta)
+        return Date.parse(dataCorreta);
     }
 
 }
