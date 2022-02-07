@@ -6,6 +6,15 @@ const { capitalizar } = require('./funcoes');
 // Essencial
 // =========
 
+function listaEhInvalida(lista) {
+    return !Array.isArray(lista) || lista.length === 0;
+}
+
+function cupomEhValido(cupom) {
+    const cuponsValidos = ['NULABSSA', 'ALURANU'];
+    return cuponsValidos.indexOf(cupom) !== -1;
+}
+
 // Crie uma função que recebe uma lista de preços e devolve o menor preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 7
 function obterMenorPreco(lista) {
@@ -22,9 +31,9 @@ function obterMaiorPreco(lista) {
 // (["tiago", "Alexandre", "kamillA"]) => ["Tiago", "Alexandre", "Kamilla"]
 
 function capitalizarNomes(names) {
-    return Array.isArray(names) && names.length !== 0 
-    ? names.map(nome => nome[0].toUpperCase() + nome.slice(1).toLowerCase())
-    : undefined
+    return Array.isArray(names) && names.length !== 0
+        ? names.map(nome => nome[0].toUpperCase() + nome.slice(1).toLowerCase())
+        : undefined
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
@@ -36,25 +45,25 @@ function obterDescontoCategoria(categoria) {
     const categorias = ['Alimentação', 'Infantil', 'NULABSSA', 'ALURANU'];
     const descontos = [30, 15]
 
-    return {'Alimentação' : 30, "Infantil" : 15 }[categoria] | undefined
+    return { 'Alimentação': 30, "Infantil": 15 }[categoria] | undefined
 }
 
 // Crie uma função que recebe uma lista de preços de produtos e um valor máximo de orçamento
 // e retorna uma lista com os preços menores ou iguais ao valor do orçamento informado
 // ([5, 7, 9, 50, 20], 9) => [5, 7, 9]
 function obterPrecosLimitadosAoOrcamento(lista, precoMaximo) {
-    return Array.isArray(lista) && lista.length !== 0 
-    ? lista.filter( x => x <= precoMaximo )
-    : undefined
+    return Array.isArray(lista) && lista.length !== 0
+        ? lista.filter(x => x <= precoMaximo)
+        : undefined
 }
 
 // Crie uma função que recebe uma lista de preços de produtos de uma compra
 // e retorna o valor total da compra
 // [10, 30, 5, 15] => 60
 function calcularTotalDaCompra(lista) {
-    return Array.isArray(lista) && lista.length !== 0 
-    ? lista.reduce((a, b) => a + b, 0)
-    : undefined
+    return Array.isArray(lista) && lista.length !== 0
+        ? lista.reduce((a, b) => a + b, 0)
+        : undefined
 }
 
 // =========
@@ -64,9 +73,9 @@ function calcularTotalDaCompra(lista) {
 // Crie uma função que recebe uma lista de preços de produtos e retorna uma lista com o menor e o maior preço
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => [7, 100]
 function obterMenorEMaiorPrecos(lista) {
-    return Array.isArray(lista) && lista.length !== 0 
-    ? [Math.min(...lista), Math.max(...lista)]
-    : undefined
+    return Array.isArray(lista) && lista.length !== 0
+        ? [Math.min(...lista), Math.max(...lista)]
+        : undefined
 }
 
 // Crie uma função que recebe uma lista de preços de produtos, um valor inferior e um valor superior de orçamento.
@@ -74,9 +83,9 @@ function obterMenorEMaiorPrecos(lista) {
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 // ([10, 7, 8, 25, 8, 9, 100, 99], 9, 30) => [10, 25, 9]
 function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
-    return menorValor <= maiorValor && Array.isArray(lista) && lista.length !== 0 
-    ? lista.filter( x => x >= menorValor && x <= maiorValor )
-    : undefined
+    return menorValor <= maiorValor && Array.isArray(lista) && lista.length !== 0
+        ? lista.filter(x => x >= menorValor && x <= maiorValor)
+        : undefined
 }
 
 
@@ -92,8 +101,8 @@ function obterPrecosDentroDoOrcamento(lista, menorValor, maiorValor) {
 function obterDescontoTotal(categoria, cupom) {
     const desconto = obterDescontoCategoria(categoria)
     return desconto !== undefined
-    ? cupom !== 'CUPOM-INVALIDO' && cupom !== 'INVALIDO'? desconto + 10 : desconto
-    : 0
+        ? cupom !== 'CUPOM-INVALIDO' && cupom !== 'INVALIDO' ? desconto + 10 : desconto
+        : 0
 }
 
 // Crie uma função que recebe uma lista de preços e uma lista de categorias de produtos e
@@ -104,29 +113,29 @@ function obterDescontoTotal(categoria, cupom) {
 function calcularTotalDaCompraComDescontos(precos, categorias, cupom) {
     let resp = 0
 
-    if (!Array.isArray(precos) 
-        || !Array.isArray(categorias) 
+    if (!Array.isArray(precos)
+        || !Array.isArray(categorias)
         || precos.length === 0
-        || categorias.length === 0 ) {
+        || categorias.length === 0) {
 
         return undefined
     }
 
-    for (let i = 0; i < categorias.length; i++)  {
+    for (let i = 0; i < categorias.length; i++) {
         resp += precos[i] - (precos[i] * (obterDescontoTotal(categorias[i], cupom) / 100))
     }
-    return  resp
+    return resp
 }
 
 // Crie uma função que receba um nome completo e o retorna com todas as partes capitalizadas.
 // Desconsidere palavras com menos de 3 letras
 // ("tiago lage payne de pádua") => "Tiago Lage Payne de Pádua"
 function capitalizarNomeCompleto(nomeCompleto) {
-   
+
     return nomeCompleto.split(' ').map(word => {
-        return word.length >= 3 
-        ? word[0].toUpperCase() + word.slice(1).toLowerCase()
-        : word
+        return word.length >= 3
+            ? word[0].toUpperCase() + word.slice(1).toLowerCase()
+            : word
     }).join(' ')
 }
 
@@ -136,87 +145,89 @@ function capitalizarNomeCompleto(nomeCompleto) {
 
 // Crie uma função que recebe uma lista de preços e categorias e devolve um cupom fiscal conforme abaixo:
 // (['Serpentina', 'Refrigerante'], [20, 7], ['Infantil', 'Bebida'], 'NULABSSA') => 
-// Nome           Valor     Desconto  Imposto Total    
-// Serpentina     R$  20,00 R$   3,00         R$  17,00
-// Refrigerante   R$   7,00 R$   0,00     15% R$   8,05
-// Subtotal                                   R$  25,05
-// Cupom de Desconto: NULABSSA                R$   2,51
-// Total                                      R$  22,54
+// Nome           Valor     Desconto  Imposto Total     
+// Serpentina     R$  20,00 R$   5,00     15% R$  18,00 
+// Refrigerante   R$   7,00 R$   0,70         R$   6,30 
+// Subtotal                                   R$  24,30 
+// Cupom de Desconto: NULABSSA                R$   3,00 
+// Total                                      R$  21,30
+
+function leftpad(p, n) {
+    while (p.length < n) {
+        p = " " + p;
+    }
+    return p;
+}
+
+function rightpad(p, n) {
+    while (p.length < n) {
+        p = p + " ";
+    }
+    return p;
+}
+
+function formataValor(valor) {
+    return 'R$ ' + leftpad((Math.round(valor * 100) / 100).toFixed(2).split('.').join(','), 6);
+}
+
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
-
-    const checarTipoETamanho = arr => arr.every(element => Array.isArray(element) && element.length !== 0)
-    const obterDescontoSemAcrescimo = categoria => ( {Alimentação : 30, Infantil : 15 }[categoria] | 0 )
-
-    if (!checarTipoETamanho([listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos])) return undefined
-
-    const imposto = 15
-    const subtotais = []
-    const descontos = []
-    const descontosSemAcrescimo = []
-    const valorImposto = listaPrecosProdutos[0] * imposto / 100
-    const total = calcularTotalDaCompraComDescontos(listaPrecosProdutos, listaCategoriasProdutos, cupom).toFixed(2)
-
-    let resp = "Nome           Valor     Desconto  Imposto Total     \n"
-
-    // ============================= Cálculos de subtotal e descontos ===============================================
-    
-    listaCategoriasProdutos.forEach((categoria, index) => {
-        const desconto =  listaPrecosProdutos[index] * (obterDescontoTotal(categoria, cupom) / 100 )
-        const descontoSemAcrescimo = listaPrecosProdutos[index] * (obterDescontoSemAcrescimo(categoria) / 100)
-        const subtotal = listaPrecosProdutos[index] - desconto
-
-        index === 0 
-        ? subtotais.push((subtotal + listaPrecosProdutos[0] * (imposto / 100)))
-        : subtotais.push(subtotal)
-
-        descontos.push(desconto.toFixed(2))
-        descontosSemAcrescimo.push(descontoSemAcrescimo.toFixed(2))
-    })
-    //=================================================================================================================
-
-    // ============= Encontrando maior palavra para igualar os espaços das demais ===================
-    let maiorPalavra = listaNomesProdutos[0]
-
-    for (let i = 1; i < listaNomesProdutos.length; i++ ) {
-        if (listaNomesProdutos[i].length > maiorPalavra.length) maiorPalavra = listaNomesProdutos[i]
+    if (listaEhInvalida(listaNomesProdutos) || listaEhInvalida(listaPrecosProdutos) || listaEhInvalida(listaCategoriasProdutos)) {
+        return undefined;
     }
 
-    maiorPalavra += ' '.repeat(3)
-    //===============================================================================================
+    const categoriasIsentas = ['Infantil', 'Alimentação'];
+    const imposto = 15;
 
-    for (let i = 0; i < listaNomesProdutos.length; i++) {
+    const cols = [15, 10, 10, 8, 10];
+    const cabecalho = rightpad('Nome', cols[0]) +
+        rightpad('Valor', cols[1]) +
+        rightpad('Desconto', cols[2]) +
+        rightpad('Imposto', cols[3]) +
+        rightpad('Total', cols[4]) + '\n';
 
-        const precoProduto = listaPrecosProdutos[i].toFixed(2)
-        const precoTotalProduto = (listaPrecosProdutos[i] - (descontos[i] - descontosSemAcrescimo[i])).toFixed(2)
-        const valorComImpostoDebitado = (listaPrecosProdutos[i] - descontos[i] + valorImposto).toFixed(2)
-        let nomeAtual = listaNomesProdutos[i]
-        
-        //=============================== Aplicando espaços à palavra menor ================================
-        if (nomeAtual.length < maiorPalavra.length) {
-            const lengthDifference = maiorPalavra.length - nomeAtual.length
-            
-            nomeAtual += ' '.repeat(lengthDifference)
+    let subTotal = 0;
+    const corpo = listaNomesProdutos.map((p, idx) => {
+
+        let impostoCalculado = 0;
+
+        if (categoriasIsentas.indexOf(listaCategoriasProdutos[idx]) === -1) {
+            impostoCalculado = listaPrecosProdutos[idx] * (imposto / 100);
         }
-         //=================================================================================================
 
-        i === 0 
-        ? resp += `${nomeAtual}R$  ${precoProduto} R$   ${descontos[i]}     ${imposto}% R$  ${valorComImpostoDebitado} \n` 
-        : resp += `${nomeAtual}R$   ${precoProduto} R$   ${descontos[i]}         R$   ${precoTotalProduto} \n` 
+        let descontoCalculado = listaPrecosProdutos[idx] * (obterDescontoCategoria(listaCategoriasProdutos[idx]) / 100);
+
+        let valor = listaPrecosProdutos[idx] - descontoCalculado + impostoCalculado;
+
+        subTotal += valor;
+
+        return rightpad(p, cols[0]) +
+            formataValor(listaPrecosProdutos[idx]) + ' ' +
+            formataValor(descontoCalculado) +
+            leftpad(impostoCalculado > 0 ? imposto + '%' : '', cols[3]) + ' ' +
+            formataValor(valor) + ' '
+    }).join('\n');
+
+    let descontoCupom = cupomEhValido(cupom) ? subTotal * 0.1 : 0;
+
+    descontoCupom = Number.parseFloat(descontoCupom.toFixed(2));
+
+    let linhaDescontoCupom = '';
+
+    if (descontoCupom > 0) {
+        linhaDescontoCupom = `Cupom de Desconto: ${rightpad(cupom, 23)} ${formataValor(descontoCupom)} \n`;
     }
 
-    const subTotal = subtotais.reduce((a, b) => a + b, 0).toFixed(2)
-    resp +=   `Subtotal                                   R$  ${subTotal} \n`
+    const total = subTotal - descontoCupom;
 
-    descontosSemAcrescimo.forEach(desconto => {
-        desconto > 0 
-        ? resp += `Cupom de Desconto: ${cupom}                R$   ${valorImposto.toFixed(2)} \n`
-        : ''
-    })
-    resp += `Total                                      R$  ${total}`
-    return resp.replace(/[.]/g, ',')
+    const rodape = 'Subtotal' + leftpad(formataValor(subTotal), 44) + ' \n' +
+        linhaDescontoCupom +
+        `${rightpad('Total', 42)} ${formataValor(total)}`;
+
+    return cabecalho + corpo + '\n' + rodape;
 }
 
 module.exports = {
+    listaEhInvalida,
     obterMenorPreco,
     obterMaiorPreco,
     capitalizarNomes,
