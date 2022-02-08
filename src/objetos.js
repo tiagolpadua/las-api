@@ -76,7 +76,12 @@ function incluirPrecoFormatado(produto) {
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
-function obterDescontoCategoria(nomeCategoria) {}
+function obterDescontoCategoria(nomeCategoria) {
+  const idx = CATEGORIAS.findIndex(
+    (categoria) => categoria.nome === nomeCategoria
+  );
+  return idx === -1 ? 0 : CATEGORIAS[idx].desconto;
+}
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
