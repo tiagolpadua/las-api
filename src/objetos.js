@@ -53,15 +53,15 @@ function obterMenorPreco(produtos) {
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
-function obterMaiorPreco(produtos) {
+// function obterMaiorPreco(produtos) {
 
-    if(listaEhInvalida(produtos))  return undefined;
+//     if(listaEhInvalida(produtos))  return undefined;
 
-    return produtos.sort((produtoA,produtoB) => produtoB.preco - produtoA.preco)[0];
-}
+//     return produtos.sort((produtoA,produtoB) => produtoB.preco - produtoA.preco)[0];
+// }
 
-// Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
-// chamada 'precoFormatado' com o valor formatado em Reais
+// // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
+// // chamada 'precoFormatado' com o valor formatado em Reais
 // function formatarValor(valor) {
 
 //     return `R$ ${valor.toFixed(2).replace('.' , ',')}`;
@@ -117,6 +117,14 @@ function calcularTotalDaCompra(produtos) {
 // Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos) {
+
+    if(listaEhInvalida(produtos))  return undefined;
+
+    return ({
+        
+        menorPreco: obterMenorPreco(produtos),
+        maiorPreco: obterMaiorPreco(produtos),
+    })
 }
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e 
