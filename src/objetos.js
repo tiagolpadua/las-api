@@ -28,15 +28,32 @@ const CATEGORIAS = [{ nome: 'Alimentação', desconto: 30 }, { nome: 'Infantil',
 const CUPONS_VALIDOS = ['NULABSSA', 'ALURANU'];
 
 // =========
+// Func Aux
+
+const listaEhInvalida = (lista) => !Array.isArray(lista) || lista.length === 0;
+
+
+// =========
+
+// =========
 // Essencial
 // =========
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
+
+    if(listaEhInvalida(produtos))  return undefined;
+
+    return produtos.sort((produtoA,produtoB) => produtoA.preco - produtoB.preco)[0];
+
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
+
+    if(listaEhInvalida(produtos))  return undefined;
+
+    return produtos.sort((produtoA,produtoB) => produtoB.preco - produtoA.preco)[0];
 }
 
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
