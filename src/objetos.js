@@ -106,7 +106,16 @@ function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
 
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
-function calcularTotalDaCompra(produtos) {}
+function calcularTotalDaCompra(produtos) {
+  if (!listaEhInvalida(produtos)) {
+    return produtos.reduce(
+      (total, produto) => (total += produto.preco * produto.quantidade),
+      0
+    );
+  } else {
+    return undefined;
+  }
+}
 
 // =========
 // Desejável
