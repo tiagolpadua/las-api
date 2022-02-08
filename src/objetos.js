@@ -97,7 +97,7 @@ function obterDescontoCategoria(nomeCategoria) {
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
 
     if(listaEhInvalida(produtos))  return undefined;
-    return produtos.sort((produtoA,produtoB) => produtoA.preco - produtoB.preco).filter(produto => produto.preco <= precoMaximo);
+    return produtos.filter(produto => produto.preco <= precoMaximo);
 
 }
 
@@ -138,7 +138,8 @@ function obterMenorEMaiorPrecos(produtos) {
 function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
     if(listaEhInvalida(produtos) )  return undefined;
     
-     if (menorValor <= maiorValor) return produtos.filter(produto => produto.preco  >= menorValor && produto.preco <= maiorValor);
+     if (menorValor <= maiorValor) return produtos.filter(produto => produto.preco  >= menorValor && produto.preco <= maiorValor)
+     else return undefined;
 }
    
 
