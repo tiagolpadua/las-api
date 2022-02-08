@@ -64,9 +64,14 @@ function obterMaiorPreco(produtos) {
 
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
-function formatarValor(valor) {}
+function formatarValor(valor) {
+  return `R$ ${parseFloat(valor).toFixed(2).toString().replace(".", ",")}`;
+}
 
-function incluirPrecoFormatado(produto) {}
+function incluirPrecoFormatado(produto) {
+  produto["precoFormatado"] = formatarValor(produto.preco);
+  return produto;
+}
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
