@@ -1,5 +1,5 @@
 
-// const { calculaDesconto } = require('./funcoes');
+ const { calculaDesconto } = require('./funcoes');
 //  const { obterPrecosDentroDoOrcamento } = require('./arrays');
 
 //---------------------------------------------------------------------------------------
@@ -48,7 +48,10 @@ function obterMenorPreco(produtos) {
 
     if(listaEhInvalida(produtos))  return undefined;
 
-    return produtos.sort((produtoA,produtoB) => produtoA.preco - produtoB.preco)[0];
+    const menorPreco = Math.min(...produtos.map(item => item.preco));
+ 
+    return produtos.filter(item => item.preco === menorPreco)[0];
+    
 
 }
 
@@ -57,7 +60,9 @@ function obterMaiorPreco(produtos) {
 
     if(listaEhInvalida(produtos))  return undefined;
 
-    return produtos.sort((produtoA,produtoB) => produtoB.preco - produtoA.preco)[0];
+    const menorPreco = Math.max(...produtos.map(item => item.preco));
+ 
+    return produtos.filter(item => item.preco === menorPreco)[0];
 }
 
 // // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
@@ -69,9 +74,9 @@ function formatarValor(valor) {
 
 function incluirPrecoFormatado(produto) {
 
-    const precoComDesconto = calculaDesconto(produto.preco);
+    // const precoComDesconto = calculaDesconto(produto.preco);
 
-    produto["precoFormatado"] = formatarValor(precoComDesconto);
+    produto["precoFormatado"] = formatarValor(produto.preco);
     
     return produto;
 
