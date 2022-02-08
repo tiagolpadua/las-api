@@ -50,7 +50,17 @@ function obterMenorPreco(produtos) {
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
-function obterMaiorPreco(produtos) {}
+function obterMaiorPreco(produtos) {
+  if (!listaEhInvalida(produtos)) {
+    var maiorPreco = produtos[0];
+    produtos.forEach((produto) => {
+      if (produto.preco > maiorPreco.preco) {
+        maiorPreco = produto;
+      }
+    });
+    return maiorPreco;
+  }
+}
 
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
