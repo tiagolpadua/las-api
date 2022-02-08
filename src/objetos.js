@@ -27,40 +27,78 @@
 const CATEGORIAS = [{ nome: 'Alimentação', desconto: 30 }, { nome: 'Infantil', desconto: 15 }];
 const CUPONS_VALIDOS = ['NULABSSA', 'ALURANU'];
 
+const isAValidInput = input => Array.isArray(input) && input.length
+
+const cloneArray = input => input.map(produto => ({...produto}))
+
+const sortArray = (input, attributeForComparison, sortByAscendingOrder = true) => {
+  return  sortByAscendingOrder 
+  ? input.sort((a, b) => a[attributeForComparison] - b[attributeForComparison])
+  : input.sort((a, b) => b[attributeForComparison] - a[attributeForComparison])
+}
+
 // =========
 // Essencial
 // =========
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
+
 function obterMenorPreco(produtos) {
+  if (isAValidInput(produtos)) {
+    return sortArray(cloneArray(produtos), 'preco').shift()
+  }
+  return undefined
+
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
+
 function obterMaiorPreco(produtos) {
+  if (isAValidInput(produtos)) {
+    return sortArray(cloneArray(produtos), 'preco', false).shift()
+  }
+  return undefined
+
 }
 
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
+
 function formatarValor(valor) {
+  return `R$ ${valor.toFixed(2).replace('.', ',')}`
 }
 
 function incluirPrecoFormatado(produto) {
+  return {...produto, precoFormatado: formatarValor(produto.preco)}
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
+  const categoria = CATEGORIAS.find( ({ nome }) => nome === nomeCategoria)
+
+  return  categoria != undefined 
+  ? categoria.desconto
+  : 0
+  
 }
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
+  if (isAValidInput(produtos)) {
+    return produtos.filter( ({ preco }) => preco <= precoMaximo)
+  }
 }
 
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
+  if (isAValidInput(produtos)) {
+    return produtos
+      .reduce((accumulator, item ) => accumulator + item.preco * item.quantidade ,0)
+  } 
 }
 
 // =========
