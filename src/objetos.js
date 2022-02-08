@@ -46,6 +46,8 @@ function obterMenorPreco(produtos) {
       }
     });
     return menorPreco;
+  } else {
+    return undefined;
   }
 }
 
@@ -59,6 +61,8 @@ function obterMaiorPreco(produtos) {
       }
     });
     return maiorPreco;
+  } else {
+    return undefined;
   }
 }
 
