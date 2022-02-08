@@ -24,8 +24,8 @@
 // }
 //---------------------------------------------------------------------------------------
 
-const CATEGORIAS = [{ nome: 'Alimentação', desconto: 30 }, { nome: 'Infantil', desconto: 15 }];
-const CUPONS_VALIDOS = ['NULABSSA', 'ALURANU'];
+const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
+const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
 // =========
 // Essencial
@@ -33,6 +33,17 @@ const CUPONS_VALIDOS = ['NULABSSA', 'ALURANU'];
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
+    if (!Array.isArray(produtos) || produtos.length === 0) {
+        return undefined;
+    }
+    let produtoMenorPreco = " ";
+    let menorPreco = produtos[0].preco;
+    for (const produto of produtos) {
+        if (produto.preco < menorPreco) {
+            produtoMenorPreco = produto.nome;
+        }
+    }
+    return produtoMenorPreco;
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
