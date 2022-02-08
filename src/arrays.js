@@ -25,6 +25,7 @@ function obterMenorPreco(lista) {
         });
         return menorElemento;
     }
+    return Array.isArray(lista) && lista.length !== 0 ? Math.min(...lista) : undefined;
 }
 
 
@@ -86,6 +87,9 @@ function calcularTotalDaCompra(lista) {
 
             return totalCompra;
         }
+    return Array.isArray(lista) && lista.length !== 0
+        ? lista.reduce((a, b) => a + b, 0)
+        : undefined;
 }
 
 
