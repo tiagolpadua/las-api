@@ -137,7 +137,19 @@ function obterMenorEMaiorPrecos(produtos) {
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e
 // retorna uma lista de produtos dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
-function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {}
+function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
+  const produtosNoOrcamento = [];
+  if (!listaEhInvalida(produtos) && menorValor <= maiorValor) {
+    produtos.forEach((produto) => {
+      if (produto.preco <= maiorValor && produto.preco >= menorValor) {
+        produtosNoOrcamento.push(produto);
+      }
+    });
+    return produtosNoOrcamento;
+  } else {
+    return undefined;
+  }
+}
 
 // Crie uma função que recebe um nome de uma categoria e um objeto cupom e retorna o desconto total,
 // que é a soma do desconto da categoria e a soma do desconto do cupom
