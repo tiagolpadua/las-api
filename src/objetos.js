@@ -75,10 +75,10 @@ function obterDescontoCategoria(nomeCategoria) {
     const index = CATEGORIAS.findIndex(
         (categoria) => categoria.nome === nomeCategoria
     );
-    if (index === -1) {
-        return 0;
-    } else {
+    if (index === 0 || index === 1) {
         return CATEGORIAS[index].desconto;
+    } else {
+        return 0;
     }
 }
 
