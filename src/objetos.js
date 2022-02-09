@@ -89,7 +89,7 @@ function obterDescontoCategoria(nomeCategoria) {
     const categorias = ['Alimentação', 'Infantil', 'NULABSSA', 'ALURANU'];
     const descontos = [30, 15]
 
-    return { 'Alimentação': 30, "Infantil": 15 }[nomeCategoria] | undefined
+    return { 'Alimentação': 30, "Infantil": 15 }[nomeCategoria] || 0;
 }
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
@@ -156,7 +156,8 @@ function cupomEhValido(cupom) {
 
 function obterDescontoTotal(categoria, cupom) {
 
- return  (cupom === 'NULABSSA' || cupom === 'ALURANU') ? categoria + 10 : 0;
+   return cupomEhValido(cupom.texto) && cupom.desconto > 0 ? obterDescontoCategoria(categoria) + cupom.desconto : obterDescontoCategoria(categoria);
+                             
 }
 
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
@@ -165,9 +166,9 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 
     if(listaEhInvalida(produtos) )  return undefined;
 
-    const produtosComDesconto = produtos.map(item => {
+    let produtosComDesconto = produtos.map(item => {
         
-        item.preco = 1 - (obterDescontoTotal(item.categoria, cupom)/100);
+       item.preco = item.preco - cupom.desconto;
     });
 
     return calcularTotalDaCompra(produtosComDesconto);
