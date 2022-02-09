@@ -27,17 +27,17 @@
 const CATEGORIAS = [{ nome: 'Alimentação', desconto: 30 }, { nome: 'Infantil', desconto: 15 }];
 const CUPONS_VALIDOS = ['NULABSSA', 'ALURANU'];
 
-const isAValidInput = input => 
-  Array.isArray(input) && 
-  input.length && 
+const isAValidInput = input =>
+  Array.isArray(input) &&
+  input.length &&
   input.every(el => typeof el === 'object')
 
-const cloneArray = input => input.map(produto => ({...produto}))
+const cloneArray = input => input.map(produto => ({ ...produto }))
 
 const sortArray = (input, attributeForComparison, sortByAscendingOrder = true) => {
-  return  sortByAscendingOrder 
-  ? input.sort((a, b) => a[attributeForComparison] - b[attributeForComparison])
-  : input.sort((a, b) => b[attributeForComparison] - a[attributeForComparison])
+  return sortByAscendingOrder
+    ? input.sort((a, b) => a[attributeForComparison] - b[attributeForComparison])
+    : input.sort((a, b) => b[attributeForComparison] - a[attributeForComparison])
 }
 
 // =========
@@ -72,26 +72,26 @@ function formatarValor(valor) {
 }
 
 function incluirPrecoFormatado(produto) {
-  return {...produto, precoFormatado: formatarValor(produto.preco)}
+  return { ...produto, precoFormatado: formatarValor(produto.preco) }
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
-  const categoria = CATEGORIAS.find( ({ nome }) => nome === nomeCategoria)
+  const categoria = CATEGORIAS.find(({ nome }) => nome === nomeCategoria)
 
-  return  categoria != undefined 
-  ? categoria.desconto
-  : 0
-  
+  return categoria != undefined
+    ? categoria.desconto
+    : 0
+
 }
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
   if (isAValidInput(produtos)) {
-    return produtos.filter( ({ preco }) => preco <= precoMaximo)
+    return produtos.filter(({ preco }) => preco <= precoMaximo)
   }
 }
 
@@ -100,8 +100,8 @@ function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
 function calcularTotalDaCompra(produtos) {
   if (isAValidInput(produtos)) {
     return produtos
-      .reduce((accumulator, item ) => accumulator + item.preco * item.quantidade ,0)
-  } 
+      .reduce((accumulator, item) => accumulator + item.preco * item.quantidade, 0)
+  }
 }
 
 // =========
@@ -111,7 +111,7 @@ function calcularTotalDaCompra(produtos) {
 // Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos) {
-  if(isAValidInput(produtos)) {
+  if (isAValidInput(produtos)) {
     return {
       'menorPreco': obterMenorPreco(produtos),
       'maiorPreco': obterMaiorPreco(produtos)
@@ -124,7 +124,7 @@ function obterMenorEMaiorPrecos(produtos) {
 // retorna uma lista de produtos dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
-  if(isAValidInput(produtos)) {
+  if (isAValidInput(produtos)) {
     return produtos
       .filter(({ preco }) => preco >= menorValor && preco <= maiorValor)
   }
@@ -136,8 +136,8 @@ function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
 // Utilize a função obterDescontoCategoria criada anteriormente
 function cupomEhValido(cupom) {
   if (CUPONS_VALIDOS.includes(cupom.texto)) {
-    return cupom.desconto > 0 
-      ? cupom.desconto 
+    return cupom.desconto > 0
+      ? cupom.desconto
       : 0
   }
   return 0
@@ -154,7 +154,7 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 
     const compraTotal = calcularTotalDaCompra(produtos)
     const descontoTotal = produtos
-      .reduce((acc, { categoria, preco }) => acc + preco * obterDescontoTotal(categoria, cupom) / 100 ,0)
+      .reduce((acc, { categoria, preco }) => acc + preco * obterDescontoTotal(categoria, cupom) / 100, 0)
 
     return compraTotal - descontoTotal
   }
@@ -178,54 +178,53 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 
 class CarrinhoDeCompras {
 
-  constructor (produtos = [])  {
+  constructor(produtos = []) {
     this.listaDeProdutos = produtos
   }
 
-  incluirProduto (produto) {
-    this.listaDeProdutos.push({...produto})
+  incluirProduto(produto) {
+    this.listaDeProdutos.push({ ...produto })
   }
-  
-  excluirProduto (indice) {
+
+  excluirProduto(indice) {
     this.listaDeProdutos.splice(indice, 1)
   }
 
-  listarProdutos () {
+  listarProdutos() {
     return this.listaDeProdutos
   }
 
-  definirCupom ({ ...cupom }) {
+  definirCupom({ ...cupom }) {
     this.cupom = cupom
   }
 
-  obterCupom () {
+  obterCupom() {
     return this.cupom
   }
 
-  excluirCupom () {
+  excluirCupom() {
     delete this.cupom
   }
 
-  subtotal () {
+  subtotal() {
     return calcularTotalDaCompra(this.listaDeProdutos)
   }
 
-  total () {
+  total() {
     return calcularTotalDaCompraComDescontos(this.listaDeProdutos, this.cupom)
   }
 }
 
-
 module.exports = {
-    obterMenorPreco,
-    obterMaiorPreco,
-    incluirPrecoFormatado,
-    obterDescontoCategoria,
-    obterProdutosLimitadosAoOrcamento,
-    calcularTotalDaCompra,
-    obterMenorEMaiorPrecos,
-    obterProdutosDentroDoOrcamento,
-    obterDescontoTotal,
-    calcularTotalDaCompraComDescontos,
-    CarrinhoDeCompras
+  obterMenorPreco,
+  obterMaiorPreco,
+  incluirPrecoFormatado,
+  obterDescontoCategoria,
+  obterProdutosLimitadosAoOrcamento,
+  calcularTotalDaCompra,
+  obterMenorEMaiorPrecos,
+  obterProdutosDentroDoOrcamento,
+  obterDescontoTotal,
+  calcularTotalDaCompraComDescontos,
+  CarrinhoDeCompras
 };
