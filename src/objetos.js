@@ -168,11 +168,12 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 
     let produtosComDesconto = produtos.map(item => {
         
-       item.preco = item.preco - cupom.desconto;
-    });
+        item.preco = item.preco * (1 - obterDescontoTotal(item.categoria, cupom)/100);
+        return item;
+    })
+    
 
     return calcularTotalDaCompra(produtosComDesconto);
-
 }
 
 // =======
