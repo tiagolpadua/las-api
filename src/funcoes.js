@@ -38,7 +38,7 @@ function calculaDesconto(valor, categoria, cupom) {
         return desconto = valor * 0.50
 
     } else {
-        return valor
+        return valor * 0.1
     }
 }
 
