@@ -155,11 +155,11 @@ function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
 // que é a soma do desconto da categoria e a soma do desconto do cupom
 // Utilize a função obterDescontoCategoria criada anteriormente
 function cupomEhValido(cupom) {
-  return CUPONS_VALIDOS.includes(cupom);
+  return CUPONS_VALIDOS.includes(cupom.texto) && cupom.desconto >= 0;
 }
 
 function obterDescontoTotal(categoria, cupom) {
-  return cupomEhValido(cupom.nome)
+  return cupomEhValido(cupom)
     ? obterDescontoCategoria(categoria) + cupom.desconto
     : obterDescontoCategoria(categoria);
 }
