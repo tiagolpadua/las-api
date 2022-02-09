@@ -24,8 +24,8 @@
 // }
 //---------------------------------------------------------------------------------------
 
-const CATEGORIAS = [{ nome: 'Alimentação', desconto: 30 }, { nome: 'Infantil', desconto: 15 }];
-const CUPONS_VALIDOS = ['NULABSSA', 'ALURANU'];
+const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
+const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
 
 // =========
@@ -35,18 +35,18 @@ const CUPONS_VALIDOS = ['NULABSSA', 'ALURANU'];
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
 
-    if(!Array.isArray(produtos) || produtos.length === 0){return undefined};
+    if(!Array.isArray(produtos) || produtos.length === 0){return undefined;}
 
-    let menorPrecoProduto = produtos[0]
-    let menorPreco = produtos[0].preco
+    let menorPrecoProduto = produtos[0];
+    let menorPreco = produtos[0].preco;
 
     for(let produto of produtos){
         if(produto.preco < menorPreco){
-            menorPreco = produto.preco
-            menorPrecoProduto = produto
+            menorPreco = produto.preco;
+            menorPrecoProduto = produto;
         }
     }
-    return menorPrecoProduto
+    return menorPrecoProduto;
     
 }
 
@@ -56,15 +56,15 @@ function obterMenorPreco(produtos) {
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
 
-    if(!Array.isArray(produtos) || produtos.length === 0){return undefined};
+    if(!Array.isArray(produtos) || produtos.length === 0){return undefined;}
 
-    let maiorPrecoProduto = produtos[0]
-    let maiorPreco = produtos[0].preco
+    let maiorPrecoProduto = produtos[0];
+    let maiorPreco = produtos[0].preco;
 
     for(let produto of produtos){
         if(produto.preco > maiorPreco){
-            maiorPreco = produto.preco
-            maiorPrecoProduto = produto
+            maiorPreco = produto.preco;
+            maiorPrecoProduto = produto;
         }
     }
     return maiorPrecoProduto;
@@ -95,20 +95,20 @@ function obterDescontoCategoria(nomeCategoria) {
     }else if(nomeCategoria === CATEGORIAS[1].nome){
         return descontoQuinze;
     }else{
-        return 0
+        return 0;
     }
 }
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo){
-    if(!Array.isArray(produtos) || produtos.length === 0){return undefined};
+    if(!Array.isArray(produtos) || produtos.length === 0){return undefined;}
 
     let arrProdutosLimitados = [];
 
     for(let produto of produtos){
         if(produto.preco <= precoMaximo){
-            arrProdutosLimitados.push(produto)
+            arrProdutosLimitados.push(produto);
         }
     }
     return arrProdutosLimitados;
@@ -117,14 +117,14 @@ function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo){
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
-    if(!Array.isArray(produtos) || produtos.length === 0){return undefined};
+    if(!Array.isArray(produtos) || produtos.length === 0){return undefined;}
 
     
     let totalDaCompra = 0;
 
     for(let i of produtos){
         if(i.quantidade > 0){
-            totalDaCompra += i.quantidade * i.preco
+            totalDaCompra += i.quantidade * i.preco;
         }
     }
     return totalDaCompra;
@@ -138,20 +138,20 @@ function calcularTotalDaCompra(produtos) {
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos){
    
-    if(!Array.isArray(produtos) || produtos.length === 0){return undefined};
+    if(!Array.isArray(produtos) || produtos.length === 0){return undefined;}
 
-    let maiorValor = obterMaiorPreco(produtos);;
+    let maiorValor = obterMaiorPreco(produtos);
     let menorValor = obterMenorPreco(produtos);
 
 
-    let menorValorFormatado = incluirPrecoFormatado(menorValor)
-    let maiorValorFormatado = incluirPrecoFormatado(maiorValor)
+    let menorValorFormatado = incluirPrecoFormatado(menorValor);
+    let maiorValorFormatado = incluirPrecoFormatado(maiorValor);
 
   
   const objeto = {
       menorPreco: menorValorFormatado,
       maiorPreco: maiorValorFormatado
-  }
+  };
   return objeto;
 
 }
@@ -161,17 +161,17 @@ function obterMenorEMaiorPrecos(produtos){
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor){
 
-    if(!Array.isArray(produtos) || produtos.length === 0){return undefined};
+    if(!Array.isArray(produtos) || produtos.length === 0){return undefined;}
 
     if(maiorValor < menorValor){
-        return undefined
+        return undefined;
     }
 
     let puxarProdutos = [];
 
     for(let i of produtos){
         if(i.preco >= menorValor && i.preco <= maiorValor){
-            puxarProdutos.push(i)
+            puxarProdutos.push(i);
         }
     }
     return puxarProdutos;
@@ -204,14 +204,14 @@ function obterDescontoTotal(categoria, cupom){
 // A função deve retornar o valor total da compra, considerando os descontos de cada categoria e o cupom informado
 function calcularTotalDaCompraComDescontos(produtos, cupom){
 
-    if(!Array.isArray(produtos) || produtos.length === 0){return undefined};
+    if(!Array.isArray(produtos) || produtos.length === 0){return undefined;}
 
-    let valorDaCompraSemDesconto = calcularTotalDaCompra(produtos)
+    let valorDaCompraSemDesconto = calcularTotalDaCompra(produtos);
 
     let descontoTotal = 0;
 
     for(let i of produtos){
-        descontoTotal += i.preco * obterDescontoTotal(i.categoria, cupom) / 100
+        descontoTotal += i.preco * obterDescontoTotal(i.categoria, cupom) / 100;
     }
     return valorDaCompraSemDesconto - descontoTotal;
 
@@ -238,7 +238,7 @@ class CarrinhoDeCompras {
         this.produtos = [];
     }
     incluirProduto(produto){
-        this.produtos.push(produto)
+        this.produtos.push(produto);
     }
     excluirProduto(indice){
         this.produtos.splice(indice);
@@ -260,7 +260,7 @@ class CarrinhoDeCompras {
     }
 
     total(){
-        return calcularTotalDaCompraComDescontos(this.produtos, this.cupom)
+        return calcularTotalDaCompraComDescontos(this.produtos, this.cupom);
     }
   
     
