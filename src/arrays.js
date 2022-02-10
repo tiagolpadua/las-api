@@ -47,7 +47,6 @@ function obterDescontoCategoria(categoria) {
     const categorias = ["Alimentação", "Infantil", "NULABSSA", "ALURANU"];
     // eslint-disable-next-line no-unused-vars
     const descontos = [30, 15];
-
     return { "Alimentação": 30, "Infantil": 15 }[categoria] | undefined;
 }
 
