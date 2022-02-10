@@ -31,6 +31,7 @@
 const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
 const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
+
 // =========
 // Func Aux
 
@@ -38,6 +39,7 @@ const listaEhInvalida = (lista) => !Array.isArray(lista) || lista.length === 0;
 
 
 // =========
+
 
 // =========
 // Essencial
