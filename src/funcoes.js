@@ -42,11 +42,10 @@ function calculaDesconto(valor, categoria, cupom) {
     if (categoria === "Alimentação" && cupom === "NULABSSA") {
         return valor * 0.50;
     } else {
-<<<<<<< HEAD
-        return valor * 0.1
-=======
-        return valor;
->>>>>>> 046a76472f87571353d91b32b2b30f6c3c7818f9
+
+        return valor * 0.1;
+   
+
     }
 }
 

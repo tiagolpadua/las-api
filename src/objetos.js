@@ -37,6 +37,7 @@ const validaCupom = ["NULABSSA", "ALURANU"];
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
+
     if (!listaEhInvalida(produtos)) {
         var menorPreco = produtos[0];
         produtos.map((item) => {
@@ -72,8 +73,6 @@ function formatarValor(valor) {
     return `R$ ${parseFloat(valor).toFixed(2).toString().replace(".", ",")}`;
 }
  
-
-
 function incluirPrecoFormatado(produto) {
 
     produto["precoFormatado"] = formatarValor(produto.preco);
@@ -85,6 +84,7 @@ function incluirPrecoFormatado(produto) {
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
+
     const categorias = ["Alimentação", "Infantil"];
     
     const descontos = [30, 15];
@@ -142,6 +142,7 @@ function obterMenorEMaiorPrecos(produtos) {
         return undefined;
     }
     return {
+
         menorPreco: obterMenorPreco(produtos),
         maiorPreco:obterMaiorPreco(produtos)
     };
@@ -169,8 +170,11 @@ function cupomEhValido(cupom) {
 function obterDescontoTotal(categoria, cupom) {
 
     if(cupomEhValido(cupom)){
+
         return obterDescontoCategoria(categoria) + cupom.desconto;
+        
     }else{
+
         return obterDescontoCategoria(categoria);
     }
 }
@@ -209,7 +213,52 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 // - total - função calcula o total da compra com descontos - dica: utilizar função calcularTotalDaCompraComDescontos definida anteriormente;
 
 class CarrinhoDeCompras {
-    
+
+    constructor(){
+        
+        this.listaProdutos = [];
+    }
+
+    incluirProduto(produto){
+       
+        this.listaProdutos.push(produto);
+    }
+
+    excluirProduto(indice) {
+
+        this.listaProdutos.splice(indice);
+      }
+
+    listarProdutos(){
+
+        return this.listaProdutos;
+    }
+
+    definirCupom(cupom){
+
+        this.cupom = cupom;
+     
+    }
+
+    obterCupom(){
+
+        return this.cupom;
+    }
+
+    excluirCupom(){
+
+        delete this.cupom;
+    }
+
+    subtotal(){
+
+        return calcularTotalDaCompra(this.listaProdutos);
+    }
+
+    total(){
+
+        return calcularTotalDaCompraComDescontos(this.listaProdutos, this.cupom);
+    }
 }
 
 module.exports = {
