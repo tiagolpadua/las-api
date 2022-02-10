@@ -210,7 +210,7 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
     for(let item of produtos){
         descontos += item.preco * obterDescontoTotal(item.categoria, cupom) * 0.01;
     }   
-    return totalDaCompra - descontos; 
+    return totalDaCompra - descontos;
 }
 
 // =======
