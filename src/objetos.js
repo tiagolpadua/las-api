@@ -28,6 +28,7 @@ const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil",
 const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
 
+
 // =========
 // Essencial
 // =========
