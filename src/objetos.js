@@ -24,10 +24,12 @@
 // }
 //---------------------------------------------------------------------------------------
 
+//const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
+const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
 const { listaEhInvalida } = require("./arrays");
 
-const validaCupom = ["NULABSSA", "ALURANU"];
+
 
 
 // =========
@@ -164,7 +166,7 @@ function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
 // Utilize a função obterDescontoCategoria criada anteriormente
 function cupomEhValido(cupom) {
 
-    return validaCupom.includes(cupom.texto) && cupom.desconto >= 0;
+    return CUPONS_VALIDOS.includes(cupom.texto) && cupom.desconto >= 0;
  }
     
 function obterDescontoTotal(categoria, cupom) {
