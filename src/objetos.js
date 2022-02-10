@@ -86,9 +86,7 @@ function incluirPrecoFormatado(produto) {
 // // ou 0 se não houver desconto.
 // // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
-    const categorias = ['Alimentação', 'Infantil', 'NULABSSA', 'ALURANU'];
-    const descontos = [30, 15]
-
+    
     return { 'Alimentação': 30, "Infantil": 15 }[nomeCategoria] || 0;
 }
 
@@ -166,14 +164,16 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 
     if(listaEhInvalida(produtos) )  return undefined;
 
+    let precoSemDesconto = calcularTotalDaCompra(produtos);
+
     let produtosComDesconto = produtos.map(item => {
         
-        item.preco = item.preco * (1 - obterDescontoTotal(item.categoria, cupom)/100);
-        return item;
-    })
+       return  item['preco'] * ((obterDescontoTotal(item['categoria'], cupom))/100);
+        
+    }).reduce((acc , item) => acc + item , 0);
     
-
-    return calcularTotalDaCompra(produtosComDesconto);
+    
+    return precoSemDesconto - produtosComDesconto;
 }
 
 // =======
@@ -192,6 +192,56 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 // - total - função calcula o total da compra com descontos - dica: utilizar função calcularTotalDaCompraComDescontos definida anteriormente;
 
 class CarrinhoDeCompras {
+
+    constructor(){
+       
+        this.listaProdutos = [];
+    }
+
+    incluirProduto(produto){
+
+        this.listaProdutos.push(produto);
+
+    }
+
+    excluirProduto(indice){
+
+        this.listaProdutos.splice(indice,1);
+    }
+
+    listarProdutos(){
+
+        return this.listaProdutos;
+    }
+
+    definirCupom(cupom){
+
+        this.cupons = cupom;
+    }
+
+    obterCupom(){
+
+        return this.cupons;
+
+    }
+
+    excluirCupom(){
+         
+      this.cupons = undefined;
+        
+    }
+
+    subtotal(){
+
+        return calcularTotalDaCompra(this.listaProdutos);
+    }
+
+    total(){
+
+       return calcularTotalDaCompraComDescontos(this.listaProdutos, this.cupons);
+    }
+
+
 }
 
 module.exports = {
