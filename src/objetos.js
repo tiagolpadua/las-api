@@ -173,7 +173,6 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
         
     }).reduce((acc , item) => acc + item , 0);
     
-    
     return precoSemDesconto - produtosComDesconto;
 }
 
