@@ -2,43 +2,47 @@
 // Essencial
 // =========
 
-// Escreva uma função que receba um nome e retorne uma saudação para este nome: Tiago -> Olá, Tiago
+// Escreva uma função que receba um nome e retorne uma saudação para este nome:
+// Tiago -> Olá, Tiago
 function saudar(nome) {
-    return `Olá, ${nome}`
+    return `Olá, ${nome}`;
 }
 
-// Escreva uma função que receba um nome completo e retorna apenas o primeiro nome: Tiago Lage Payne de Pádua -> Tiago
+// Escreva uma função que receba um nome completo e retorna apenas o primeiro nome:
+// Tiago Lage Payne de Pádua -> Tiago
 function extrairPrimeiroNome(nome) {
-    return `${nome.slice(0, 5)}`
+    return `${nome.split(" ")[0]}`;
 }
 
 // Escreva uma função que receba uma palavra e torna a primeira letra maiúscula e as outras minúsculas: tIaGo -> Tiago
 function capitalizar(nome) {
-    return `${nome[0].toUpperCase() + nome.slice(1).toLowerCase()}`
+    return `${nome[0].toUpperCase() + nome.slice(1).toLowerCase()}`;
 }
 
-// Escreva uma função que recebe um preço original e uma categoria de produto e calcula o valor do imposto. Produtos da categoria Alimentação são isentos. Outros produtos tem um imposto de 10%.
+// Escreva uma função que recebe um preço original e uma categoria de produto e calcula o valor do imposto.
+// Produtos da categoria Alimentação são isentos. Outros produtos tem um imposto de 10%.
 // (30, Alimentação) => 0
 // (10, Bebida) => 1
 function calculaImposto(valor, categoria) {
     if (categoria === "Alimentação") {
-        return 0
+        return 0;
     } else {
-        return 1
+        return valor * 0.1;
     }
 }
 
-// Escreva uma função que recebe um preço original, uma categoria de produto e um cupom de desconto e calcula o preço com desconto. Se a categoria for Alimentação e o cupom for NULABSSA, deve ser feito um desconto de 50%. Caso contrário, não há nenhum desconto.
+// Escreva uma função que recebe um preço original, uma categoria de produto
+// e um cupom de desconto e calcula o preço com desconto.
+//  Se a categoria for Alimentação e o cupom for NULABSSA, deve ser feito um desconto de 50%. Caso contrário, não há nenhum desconto.
 // (30, Alimentação, NULABSSA) => 15
 // (10, Bebida, NULABSSA) => 10
 // (30, Alimentação, XPTO) => 30
 // (10, Bebida, XPTO) => 10
 function calculaDesconto(valor, categoria, cupom) {
     if (categoria === "Alimentação" && cupom === "NULABSSA") {
-        return desconto = valor * 0.50
-
+        return valor * 0.50;
     } else {
-        return valor * 0.1
+        return valor;
     }
 }
 
@@ -52,9 +56,9 @@ function calculaDesconto(valor, categoria, cupom) {
 // (fulano, 4) -> fula...
 function truncar(texto, comprimento = 5) {
     if (texto.length > comprimento) {
-        return `${texto.slice(0, comprimento) + "..."}`
+        return `${texto.slice(0, comprimento) + "..."}`;
     } else {
-        return `${texto.slice(0, 6)}`
+        return `${texto.slice(0, 6)}`;
     }
 }
 
@@ -64,9 +68,9 @@ function truncar(texto, comprimento = 5) {
 // "      Maria " -> "Maria"
 function validaTextoPreenchido(texto) {
     if (texto.trim() === "") {
-        return undefined
+        return undefined;
     } else {
-        return texto.trim()
+        return texto.trim();
     }
 }
 
@@ -81,11 +85,11 @@ function validaData(dataDeNascimento) {
     let dia = dataDeNascimento.split("/")[0];
     let mes = dataDeNascimento.split("/")[1];
     let ano = dataDeNascimento.split("/")[2];
-    let dataCorreta = `${mes + "/" + dia + "/" + ano}`
+    let dataCorreta = `${mes + "/" + dia + "/" + ano}`;
     if (Date.parse(dataCorreta)) {
-        return "Ok"
+        return "Ok";
     } else {
-        return Date.parse(dataCorreta)
+        return Date.parse(dataCorreta);
     }
 
 }
