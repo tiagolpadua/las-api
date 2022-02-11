@@ -24,6 +24,8 @@
 // }
 //---------------------------------------------------------------------------------------
 
+const { listaEhInvalida } = require("./arrays");
+
 const CATEGORIAS = [
   { nome: "Alimentação", desconto: 30 },
   { nome: "Infantil", desconto: 15 },
@@ -33,22 +35,15 @@ const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 // =========
 // Essencial
 // =========
-//FUNÇÃO AUXILIAR
-function verificaLista(lista) {
-  if (!Array.isArray(lista) || lista.length === 0) {
-    return undefined;
-  }
-  return true;
-}
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
   let saida;
-  if (verificaLista(produtos)) {
+  if (listaEhInvalida(produtos)) {
+return undefined;
+  } else {
     produtos.forEach((obj) => {
-      for (let index in obj) {
-        if (saida === undefined || obj.preco < saida.preco) {
-          saida = obj;
-        }
+      if (saida === undefined || obj.preco < saida.preco) {
+        saida = obj;
       }
     });
   }
@@ -58,12 +53,12 @@ function obterMenorPreco(produtos) {
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
   let saida;
-  if (verificaLista(produtos)) {
+  if (listaEhInvalida(produtos)) {
+    return undefined;
+  } else {
     produtos.forEach((obj) => {
-      for (let index in obj) {
-        if (saida === undefined || obj.preco > saida.preco) {
-          saida = obj;
-        }
+      if (saida === undefined || obj.preco > saida.preco) {
+        saida = obj;
       }
     });
   }
@@ -82,7 +77,8 @@ function incluirPrecoFormatado(produto) {
   return copiaObj;
 }
 
-// Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
+// Crie uma função que recebe o nome de uma categoria e
+// devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
@@ -101,15 +97,15 @@ function obterDescontoCategoria(nomeCategoria) {
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
   const dentroDoOrcamento = [];
 
-  if (verificaLista(produtos)) {
+  if (listaEhInvalida(produtos)) {
+return undefined;
+  } else {
     produtos.forEach((item) => {
       if (item.preco <= precoMaximo) {
         dentroDoOrcamento.push(item);
       }
     });
     return dentroDoOrcamento;
-  } else {
-    return undefined;
   }
 }
 
@@ -118,37 +114,94 @@ function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
 //retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
   let soma = 0;
-  if (verificaLista(produtos)) {
-    produtos.forEach((item) => {
-      soma += item.quantidade * item.preco;
-    });
-    return soma;
-  }
+  if (listaEhInvalida(produtos)) {
+return undefined;
+  } else{    produtos.forEach((item) => {
+    soma += item.quantidade * item.preco;
+  });
+  return soma;}
 }
 
 // =========
 // Desejável
 // =========
 
-// Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
-// estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
-function obterMenorEMaiorPrecos(produtos) {}
+// Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades:
+//'menorPreco' e 'maiorPreco'.
+// estas propriedades devem conter como o produto mais barato e o produto mais caro,
+// respectivamente
+function obterMenorEMaiorPrecos(produtos) {
+  if (listaEhInvalida(produtos)) {
+    return undefined;
+  } else{
+    const maiorPreco = obterMaiorPreco(produtos);
+    const menorPreco = obterMenorPreco(produtos);
+    return {
+      maiorPreco: maiorPreco,
+      menorPreco: menorPreco,
+    };
+  }
+}
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e
 // retorna uma lista de produtos dentro do orçamento.
-// Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
-function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {}
+// Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor,
+// caso contrário, retorne undefined.
+function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
+  if (listaEhInvalida(produtos) || menorValor > maiorValor) {
+    return undefined;
+  } else {
+    let listaNoOrcamento = [];
 
-// Crie uma função que recebe um nome de uma categoria e um objeto cupom e retorna o desconto total,
+    produtos.forEach((item) => {
+      if (item.preco >= menorValor && item.preco <= maiorValor) {
+        listaNoOrcamento.push(item);
+      }
+    });
+    return listaNoOrcamento;
+  }
+}
+
+// Crie uma função que recebe um nome de uma categoria e um objeto cupom e
+// retorna o desconto total,
 // que é a soma do desconto da categoria e a soma do desconto do cupom
 // Utilize a função obterDescontoCategoria criada anteriormente
-function cupomEhValido(cupom) {}
+function cupomEhValido(cupom) {
+  let nomeCupom = false;
+  CUPONS_VALIDOS.forEach((item) => {
+    if (item === cupom) {
+      nomeCupom = true;
+    }
+  });
+  return nomeCupom;
+ 
+}
 
-function obterDescontoTotal(categoria, cupom) {}
+function obterDescontoTotal(categoria, cupom) {
+  if (cupomEhValido(cupom.texto) && (cupom.desconto > 0)){
+    return obterDescontoCategoria(categoria) + cupom.desconto;
+  } else { return obterDescontoCategoria(categoria);}
+}
 
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
-// A função deve retornar o valor total da compra, considerando os descontos de cada categoria e o cupom informado
-function calcularTotalDaCompraComDescontos(produtos, cupom) {}
+// A função deve retornar o valor total da compra, 
+//considerando os descontos de cada categoria e o cupom informado
+function calcularTotalDaCompraComDescontos(produtos, cupom) {
+  if (listaEhInvalida(produtos)){
+    return undefined;
+  } else{ 
+    let valorTotal = 0;
+    valorTotal = calcularTotalDaCompra(produtos);
+    let totalDesconto = 0;
+    
+    produtos.forEach((item) => {
+      totalDesconto += item.preco * (obterDescontoTotal(item.categoria, cupom) / 100);
+    });
+    return valorTotal - totalDesconto ;
+  }
+
+}
+
 
 // =======
 // Desafio
