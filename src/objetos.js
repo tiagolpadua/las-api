@@ -50,8 +50,24 @@ function obterMenorPreco(produtos) {
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
+    if (Array.isArray(produtos) === false || produtos.length === 0){
+        return undefined;
+    }else{
+        let maiorPreco = produtos[0]['preco'];
+        let resultado;
+        for (let i = 0; i < produtos.length; i++){
+            if (produtos[i]['preco'] > maiorPreco){
+                resultado = produtos[i];
+                maiorPreco = produtos[i]['preco'];
+            }else if (produtos[i]['preco'] === maiorPreco && i === 0){
+                resultado = produtos[i];
+            }else{
+                continue;
+            }   
+        }
+        return resultado;
+    }
 }
-
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
 function formatarValor(valor) {
