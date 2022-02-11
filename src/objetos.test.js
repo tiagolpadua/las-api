@@ -10,7 +10,7 @@ const {
     obterDescontoTotal,
     calcularTotalDaCompraComDescontos,
     CarrinhoDeCompras
-} = require('./objetos');
+} = require("./objetos");
 
 const serpentina = {
     nome: "Serpentina",
@@ -53,7 +53,7 @@ const produtos0 = [
     refrigerante,
     cerveja,
     sanduiche,
-]
+];
 
 const espuma = {
     nome: "Espuma",
@@ -89,47 +89,47 @@ const produtos1 = [
     batida,
     suco,
     laranja,
-]
+];
 
 
-describe('Essencial', () => {
-    test('Deve obter o menor preço.', () => {
+describe("Essencial", () => {
+    test("Deve obter o menor preço.", () => {
         expect(obterMenorPreco([])).toBeUndefined();
 
-        expect(obterMenorPreco('foo')).toBeUndefined();
+        expect(obterMenorPreco("foo")).toBeUndefined();
 
         expect(obterMenorPreco(produtos0)).toEqual(refrigerante);
 
         expect(obterMenorPreco(produtos1)).toEqual(batida);
     });
 
-    test('Deve obter o maior preço.', () => {
+    test("Deve obter o maior preço.", () => {
         expect(obterMaiorPreco([])).toBeUndefined();
 
-        expect(obterMaiorPreco('foo')).toBeUndefined();
+        expect(obterMaiorPreco("foo")).toBeUndefined();
 
         expect(obterMaiorPreco(produtos0)).toEqual(serpentina);
 
         expect(obterMaiorPreco(produtos1)).toEqual(confete);
     });
 
-    test('Deve incluir os preços formatados.', () => {
+    test("Deve incluir os preços formatados.", () => {
         expect(incluirPrecoFormatado(produtos0[0])).toEqual({ ...produtos0[0], precoFormatado: "R$ 30,00" });
         expect(incluirPrecoFormatado(produtos1[2])).toEqual({ ...produtos1[2], precoFormatado: "R$ 5,00" });
     });
 
-    test('Deve retornar o desconto da categoria.', () => {
-        expect(obterDescontoCategoria('Alimentação')).toEqual(30);
+    test("Deve retornar o desconto da categoria.", () => {
+        expect(obterDescontoCategoria("Alimentação")).toEqual(30);
 
-        expect(obterDescontoCategoria('Infantil')).toEqual(15);
+        expect(obterDescontoCategoria("Infantil")).toEqual(15);
 
-        expect(obterDescontoCategoria('Foo')).toEqual(0);
+        expect(obterDescontoCategoria("Foo")).toEqual(0);
     });
 
-    test('Deve retornar os produtos limitados ao orçamento.', () => {
+    test("Deve retornar os produtos limitados ao orçamento.", () => {
         expect(obterProdutosLimitadosAoOrcamento([], 1)).toBeUndefined();
 
-        expect(obterProdutosLimitadosAoOrcamento('foo', 1)).toBeUndefined();
+        expect(obterProdutosLimitadosAoOrcamento("foo", 1)).toBeUndefined();
 
         expect(obterProdutosLimitadosAoOrcamento(produtos0, 9)).toEqual([
             refrigerante,
@@ -142,10 +142,10 @@ describe('Essencial', () => {
         ]);
     });
 
-    test('Deve calcular o valor total da compra.', () => {
+    test("Deve calcular o valor total da compra.", () => {
         expect(calcularTotalDaCompra([])).toBeUndefined();
 
-        expect(calcularTotalDaCompra('foo')).toBeUndefined();
+        expect(calcularTotalDaCompra("foo")).toBeUndefined();
 
         expect(calcularTotalDaCompra([
             serpentina,
@@ -161,14 +161,14 @@ describe('Essencial', () => {
     });
 });
 
-const cupomNulabssa = { texto: 'NULABSSA', desconto: 10 };
+const cupomNulabssa = { texto: "NULABSSA", desconto: 10 };
 
-const cupomAluranu = { texto: 'ALURANU', desconto: 15 };
-describe('Desejável', () => {
-    test('Deve retornar os produtos com menor e o maior preços.', () => {
+const cupomAluranu = { texto: "ALURANU", desconto: 15 };
+describe("Desejável", () => {
+    test("Deve retornar os produtos com menor e o maior preços.", () => {
         expect(obterMenorEMaiorPrecos([])).toBeUndefined();
 
-        expect(obterMenorEMaiorPrecos('foo')).toBeUndefined();
+        expect(obterMenorEMaiorPrecos("foo")).toBeUndefined();
 
         expect(obterMenorEMaiorPrecos(produtos0)).toEqual(
             {
@@ -183,10 +183,10 @@ describe('Desejável', () => {
             });
     });
 
-    test('Deve retornar os produtos dentro do orçamento.', () => {
+    test("Deve retornar os produtos dentro do orçamento.", () => {
         expect(obterProdutosDentroDoOrcamento([], 1, 1)).toBeUndefined();
 
-        expect(obterProdutosDentroDoOrcamento('foo', 1, 1)).toBeUndefined();
+        expect(obterProdutosDentroDoOrcamento("foo", 1, 1)).toBeUndefined();
 
         expect(obterProdutosDentroDoOrcamento([10, 7, 8, 25, 8, 9, 100, 99], 50, 30))
             .toBeUndefined();
@@ -208,44 +208,44 @@ describe('Desejável', () => {
             ]);
     });
 
-    test('Deve retornar o desconto total.', () => {
+    test("Deve retornar o desconto total.", () => {
         expect(
-            obterDescontoTotal('Alimentação', cupomNulabssa))
+            obterDescontoTotal("Alimentação", cupomNulabssa))
             .toEqual(40);
 
         expect(
-            obterDescontoTotal('Alimentação', cupomAluranu))
+            obterDescontoTotal("Alimentação", cupomAluranu))
             .toEqual(45);
 
         expect(
-            obterDescontoTotal('Infantil', cupomAluranu))
+            obterDescontoTotal("Infantil", cupomAluranu))
             .toEqual(30);
 
         expect(
-            obterDescontoTotal('Bebida', cupomAluranu))
+            obterDescontoTotal("Bebida", cupomAluranu))
             .toEqual(15);
 
         expect(
-            obterDescontoTotal('Alimentação', { texto: 'ALURANU', desconto: -99 }))
+            obterDescontoTotal("Alimentação", { texto: "ALURANU", desconto: -99 }))
             .toEqual(30);
 
         expect(
-            obterDescontoTotal('Bebida', { texto: 'CUPOM-INVALIDO', desconto: 15 }))
+            obterDescontoTotal("Bebida", { texto: "CUPOM-INVALIDO", desconto: 15 }))
             .toEqual(0);
 
         expect(
-            obterDescontoTotal('Alimentação', { texto: 'CUPOM-INVALIDO', desconto: 15 }))
+            obterDescontoTotal("Alimentação", { texto: "CUPOM-INVALIDO", desconto: 15 }))
             .toEqual(30);
 
         expect(
-            obterDescontoTotal('KKK', { texto: 'CUPOM-INVALIDO', desconto: 15 }))
+            obterDescontoTotal("KKK", { texto: "CUPOM-INVALIDO", desconto: 15 }))
             .toEqual(0);
     });
 
-    test('Deve calcular o total da compra com descontos.', () => {
-        expect(calcularTotalDaCompraComDescontos([], 1, 'foo')).toBeUndefined();
+    test("Deve calcular o total da compra com descontos.", () => {
+        expect(calcularTotalDaCompraComDescontos([], 1, "foo")).toBeUndefined();
 
-        expect(calcularTotalDaCompraComDescontos('foo', [], 'foo')).toBeUndefined();
+        expect(calcularTotalDaCompraComDescontos("foo", [], "foo")).toBeUndefined();
 
         expect(calcularTotalDaCompraComDescontos([
             serpentina,
@@ -265,15 +265,15 @@ describe('Desejável', () => {
     });
 });
 
-describe('Desafio', () => {
-    test('Deve criar o carrinho de compras.', () => {
+describe("Desafio", () => {
+    test("Deve criar o carrinho de compras.", () => {
         const carrinhoDeCompras = new CarrinhoDeCompras();
         expect(carrinhoDeCompras).toBeDefined();
         expect(carrinhoDeCompras.listarProdutos().length).toBe(0);
         expect(carrinhoDeCompras.obterCupom()).toBeFalsy();
     });
 
-    test('Deve incluir produto no carrinho.', () => {
+    test("Deve incluir produto no carrinho.", () => {
         const carrinhoDeCompras = new CarrinhoDeCompras();
         carrinhoDeCompras.incluirProduto(serpentina);
         carrinhoDeCompras.incluirProduto(batida);
@@ -281,7 +281,7 @@ describe('Desafio', () => {
         expect(carrinhoDeCompras.listarProdutos().length).toBe(2);
     });
 
-    test('Deve excluir produto no carrinho.', () => {
+    test("Deve excluir produto no carrinho.", () => {
         const carrinhoDeCompras = new CarrinhoDeCompras();
         carrinhoDeCompras.incluirProduto(serpentina);
         carrinhoDeCompras.incluirProduto(batida);
@@ -289,14 +289,14 @@ describe('Desafio', () => {
         expect(carrinhoDeCompras.listarProdutos().length).toBe(1);
     });
 
-    test('Deve listar os produtos do carrinho.', () => {
+    test("Deve listar os produtos do carrinho.", () => {
         const carrinhoDeCompras = new CarrinhoDeCompras();
         carrinhoDeCompras.incluirProduto(serpentina);
         carrinhoDeCompras.incluirProduto(batida);
         expect(carrinhoDeCompras.listarProdutos().length).toBe(2);
     });
 
-    test('Deve manter um cupom de desconto.', () => {
+    test("Deve manter um cupom de desconto.", () => {
         const carrinhoDeCompras = new CarrinhoDeCompras();
         carrinhoDeCompras.definirCupom(cupomAluranu);
         expect(carrinhoDeCompras.obterCupom()).toEqual(cupomAluranu);
@@ -304,7 +304,7 @@ describe('Desafio', () => {
         expect(carrinhoDeCompras.obterCupom()).toBeFalsy();
     });
 
-    test('Deve calcular o subtotal do carrinho.', () => {
+    test("Deve calcular o subtotal do carrinho.", () => {
         const carrinhoDeCompras = new CarrinhoDeCompras();
         carrinhoDeCompras.incluirProduto(serpentina);
         carrinhoDeCompras.incluirProduto(batida);
@@ -312,11 +312,11 @@ describe('Desafio', () => {
         expect(carrinhoDeCompras.subtotal()).toBe(35);
     });
 
-    test('Deve calcular o subtotal do carrinho.', () => {
+    test("Deve calcular o subtotal do carrinho.", () => {
         const carrinhoDeCompras = new CarrinhoDeCompras();
         carrinhoDeCompras.incluirProduto(serpentina);
         carrinhoDeCompras.incluirProduto(batida);
         carrinhoDeCompras.definirCupom(cupomAluranu);
         expect(carrinhoDeCompras.total()).toBe(25.25);
-    })
+    });
 });
