@@ -32,6 +32,8 @@ const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil",
 const CUPONSVALIDOS = ["NULABSSA", "ALURANU"];
 
 
+const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
+const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
 // =========
 // Essencial
@@ -81,6 +83,9 @@ function incluirPrecoFormatado(produto) {
     let obj = { ...produto };
     obj.precoFormatado = formatarValor(produto.preco);
     return obj;
+}
+
+function incluirPrecoFormatado(produto) {
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
@@ -156,6 +161,7 @@ function obterMenorEMaiorPrecos(produtos) {
 
     return { "maiorPreco": max, "menorPreco": min };
 
+
 }
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e 
@@ -175,6 +181,7 @@ function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
         }
     }
     return arr;
+
 }
 
 // Crie uma função que recebe um nome de uma categoria e um objeto cupom e retorna o desconto total,
@@ -198,6 +205,9 @@ function obterDescontoTotal(categoria, cupom) {
     }
     return obterDescontoCategoria(categoria);
 
+}
+
+function obterDescontoTotal(categoria, cupom) {
 }
 
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
@@ -261,6 +271,7 @@ class CarrinhoDeCompras {
     total(){
         return calcularTotalDaCompraComDescontos(this.produtos, this.cupom);
     }
+
 
 }
 
