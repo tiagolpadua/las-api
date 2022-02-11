@@ -114,6 +114,7 @@ function calcularTotalDaCompra(produtos) {
     produtos.forEach(produto=>{
         valorTotal += produto.preco*produto.quantidade
     });
+    
     return valorTotal
 }
 
