@@ -161,8 +161,8 @@ function rightpad(p, n) {
     return p;
 }
 
-function formataValor(valor) {
-    return "R$ " + leftpad((Math.round(valor * 100) / 100).toFixed(2).split(".").join(","), 6);
+function formataValor(valor,espacos = 6) {
+    return "R$ " + leftpad((Math.round(valor * 100) / 100).toFixed(2).split(".").join(","), espacos);
 }
 
 function gerarCupomFiscal(listaNomesProdutos, listaPrecosProdutos, listaCategoriasProdutos, cupom) {
@@ -234,5 +234,8 @@ module.exports = {
     obterDescontoTotal,
     calcularTotalDaCompraComDescontos,
     capitalizarNomeCompleto,
-    gerarCupomFiscal
+    gerarCupomFiscal,
+    formataValor,
+    leftpad,
+    rightpad
 };
