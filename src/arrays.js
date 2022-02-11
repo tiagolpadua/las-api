@@ -1,5 +1,3 @@
- const { capitalizar } = require("./funcoes");
-
 // Observação: Para todas funções que recebem listas, se o parâmetro não for uma lista ou se a lista for vazia, retorne undefined.
 
 // =========
@@ -32,7 +30,7 @@ function obterMaiorPreco(lista) {
 
 function capitalizarNomes(names) {
     return Array.isArray(names) && names.length !== 0
-        ? names.map(nome => capitalizar(nome))
+        ? names.map(nome => nome[0].toUpperCase() + nome.slice(1).toLowerCase())
         : undefined;
 }
 
@@ -42,8 +40,6 @@ function capitalizarNomes(names) {
 // ('Alimentação') => 30
 // ('Infantil') => 15
 function obterDescontoCategoria(categoria) {
-    
-
     return { "Alimentação": 30, "Infantil": 15 }[categoria] | undefined;
 }
 
