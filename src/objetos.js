@@ -33,6 +33,19 @@ const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
+    if (Array.isArray(produtos) === false || produtos.length === 0){
+        return undefined;
+    }else{
+        let menorPreco = produtos[0]['preco'];
+        let resultado;
+        for (let i = 0; i < produtos.length; i++){
+            if (produtos[i]['preco'] < menorPreco){
+                resultado = produtos[i];
+                menorPreco = produtos[i]['preco'];
+            }   
+        }
+        return resultado;
+    }    
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
