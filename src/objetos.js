@@ -120,7 +120,6 @@ function calcularTotalDaCompra(produtos) {
         }
         return totalCompras;
     }
-
 }
 
 // =========
@@ -135,7 +134,18 @@ function obterMenorEMaiorPrecos(produtos) {
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e 
 // retorna uma lista de produtos dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
-function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
+function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor ) {
+    let resultado = [];
+    if (Array.isArray(produtos) === false || produtos.length === 0 || menorValor > maiorValor){
+        return undefined;
+    }else{
+        for (let i = 0; i < produtos.length; i++){
+            if (produtos[i]['preco'] >= menorValor && produtos[i]['preco'] <= maiorValor){
+                resultado.push(produtos[i]);
+            }             
+        }  
+        return resultado;        
+    }
 }
 
 // Crie uma função que recebe um nome de uma categoria e um objeto cupom e retorna o desconto total,
