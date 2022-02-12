@@ -36,11 +36,9 @@ const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
     if (listaEhInvalida(produtos)) return undefined;
-    let menorPreco = produtos[0]["preco"]; 
     let produtoMenorPreco = produtos[0];
     produtos.forEach(produto => {
-        if (produto["preco"] < menorPreco){
-            menorPreco = produto["preco"];
+        if (produto["preco"] < produtoMenorPreco["preco"]){
             produtoMenorPreco = produto;
         }
     });
@@ -50,11 +48,9 @@ function obterMenorPreco(produtos) {
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
     if (listaEhInvalida(produtos)) return undefined;
-    let maiorPreco = produtos[0]["preco"];
     let produtoMaiorPreco = produtos[0];
     produtos.forEach(produto => {
-        if (produto["preco"] > maiorPreco) {
-            maiorPreco = produto["preco"];
+        if (produto["preco"] > produtoMaiorPreco["preco"]) {
             produtoMaiorPreco = produto;
         }
     });
@@ -64,12 +60,11 @@ function obterMaiorPreco(produtos) {
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
 function formatarValor(valor) {
-    const novoProduto = Object.create(valor);
-    return incluirPrecoFormatado(novoProduto);
+    return `R$ ${valor.toFixed(2).replace(".", ",")}`;
 }
 
 function incluirPrecoFormatado(produto) {
-    produto["precoFormatado"] = `R$ ${produto["preco"].toFixed(2).replace(".", ",")}`;
+    produto["precoFormatado"] = formatarValor(produto["preco"]);
     return produto;
 }
 
@@ -106,26 +101,42 @@ function calcularTotalDaCompra(produtos) {
 // Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos) {
+    if (listaEhInvalida(produtos)) return undefined;
+    return { 
+        menorPreco: obterMenorPreco(produtos), 
+        maiorPreco: obterMaiorPreco(produtos) 
+    };
 }
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e 
 // retorna uma lista de produtos dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
+    if (listaEhInvalida(produtos) || menorValor > maiorValor) return undefined;
+    return obterProdutosLimitadosAoOrcamento(produtos, maiorValor).filter(produto => produto["preco"] >= menorValor);
 }
 
 // Crie uma função que recebe um nome de uma categoria e um objeto cupom e retorna o desconto total,
 // que é a soma do desconto da categoria e a soma do desconto do cupom
 // Utilize a função obterDescontoCategoria criada anteriormente
-function cupomEhValido(cupom) {
+function obterDescontoCupom(cupom) {        // PS: alterei a assinatura da função para ficar mais legível!
+    return (CUPONS_VALIDOS.includes(cupom["texto"]) && cupom["desconto"] > 0 ? cupom["desconto"] : 0);
 }
 
 function obterDescontoTotal(categoria, cupom) {
+    return obterDescontoCategoria(categoria) + obterDescontoCupom(cupom);
 }
 
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
 // A função deve retornar o valor total da compra, considerando os descontos de cada categoria e o cupom informado
 function calcularTotalDaCompraComDescontos(produtos, cupom) {
+    if (listaEhInvalida(produtos)) return undefined;
+    let precoTotal = calcularTotalDaCompra(produtos);
+    let valorDescontado = 0;
+    for (let i=0; i<produtos.length; i++) {
+        valorDescontado += (obterDescontoTotal(produtos[i]["categoria"], cupom)/100)*produtos[i]["preco"];
+    }
+    return precoTotal - valorDescontado;
 }
 
 // =======
