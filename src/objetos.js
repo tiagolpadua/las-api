@@ -111,6 +111,16 @@ let resultado = [];
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
+    let totalCompras = 0;
+    if (Array.isArray(produtos) === false || produtos.length === 0){
+        return undefined;
+    }else{
+        for (let i = 0; i < produtos.length; i++){
+            totalCompras += (produtos[i]['preco'] * produtos[i]['quantidade']);
+        }
+        return totalCompras;
+    }
+
 }
 
 // =========
