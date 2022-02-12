@@ -38,13 +38,10 @@ function obterMenorPreco(produtos) {
     let resultado;
     if(produtos.constructor == Array && produtos.length > 0){
         produtos.forEach(objeto => {
-            for(let i in objeto){
-                if (resultado === undefined || objeto.preco < resultado.preco){
-                    resultado = objeto;
-                }
-            }
+            if (resultado === undefined || objeto.preco < resultado.preco){
+                resultado = objeto;
+            } 
         });
-        
         return resultado;
     }
     return undefined;
@@ -55,13 +52,10 @@ function obterMaiorPreco(produtos) {
     let resultado;
     if(produtos.constructor == Array && produtos.length > 0){
         produtos.forEach(objeto => {
-            for(let i in objeto){
-                if (resultado === undefined || objeto.preco > resultado.preco){
-                    resultado = objeto;
-                }
+            if (resultado === undefined || objeto.preco > resultado.preco){
+                resultado = objeto;
             }
-        });
-        
+        });  
         return resultado;
     }
     return undefined;
@@ -85,9 +79,14 @@ function incluirPrecoFormatado(produto) {
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
-    return { "Alimentação": 30, "Infantil": 15 }[nomeCategoria] | undefined;
-
+    for (let i = 0; i < CATEGORIAS.length; i++) {
+        if (CATEGORIAS[i].nome === nomeCategoria) {
+            return CATEGORIAS[i].desconto;
+        }
+    }
+    return 0;
 }
+
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
@@ -123,31 +122,32 @@ function calcularTotalDaCompra(produtos) {
 // Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos) {
-    // if(produtos.constructor == Array && produtos.length > 0){
-    //     let menor = 10;
-    //     let maior = 0;
-    //     produtos.forEach(objeto => {
-    //       if(objeto.preco < menor){
-    //           menor = objeto;
-    //       }if(objeto.preco > maior){
-    //           maior = objeto;
-    //       }
-    //     });
-    //     return {
-    //         menorPreco: menor,
-    //         maiorPreco: maior
-    //     };
-    // }return undefined;
-
-    if(listaEhInvalida){
-        return undefined;
-    }else{
-        return{
-            menorPreco: obterMenorPreco(produtos),
-            maiorPreco: obterMaiorPreco(produtos)
+    if(produtos.constructor == Array && produtos.length > 0){
+        let menor = 10;
+        let maior = 0;
+        produtos.forEach(objeto => {
+          if(objeto.preco < menor){
+              menor = objeto;
+          }if(objeto.preco > maior){
+              maior = objeto;
+          }
+        });
+        return {
+            menorPreco: menor,
+            maiorPreco: maior
         };
     }
+    return undefined;
 }
+
+    // if(listaEhInvalida){
+    //     return undefined;
+    // }
+    //     return{
+    //         menorPreco: obterMenorPreco(produtos),maiorPreco: obterMaiorPreco(produtos)
+    //     };
+    
+
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e 
 // retorna uma lista de produtos dentro do orçamento.
@@ -205,7 +205,37 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 class CarrinhoDeCompras {
 
     constructor(){
-        this.listaDeCompras = [];
+        this.listaDeProdutos = [];
+    }
+
+    incluirProduto(produto){
+        this.listaDeProdutos.push(produto); 
+    }
+
+    excluirProduto(index){
+        this.listaDeProdutos.splice(index, 1);
+    }
+
+    listarProdutos(){
+        return this.listaDeProdutos;
+    }
+    definirCupom(cupom) {
+        this.cupom = cupom;
+    }
+    obterCupom(){
+        return this.cupom;
+    }
+
+    excluirCupom(){
+        this.cupom = undefined;
+    }
+
+    subtotal() {
+        return calcularTotalDaCompra(this.listaDeProdutos);
+    }
+
+    total() {
+        return calcularTotalDaCompraComDescontos(this.listaDeProdutos, this.cupom);
     }
 }
 
