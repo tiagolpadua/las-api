@@ -24,6 +24,8 @@
 // }
 //---------------------------------------------------------------------------------------
 
+const { listaEhInvalida } = require("./arrays");
+
 const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
 const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
@@ -33,34 +35,81 @@ const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    }
+    let menor = produtos[0];
+    for (let i = 1; i < produtos.length; i++) {
+        if (menor.preco > produtos[i].preco) {
+            menor = produtos[i];
+        }
+    }
+    return menor;
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    }
+    let maior = produtos[0];
+    for (let i = 1; i < produtos.length; i++) {
+        if (maior.preco < produtos[i].preco) {
+            maior = produtos[i];
+        }
+    }
+    return maior;
 }
 
-// Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
+// Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova propriedade
 // chamada 'precoFormatado' com o valor formatado em Reais
 function formatarValor(valor) {
+    return `R$ ${valor.toFixed(2).replace(".", ",")}`;
 }
 
 function incluirPrecoFormatado(produto) {
+    return {
+        ...produto,
+        precoFormatado: formatarValor(produto.preco)
+    };
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
+    return { "Alimentação": 30, "Infantil": 15 }[nomeCategoria] | undefined;
 }
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
+
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    }
+    let produtosLimitados = [];
+
+    for (let produto of produtos) {
+        if (produto.preco <= precoMaximo) {
+            produtosLimitados.push(produto);
+        }
+    }
+    return produtosLimitados;
 }
 
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
+    let totalCompra = 0;
+
+    if(listaEhInvalida(produtos)){
+        return undefined;
+    }
+    for (let produto of produtos){
+        totalCompra += produto.preco * produto.quantidade;
+    }
+    return totalCompra;
 }
 
 // =========

@@ -10,7 +10,8 @@ const {
     obterDescontoTotal,
     calcularTotalDaCompraComDescontos,
     capitalizarNomeCompleto,
-    gerarCupomFiscal
+    gerarCupomFiscal,
+    listaEhInvalida
 } = require("./arrays");
 
 describe("Essencial", () => {
