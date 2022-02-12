@@ -70,16 +70,26 @@ function obterMaiorPreco(produtos) {
 }
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
-function formatarValor(valor) {
+function formatarValor(valor) {    
 }
 
 function incluirPrecoFormatado(produto) {
+          
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
+    if (nomeCategoria !== 'Infantil' && nomeCategoria !== 'Alimentação'){
+        return 0;
+    }else{
+        for (let i = 0; i < CATEGORIAS.length; i++){
+            if (nomeCategoria === CATEGORIAS[i]['nome']){
+                return CATEGORIAS[i]['desconto'];
+            }
+        }
+    }
 }
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
