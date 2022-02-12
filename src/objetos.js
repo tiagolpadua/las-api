@@ -95,6 +95,17 @@ function obterDescontoCategoria(nomeCategoria) {
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
+let resultado = [];
+    if (Array.isArray(produtos) === false || produtos.length === 0){
+        return undefined;
+    }else{
+        for (let i = 0; i < produtos.length; i++){
+            if (produtos[i]['preco'] <= precoMaximo){
+                resultado.push(produtos[i]);                                
+            }
+        }
+        return resultado;
+    }
 }
 
 // Crie uma função que recebe uma lista de produtos de uma compra,
