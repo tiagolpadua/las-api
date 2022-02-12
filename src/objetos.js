@@ -31,17 +31,63 @@ const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 // Essencial
 // =========
 
+
+function isValidObject(produtos) {
+
+
+    return typeof (produtos) === 'object' && produtos.length > 0;
+}
+
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
+    let menorPreco = 0;
+    let produtoMenorPreco = undefined;
+    if (isValidObject(produtos)) {
+
+        produtos.forEach((produto) => {
+
+            if (menorPreco === 0) {
+                menorPreco = produto.preco;
+            }
+
+            if (produto.preco < menorPreco) {
+                menorPreco = produto.preco;
+                produtoMenorPreco = produto;
+
+            }
+
+        });
+
+    }
+    return produtoMenorPreco;
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
+    let maiorPreco = 0;
+    let produtoMaiorPreco = undefined;
+    if (isValidObject(produtos)) {
+
+        produtos.forEach((produto) => {
+
+
+
+            if (produto.preco > maiorPreco) {
+                maiorPreco = produto.preco;
+                produtoMaiorPreco = produto;
+            }
+
+
+        });
+
+    }
+    return produtoMaiorPreco;
 }
 
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
 function formatarValor(valor) {
+
 }
 
 function incluirPrecoFormatado(produto) {
