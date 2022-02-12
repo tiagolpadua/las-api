@@ -70,11 +70,11 @@ function obterMaiorPreco(produtos) {
 }
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
-function formatarValor(valor) {    
+function formatarValor(valor) {        
 }
 
-function incluirPrecoFormatado(produto) {
-          
+function incluirPrecoFormatado(produto) { 
+    return "R$ " + produto.toFixed(2).split(".").join(",");                
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
@@ -170,6 +170,17 @@ function obterDescontoTotal(categoria, cupom) {
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
 // A função deve retornar o valor total da compra, considerando os descontos de cada categoria e o cupom informado
 function calcularTotalDaCompraComDescontos(produtos, cupom) {
+    let totalComDescontos = 0;
+    let descontoTotal = 0;
+    if (Array.isArray(produtos) === false || produtos.length === 0){
+        return undefined;
+    }else{
+        for (let i = 0; i < produtos.length; i++){
+            descontoTotal = obterDescontoCategoria(produtos[i]['categoria']) + cupomEhValido(cupom);                        
+            totalComDescontos += produtos[i]['preco'] * produtos[i]['quantidade'] * ((100 - descontoTotal) / 100);           
+        }
+        return totalComDescontos.toFixed(2);        
+    }
 }
 
 // =======
