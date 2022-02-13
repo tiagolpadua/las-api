@@ -84,38 +84,65 @@ function obterMaiorPreco(produtos) {
     return produtoMaiorPreco;
 }
 
-function formataMoeda(valor) {
 
-    return valor.toLocaleString('pt-br', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
 function formatarValor(valor) {
-
-    const produto = valor;
-
-    produto.preco = formataMoeda(produto.preco);
-    return produto;
-
+    return "R$ " + valor.toLocaleString('pt-br', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function incluirPrecoFormatado(produto) {
+    produto.precoFormatado = formatarValor(produto.preco);
+    return produto;
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
+    let desconto = 0;
+    CATEGORIAS.forEach((categoria) => {
+
+
+        if (categoria.nome == nomeCategoria) {
+
+            desconto = categoria.desconto;
+
+
+        }
+
+
+
+    });
+
+    return desconto;
 }
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
+
+    return isValidObject(produtos) ? produtos.filter(produto => produto.preco < precoMaximo) : undefined;
 }
 
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
+    let sum = 0;
+
+
+
+    if (isValidObject(produtos)) {
+
+        produtos.forEach((produto) => {
+            sum += produto.preco * produto.quantidade;
+
+
+
+        });
+
+    }
+    return sum > 0 ? sum : undefined;
 }
 
 // =========
@@ -125,6 +152,8 @@ function calcularTotalDaCompra(produtos) {
 // Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos) {
+
+
 }
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e 
