@@ -39,44 +39,44 @@ const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 function obterMenorPreco(produtos) {
     let menorPreco;
     let produtoMaisBarato;
-    if (listaEhInvalida(produtos)){return undefined}
+    if (listaEhInvalida(produtos)){return undefined;}
     produtos.forEach((produto,index) => {
         if (index===0){
-            menorPreco= produto.preco
-            produtoMaisBarato=produto
+            menorPreco= produto.preco;
+            produtoMaisBarato=produto;
         }else{
             if(produto.preco < menorPreco){
-                menorPreco = produto.preco
-                produtoMaisBarato=produto
+                menorPreco = produto.preco;
+                produtoMaisBarato=produto;
             }
         }
     });
-    return produtoMaisBarato
+    return produtoMaisBarato;
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
     let maiorPreco;
     let produtoMaisCaro;
-    if (listaEhInvalida(produtos)){return undefined}
+    if (listaEhInvalida(produtos)){return undefined;}
     produtos.forEach((produto,index)=>{
         if(index===0){
-            produtoMaisCaro = produto
-            maiorPreco = produto.preco
+            produtoMaisCaro = produto;
+            maiorPreco = produto.preco;
         }else{
             if(maiorPreco<produto.preco){
-                produtoMaisCaro = produto
-                maiorPreco = produto.preco
+                produtoMaisCaro = produto;
+                maiorPreco = produto.preco;
             }
         }
-    })
-    return produtoMaisCaro
+    });
+    return produtoMaisCaro;
 }
 
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
 function formatarValor(valor) {
-    return `R$ ${valor.toFixed(2).replace(".",",")}`
+    return `R$ ${valor.toFixed(2).replace(".",",")}`;
     //return valor.toLocaleString("pt-BR",{style: "currency",currency:"BRL"})
 }
 
@@ -84,7 +84,7 @@ function incluirPrecoFormatado(produto) {
     return {
         ...produto,
         precoFormatado:formatarValor(produto.preco)
-    }
+    };
 }
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
@@ -103,14 +103,14 @@ function obterDescontoCategoria(nomeCategoria) {
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
-    if (listaEhInvalida(produtos)){return undefined}
-    return produtos.filter(produto => produto.preco <= precoMaximo)
+    if (listaEhInvalida(produtos)){return undefined;}
+    return produtos.filter(produto => produto.preco <= precoMaximo);
 }
 
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
-    if (listaEhInvalida(produtos)){return undefined}
+    if (listaEhInvalida(produtos)){return undefined;}
     return produtos.reduce(
         (total, produto) => (total += produto.preco * produto.quantidade),
         0
@@ -124,19 +124,19 @@ function calcularTotalDaCompra(produtos) {
 // Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos) {
-    if (listaEhInvalida(produtos)){return undefined}
+    if (listaEhInvalida(produtos)){return undefined;}
     return {
         menorPreco: obterMenorPreco(produtos),
         maiorPreco: obterMaiorPreco(produtos)
-    }
+    };
 }
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e 
 // retorna uma lista de produtos dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
-    if (listaEhInvalida(produtos)||menorValor>maiorValor){return undefined}
-    return produtos.filter(produto => produto.preco>= menorValor&& produto.preco<=maiorValor)
+    if (listaEhInvalida(produtos)||menorValor>maiorValor){return undefined;}
+    return produtos.filter(produto => produto.preco>= menorValor&& produto.preco<=maiorValor);
 }
 
 // Crie uma função que recebe um nome de uma categoria e um objeto cupom e retorna o desconto total,
@@ -188,11 +188,11 @@ class CarrinhoDeCompras {
     }
 
     incluirProduto(produto){
-        this.listaDeProdutos.push(produto)
+        this.listaDeProdutos.push(produto);
     }
 
     excluirProduto(indice){
-        this.listaDeProdutos.splice(indice)
+        this.listaDeProdutos.splice(indice);
     }
 
     listarProdutos(){
@@ -208,15 +208,15 @@ class CarrinhoDeCompras {
     }
 
     excluirCupom(){
-        this.cupom = null
+        this.cupom = null;
     }
 
     subtotal(){
-        return calcularTotalDaCompra(this.listaDeProdutos)
+        return calcularTotalDaCompra(this.listaDeProdutos);
     }
 
     total(){
-        return calcularTotalDaCompraComDescontos(this.listaDeProdutos,this.cupom)
+        return calcularTotalDaCompraComDescontos(this.listaDeProdutos,this.cupom);
     }
 }
 
