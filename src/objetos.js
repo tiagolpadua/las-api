@@ -194,7 +194,43 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 // - total - função calcula o total da compra com descontos - dica: utilizar função calcularTotalDaCompraComDescontos definida anteriormente;
 
 class CarrinhoDeCompras {
+    constructor () {
+        this.listaDeProdutos = [];
+    }
+    
+    incluirProduto(produto) {
+        this.listaDeProdutos.push(produto);
+    }
+
+    excluirProduto(indice) {
+        this.listaDeProdutos.splice(indice);
+    }
+
+    listarProdutos() {
+        return this.listaDeProdutos;
+    }
+
+    definirCupom(cupom) {
+        this.cupom = cupom;
+    }
+
+    obterCupom() {
+        return this.cupom;
+    }
+
+    excluirCupom() {
+        delete this.cupom;
+    }
+
+    subtotal() {
+        return calcularTotalDaCompra(this.listaDeProdutos);
+    }
+
+    total() {
+        return calcularTotalDaCompraComDescontos(this.listaDeProdutos, this.cupom);
+    }
 }
+
 
 module.exports = {
     obterMenorPreco,
