@@ -84,9 +84,18 @@ function obterMaiorPreco(produtos) {
     return produtoMaiorPreco;
 }
 
+function formataMoeda(valor) {
+
+    return valor.toLocaleString('pt-br', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
 function formatarValor(valor) {
+
+    const produto = valor;
+
+    produto.preco = formataMoeda(produto.preco);
+    return produto;
 
 }
 
