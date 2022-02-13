@@ -23,10 +23,6 @@
 //   desconto: number
 // }
 //---------------------------------------------------------------------------------------
-
-const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
-const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
-
 // =========
 // Essencial
 // =========
@@ -217,15 +213,15 @@ class CarrinhoDeCompras {
         this.carrinhoDeCompras = produto;
     }
     incluirProduto(produto) {
-        this.carrinhoDeCompras.push({...produto});
+        this.carrinhoDeCompras.push({ ...produto });
     }
     excluirProduto(indice) {
-        this.carrinhoDeCompras.splice(indice,1);
+        this.carrinhoDeCompras.splice(indice, 1);
     }
     listarProdutos() {
-       return this.carrinhoDeCompras;
+        return this.carrinhoDeCompras;
     }
-    definirCupom({...cupom}) {
+    definirCupom({ ...cupom }) {
         this.cupom = cupom;
     }
     obterCupom() {
@@ -238,7 +234,7 @@ class CarrinhoDeCompras {
         return calcularTotalDaCompra(this.carrinhoDeCompras);
     }
     total() {
-        return calcularTotalDaCompraComDescontos(this.carrinhoDeCompras,this.cupom);
+        return calcularTotalDaCompraComDescontos(this.carrinhoDeCompras, this.cupom);
     }
 
 }
@@ -255,4 +251,4 @@ module.exports = {
     obterDescontoTotal,
     calcularTotalDaCompraComDescontos,
     CarrinhoDeCompras
-}
+};
