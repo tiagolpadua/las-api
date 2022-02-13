@@ -36,7 +36,7 @@ const {listaEhInvalida} = require("./arrays");
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
     let resultado;
-    if(produtos.constructor == Array && produtos.length > 0){
+    if(!listaEhInvalida(produtos)){
         produtos.forEach(objeto => {
             if (resultado === undefined || objeto.preco < resultado.preco){
                 resultado = objeto;
@@ -50,7 +50,7 @@ function obterMenorPreco(produtos) {
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
     let resultado;
-    if(produtos.constructor == Array && produtos.length > 0){
+    if(!listaEhInvalida(produtos)){
         produtos.forEach(objeto => {
             if (resultado === undefined || objeto.preco > resultado.preco){
                 resultado = objeto;
@@ -87,11 +87,10 @@ function obterDescontoCategoria(nomeCategoria) {
     return 0;
 }
 
-
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
-    if(produtos.constructor == Array && produtos.length > 0){
+    if(!listaEhInvalida(produtos)){
         return produtos.filter(x => x.preco <= precoMaximo);
      } undefined;
 }
@@ -103,7 +102,7 @@ function calcularTotalDaCompra(produtos) {
     var recebePreco = 0;
     var totalCompra = 0;
     var valor = 0;
-    if(produtos.constructor == Array && produtos.length > 0){
+    if(!listaEhInvalida(produtos)){
         produtos.forEach(objeto => {
             recebeQuantidade = objeto.quantidade;
             recebePreco = objeto.preco;
@@ -122,7 +121,7 @@ function calcularTotalDaCompra(produtos) {
 // Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos) {
-    if(produtos.constructor == Array && produtos.length > 0){
+    if(!listaEhInvalida(produtos)){
         let menor = 10;
         let maior = 0;
         produtos.forEach(objeto => {
@@ -140,20 +139,21 @@ function obterMenorEMaiorPrecos(produtos) {
     return undefined;
 }
 
-    // if(listaEhInvalida){
-    //     return undefined;
-    // }
-    //     return{
-    //         menorPreco: obterMenorPreco(produtos),maiorPreco: obterMaiorPreco(produtos)
+    // if(!listaEhInvalida){
+    //    return {
+    //        menorPreco: obterMenorPreco(produtos), 
+    //        maiorPreco: obterMaiorPreco(produtos)
     //     };
-    
+    // }else{
+    // return undefined;
+    // }
 
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e 
 // retorna uma lista de produtos dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
-    return menorValor <= maiorValor && Array.isArray(produtos) && produtos.length !== 0
+    return menorValor <= maiorValor && (!listaEhInvalida(produtos))
     ? produtos.filter(x => x.preco >= menorValor && x.preco <= maiorValor)
     : undefined;
 
