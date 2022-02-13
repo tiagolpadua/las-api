@@ -55,16 +55,33 @@ function obterMaiorPreco(produtos) {
   }
 }
 
-// Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
+// Crie uma função que receba um produto e retorna uma cópia deste produto
+//incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
-function formatarValor(valor) {}
+function formatarValor(valor) {
+  return `R$ ${valor.toFixed(2).replace(".", ",")}`;
+}
 
-function incluirPrecoFormatado(produto) {}
+function incluirPrecoFormatado(produto) {
+  const produtoComPrecoFormatado = { ...produto };
+  produtoComPrecoFormatado.precoFormatado = formatarValor(produto.preco);
+
+  return produtoComPrecoFormatado;
+}
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
-function obterDescontoCategoria(nomeCategoria) {}
+function obterDescontoCategoria(nomeCategoria) {
+  let descontoCategoria = 0;
+
+  const desconto = CATEGORIAS.map((categ) => {
+    if (categ.nome === nomeCategoria) {
+      descontoCategoria = categ.desconto;
+    }
+  });
+  return descontoCategoria;
+}
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
