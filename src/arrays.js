@@ -33,15 +33,16 @@ function obterMenorPreco(lista) {
 // ([10, 7, 8, 25, 8, 9, 100, 99]) => 100
 function obterMaiorPreco(lista) {
     var maiorElemento = 10;
-    
+    if(lista.isArray){
     lista.forEach(elemento => {
         if(elemento > maiorElemento){
             maiorElemento = elemento;
         }
     });
     return maiorElemento;
-
+    }
     return Array.isArray(lista) && lista.length !== 0 ? Math.max(...lista) : undefined;
+
 }
 
 // Crie uma função que receba uma lista de nomes e devolve a lista de nomes capitalizados
@@ -81,7 +82,7 @@ function calcularTotalDaCompra(lista) {
 
     if(lista.construtor == Array){
      
-            for(i = 0; i< verificaLista; i++){
+            for(var i = 0; i< verificaLista; i++){
                 totalCompra += i;
             }
 
