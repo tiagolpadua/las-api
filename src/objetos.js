@@ -176,14 +176,16 @@ function obterDescontoTotal(categoria, cupom) {
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
 // A função deve retornar o valor total da compra, considerando os descontos de cada categoria e o cupom informado
 function calcularTotalDaCompraComDescontos(produtos, cupom) {
-    if(!listaEhInvalida(produtos)){
-        let valorDaCompra = calcularTotalDaCompra(produtos);
-        let valorDoDesconto = produtos.reduce((soma, produto) => soma + obterDescontoTotal(produto.categoria, cupom) / 100 * produto.preco, 0);
+    let totalDaCompra = calcularTotalDaCompra(produtos);
+    let desconto = 0;
 
-        let total = valorDaCompra - valorDoDesconto;
-
-        return total;
-    }return undefined;
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    }
+    for (let p of produtos) {
+        desconto += (p.preco * p.quantidade) * (obterDescontoTotal(p.categoria, cupom) / 100);
+    }
+    return totalDaCompra - desconto;
 }
 
 // =======
