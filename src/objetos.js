@@ -179,7 +179,7 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
             descontoTotal = obterDescontoCategoria(produtos[i]['categoria']) + cupomEhValido(cupom);                        
             totalComDescontos += produtos[i]['preco'] * produtos[i]['quantidade'] * ((100 - descontoTotal) / 100);           
         }
-        return totalComDescontos.toFixed(2);        
+        return Number.parseFloat(totalComDescontos.toFixed(2));
     }
 }
 
