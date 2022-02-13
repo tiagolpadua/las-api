@@ -165,15 +165,13 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 
     if(listaEhInvalida(produtos) )  return undefined;
 
-    let precoSemDesconto = calcularTotalDaCompra(produtos);
-
     let produtosComDesconto = produtos.map(item => {
         
-       return  item["preco"] * ((obterDescontoTotal(item["categoria"], cupom))/100);
+       return  (item["preco"] * item["quantidade"]) * (1 - (obterDescontoTotal(item["categoria"], cupom)/100));
         
     }).reduce((acc , item) => acc + item , 0);
     
-    return precoSemDesconto - produtosComDesconto;
+    return  +(produtosComDesconto.toFixed(2));
 }
 
 // =======
