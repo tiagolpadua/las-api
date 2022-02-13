@@ -242,10 +242,10 @@ describe("Desejável", () => {
             .toEqual(0);
     });
 
-    test("Deve calcular o total da compra com descontos.", () => {
-        expect(calcularTotalDaCompraComDescontos([], 1, "foo")).toBeUndefined();
+    test('Deve calcular o total da compra com descontos.', () => {
+        expect(calcularTotalDaCompraComDescontos([], 1, 'foo')).toBeUndefined();
 
-        expect(calcularTotalDaCompraComDescontos("foo", [], "foo")).toBeUndefined();
+        expect(calcularTotalDaCompraComDescontos('foo', [], 'foo')).toBeUndefined();
 
         expect(calcularTotalDaCompraComDescontos([
             serpentina,
