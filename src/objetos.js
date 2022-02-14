@@ -25,7 +25,7 @@
 //---------------------------------------------------------------------------------------
 
 const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
-const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
+//const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
 // =========
 // Essencial
@@ -36,12 +36,12 @@ function obterMenorPreco(produtos) {
     if (Array.isArray(produtos) === false || produtos.length === 0){
         return undefined;
     }else{
-        let menorPreco = produtos[0]['preco'];
+        let menorPreco = produtos[0]["preco"];
         let resultado;
         for (let i = 0; i < produtos.length; i++){
-            if (produtos[i]['preco'] < menorPreco){
+            if (produtos[i]["preco"] < menorPreco){
                 resultado = produtos[i];
-                menorPreco = produtos[i]['preco'];
+                menorPreco = produtos[i]["preco"];
             }   
         }
         return resultado;
@@ -53,13 +53,13 @@ function obterMaiorPreco(produtos) {
     if (Array.isArray(produtos) === false || produtos.length === 0){
         return undefined;
     }else{
-        let maiorPreco = produtos[0]['preco'];
+        let maiorPreco = produtos[0]["preco"];
         let resultado;
         for (let i = 0; i < produtos.length; i++){
-            if (produtos[i]['preco'] > maiorPreco){
+            if (produtos[i]["preco"] > maiorPreco){
                 resultado = produtos[i];
-                maiorPreco = produtos[i]['preco'];
-            }else if (produtos[i]['preco'] === maiorPreco && i === 0){
+                maiorPreco = produtos[i]["preco"];
+            }else if (produtos[i]["preco"] === maiorPreco && i === 0){
                 resultado = produtos[i];
             }else{
                 continue;
@@ -81,7 +81,7 @@ function incluirPrecoFormatado(produto) {
         quantidade: produto.quantidade,
         preco: produto.preco,
         precoFormatado: formatarValor(produto.preco),
-    }      
+    };      
     return novoObjeto;              
 }
 
@@ -89,12 +89,12 @@ function incluirPrecoFormatado(produto) {
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
-    if (nomeCategoria !== 'Infantil' && nomeCategoria !== 'Alimentação'){
+    if (nomeCategoria !== "Infantil" && nomeCategoria !== "Alimentação"){
         return 0;
     }else{
         for (let i = 0; i < CATEGORIAS.length; i++){
-            if (nomeCategoria === CATEGORIAS[i]['nome']){
-                return CATEGORIAS[i]['desconto'];
+            if (nomeCategoria === CATEGORIAS[i]["nome"]){
+                return CATEGORIAS[i]["desconto"];
             }
         }
     }
@@ -108,7 +108,7 @@ let resultado = [];
         return undefined;
     }else{
         for (let i = 0; i < produtos.length; i++){
-            if (produtos[i]['preco'] <= precoMaximo){
+            if (produtos[i]["preco"] <= precoMaximo){
                 resultado.push(produtos[i]);                                
             }
         }
@@ -124,7 +124,7 @@ function calcularTotalDaCompra(produtos) {
         return undefined;
     }else{
         for (let i = 0; i < produtos.length; i++){
-            totalCompras += (produtos[i]['preco'] * produtos[i]['quantidade']);
+            totalCompras += (produtos[i]["preco"] * produtos[i]["quantidade"]);
         }
         return totalCompras;
     }
@@ -140,7 +140,7 @@ function obterMenorEMaiorPrecos(produtos) {
     const novoObjeto = {
         maiorPreco: obterMaiorPreco(produtos),
         menorPreco: obterMenorPreco(produtos),
-    }
+    };
     if (Array.isArray(produtos) === false || produtos.length === 0){
         return undefined;
     }else{
@@ -157,7 +157,7 @@ function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor ) {
         return undefined;
     }else{
         for (let i = 0; i < produtos.length; i++){
-            if (produtos[i]['preco'] >= menorValor && produtos[i]['preco'] <= maiorValor){
+            if (produtos[i]["preco"] >= menorValor && produtos[i]["preco"] <= maiorValor){
                 resultado.push(produtos[i]);
             }             
         }  
@@ -169,9 +169,9 @@ function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor ) {
 // que é a soma do desconto da categoria e a soma do desconto do cupom
 // Utilize a função obterDescontoCategoria criada anteriormente
 function cupomEhValido(cupom) {
-    if (cupom.texto === 'NULABSSA' && cupom.desconto === 10){
+    if (cupom.texto === "NULABSSA" && cupom.desconto === 10){
         return 10;
-    }else if (cupom.texto === 'ALURANU' && cupom.desconto === 15){
+    }else if (cupom.texto === "ALURANU" && cupom.desconto === 15){
         return 15;
     }else{
         return 0;
@@ -193,10 +193,10 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
         return undefined;
     }else{
         for (let i = 0; i < produtos.length; i++){
-            descontoTotal = obterDescontoCategoria(produtos[i]['categoria']) + cupomEhValido(cupom);                        
-            totalComDescontos += produtos[i]['preco'] * produtos[i]['quantidade'] * ((100 - descontoTotal) / 100);           
+            descontoTotal = obterDescontoCategoria(produtos[i]["categoria"]) + cupomEhValido(cupom);                        
+            totalComDescontos += produtos[i]["preco"] * produtos[i]["quantidade"] * ((100 - descontoTotal) / 100);           
         }
-        return Number.parseFloat(totalComDescontos.toFixed(2));
+        return Number.parseFloat(totalComDescontos.toFixed(2));        
     }
 }
 
@@ -216,7 +216,36 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 // - total - função calcula o total da compra com descontos - dica: utilizar função calcularTotalDaCompraComDescontos definida anteriormente;
 
 class CarrinhoDeCompras {
+    constructor(){
+        this.produto = [];        
+    }
+    incluirProduto(produto){
+        this.produto.push(produto);                                    
+    }
+    excluirProduto(produto){
+        this.produto.pop(produto);
+    }
+    listarProdutos(){ 
+        return this.produto;         
+    }
+    definirCupom(){
+
+    }
+    obterCupom(){
+
+    }   
+    excluirCupom(){
+
+    }
+    subtotal(){
+
+    }
+    total(){
+        
+    }
+    
 }
+
 
 module.exports = {
     obterMenorPreco,
