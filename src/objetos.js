@@ -185,8 +185,8 @@ class CarrinhoDeCompras {
     }
 
     excluirProduto(indice){
+    
         this.itens.splice(indice, 1);
-        return this.itens;
     }
 
     listarProdutos(){
