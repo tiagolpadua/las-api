@@ -111,7 +111,6 @@ function obterMenorEMaiorPrecos(produtos) {
     if (listaEhInvalida(produtos)) {
         return undefined;
     }
-
     const objeto = {
         menorPreco: obterMenorPreco(produtos),
         maiorPreco: obterMaiorPreco(produtos),
