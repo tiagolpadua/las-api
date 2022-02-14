@@ -128,7 +128,7 @@ function obterMenorEMaiorPrecos(produtos) {
         const precos = {
             menorPreco: menor,
             maiorPreco: maior
-        }
+        };
         return precos;
     }
     return undefined;
@@ -161,8 +161,6 @@ function cupomEhValido(cupom) {
 
 function obterDescontoTotal(categoria, cupom) {
 
-    // return `O valor do obterDes é ${obterDescontoCategoria(categoria)} e o valor do Cupom é ${cupom.desconto} e cupomValido é ${cupomEhValido(cupom)}`;
-
     if (cupomEhValido(cupom) && cupom.desconto > 0) {
         let soma = obterDescontoCategoria(categoria) + cupom.desconto;
         return soma;
@@ -179,11 +177,8 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
     if (Array.isArray(produtos) && produtos.length > 0) {
         total = calcularTotalDaCompra(produtos);
         for (let i = 0; i<produtos.length;i++){
-            desconto += produtos[i].preco * ((obterDescontoTotal(produtos[i].categoria, cupom))/100)
+            desconto += produtos[i].preco * ((obterDescontoTotal(produtos[i].categoria, cupom))/100);
         }
-        // produtos.forEach(itens =>
-        //     (desconto += itens.preco * (obterDescontoTotal(itens.categoria, cupom) / 100))
-        // )
         return total- desconto;
     }
     return undefined;
