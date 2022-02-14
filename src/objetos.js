@@ -24,7 +24,7 @@
 // }
 //---------------------------------------------------------------------------------------
 
-const {listaEhInvalida} = require("./arrays.js")
+const {listaEhInvalida} = require("./arrays.js");
 
 const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
 const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
@@ -59,17 +59,17 @@ function obterMaiorPreco(produtos) {
         return undefined;
     }
 
-    let maiorPd = produtos[0]
-    let maiorPr = produtos[0].preco
+    let maiorPd = produtos[0];
+    let maiorPr = produtos[0].preco;
 
     for(let produto in produtos){
         if(produto.preco > maiorPr){
-            maiorPr = produto.preco
-            maiorPd = produto
+            maiorPr = produto.preco;
+            maiorPd = produto;
         }
     }
 
-    return maiorPd
+    return maiorPd;
 
    
 }
@@ -115,13 +115,13 @@ function obterDescontoCategoria(nomeCategoria) {
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
-    let listaProdutos=[]
+    let listaProdutos=[];
 
     if (listaEhInvalida(produtos)) {
         return undefined;
     } 
 
-    for(produto of produtos){
+    for(let produto of produtos){
         if(produto.preco <= precoMaximo){
             listaProdutos.push(produto);
         }
