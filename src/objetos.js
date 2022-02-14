@@ -249,9 +249,16 @@ class CarrinhoDeCompras {
         } 
         return this.subTotalProd;       
     }
-    total(valor){
-        
-    }
+    total(){
+        for (let i = 0; i < this.produto.length; i++){
+            let descProd = 0;
+            let totalDesc = 0;
+            descProd = obterDescontoCategoria(this.produto[i]['categoria']);
+            totalDesc +=  (descProd + this.cupons['desconto']);
+            this.totalProd += this.produto[i]['preco'] * ((100 - totalDesc) / 100);
+        } 
+        return this.totalProd;               
+    }   
     
 }
 
