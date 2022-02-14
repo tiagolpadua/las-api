@@ -177,7 +177,7 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
     } else {
         let descontos = 0;
         produtos.forEach(produto => {
-            return descontos += produto.preco * obterDescontoTotal(produto.categoria, cupom) / 100;
+            return descontos += produto.preco * produto.quantidade * obterDescontoTotal(produto.categoria, cupom) / 100;
         });
         return calcularTotalDaCompra(produtos) - descontos;
     }
