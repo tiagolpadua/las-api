@@ -191,8 +191,8 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
     
   const totalDasCompras = calcularTotalDaCompra(produtos);
 
-  const totalDosDescontos = produtos.reduce((acumulado, {categoria , preco}) =>
-  acumulado + (preco * obterDescontoTotal(categoria,cupom))/100,0);
+  const totalDosDescontos = produtos.reduce((acumulado, {categoria , preco, quantidade}) =>
+  acumulado + (preco * quantidade * obterDescontoTotal(categoria,cupom))/100,0);
   
   return totalDasCompras - totalDosDescontos;
 }
