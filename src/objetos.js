@@ -22,8 +22,6 @@
 //   texto: string,
 //   desconto: number
 // }
-
-
 //---------------------------------------------------------------------------------------
 const { listaEhInvalida } = require("./arrays");
 const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
