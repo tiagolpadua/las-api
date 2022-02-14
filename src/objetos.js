@@ -36,27 +36,34 @@ const { listaEhInvalida } = require("./arrays");
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
 
-    if (listaEhInvalida(produtos)) { return undefined; }
-    let menorPreco = produtos[0];
-    produtos.forEach((produto) => {
-        if (produto.preco < menorPreco.preco) {
-            menorPreco = produto;
-        }
-    });
-    return menorPreco;
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    } else {
+
+        let menorPreco = produtos[0];
+        produtos.forEach((produto) => {
+            if (produto.preco < menorPreco.preco) {
+                menorPreco = produto;
+            }
+        });
+        return menorPreco;
+    }
 }
 
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
-    if (listaEhInvalida(produtos)) { return undefined; }
-    let maiorPreco = produtos[0];
-    produtos.forEach((produto) => {
-        if (produto.preco > maiorPreco.preco) {
-            maiorPreco = produto;
-        }
-    });
-    return maiorPreco;
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    } else {
+        let maiorPreco = produtos[0];
+        produtos.forEach((produto) => {
+            if (produto.preco > maiorPreco.preco) {
+                maiorPreco = produto;
+            }
+        });
+        return maiorPreco;
+    }
 }
 
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
@@ -88,26 +95,32 @@ function obterDescontoCategoria(nomeCategoria) {
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
-    if (listaEhInvalida(produtos)) { return undefined; }
-    let orcamento = [];
-    produtos.map((produto) => {
-        if (produto.preco <= precoMaximo) {
-            orcamento.push(produto);
-        }
-    });
-    return orcamento;
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    } else {
+        let orcamento = [];
+        produtos.map((produto) => {
+            if (produto.preco <= precoMaximo) {
+                orcamento.push(produto);
+            }
+        });
+        return orcamento;
+    }
 }
 
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
-    if (listaEhInvalida(produtos)) { return undefined; }
-    let total = 0;
-    for (let i = 0; i < produtos.length; i++) {
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    } else {
+        let total = 0;
+        for (let i = 0; i < produtos.length; i++) {
 
-        total += (produtos[i].preco * produtos[i].quantidade);
+            total += (produtos[i].preco * produtos[i].quantidade);
+        }
+        return total;
     }
-    return total;
 }
 
 // =========
@@ -117,9 +130,12 @@ function calcularTotalDaCompra(produtos) {
 // Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos) {
-    if (listaEhInvalida(produtos)) { return undefined; }
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    } else {
 
-    return { "menorPreco": obterMenorPreco(produtos), "maiorPreco": obterMaiorPreco(produtos) };
+        return { "menorPreco": obterMenorPreco(produtos), "maiorPreco": obterMaiorPreco(produtos) };
+    }
 }
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e 
@@ -142,30 +158,35 @@ function cupomEhValido(cupom) {
     if (cupom.texto === CUPONS_VALIDOS[0] ||
         cupom.texto === CUPONS_VALIDOS[1]) {
         return cupom.desconto;
+    } else {
+        return 0;
     }
-    return 0;
 }
 
 function obterDescontoTotal(categoria, cupom) {
     if (cupomEhValido(cupom) && cupom.desconto > 0) {
         return obterDescontoCategoria(categoria) + cupom.desconto;
+    } else {
+        return obterDescontoCategoria(categoria);
     }
-    return obterDescontoCategoria(categoria);
 }
 
 
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
 // A função deve retornar o valor total da compra, considerando os descontos de cada categoria e o cupom informado
 function calcularTotalDaCompraComDescontos(produtos, cupom) {
-    if (listaEhInvalida(produtos)) { return undefined; }
-    let descontoTotal = 0;
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    } else {
+        let descontoTotal = 0;
 
-    for (let i = 0; i < produtos.length; i++) {
-        descontoTotal += produtos[i].preco * (obterDescontoTotal(produtos[i].categoria, cupom) / 100);
+        for (let i = 0; i < produtos.length; i++) {
+            descontoTotal += produtos[i].preco * (obterDescontoTotal(produtos[i].categoria, cupom) / 100);
+        }
+
+        let total = calcularTotalDaCompra(produtos) - descontoTotal;
+        return total;
     }
-
-    let total = calcularTotalDaCompra(produtos) - descontoTotal;
-    return total;
 }
 
 // =======
