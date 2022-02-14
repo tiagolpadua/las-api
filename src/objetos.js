@@ -134,7 +134,7 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
     let precoTotal = calcularTotalDaCompra(produtos);
     let valorDescontado = 0;
     for (let i=0; i<produtos.length; i++) {
-        valorDescontado += (obterDescontoTotal(produtos[i]["categoria"], cupom)/100)*produtos[i]["preco"];
+        valorDescontado += (obterDescontoTotal(produtos[i]["categoria"], cupom)/100)*(produtos[i]["preco"]*produtos[i]["quantidade"]);
     }
     return precoTotal - valorDescontado;
 }
