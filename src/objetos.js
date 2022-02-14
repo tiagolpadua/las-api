@@ -258,10 +258,8 @@ class CarrinhoDeCompras {
             this.totalProd += this.produto[i]["preco"] * ((100 - totalDesc) / 100);
         } 
         return this.totalProd;               
-    }   
-    
+    }    
 }
-
 
 module.exports = {
     obterMenorPreco,
