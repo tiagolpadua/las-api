@@ -242,6 +242,9 @@ class CarrinhoDeCompras {
 
 }
 
+
+
+
 module.exports = {
     obterMenorPreco,
     obterMaiorPreco,

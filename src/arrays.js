@@ -234,5 +234,6 @@ module.exports = {
     obterDescontoTotal,
     calcularTotalDaCompraComDescontos,
     capitalizarNomeCompleto,
-    gerarCupomFiscal
+    gerarCupomFiscal,
+    cupomEhValido
 };
