@@ -122,21 +122,73 @@ function calcularTotalDaCompra(produtos) {
 // Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos) {
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    }
+
+    const produtosMaiorMenorPrecos = {};
+
+    produtosMaiorMenorPrecos.maiorPreco = obterMaiorPreco(produtos);
+    produtosMaiorMenorPrecos.menorPreco = obterMenorPreco(produtos);
+
+    return produtosMaiorMenorPrecos;
+
 }
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e 
 // retorna uma lista de produtos dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    }
+
+    if (menorValor >= maiorValor) {
+        return undefined;
+    }
+
+    const produto = produtos.filter(item => item.preco >= menorValor && item.preco <= maiorValor);
+
+    return produto;
+
 }
 
 // Crie uma função que recebe um nome de uma categoria e um objeto cupom e retorna o desconto total,
 // que é a soma do desconto da categoria e a soma do desconto do cupom
 // Utilize a função obterDescontoCategoria criada anteriormente
+
+const cupomD = {
+    texto: "",
+    desconto: 0
+};
+
 function cupomEhValido(cupom) {
+
+    if (cupom === CUPONS_VALIDOS[0]) {
+        cupomD.nome = cupom;
+        cupomD.desconto = 10;
+        return true;
+
+    } else if (cupom === CUPONS_VALIDOS[1]) {
+        cupomD.nome = cupom;
+        cupomD.desconto = 15;
+        return true;
+    }
+
+    return false;
+
 }
 
+
 function obterDescontoTotal(categoria, cupom) {
+
+
+    //const descCategoria = obterDescontoCategoria(categoria);
+
+    if (cupomEhValido(cupom)) {
+        return cupomD.desconto;
+    }
+    return cupomD.desconto;
 }
 
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
