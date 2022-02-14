@@ -120,17 +120,43 @@ function calcularTotalDaCompra(produtos) {
 
 // Crie uma função que recebe uma lista produtos e retorna um objeto com duas propriedades: 'menorPreco' e 'maiorPreco'.
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
-function obterMenorEMaiorPrecos(produtos) {}
+function obterMenorEMaiorPrecos(produtos) {
+  if (listaEhInvalida(produtos)) {
+    return undefined;
+  } else {
+    return {
+      menorPreco: obterMenorPreco(produtos),
+      maiorPreco: obterMaiorPreco(produtos),
+    };
+  }
+}
 
 // Crie uma função que recebe uma lista de produtos, um valor inferior e um valor superior de orçamento e
 // retorna uma lista de produtos dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
-function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {}
+function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
+  if (listaEhInvalida(produtos) || menorValor > maiorValor) {
+    return undefined;
+  } else {
+    const listaProd = [];
+    const prodNoOrcamento = produtos.map((prod) => {
+      if (
+        prod.preco >= menorValor ||
+        obterProdutosLimitadosAoOrcamento(produtos, maiorValor) <= maiorValor
+      ) {
+        listaProd.push(prod);
+      }
+    });
+    return listaProd;
+  }
+}
 
 // Crie uma função que recebe um nome de uma categoria e um objeto cupom e retorna o desconto total,
 // que é a soma do desconto da categoria e a soma do desconto do cupom
 // Utilize a função obterDescontoCategoria criada anteriormente
-function cupomEhValido(cupom) {}
+function cupomEhValido(cupom) {
+  return CUPONS_VALIDOS.includes(cupom);
+}
 
 function obterDescontoTotal(categoria, cupom) {}
 
