@@ -141,9 +141,9 @@ function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
 function cupomEhValido(cupom) {
     if (cupom.texto === CUPONS_VALIDOS[0] ||
         cupom.texto === CUPONS_VALIDOS[1]) {
-        return true;
+        return cupom.desconto;
     }
-    return false;
+    return 0;
 }
 
 function obterDescontoTotal(categoria, cupom) {
