@@ -35,7 +35,7 @@ const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
     if (listaEhInvalida(produtos)) {
-        return undefined
+        return undefined;
     }
 
     return [...produtos].sort((p1, p2) => p1.preco - p2.preco)[0];
@@ -45,7 +45,7 @@ function obterMenorPreco(produtos) {
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
     if (listaEhInvalida(produtos)) {
-        return undefined
+        return undefined;
     }
     return [...produtos].sort((p1, p2) => p1.preco + p2.preco)[0];
 }
@@ -60,7 +60,7 @@ function incluirPrecoFormatado(produto) {
     return {
         ...produto,
         precoFormatado: formatarValor(produto.preco)
-    }
+    };
 
 }
 
@@ -75,14 +75,14 @@ function obterDescontoCategoria(nomeCategoria) {
     else if (nomeCategoria === CATEGORIAS[1].nome) {
         return CATEGORIAS[1].desconto;
     }
-    return 0
+    return 0;
 }
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
     if (listaEhInvalida(produtos)) {
-        return undefined
+        return undefined;
     }
     return produtos.filter(x => x.preco <= precoMaximo);
 }
@@ -90,9 +90,9 @@ function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
-    let totalDaCompra = 0
+    let totalDaCompra = 0;
     if (listaEhInvalida(produtos)) {
-        return undefined
+        return undefined;
     }
     for (let i = 0; i < produtos.length; i++) {
         totalDaCompra += produtos[i].preco * produtos[i].quantidade;
@@ -178,14 +178,7 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 // - total - função calcula o total da compra com descontos - dica: utilizar função calcularTotalDaCompraComDescontos definida anteriormente;
 
 class CarrinhoDeCompras {
-    incluirProduto
-    excluirProduto
-    listarProdutos
-    definirCupom
-    obterCupom
-    excluirCupom
-    subtotal
-    total
+
 }
 
 module.exports = {
