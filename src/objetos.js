@@ -180,7 +180,7 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
       }
     let desconto = 0;
     let valorTotalCompra = calcularTotalDaCompra(produtos);
-    produtos.forEach( produto => (desconto += produto.preco * (obterDescontoTotal(produto.categoria, cupom) / 100)));
+    produtos.forEach( produto => (desconto += produto.preco * produto.quantidade * (obterDescontoTotal(produto.categoria, cupom) / 100)));
     return valorTotalCompra - desconto;
 }
 
