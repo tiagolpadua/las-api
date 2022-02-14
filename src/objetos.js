@@ -23,7 +23,13 @@
 //   desconto: number
 // }
 //---------------------------------------------------------------------------------------
+<<<<<<< HEAD
 const { listaEhInvalida } = require("./arrays");
+=======
+
+const { listaEhInvalida } = require("./arrays");
+
+>>>>>>> eb4347364944ae4815163d54092af27cb9031488
 const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
 const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
@@ -59,7 +65,7 @@ function obterMaiorPreco(produtos) {
     return maior;
 }
 
-// Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
+// Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova propriedade
 // chamada 'precoFormatado' com o valor formatado em Reais
 function formatarValor(valor) {
     return `R$ ${valor.toFixed(2).replace(".", ",")}`;
@@ -82,6 +88,10 @@ function obterDescontoCategoria(nomeCategoria) {
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> eb4347364944ae4815163d54092af27cb9031488
     if (listaEhInvalida(produtos)) {
         return undefined;
     }
