@@ -245,7 +245,7 @@ class CarrinhoDeCompras {
     }
     subtotal(){
         for (let i = 0; i < this.produto.length; i++){
-            this.subTotalProd += this.produto[i]['preco'];
+            this.subTotalProd += this.produto[i]["preco"];
         } 
         return this.subTotalProd;       
     }
@@ -253,9 +253,9 @@ class CarrinhoDeCompras {
         for (let i = 0; i < this.produto.length; i++){
             let descProd = 0;
             let totalDesc = 0;
-            descProd = obterDescontoCategoria(this.produto[i]['categoria']);
-            totalDesc +=  (descProd + this.cupons['desconto']);
-            this.totalProd += this.produto[i]['preco'] * ((100 - totalDesc) / 100);
+            descProd = obterDescontoCategoria(this.produto[i]["categoria"]);
+            totalDesc +=  (descProd + this.cupons["desconto"]);
+            this.totalProd += this.produto[i]["preco"] * ((100 - totalDesc) / 100);
         } 
         return this.totalProd;               
     }   
