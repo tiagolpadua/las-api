@@ -162,6 +162,7 @@ function rightpad(p, n) {
 }
 
 function formataValor(valor) {
+    
     return "R$ " + leftpad((Math.round(valor * 100) / 100).toFixed(2).split(".").join(","), 6);
 }
 
