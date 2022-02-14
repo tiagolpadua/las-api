@@ -217,7 +217,9 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 
 class CarrinhoDeCompras {
     constructor(){
-        this.produto = [];        
+        this.produto = [];
+        this.cupons = {};
+        this.cupom = false;
     }
     incluirProduto(produto){
         this.produto.push(produto);                                    
@@ -228,14 +230,16 @@ class CarrinhoDeCompras {
     listarProdutos(){ 
         return this.produto;         
     }
-    definirCupom(){
-
+    definirCupom(cupom){
+        this.cupons = cupom;
+        this.cupom = true;
     }
     obterCupom(){
-
+        return this.cupom === false ? false : this.cupons;
     }   
     excluirCupom(){
-
+        this.cupons = {};
+        this.cupom = false;
     }
     subtotal(){
 
