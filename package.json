@@ -1,7 +1,7 @@
 {
   "name": "las-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "O carnaval de Salvador é um evento usualmente anual e que para acontecer conta com o apoio de diversos comerciantes. Para estabelecer o controle e a segurança é necessário fazer um credenciamento.",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -33,5 +33,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
     "jest": "^27.4.5"
-  }
+  },
+  "dependencies": {}
 }
