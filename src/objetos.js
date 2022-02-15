@@ -69,7 +69,19 @@ function incluirPrecoFormatado(produto) {
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
-    return { "Alimentação": 30, "Infantil": 15 }[nomeCategoria] | undefined;
+
+    let total = 0;
+
+    for (let i = 0; i < CATEGORIAS.length; i++) {
+        if (nomeCategoria === CATEGORIAS[0].nome) {
+            return total += CATEGORIAS[0].desconto;
+        } else if (nomeCategoria === CATEGORIAS[1].nome) {
+            return total += CATEGORIAS[1].desconto;
+        } else {
+            return total += 0;
+        }
+    }
+
 }
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
@@ -135,8 +147,7 @@ function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
 // que é a soma do desconto da categoria e a soma do desconto do cupom
 // Utilize a função obterDescontoCategoria criada anteriormente
 function cupomEhValido(cupom) {
-
-    if (cupom == "NULABSSA" || cupom == "ALURANU") {
+    if (cupom == CUPONS_VALIDOS[0] || cupom == CUPONS_VALIDOS[1]) {
         return true;
     } else {
         return false;
