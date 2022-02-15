@@ -53,8 +53,8 @@ function obterMaiorPreco(produtos) {
         if (produto.preco > maiorPreco) {
             maiorPreco = produto.preco;
             maiorPrecoDoProduto = produto;
- 
-   
+
+
         }
     }
     return maiorPrecoDoProduto;
@@ -189,15 +189,14 @@ function obterDescontoTotal(categoria, cupom) {
 function calcularTotalDaCompraComDescontos(produtos, cupom) {
     if (!Array.isArray(produtos) || produtos.length === 0) {
         return undefined;
-    } else {
-        let valorDaCompraSemDesconto = calcularTotalDaCompra(produtos);
-        let descontoTotal = 0;
-        for (let i of produtos) {
-            descontoTotal += i.preco * obterDescontoTotal(i.categoria, cupom) / 100;
-        }
-        return valorDaCompraSemDesconto - descontoTotal;
+    } 
+    let valorTotalDaCompra = 0;
+    for (let i = 0; i < produtos.length; i++) {
+        valorTotalDaCompra += (produtos[i].preco * produtos[i].quantidade) - ((produtos[i].preco * produtos[i].quantidade) * (obterDescontoTotal(produtos[i].categoria, cupom) / 100));
     }
-}
+    return valorTotalDaCompra;
+}        
+
 
 
 // =======
