@@ -23,8 +23,10 @@
 //   desconto: number
 // }
 //---------------------------------------------------------------------------------------
+
 const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
 const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
+
 // =========
 // Essencial
 // =========
@@ -67,7 +69,6 @@ function obterMaiorPreco(produtos) {
 
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
-
 function formatarValor(valor) {
     return "R$ " + valor.toFixed(2).split(".").join(",");
 }
@@ -76,7 +77,6 @@ function incluirPrecoFormatado(produto) {
     produto.precoFormatado = formatarValor(produto.preco);
     return produto;
 }
-
 
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
@@ -100,6 +100,7 @@ function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
         return novaLista;
     }
 }
+
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
@@ -153,9 +154,6 @@ function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
 // Crie uma função que recebe um nome de uma categoria e um objeto cupom e retorna o desconto total,
 // que é a soma do desconto da categoria e a soma do desconto do cupom
 // Utilize a função obterDescontoCategoria criada anteriormente
-
-//const cupomNulabssa = { texto: "NULABSSA", desconto: 10 };
-//const cupomAluranu = { texto: "ALURANU", desconto: 15 };
 function cupomEhValido(cupom) {
     if (cupom.texto === "NULABSSA" && cupom.desconto === 10) {
         return 10;
@@ -165,9 +163,10 @@ function cupomEhValido(cupom) {
         return 0;
     }
 }
-function obterDescontoTotal(categoria, cupom) {
 
+function obterDescontoTotal(categoria, cupom) {
     return obterDescontoCategoria(categoria) + cupomEhValido(cupom);
+
 }
 
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
@@ -193,7 +192,6 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
         return total;
     }
 }
-
 
 // =======
 // Desafio
