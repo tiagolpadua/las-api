@@ -24,9 +24,6 @@
 // }
 //---------------------------------------------------------------------------------------
 
-const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
-const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
-
 // =========
 // Essencial
 // =========
