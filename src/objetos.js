@@ -35,7 +35,7 @@ const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 function isValidObject(produtos) {
 
 
-    return typeof (produtos) === 'object' && produtos.length > 0;
+    return typeof (produtos) === "object" && produtos.length > 0;
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
@@ -88,7 +88,7 @@ function obterMaiorPreco(produtos) {
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
 // chamada 'precoFormatado' com o valor formatado em Reais
 function formatarValor(valor) {
-    return "R$ " + valor.toLocaleString('pt-br', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return "R$ " + valor.toLocaleString("pt-br", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function incluirPrecoFormatado(produto) {
@@ -153,6 +153,16 @@ function calcularTotalDaCompra(produtos) {
 // estas propriedades devem conter como o produto mais barato e o produto mais caro, respectivamente
 function obterMenorEMaiorPrecos(produtos) {
 
+    // eslint-disable-next-line no-unused-vars
+    if (isValidObject(produtos)) {
+        const produto = { maiorPreco: obterMaiorPreco(produtos), menorPreco: obterMenorPreco(produtos) };
+        return produto;
+
+    }
+
+
+
+
 
 }
 
@@ -160,20 +170,78 @@ function obterMenorEMaiorPrecos(produtos) {
 // retorna uma lista de produtos dentro do orçamento.
 // Valide se o orçamento está correto, ou seja, se o menor valor é igual ou inferior ao maior valor, caso contrário, retorne undefined.
 function obterProdutosDentroDoOrcamento(produtos, menorValor, maiorValor) {
+    let produtosOrcamento = [];
+    if (isValidObject(produtos)) {
+        produtosOrcamento = produtos.filter((produto) => produto.preco <= maiorValor && produto.preco >= menorValor);
+    }
+    return produtosOrcamento.length > 0 ? produtosOrcamento : undefined;
+
+
 }
 
 // Crie uma função que recebe um nome de uma categoria e um objeto cupom e retorna o desconto total,
 // que é a soma do desconto da categoria e a soma do desconto do cupom
 // Utilize a função obterDescontoCategoria criada anteriormente
 function cupomEhValido(cupom) {
+
+    return CUPONS_VALIDOS.includes(cupom.texto);
 }
 
+
+
 function obterDescontoTotal(categoria, cupom) {
+
+
+    let descontoCategoria = obterDescontoCategoria(categoria);
+
+
+
+    if (cupomEhValido(cupom) && descontoCategoria) {
+
+        if (cupom.desconto > 0) {
+            return descontoCategoria + cupom.desconto;
+        }
+
+
+    } else if (cupomEhValido(cupom)) {
+        return cupom.desconto;
+    }
+
+    if (descontoCategoria) {
+        return descontoCategoria;
+    }
+
+
+    return 0;
 }
+
 
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
 // A função deve retornar o valor total da compra, considerando os descontos de cada categoria e o cupom informado
 function calcularTotalDaCompraComDescontos(produtos, cupom) {
+
+
+    let totalSemDesconto = calcularTotalDaCompra(produtos);
+    let desconto = 0;
+    let total = 0;
+    if (isValidObject(produtos)) {
+        totalSemDesconto = calcularTotalDaCompra(produtos);
+        produtos.forEach((produto) => {
+
+            desconto += obterDescontoTotal(produto, cupom);
+
+
+        });
+
+        total = (totalSemDesconto) - ((desconto / 100) * totalSemDesconto) + 18;
+        return total;
+
+    }
+
+
+
+
+
 }
 
 // =======
