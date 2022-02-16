@@ -24,6 +24,9 @@
 // }
 //---------------------------------------------------------------------------------------
 
+const CATEGORIAS = [{ nome: "Alimentação", desconto: 30 }, { nome: "Infantil", desconto: 15 }];
+const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
+
 // =========
 // Essencial
 // =========
@@ -163,7 +166,6 @@ function cupomEhValido(cupom) {
 
 function obterDescontoTotal(categoria, cupom) {
     return obterDescontoCategoria(categoria) + cupomEhValido(cupom);
-
 }
 
 // Crie uma função que recebe uma lista de produtos e um cupom de desconto.
@@ -188,6 +190,7 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
         }
         return total;
     }
+    
 }
 
 // =======
@@ -233,7 +236,6 @@ class CarrinhoDeCompras {
     total() {
         return calcularTotalDaCompraComDescontos(this.carrinhoDeCompras, this.cupom);
     }
-
 }
 
 module.exports = {
