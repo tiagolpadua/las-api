@@ -176,10 +176,10 @@ function calcularTotalDaCompraComDescontos(produtos, cupom) {
 
     if (Array.isArray(produtos) && produtos.length > 0) {
         total = calcularTotalDaCompra(produtos);
-        for (let i = 0; i<produtos.length;i++){
-            desconto += produtos[i].preco * ((obterDescontoTotal(produtos[i].categoria, cupom))/100);
+        for (let i = 0; i < produtos.length; i++){
+            desconto += (produtos[i].preco * produtos[i].quantidade * ((obterDescontoTotal(produtos[i].categoria, cupom))/100));
         }
-        return total- desconto;
+        return total - desconto;
     }
     return undefined;
 }
