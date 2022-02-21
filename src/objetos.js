@@ -34,10 +34,36 @@ const CUPONS_VALIDOS = ["NULABSSA", "ALURANU"];
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o menor preço
 function obterMenorPreco(produtos) {
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    }
+
+    let menor = produtos[0];
+
+    for (let i = 0; i < produtos.length; i++) {
+        if (menor.preco > produtos[i].preco) {
+            menor = produtos[i];
+        }
+    }
+
+    return menor;
 }
 
 // Crie uma função que recebe uma lista de produtos e devolve o produto com o maior preço
 function obterMaiorPreco(produtos) {
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    }
+
+    let maior = produtos[0];
+
+    for (let i = 0; i < produtos.length; i++) {
+        if (maior.preco < produtos[i].preco) {
+            maior = produtos[i];
+        }
+    }
+
+    return maior;
 }
 
 // Crie uma função que receba um produto e retorna uma cópia deste produto incluindo uma nova proprieade
@@ -57,16 +83,37 @@ function incluirPrecoFormatado(produto) {
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
 function obterDescontoCategoria(nomeCategoria) {
+    let desconto = 0;
+
+    CATEGORIAS.forEach(categoria => {
+        if (categoria.nome === nomeCategoria) {
+            desconto = categoria.desconto;
+        }
+    });
+
+    return desconto;
 }
 
 // Crie uma função que recebe uma lista de produtos e um valor máximo de orçamento
 // e retorna uma lista com os produtos com preços menores ou iguais ao valor do orçamento informado
 function obterProdutosLimitadosAoOrcamento(produtos, precoMaximo) {
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    }
+
+    return produtos.filter(produto =>
+        produto.preco <= precoMaximo);
 }
 
 // Crie uma função que recebe uma lista de produtos de uma compra,
 // onde cada produto tem também o seu preço e quantidade, retorne o valor total da compra
 function calcularTotalDaCompra(produtos) {
+    if (listaEhInvalida(produtos)) {
+        return undefined;
+    }
+
+    return produtos.reduce((soma, atual) =>
+        soma + (atual.preco * atual.quantidade), 0);
 }
 
 // =========
