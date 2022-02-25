@@ -1,6 +1,21 @@
+const {
+  listarProdutos,
+  listarCategoria,
+  listarCupom,
+} = require("./api-service");
+
 async function processarOpcao(opcao) {
+  if(opcao === "produtos"){
+    opcao = await listarProdutos();
+  }else if(opcao === "categorias"){
+    opcao = await listarCategoria();
+  }else if(opcao === "descontos"){
+    opcao = await listarCupom();
+  }else{
+    return "opção inválida, por favor, coloque produto, categoria, cupom como opção.";
+  }
   // TODO
-  console.log(opcao);
+  return (opcao);
 }
 
 async function run() {
