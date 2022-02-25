@@ -1,3 +1,11 @@
+const {processarOpcao} = require("./cli.js");
+
+const fetch = require("node-fetch");
+
+const PRODUTOS_MOCK = require("../mocks/produtos.json");
+
+jest.mock("node-fetch");
+
 // Utilize as respostas "Mocadas" disponíveis em ../mocks
 // Utilize a função de mock do Jest para mocar as respostas no api-service: https://jestjs.io/pt-BR/docs/mock-functions
 
@@ -11,6 +19,17 @@ describe("Desejável", () => {
   // o api-service quando é informado argumento 'produtos' na linha de comandos.
   // Utilize PRODUTOS_MOCK
   // test "Deve listar os produtos."
+
+  it("Deve listar os produtos.", async () => {
+
+    fetch.mockResolvedValue({
+      status: 200,
+      json: () => Promise.resolve(PRODUTOS_MOCK),
+    });
+
+    const resultado = await processarOpcao("produtos");
+    expect(resultado).toEqual(PRODUTOS_MOCK);
+});
 
   // Crie uma opção e o teste desta opção, que lista os produtos com o preço formatado utilizando
   // o api-service quando é informado argumento 'produtos' na linha de comandos.
@@ -35,7 +54,5 @@ describe("Desejável", () => {
   // emita uma exceção: "Informe uma opção."
   // test "Deve emitir erro não informar uma opção."
 
-  test("Uma tautologia.", () => {
-    expect(1 === 1).toBe(true);
-  });
+  
 });

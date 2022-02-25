@@ -1,5 +1,12 @@
+const {listarProdutos } = require("./api-service.js");
+
+
+
 async function processarOpcao(opcao) {
   // TODO
+  
+  if(opcao === "produtos") return listarProdutos();
+  
   console.log(opcao);
 }
 
