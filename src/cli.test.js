@@ -22,7 +22,7 @@ describe("Desejável", () => {
   });
 
   // Crie uma opção e o teste desta opção, que lista os produtos com o preço formatado utilizando
-  // o api-service quando é informado argumento 'produtos' na linha de comandos.
+  // o api-service quando é informado argumento 'produtos-formatados' na linha de comandos.
   // Utilize PRODUTOS_FORMATADO_MOCK
   // test "Deve listar os produtos com preço formatado."
 
