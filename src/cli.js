@@ -9,31 +9,31 @@ const {listarProdutos , listarCategorias } = require("./api-service.js");
 
  function incluirPrecoFormatado(produto) {
 
-  return produto.map( item => {
+   produto.forEach( item => {
     
-    return {
-      ...item,
-      preco : formatarValor(item.preco)
-    };
+    item["preco"]  = formatarValor(item.preco);
+    
 });
+
+return produto;
 }
 
 function incluirPrecoFormatadoEDesconto(produto) {
 
-  return produto.map( item => {
+   produto.forEach( item => {
     
     let valorDesconto;
     if(item.categoria === "Infantil") valorDesconto = 15;
     else if(item.categoria === "Alimentação") valorDesconto = 30;
     else valorDesconto = 0;
 
-    return {
-      ...item,
-      preco : formatarValor(item.preco),
-      desconto : valorDesconto,
-    };
-});
+    item["preco"]  = formatarValor(item.preco);
+    item["desconto"]   = valorDesconto;
+    });
+
+    return produto;
 }
+
 
 function verificarErros(opcao_informada) {
   
@@ -76,5 +76,5 @@ if (require.main === module) {
 }
 
 module.exports = {
-  processarOpcao,
+  processarOpcao, run,
 };

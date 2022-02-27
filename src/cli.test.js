@@ -1,4 +1,4 @@
-const {processarOpcao} = require("./cli.js");
+const {processarOpcao } = require("./cli.js");
 
 // const fetch = require("node-fetch");
 const {listarProdutos,listarCategorias} = require("./api-service");
@@ -43,7 +43,7 @@ describe("Desejável", () => {
     
     listarProdutos.mockResolvedValue(PRODUTOS_FORMATADO_MOCK);
     
-    const resultado = await processarOpcao("produtos");
+    const resultado = await processarOpcao("produtos-formatados");
     
     expect(resultado).toEqual(PRODUTOS_FORMATADO_MOCK);
 });
@@ -71,7 +71,7 @@ describe("Desejável", () => {
     
     listarProdutos.mockResolvedValue(PRODUTOS_DESCONTO_MOCK);
     
-    const resultado = await processarOpcao("produtos");
+    const resultado = await processarOpcao("descontos");
     
     expect(resultado).toEqual(PRODUTOS_DESCONTO_MOCK);
 });
@@ -82,6 +82,8 @@ describe("Desejável", () => {
 
   it("Deve emitir erro se informar uma opção inválida.", async () => {
 
+      // run.mockResolvedValue();
+      
       expect(processarOpcao("itens")).rejects.toThrow("Opção inválida: itens");
    });
   
