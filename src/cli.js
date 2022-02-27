@@ -7,6 +7,7 @@ async function processarOpcao(opcao) {
     case "categorias":
       return await listarCategoriasAPI();
     case "produtos-formatados":
+      return formatarPrecoProdutos(await listarProdutosAPI());
     case "descontos":
       break;
     case undefined:
@@ -24,6 +25,18 @@ async function run() {
 
 if (require.main === module) {
   run();
+}
+
+function formatarPrecoProdutos(listaProdutos) {
+  listaProdutos.forEach((produto) => {
+    produto.preco = formataPreco(produto.preco);
+  });
+
+  return listaProdutos;
+}
+
+function formataPreco(preco) {
+  return `R$ ${parseFloat(preco).toFixed(2).toString().replace(".", ",")}`;
 }
 
 module.exports = {
