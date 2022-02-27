@@ -11,9 +11,19 @@ function formatarPrecoProdutos(listaProdutos) {
   return listaProdutos;
 }
 
-
-  
-
+function adionaCategoria(listaProdutos, categorias){
+  let listaProdutosComDesconto = JSON.parse(JSON.stringify(listaProdutos));
+  listaProdutosComDesconto.forEach((produto) => {
+    if(produto.categoria === "Infantil"){
+      produto.categoria = categorias[0].desconto;
+    }else if(produto.categoria === "Alimentação"){
+      produto.categoria = categorias[1].desconto;
+    }else{
+      produto.desconto = 0;
+    }
+  });
+  return listaProdutosComDesconto;
+}
 
 async function processarOpcao(opcao) {
   // TODO
@@ -25,11 +35,18 @@ async function processarOpcao(opcao) {
     case 3 - "Produtos com preços formatados":
       return formatarPrecoProdutos(await listarProdutos());
     case 4 - "Produtos com preços formatodos e com desconto":
-    
+      var produtosFormatados = formatarPrecoProdutos(await listarProdutos());
+      var categorias = await listarCategorias();
+      var produtosComDesconto = adionaCategoria(
+        produtosFormatados,
+        categorias
+      );
+      return produtosComDesconto;
+    case undefined:
+      throw new Error("Informe uma opção.");
+    default:
+      throw new Error(`Opção inválida: ${opcao}`);
   }
-
-
-  console.log(opcao);
 }
 
 async function run() {
