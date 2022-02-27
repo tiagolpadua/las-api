@@ -28,7 +28,9 @@ if (require.main === module) {
 }
 
 function formatarPrecoProdutos(listaProdutos) {
-  let listaProdutosFormatados = { ...listaProdutos };
+  let listaProdutosFormatados = listaProdutos.slice();
+  console.log(listaProdutos);
+  console.log(listaProdutosFormatados);
   listaProdutosFormatados.forEach((produto) => {
     produto.preco = formataPreco(produto.preco);
   });
