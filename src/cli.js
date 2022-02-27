@@ -28,11 +28,12 @@ if (require.main === module) {
 }
 
 function formatarPrecoProdutos(listaProdutos) {
-  listaProdutos.forEach((produto) => {
+  let listaProdutosFormatados = { ...listaProdutos };
+  listaProdutosFormatados.forEach((produto) => {
     produto.preco = formataPreco(produto.preco);
   });
 
-  return listaProdutos;
+  return listaProdutosFormatados;
 }
 
 function formataPreco(preco) {
