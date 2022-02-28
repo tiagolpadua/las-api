@@ -1,45 +1,48 @@
-const { listarProdutos, listarCategorias } = require("./api-service");
+const { listarProdutos, listarCategoria } = require("./api-service");
 
-function formatarPreco(valor) {
-  return `R$ ${valor.toFixed(2).replace(".", ",")}`;
+function formatarPreco(preco) {
+  return `R$ ${parseFloat(preco).toFixed(2).toString().replace(".", ",")}`;
 }
 
-function formatarPrecoProdutos(listaProdutos) {
-  listaProdutos.forEach((produto) => {
+function formatarPrecoProdutos(listarProdutos) {
+  let listaProdutosFormatados = JSON.parse(JSON.stringify(listarProdutos));
+  listaProdutosFormatados.forEach((produto) => {
     produto.preco = formatarPreco(produto.preco);
   });
-  return listaProdutos;
+  return listaProdutosFormatados;
 }
 
-function adionaCategoria(listaProdutos, categorias){
-  let listaProdutosComDesconto = JSON.parse(JSON.stringify(listaProdutos));
-  listaProdutosComDesconto.forEach((produto) => {
+
+function adionaProdutosFormatados(listarProdutos, categoria){
+  let listaProdutosformatados= JSON.parse(JSON.stringify(listarProdutos));
+  listaProdutosformatados.forEach((produto) => {
     if(produto.categoria === "Infantil"){
-      produto.categoria = categorias[0].desconto;
+      produto.desconto = categoria[0].desconto;
+     
     }else if(produto.categoria === "Alimentação"){
-      produto.categoria = categorias[1].desconto;
+      produto.desconto = categoria[1].desconto;
     }else{
       produto.desconto = 0;
     }
   });
-  return listaProdutosComDesconto;
+  return listaProdutosformatados;
 }
 
+
 async function processarOpcao(opcao) {
-  // TODO
   switch(opcao){
-    case 1 - "ListarProdutos":
+    case "produtos":
       return await listarProdutos();
-    case 2 -" ListarCategorias":
-      return await listarCategorias();
-    case 3 - "Produtos com preços formatados":
+    case "categorias":
+      return await listarCategoria();
+    case "preco-formatado":
       return formatarPrecoProdutos(await listarProdutos());
-    case 4 - "Produtos com preços formatodos e com desconto":
+    case "produtos-formatados":
       var produtosFormatados = formatarPrecoProdutos(await listarProdutos());
-      var categorias = await listarCategorias();
-      var produtosComDesconto = adionaCategoria(
+      var categoria = await listarCategoria();
+      var produtosComDesconto = adionaProdutosFormatados(
         produtosFormatados,
-        categorias
+        categoria
       );
       return produtosComDesconto;
     case undefined:
