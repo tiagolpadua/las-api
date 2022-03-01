@@ -16,7 +16,7 @@ const PRODUTOS_MOCK = require("../mocks/produtos.json");
 const CATEGORIAS_MOCK = require("../mocks/categorias.json");
 const CUPONS_MOCK = require("../mocks/cupons.json");
 
-const { listProducts, listCategories, listCupons } = require("./api-service");
+const { listarProdutos, listarCategorias, listarCupons } = require("./api-service");
 
 describe("Essencial", () => {
   // Crie uma função e o teste desta função, que lista os produtos a partir da API e retorna um JSON
@@ -28,33 +28,33 @@ describe("Essencial", () => {
       json: () => Promise.resolve(PRODUTOS_MOCK)
     });
     
-    const products = await listProducts();
+    const products = await listarProdutos();
     expect(products).toEqual(PRODUTOS_MOCK);
   });
 
   // Crie uma função e o teste desta função, que lista as categorias a partir da API e retorna um JSON
   // com esta lista de categorias
   // test: "Deve ter uma função que lista as categorias."
-  test("Deve ter uma função que lista os produtos.", async () => {
+  test("Deve ter uma função que lista as categorias.", async () => {
     fetch.mockResolvedValue({
       status: 200,
       json: () => Promise.resolve(CATEGORIAS_MOCK)
     });
     
-    const categories = await listCategories();
+    const categories = await listarCategorias();
     expect(categories).toEqual(CATEGORIAS_MOCK);
   });
 
   // Crie uma função e o teste desta função, que lista os cupons válidos a partir da API e retorna um JSON
   // com esta lista de cupons válidos
   // test: "Deve ter uma função que lista os cupons válidos."
-  test("Deve ter uma função que lista os produtos.", async () => {
+  test("Deve ter uma função que lista os cupons.", async () => {
     fetch.mockResolvedValue({
       status: 200,
       json: () => Promise.resolve(CUPONS_MOCK)
     });
     
-    const cupons = await listCupons();
+    const cupons = await listarCupons();
     expect(cupons).toEqual(CUPONS_MOCK);
   });
 
@@ -67,9 +67,9 @@ describe("Essencial", () => {
       statusText: "Not Found"
     });
 
-    await expect(listProducts()).rejects.toThrow("Not Found: 404");
-    await expect(listCategories()).rejects.toThrow("Not Found: 404");
-    await expect(listCupons()).rejects.toThrow("Not Found: 404");
+    await expect(listarProdutos()).rejects.toThrow("Not Found: 404");
+    await expect(listarCategorias()).rejects.toThrow("Not Found: 404");
+    await expect(listarCupons()).rejects.toThrow("Not Found: 404");
   });
 
   // test("Uma tautologia.", () => {
