@@ -49,16 +49,15 @@ function formataPreco(preco) {
 
 function adicionaDescontoCategoria(listaProdutos, categorias) {
   let listaProdutosComDesconto = JSON.parse(JSON.stringify(listaProdutos));
-  listaProdutosComDesconto.forEach((produto) => {
-    if (produto.categoria === "Infantil") {
-      produto.desconto = categorias[0].desconto;
-    } else if (produto.categoria === "Alimentação") {
-      produto.desconto = categorias[1].desconto;
-    } else {
-      produto.desconto = 0;
-    }
-  });
 
+  listaProdutosComDesconto.forEach((produto) => {
+    const indexCategoria = categorias.findIndex(
+      (categoria) => categoria.nome === produto.categoria
+    );
+
+    produto.desconto =
+      indexCategoria !== -1 ? categorias[indexCategoria].desconto : 0;
+  });
   return listaProdutosComDesconto;
 }
 
