@@ -91,9 +91,9 @@ function incluirPrecoFormatado(produto) {
 
 function obterDescontoCategoria(nomeCategoria) {
   if (nomeCategoria === CATEGORIAS[0].nome) {
-    return 30;
+    return CATEGORIAS[0].desconto;
   } else if (nomeCategoria === CATEGORIAS[1].nome) {
-    return 15;
+    return CATEGORIAS[1].desconto;
   } else {
     return 0;
   }
