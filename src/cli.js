@@ -32,15 +32,15 @@ async function processarOpcao(opcao){
 } 
  }
 
-// async function run() {
-//   const opcao = process.argv[2];
-//   const saida = await processarOpcao(opcao);
-//   console.table(saida);
-// }
+async function run() {
+  const opcao = process.argv[2];
+  const saida = await processarOpcao(opcao);
+  console.table(saida);
+}
 
-// if (require.main === module) {
-//   run();
-// }
+if (require.main === module) {
+  run();
+}
 
 module.exports = {
   processarOpcao,
