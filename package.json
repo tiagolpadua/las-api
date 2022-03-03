@@ -15,7 +15,7 @@
     "cli:produtos-formatados": "node src/cli.js produtos-formatados",
     "cli:categorias": "node src/cli.js categorias",
     "cli:descontos": "node src/cli.js descontos"
-  },
+      },
   "engines": {
     "node": "14"
   },

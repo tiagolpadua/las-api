@@ -274,6 +274,7 @@ class CarrinhoDeCompras {
   }
 
   total() {
+    
     return calcularTotalDaCompraComDescontos(this.produtos, this.cupom);
   }
 }
