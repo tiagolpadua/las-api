@@ -65,7 +65,7 @@ describe("Desejável", () => {
     await expect(processarOpcao()).rejects.toThrow("Informe uma opção.");
   });
  
-  test("Uma tautologia.", () => {
-    expect(1 === 1).toBe(true);
-  });
+//   test("Uma tautologia.", () => {
+//     expect(1 === 1).toBe(true);
+//   });
 });
