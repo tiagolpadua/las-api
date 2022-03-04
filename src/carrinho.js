@@ -1,5 +1,4 @@
-const readline = require("readline");
-const { processarOpcao } = require("./cli.js");
+// const readline = require("readline");
 
 // function askQuestion(query) {
 //   const rl = readline.createInterface({
@@ -16,7 +15,7 @@ const { processarOpcao } = require("./cli.js");
 // }
 
 async function run() {
-// TODO
+  // TODO
 }
 
 if (require.main === module) {
