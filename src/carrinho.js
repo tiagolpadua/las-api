@@ -1,21 +1,26 @@
-// const readline = require("readline");
+/* const fetch = require("node-fetch");
+const {listarProdutos, listarCategorias} = require("./api-service");
 
-// function askQuestion(query) {
-//   const rl = readline.createInterface({
-//     input: process.stdin,
-//     output: process.stdout,
-//   });
+ const readline = require("readline");
 
-//   return new Promise((resolve) =>
-//     rl.question(query, (ans) => {
-//       rl.close();
-//       resolve(ans);
-//     })
-//   );
-// }
+ function askQuestion(query) {
+   const rl = readline.createInterface({
+     input: process.stdin,
+     output: process.stdout,
+   });
+
+   return new Promise((resolve) =>
+     rl.question(query, (ans) => {
+       rl.close();
+       resolve(ans);
+     })
+   );
+ }
+ */
+
 
 async function run() {
-  // TODO
+
 }
 
 if (require.main === module) {
