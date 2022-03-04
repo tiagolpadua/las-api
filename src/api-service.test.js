@@ -71,10 +71,10 @@ describe("Essencial", () => {
     await expect(listarCategoria()).rejects.toThrow("Not Found: 404");
     await expect(listarCupom()).rejects.toThrow("Not Found: 404");
   });
-
-//   test("Uma tautologia.", () => {
-//     expect(1 === 1).toBe(true);
-//   });
+  
+  test("Uma tautologia.", () => {
+    expect(1 === 1).toBe(true);
+  });
 
 
 
