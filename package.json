@@ -55,8 +55,5 @@
         "lines": 90
       }
     }
-  },
-  "dependencies": {
-    "node-fetch": "^2.6.7"
   }
 }
