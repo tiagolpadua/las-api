@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const listaDeProdutos = "https://stupefied-keller-a2c79e.netlify.app/produtos.json0";
+const listaDeProdutos = "https://stupefied-keller-a2c79e.netlify.app/produtos.json";
 const listaDeCategorias = " https://stupefied-keller-a2c79e.netlify.app/categorias.json";
 const listaDeCupons ="https://stupefied-keller-a2c79e.netlify.app/cupons.json";
 
