@@ -63,4 +63,5 @@ function adicionaDescontoCategoria(listaProdutos, categorias) {
 
 module.exports = {
   processarOpcao,
+  formatarPrecoProdutos,
 };
