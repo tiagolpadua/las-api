@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const {obterDescontoCategoria} = require("./objetos");
+
 //Essencial
 
 async function listarProdutos(){
@@ -30,44 +30,8 @@ function verificarStatus(response){
 }
 
 
-
-//Desejável;
-
-async function produtoComDesconto(){
-    const produto = await listarProdutos();
-    produto.forEach(elemento => {
-        let valor = obterDescontoCategoria(elemento.categoria);
-        elemento.desconto = valor;
-        elemento.preco = `${elemento.preco}`;
-    });
-    return produto;
-}
-
-
-async function precoFormatado(){
-    const produto = await listarProdutos();
-    produto.forEach(elemento => elemento.preco = `${elemento.preco}`);
-    return produto;
-}
-
-
-async function opcaoEscolhida(opcao){
-    if(opcao === "produtos"){
-        return opcao = await listarProdutos();
-    }else if(opcao === "categorias"){
-        return opcao = await listarCategoria();
-    }else if(opcao === "descontos"){
-        return opcao = await produtoComDesconto();
-    }else{
-        return opcao = await precoFormatado();
-    }
-}
-
 module.exports = {
     listarProdutos,
     listarCategoria,
     listarCupom,
-    produtoComDesconto,
-    precoFormatado,
-    opcaoEscolhida,
 };

@@ -10,7 +10,6 @@ const {
   listarCupom,
 } = require("./api-service");
 const fetch = require("node-fetch");
-const {processarOpcao} = require("processarOpcao");
 // Utilize a função de mock do Jest para mocar as respostas no node-fetch: https://jestjs.io/pt-BR/docs/mock-functions
 
 // Utilize a lib node-fetch em sua versão 2 - https://www.npmjs.com/package/node-fetch
@@ -67,17 +66,5 @@ describe("Essencial", () => {
     await expect(listarCupom()).rejects.toThrow("Not found: 404");
   });
 
-});
-
-//Desejável
-describe("Desejavel",() =>{
-  test("deve retornar uma tabela com a lista de produtos", async () =>{
-    fetch.mockResolvedValue({
-      status: 200,
-      json: () => Promise.resolve(PRODUTOS_MOCK)
-    });
-    const resultado = await processarOpcao("produtos");
-    expect(resultado).toEqual(PRODUTOS_MOCK);
-  });
 });
 
