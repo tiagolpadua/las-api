@@ -3,6 +3,7 @@
 const { listarProdutos, listarCategorias} = require("./api-service");
 
 
+
 async function processarOpcao(opcao) {
 
   switch(opcao){
@@ -38,9 +39,7 @@ if (require.main === module) {
 }
 
 function formatarPrecosProdutos(listaProdutos){
-  /* let listaProdutosFormatados = listaProdutos.slice();
-  console.log(listaProdutos);
-  console.log(listaProdutosFormatados); */
+
   let listaProdutosFormatados = JSON.parse(JSON.stringify(listaProdutos));
   listaProdutosFormatados.forEach((produto) => {
     produto.preco = formataPreco(produto.preco);
