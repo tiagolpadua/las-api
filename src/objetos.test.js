@@ -199,10 +199,11 @@ describe("Desejável", () => {
 
     expect(obterDescontoTotal("Infantil", cupomAluranu)).toEqual(30);
 
-    test("Deve calcular o total da compra com descontos.", () => {
-        expect(calcularTotalDaCompraComDescontos([], 1, "foo")).toBeUndefined();
+    expect(obterDescontoTotal("Bebida", cupomAluranu)).toEqual(15);
 
-        expect(calcularTotalDaCompraComDescontos("foo", [], "foo")).toBeUndefined();
+    expect(
+      obterDescontoTotal("Alimentação", { texto: "ALURANU", desconto: -99 })
+    ).toEqual(30);
 
     expect(
       obterDescontoTotal("Bebida", { texto: "CUPOM-INVALIDO", desconto: 15 })
