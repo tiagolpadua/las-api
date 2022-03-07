@@ -28,8 +28,6 @@ async function processarOpcao(opcao) {
       default:
         throw new Error(`Opção inválida: ${opcao}`);
     }
-
-  // return console.log(opcao);
 }
 
 async function run() {

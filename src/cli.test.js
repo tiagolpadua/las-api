@@ -83,8 +83,4 @@ describe("Desejável", () => {
   test("Deve emitir erro se não informar uma opção.", async () => {
     await expect(processarOpcao()).rejects.toThrow("Informe uma opção");
   });
-
-  // test("Uma tautologia.", () => {
-  //   expect(1 === 1).toBe(true);
-  // });
 });
