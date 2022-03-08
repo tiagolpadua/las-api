@@ -1,17 +1,15 @@
 // Utilize as respostas "Mocadas" disponíveis em ../mocks
 // Utilize a função de mock do Jest para mocar as respostas no api-service: https://jestjs.io/pt-BR/docs/mock-functions
 
-const fetch = require("node-fetch");
-
-jest.mock("node-fetch");
-
 const PRODUTOS_MOCK = require("../mocks/produtos.json");
 const PRODUTOS_FORMATADO_MOCK = require("../mocks/produtos-formatado.json");
 const CATEGORIAS_MOCK = require("../mocks/categorias.json");
 const PRODUTOS_DESCONTO_MOCK = require("../mocks/produtos-desconto.json");
 
+const { listarProdutos, listarCategorias, listarPrecosFormatados, listarDescontoCategorias } = require("./api-service");
 const { processarOpcao } = require("./cli");
 
+jest.mock("./api-service");
 
 describe("Desejável", () => {
   // Crie uma opção e o teste desta opção, que lista os produtos utilizando
@@ -19,10 +17,7 @@ describe("Desejável", () => {
   // Utilize PRODUTOS_MOCK
   // test "Deve listar os produtos."
   test("Deve listar os produtos", async () => {
-    fetch.mockResolvedValue({
-      status: 200,
-      json: () => Promise.resolve(PRODUTOS_MOCK)
-    });
+    listarProdutos.mockResolvedValue(PRODUTOS_MOCK);
     const produtos = await processarOpcao("produtos");
 
     expect(produtos).toEqual(PRODUTOS_MOCK);
@@ -33,10 +28,7 @@ describe("Desejável", () => {
   // Utilize PRODUTOS_FORMATADO_MOCK
   // test "Deve listar os produtos com preço formatado."
   test("Deve listar os produtos com preço formatado.", async () => {
-    fetch.mockResolvedValue({
-      status: 200,
-      json: () => Promise.resolve(PRODUTOS_FORMATADO_MOCK)
-    });
+    listarPrecosFormatados.mockResolvedValue(PRODUTOS_FORMATADO_MOCK);
     const produtosFormatados = await processarOpcao("produtos-formatados");
 
     expect(produtosFormatados).toEqual(PRODUTOS_FORMATADO_MOCK);
@@ -47,10 +39,7 @@ describe("Desejável", () => {
   // Utilize CATEGORIAS_MOCK
   // test "Deve listar as categorias."
   test("Deve listar as categorias.", async () => {
-    fetch.mockResolvedValue({
-      status: 200,
-      json: () => Promise.resolve(CATEGORIAS_MOCK)
-    });
+    listarCategorias.mockResolvedValue(CATEGORIAS_MOCK);
     const categorias = await processarOpcao("categorias");
 
     expect(categorias).toEqual(CATEGORIAS_MOCK);
@@ -61,10 +50,7 @@ describe("Desejável", () => {
   // na linha de comandos. Utilize PRODUTOS_DESCONTO_MOCK
   // test "Deve listar os produtos com preço formatado e desconto."
   test("Deve listar os produtos com preço formatado e desconto.", async () => {
-    fetch.mockResolvedValue({
-      status: 200,
-      json: () => Promise.resolve(PRODUTOS_DESCONTO_MOCK)
-    });
+    listarDescontoCategorias.mockResolvedValue(PRODUTOS_DESCONTO_MOCK);
     const produtosDesconto = await processarOpcao("descontos");
 
     expect(produtosDesconto).toEqual(PRODUTOS_DESCONTO_MOCK);
@@ -83,8 +69,4 @@ describe("Desejável", () => {
   test("Deve emitir erro se não informar uma opção.", async () => {
     await expect(processarOpcao()).rejects.toThrow("Informe uma opção");
   });
-
-  // test("Uma tautologia.", () => {
-  //   expect(1 === 1).toBe(true);
-  // });
 });

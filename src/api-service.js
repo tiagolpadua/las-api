@@ -51,10 +51,10 @@ const listarPrecosFormatados = async () => {
   return formatedPrice;
 };
 
-const listarDescontoCategories = async () => {
+const listarDescontoCategorias = async () => {
   const data = await listarProdutos ();
 
-  const formatedPrice = data.map(formated => {
+  const discount = data.map(formated => {
     let formatedProduct = incluirPrecoFormatado(formated);
 
     formatedProduct["preco"] = formatedProduct["precoFormatado"];
@@ -64,10 +64,10 @@ const listarDescontoCategories = async () => {
     return formatedProduct;
   });
 
-  return formatedPrice;
+  return discount;
 };
 
 
 
 
-module.exports = { listarProdutos, listarCategorias, listarCupons, listarPrecosFormatados, listarDescontoCategories };
+module.exports = { listarProdutos, listarCategorias, listarCupons, listarPrecosFormatados, listarDescontoCategorias };

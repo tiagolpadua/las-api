@@ -2,7 +2,7 @@ const {
   listarProdutos,
   listarCategorias,
   listarPrecosFormatados,
-  listarDescontoCategories
+  listarDescontoCategorias
 } = require("./api-service");
 
 async function processarOpcao(opcao) {
@@ -11,25 +11,31 @@ async function processarOpcao(opcao) {
       listarProdutos(),
       listarCategorias(),
       listarPrecosFormatados(),
-      listarDescontoCategories()
+      listarDescontoCategorias()
     ]);
 
-    switch (opcao) {
-      case "produtos":
-        return produtos;
-      case "categorias":
-        return categorias;
-      case "produtos-formatados":
-        return produtosFormatados;
-      case "descontos":
-        return descontos;
-      case undefined:
-        throw new Error("Informe uma opção");
-      default:
-        throw new Error(`Opção inválida: ${opcao}`);
-    }
+  let retorno;
 
-  // return console.log(opcao);
+  switch (opcao) {
+    case "produtos":
+      retorno = produtos;
+      break;
+    case "categorias":
+      retorno = categorias;
+      break;
+    case "produtos-formatados":
+      retorno = produtosFormatados;
+      break;
+    case "descontos":
+      retorno = descontos;
+      break;
+    case undefined:
+      throw new Error("Informe uma opção");
+    default:
+      throw new Error(`Opção inválida: ${opcao}`);
+  }
+
+  return retorno;
 }
 
 async function run() {
