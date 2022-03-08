@@ -18,6 +18,7 @@ const CUPONS_MOCK = require("../mocks/cupons.json");
 
 const { listarProdutos, listarCategorias, listarCupons } = require("./api-service");
 
+
 describe("Essencial", () => {
   // Crie uma função e o teste desta função, que lista os produtos a partir da API e retorna um JSON
   // com esta lista de produtos
@@ -45,6 +46,7 @@ describe("Essencial", () => {
     expect(categories).toEqual(CATEGORIAS_MOCK);
   });
 
+
   // Crie uma função e o teste desta função, que lista os cupons válidos a partir da API e retorna um JSON
   // com esta lista de cupons válidos
   // test: "Deve ter uma função que lista os cupons válidos."
@@ -57,6 +59,7 @@ describe("Essencial", () => {
     const cupons = await listarCupons();
     expect(cupons).toEqual(CUPONS_MOCK);
   });
+
 
   // Crie um teste para quando qualquer API for acionada, caso o status code seja diferente de 200,
   // ela deve lançar uma Exceção com o seguinte formato: `${response.statusText}: ${response.status}`
@@ -71,8 +74,4 @@ describe("Essencial", () => {
     await expect(listarCategorias()).rejects.toThrow("Not Found: 404");
     await expect(listarCupons()).rejects.toThrow("Not Found: 404");
   });
-
-  // test("Uma tautologia.", () => {
-  //   expect(1 === 1).toBe(true);
-  // });
 });
