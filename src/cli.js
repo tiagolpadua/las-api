@@ -1,32 +1,44 @@
 const {listarProdutos, listarCategorias}= require("./api-service");
-
+const {formatarValor} = require("./objetos");
 
 async function processarOpcao(opcao) {
-  console.log(opcao);
-  if(opcao===undefined){
-    throw new Error("Informe uma opção.");
-  }
+  console.log(`A opção digitada foi: ${opcao}`);
   let retorno;
   let produtos;
   let categorias;
+  if(opcao===undefined){
+    throw new Error("Informe uma opção.");
+  }
   switch (opcao.toUpperCase()) {
     case "PRODUTOS":
       retorno = await listarProdutos();
       break;
-    case "DESCONTOS":
+    case "PRODUTOS-FORMATADOS":
       produtos = await listarProdutos();
+      retorno = await formataValorProduto(produtos);
+
+      break;
+    case "DESCONTOS":
+      produtos = formataValorProduto(await listarProdutos());
       categorias = await listarCategorias();
 
       retorno = produtos.map((p)=>{
         const categoria = categorias.find((c)=>p.categoria === c.nome);
-        return{...p, desconto: categoria?.desconto || 0};
+        return{...p, desconto: categoria?.desconto|| 0};
       } );
 
       break;
+    case "CATEGORIAS":
+
+      break;
     default:
-      throw new Error(`Opção invalida: ${opcao}`);
+      throw new Error(`Opção inválida: ${opcao}`);
   }
   return retorno;
+}
+
+function formataValorProduto(produtos){
+  return produtos.map((p)=> ({...p, preco: formatarValor(p.preco) }));
 }
 
 async function run() {
