@@ -1,6 +1,35 @@
-async function processarOpcao(opcao) {
-  // TODO
-  console.log(opcao);
+#!/usr/bin/env node
+const { 
+  listarProdutos, listarCategorias,
+ } = require("./api-service.js");
+const { incluirPrecoFormatado } = require("./objetos.js");
+
+ async function processarOpcao(opcao) {
+   if (typeof opcao === "undefined") throw new Error("Informe uma opção.");
+   let resultado;
+   const categorias = await listarCategorias();
+   const produtos = formatarPrecoProdutos(await listarProdutos());
+   switch (opcao.toUpperCase()) {
+      case "PRODUTOS":
+        resultado = produtos;
+        break;
+      case "CATEGORIAS":
+        resultado = await listarCategorias();
+        break;
+      case "DESCONTOS":
+        resultado = produtos.map(prod => {
+          const categoriaAtual = categorias.find(cat => cat.nome === prod.categoria);
+          return {...prod, desconto: categoriaAtual ? categoriaAtual.desconto : 0};
+        });
+        break;
+      default:
+        throw new Error(`Opção inválida: ${opcao}`);
+    }
+    return resultado;
+}
+
+function formatarPrecoProdutos (produtos) {
+  return produtos.map(p => incluirPrecoFormatado(p));
 }
 
 async function run() {
