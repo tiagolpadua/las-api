@@ -38,13 +38,12 @@ async function run() {
 
 async function tratarOpcao(opcao) {
   const produtos = await listarProdutosAPI();
-  const categorias = await listarCategoriasAPI();
   const cupons = await listarCuponsAPI();
 
   switch (opcao) {
     case "1":
       console.table(formatarPrecoProdutos(produtos));
-      break;
+      return formatarPrecoProdutos(produtos);
     case "2":
       var codigoProduto = await askQuestion(
         "Qual código do produto deseja incluir no carinho? "
@@ -53,22 +52,12 @@ async function tratarOpcao(opcao) {
         "Quantas unidades deseja adicionar ao carrinho? "
       );
 
-      var produtoSelecionado = JSON.parse(
-        JSON.stringify(produtos[codigoProduto])
-      );
-
-      produtoSelecionado = { id: codigoProduto, ...produtoSelecionado };
-      adicionarDescontoProduto(produtoSelecionado, categorias);
-      produtoSelecionado["quantidade"] = parseInt(qntdProduto);
-      produtoSelecionado["valor"] =
-        produtoSelecionado.preco * produtoSelecionado.quantidade;
-
-      carrinhoDeCompras.push(produtoSelecionado);
+      addProdutoCarrinho(produtos, codigoProduto, qntdProduto);
       break;
     case "3":
       console.clear();
       console.table(carrinhoDeCompras);
-      break;
+      return carrinhoDeCompras;
     case "4":
       var subtotal = 0;
       var total = 0;
@@ -86,13 +75,31 @@ async function tratarOpcao(opcao) {
       console.log("Compra finalizada com sucesso");
       return;
     default:
-      console.log("Informe uma opção válida! ");
-      break;
+      return "Informe uma opção válida!";
   }
 }
 
-function adicionarDescontoProduto(produto, categorias) {
-  const indexCategoria = categorias.findIndex(
+async function addProdutoCarrinho(listaProdutos, codigoProduto, qntdProduto) {
+  var categorias = await listarCategoriasAPI();
+  var produtoSelecionado = selecionaProduto(listaProdutos, codigoProduto);
+
+  adicionarDescontoProduto(produtoSelecionado, categorias);
+
+  produtoSelecionado = {
+    id: parseInt(codigoProduto),
+    ...produtoSelecionado,
+  };
+
+  produtoSelecionado["quantidade"] = parseInt(qntdProduto);
+  produtoSelecionado["valor"] =
+    produtoSelecionado.preco * produtoSelecionado.quantidade;
+
+  carrinhoDeCompras.push(produtoSelecionado);
+  return produtoSelecionado;
+}
+
+async function adicionarDescontoProduto(produto, categorias) {
+  const indexCategoria = await categorias.findIndex(
     (categoria) => categoria.nome === produto.categoria
   );
 
@@ -100,6 +107,13 @@ function adicionarDescontoProduto(produto, categorias) {
     indexCategoria !== -1 ? categorias[indexCategoria].desconto : 0;
 }
 
+function selecionaProduto(listaProdutos, indiceProduto) {
+  const indice = parseInt(indiceProduto);
+  return listaProdutos[indice];
+}
+
 if (require.main === module) {
   run();
 }
+
+module.exports = { tratarOpcao, addProdutoCarrinho };
