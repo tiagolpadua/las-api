@@ -1,5 +1,5 @@
 const {processarOpcao} = require("./cli");
-const {listarProdutos,listarCategorias,listarCupons} = require("./api-service");
+const {listarProdutos,listarCategorias} = require("./api-service");
 const {incluirPrecoFormatado} = require("./objetos");
 
 jest.mock("./api-service");
@@ -46,7 +46,7 @@ describe("Desejável", () => {
   // na linha de comandos. Utilize PRODUTOS_DESCONTO_MOCK
   // test "Deve listar os produtos com preço formatado e desconto."
   test("Deve listar os produtos com preço formatado e desconto.",async ()=>{
-    listarCupons.mockResolvedValue(PRODUTOS_DESCONTO_MOCK);
+    listarProdutos.mockResolvedValue(PRODUTOS_DESCONTO_MOCK);
     const descontos = await processarOpcao("descontos");
     expect(descontos).toBe(PRODUTOS_DESCONTO_MOCK);
    });

@@ -16,7 +16,6 @@ async function processarOpcao(opcao) {
     case "PRODUTOS-FORMATADOS":
       produtos = await listarProdutos();
       retorno = await formataValorProduto(produtos);
-
       break;
     case "DESCONTOS":
       produtos = formataValorProduto(await listarProdutos());
@@ -29,7 +28,7 @@ async function processarOpcao(opcao) {
 
       break;
     case "CATEGORIAS":
-
+      retorno = await listarCategorias();
       break;
     default:
       throw new Error(`Opção inválida: ${opcao}`);
