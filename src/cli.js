@@ -2,8 +2,6 @@
 
 const { listarProdutos, listarCategorias} = require("./api-service");
 
-
-
 async function processarOpcao(opcao) {
 
   switch(opcao){
@@ -20,7 +18,7 @@ async function processarOpcao(opcao) {
       var produtosComDesconto = adicionaDescontoCategoria(produtosFormatados,categorias);
 
     return produtosComDesconto;
-
+    
     case undefined: 
      throw new Error("Informe uma opção.");
     default: 
@@ -28,15 +26,7 @@ async function processarOpcao(opcao) {
   }
 }
 
-async function run() {
-  const opcao = process.argv[2];
-  const saida = await processarOpcao(opcao);
-  console.table(saida);
-}
 
-if (require.main === module) {
-  run();
-}
 
 function formatarPrecosProdutos(listaProdutos){
 
@@ -67,6 +57,16 @@ function adicionaDescontoCategoria(listaProdutos, categorias) {
   });
 
   return listaProdutosComDesconto;
+}
+
+async function run() {
+  const opcao = process.argv[2];
+  const saida = await processarOpcao(opcao);
+  console.table(saida);
+}
+
+if (require.main === module) {
+  run();
 }
 
 
