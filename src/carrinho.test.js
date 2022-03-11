@@ -1,11 +1,11 @@
 const PRODUTOS_MOCK = require("../mocks/produtos.json");
 const CATEGORIAS_MOCK = require("../mocks/categorias.json");
-const PRODUTOS_FORMATADO_MOCK = require("../mocks/produtos-formatado.json");
 const { listarProdutosAPI, listarCategoriasAPI } = require("./api-service");
 const {
   tratarOpcao,
   addProdutoCarrinho,
   finalizarCompra,
+  mostrarMenu,
 } = require("./carrinho");
 
 jest.mock("./api-service");
@@ -18,10 +18,35 @@ describe("Desafio", () => {
   // 4 - Finalize a compra e pergunte pelo cupom de desconto
   // x - Saia do sistema
 
+  test("Deve listar o menu", () => {
+    console.log = jest.fn();
+    mostrarMenu();
+    expect(console.log.mock.calls).toEqual([
+      ["Escolha uma opção:"],
+      ["1 - Listar Produtos"],
+      ["2 - Incluir Produto no Carinho"],
+      ["3 - Visualizar Carrinho"],
+      ["4 - Finalizar Compra"],
+      ["x - Sair"],
+    ]);
+  });
+
   test("Deve listar os produtos.", async () => {
     listarProdutosAPI.mockResolvedValue(PRODUTOS_MOCK);
-    const listaProdutos = await tratarOpcao("1");
-    expect(listaProdutos).toEqual(PRODUTOS_FORMATADO_MOCK);
+    console.table = jest.fn();
+
+    await tratarOpcao("1");
+    expect(console.table.mock.calls).toEqual([
+      [
+        [
+          { categoria: "Infantil", nome: "Confete", preco: "R$ 30,00" },
+          { categoria: "Infantil", nome: "Serpentina", preco: "R$ 10,00" },
+          { categoria: "Bebida", nome: "Cerveja", preco: "R$ 7,00" },
+          { categoria: "Bebida", nome: "Refrigerante", preco: "R$ 8,00" },
+          { categoria: "Alimentação", nome: "Fruta", preco: "R$ 12,00" },
+        ],
+      ],
+    ]);
   });
 
   test("Deve incluir um produto no Carrinho.", async () => {
