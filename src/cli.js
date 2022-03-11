@@ -17,8 +17,7 @@ function adionaProdutosFormatados(listarProdutos, categoria){
   let listaProdutosformatados= JSON.parse(JSON.stringify(listarProdutos));
   listaProdutosformatados.forEach((produto) => {
     if(produto.categoria === "Infantil"){
-      produto.desconto = categoria[0].desconto;
-     
+      produto.desconto = categoria[0].desconto; 
     }else if(produto.categoria === "Alimentação"){
       produto.desconto = categoria[1].desconto;
     }else{
