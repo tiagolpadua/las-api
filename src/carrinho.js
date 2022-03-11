@@ -1,41 +1,28 @@
-const readline = require("readline");
 const {
   listarProdutosAPI,
   listarCategoriasAPI,
   listarCuponsAPI,
 } = require("./api-service");
+const askQuestion = require("./ask-question");
 const { formatarPrecoProdutos } = require("./cli");
 
 const carrinhoDeCompras = [];
 
-function askQuestion(query) {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise((resolve) =>
-    rl.question(query, (ans) => {
-      rl.close();
-      resolve(ans);
-    })
-  );
-}
-
 async function run() {
   do {
-    console.log(
-      "Escolha uma opção: \n" +
-        "1 - Listar Produtos\n" +
-        "2 - Incluir Produto no Carinho\n" +
-        "3 - Visualizar Carrinho\n" +
-        "4 - Finalizar Compra\n" +
-        "x - Sair"
-    );
+    mostrarMenu();
     var opcao = await askQuestion("Opção: ");
-
     await tratarOpcao(opcao);
   } while (opcao != "x");
+}
+
+function mostrarMenu() {
+  console.log("Escolha uma opção:");
+  console.log("1 - Listar Produtos");
+  console.log("2 - Incluir Produto no Carinho");
+  console.log("3 - Visualizar Carrinho");
+  console.log("4 - Finalizar Compra");
+  console.log("x - Sair");
 }
 
 async function tratarOpcao(opcao) {
@@ -45,7 +32,7 @@ async function tratarOpcao(opcao) {
   switch (opcao) {
     case "1":
       console.table(formatarPrecoProdutos(produtos));
-      return formatarPrecoProdutos(produtos);
+      break;
     case "2":
       var codigoProduto = await askQuestion(
         "Qual código do produto deseja incluir no carinho? "
@@ -131,4 +118,9 @@ if (require.main === module) {
   run();
 }
 
-module.exports = { tratarOpcao, addProdutoCarrinho, finalizarCompra };
+module.exports = {
+  tratarOpcao,
+  addProdutoCarrinho,
+  finalizarCompra,
+  mostrarMenu,
+};
