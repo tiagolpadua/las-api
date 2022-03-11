@@ -30,11 +30,14 @@ function adionaProdutosFormatados(listarProdutos, categoria){
 
 
 async function processarOpcao(opcao) {
+  let resultado;
   switch(opcao){
     case "produtos":
-      return await listarProdutos();
+      resultado =  await listarProdutos();
+      break;
     case "categorias":
-      return await listarCategoria();
+      resultado = await listarCategoria();
+      break;
     case "preco-formatado":
       return formatarPrecoProdutos(await listarProdutos());
     case "produtos-formatados":
@@ -44,12 +47,14 @@ async function processarOpcao(opcao) {
         produtosFormatados,
         categoria
       );
-      return produtosComDesconto;
+      resultado =  produtosComDesconto;
+      break;
     case undefined:
       throw new Error("Informe uma opção.");
     default:
       throw new Error(`Opção inválida: ${opcao}`);
   }
+  return resultado;
 }
 
 async function run() {
@@ -64,5 +69,4 @@ if (require.main === module) {
 
 module.exports = {
   processarOpcao,
-
 };

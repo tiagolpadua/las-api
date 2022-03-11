@@ -14,6 +14,15 @@
 //   );
 // }
 
+
+function mostraOpcoes(){
+  console.log("1 - Liste os produtos");
+  console.log("2 - Inclua um produto no carrinho");
+  console.log("3 - Visualize o carrinho");
+  console.log("4 - Finalize a compra e pergunte pelo cupom de desconto");
+  console.log("x - Saia do sistema");
+}
+
 async function run() {
   // TODO
 }
@@ -21,3 +30,10 @@ async function run() {
 if (require.main === module) {
   run();
 }
+
+console.log(mostraOpcoes());
+
+module.exports = {
+  mostraOpcoes,
+  run,
+};

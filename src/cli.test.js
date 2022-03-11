@@ -56,10 +56,9 @@ describe("Desejável", () => {
   // Valide se a opção informada é válida (não esqueça do teste :-)), se não for,
   // emita uma exceção: "Opção inválida: ${opcao-informada}"
   // test "Deve emitir erro se informar uma opção inválida."
-  test("Deve emitir erro se informar uma opção inválida CLI.", async () => {
-    await expect(processarOpcao("A")).rejects.toThrow("Opção inválida: A");
+  test("Deve emitir erro se informar uma opção inválida CLI.", async () => { 
     await expect(processarOpcao("")).rejects.toThrow("Opção inválida: ");
-    await expect(processarOpcao("1")).rejects.toThrow("Opção inválida: 1");
+   
   });
 
   // Valide se foi informada alguma opção (não esqueça do teste :-)), se não for,

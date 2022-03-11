@@ -14,8 +14,8 @@ const PRODUTOS_MOCK = require("../mocks/produtos.json");
 
 const fetch = require("node-fetch");
 jest.mock("node-fetch");
-// const CATEGORIAS_MOCK = require("../mocks/categorias.json");
-// const CUPONS_MOCK = require("../mocks/cupons.json");
+const CATEGORIAS_MOCK = require("../mocks/categorias.json");
+const CUPONS_MOCK = require("../mocks/cupons.json");
 
 describe("Essencial", () => {
   // Crie uma função e o teste desta função, que lista os produtos a partir da API e retorna um JSON
@@ -37,10 +37,10 @@ describe("Essencial", () => {
   test("Deve ter uma função que lista as categorias.", async () => {
     fetch.mockResolvedValue({
       staus: 200,
-      json: () => Promise.resolve(PRODUTOS_MOCK)
+      json: () => Promise.resolve(CATEGORIAS_MOCK)
     });
     const categorias = await listarCategoria();
-    expect(categorias).toEqual (PRODUTOS_MOCK);
+    expect(categorias).toEqual (CATEGORIAS_MOCK);
   });
 
 
@@ -50,10 +50,10 @@ describe("Essencial", () => {
   test("Deve ter uma função que lista os cupons válidos.", async () => {
     fetch.mockResolvedValue({
       staus: 200,
-      json: () => Promise.resolve(PRODUTOS_MOCK)
+      json: () => Promise.resolve(CUPONS_MOCK)
     });
     const cuponsValidos = await listarCuponsValidos();
-    expect(cuponsValidos).toEqual (PRODUTOS_MOCK);
+    expect(cuponsValidos).toEqual (CUPONS_MOCK);
   });
 
   // Crie um teste para quando qualquer API for acionada, caso o status code seja diferente de 200,
