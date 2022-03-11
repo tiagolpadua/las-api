@@ -80,4 +80,3 @@ describe("Desejável", () => {
     await expect(processarOpcao()).rejects.toThrow("Informe uma opção.");
    });
 });
-  
