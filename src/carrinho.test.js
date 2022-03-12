@@ -61,19 +61,5 @@ describe("Desafio", () => {
     expect(console.table.mock.calls).toEqual([[[{"categoria": "Bebida", "desconto": 0, "nome": "Cerveja", "preco": 7, "quantidade": 2, "valor": 14}]]]);
   });
 
-
-
-
-  // test("Deve finalizar a compra e mostrar o cupom.", async() => {
-  //   console.log = jest.fn();
-  //   console.table = jest.fn();
-  //   askQuestion.mockResolvedValueOnce("x");
-  //   askQuestion.mockResolvedValueOnce("x");
-  //   await processarOpcao("x");
-  //   expect(console.log.mock.calls).toEqual();
-  // });
-
-  test("Uma tautologia.", () => {
-    expect(1 === 1).toBe(true);
-  });
+  
 });

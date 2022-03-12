@@ -25,14 +25,10 @@ async function processarOpcao(opcao) {
       codigoProduto = parseInt(codigoProduto);
       produtos = await listarProdutos();
       produto = produtos[codigoProduto];
-      if(!produto){
-        console.error(`Produto não localizado: ${codigoProduto}`);
-      }
+     
       quantidade = await askQuestion("Quantos produtos deseja incluir? ");
       quantidade = parseInt(quantidade);
-      if(quantidade < 0){
-        console.error(`Quantidade invalida ${quantidade}`);
-      }
+      
       carrinho.push({...produto, desconto, quantidade, valor: parseInt(produto.preco*quantidade)});
       if(quantidade && produto){
         console.log("Produto adicionado ao carrinho");
@@ -40,10 +36,13 @@ async function processarOpcao(opcao) {
       carrinho.forEach((elemento) => {
         if(elemento.categoria === "Infantil"){        
           elemento.desconto = 15;
+          calcInfantil += elemento.valor;
         }else if(elemento.categoria === "Alimentação"){    
           elemento.desconto = 30; 
+          calclAlimentcao += elemento.valor; 
         }else if(elemento.categoria === "Bebida"){
           elemento.desconto = 0;  
+          calcBedida += elemento.valor;
         }      
       });
       break;
@@ -53,21 +52,21 @@ async function processarOpcao(opcao) {
       break;   
     case "4":
       // calcInfantil = parseInt(calcInfantil)
-      carrinho.forEach((elemento) => {
-        if(elemento.categoria === "Infantil"){   
-          if(elemento.quantidade > 0){     
-            calcInfantil += elemento.valor;
-          }
-        }else if(elemento.categoria === "Alimentação"){    
-          if(elemento.quantidade > 0){ 
-            calclAlimentcao += elemento.valor; 
-          }
-        }else if(elemento.categoria === "Bebida"){
-          if(elemento.quantidade > 0){ 
-            calcBedida += elemento.valor;
-          }  
-        }        
-      });
+      // carrinho.forEach((elemento) => {
+      //   if(elemento.categoria === "Infantil"){   
+      //     if(elemento.quantidade > 0){     
+      //       calcInfantil += elemento.valor;
+      //     }
+      //   }else if(elemento.categoria === "Alimentação"){    
+      //     if(elemento.quantidade > 0){ 
+      //       calclAlimentcao += elemento.valor; 
+      //     }
+      //   }else if(elemento.categoria === "Bebida"){
+      //     if(elemento.quantidade > 0){ 
+      //       calcBedida += elemento.valor;
+      //     }  
+      //   }        
+      // });
       subtotal = calcInfantil+calclAlimentcao+calcBedida;
       aux = subtotal;
       subtotal = formatarPreco(subtotal);
