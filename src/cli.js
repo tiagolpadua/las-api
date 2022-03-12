@@ -68,4 +68,5 @@ if (require.main === module) {
 
 module.exports = {
   processarOpcao,
+  formatarPreco
 };
