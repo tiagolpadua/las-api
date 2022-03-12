@@ -1,4 +1,4 @@
-const {processarOpcao , run} = require("./cli.js");
+const {processarOpcao } = require("./cli.js");
 
 // const fetch = require("node-fetch");
 const {listarProdutos,listarCategorias} = require("./api-service");
@@ -82,7 +82,7 @@ describe("Desejável", () => {
 
   it("Deve emitir erro se informar uma opção inválida.", async () => {
 
-      const opcao = run();
+      const opcao = "item";
       
       expect(processarOpcao(opcao)).rejects.toThrow(`Opção inválida: ${opcao}`);
    });

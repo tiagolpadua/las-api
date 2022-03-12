@@ -50,7 +50,7 @@ function verificarErros(opcao_informada) {
 
 async function processarOpcao(opcao) {
   // TODO
-  const verificarOpcao = [...arguments];
+  
   const opcoes = ["produtos" , "produtos-formatados", "categorias", "descontos" ];
 
   if(opcao === opcoes[0]) return listarProdutos();
@@ -58,9 +58,9 @@ async function processarOpcao(opcao) {
   if(opcao === opcoes[2]) return listarCategorias();
   if(opcao === opcoes[3]) return incluirPrecoFormatadoEDesconto(await listarProdutos());
   
-  console.log(opcao);
+  // console.log(opcao);
   
-  return verificarErros(verificarOpcao[0]);
+  return verificarErros(opcao);
 }
 
 

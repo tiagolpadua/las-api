@@ -291,4 +291,5 @@ module.exports = {
   calcularTotalDaCompraComDescontos,
   formatarValor,
   CarrinhoDeCompras,
+  cupomEhValido,
 };
