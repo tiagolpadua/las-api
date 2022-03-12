@@ -33,10 +33,14 @@ describe("Desejável", () => {
     const produtosDescontos = await processarOpcao("descontos");
     expect(produtosDescontos).toEqual(PRODUTOS_DESCONTO_MOCK);
   });
+  
+  it("Deve informar uma opção na linha de comando.", async () => {
+    await expect(processarOpcao()).rejects.toThrow("Você deve informar uma opção.");
+  });
 
   it("Deve validar uma opção passada na linha de comando.", async () => {
     await expect(processarOpcao("foo")).rejects.toThrow("Informe uma opção válida: foo");
     await expect(processarOpcao("bar")).rejects.toThrow("Informe uma opção válida: bar");
-    await expect(processarOpcao()).rejects.toThrow("Você deve informar uma opção.");
   });
+
 });
