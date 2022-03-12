@@ -29,5 +29,5 @@ async function listarCupons() {
 }
 
 module.exports = {
-    listarProdutos, listarCategorias, listarCupons
+    listarProdutos, listarCategorias, listarCupons, verificarErros
 };
