@@ -6,7 +6,8 @@ const GET = async function (path) {
   if (res.status !== 200) {
     throw new Error(`${res.statusText}: ${res.status}`);
   }
-  return await res.json();
+  const data = await res.json();
+  return data;
 };
 
 // GET("produtos").then((data) => console.log(data));
