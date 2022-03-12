@@ -1,41 +1,42 @@
-// Utilize as respostas "Mocadas" disponíveis em ../mocks
-// Utilize a função de mock do Jest para mocar as respostas no api-service: https://jestjs.io/pt-BR/docs/mock-functions
+const { GET } = require("./api-service");
+const { processarOpcao } = require("./cli");
+const { when } = require("jest-when");
 
-// const PRODUTOS_MOCK = require("../mocks/produtos.json");
-// const PRODUTOS_FORMATADO_MOCK = require("../mocks/produtos-formatado.json");
-// const CATEGORIAS_MOCK = require("../mocks/categorias.json");
-// const PRODUTOS_DESCONTO_MOCK = require("../mocks/produtos-desconto.json");
+const PRODUTOS_MOCK = require("../mocks/produtos.json");
+const PRODUTOS_FORMATADO_MOCK = require("../mocks/produtos-formatado.json");
+const CATEGORIAS_MOCK = require("../mocks/categorias.json");
+const PRODUTOS_DESCONTO_MOCK = require("../mocks/produtos-desconto.json");
+jest.mock("./api-service");
 
 describe("Desejável", () => {
-  // Crie uma opção e o teste desta opção, que lista os produtos utilizando
-  // o api-service quando é informado argumento 'produtos' na linha de comandos.
-  // Utilize PRODUTOS_MOCK
-  // test "Deve listar os produtos."
+  it("Deve retornar uma lista de produtos à partir da linha de comandos.", async () => {
+    GET.mockResolvedValue(PRODUTOS_MOCK);
+    const produtos = await processarOpcao("produtos");
+    expect(produtos).toEqual(PRODUTOS_MOCK);
+  });
+  
+  it("Deve retornar uma lista de categorias à partir da linha de comandos.", async () => {
+    GET.mockResolvedValue(CATEGORIAS_MOCK);
+    const categorias = await processarOpcao("categorias");
+    expect(categorias).toEqual(CATEGORIAS_MOCK);
+  });
 
-  // Crie uma opção e o teste desta opção, que lista os produtos com o preço formatado utilizando
-  // o api-service quando é informado argumento 'produtos-formatados' na linha de comandos.
-  // Utilize PRODUTOS_FORMATADO_MOCK
-  // test "Deve listar os produtos com preço formatado."
+  it("Deve retornar uma lista de produtos com preços formatados à partir da linha de comandos.", async () => {
+    GET.mockResolvedValue(PRODUTOS_MOCK);
+    const produtosFormatados = await processarOpcao("produtos-formatados");
+    expect(produtosFormatados).toEqual(PRODUTOS_FORMATADO_MOCK);
+  });
+  
+  it("Deve retornar uma lista de produtos com descontos e preços formatados à partir da linha de comandos.", async () => {
+    when(GET).calledWith("produtos").mockResolvedValue(PRODUTOS_MOCK);
+    when(GET).calledWith("categorias").mockResolvedValue(CATEGORIAS_MOCK);
+    const produtosDescontos = await processarOpcao("descontos");
+    expect(produtosDescontos).toEqual(PRODUTOS_DESCONTO_MOCK);
+  });
 
-  // Crie uma opção e o teste desta opção, que lista as categorias utilizando
-  // o api-service quando é informado argumento 'categorias' na linha de comandos
-  // Utilize CATEGORIAS_MOCK
-  // test "Deve listar as categorias."
-
-  // Crie uma opção e o teste desta opção, que lista as os produtos com preço formatado e o
-  // desconto de sua categoria utilizando o api-service quando é informado argumento 'descontos'
-  // na linha de comandos. Utilize PRODUTOS_DESCONTO_MOCK
-  // test "Deve listar os produtos com preço formatado e desconto."
-
-  // Valide se a opção informada é válida (não esqueça do teste :-)), se não for,
-  // emita uma exceção: "Opção inválida: ${opcao-informada}"
-  // test "Deve emitir erro se informar uma opção inválida."
-
-  // Valide se foi informada alguma opção (não esqueça do teste :-)), se não for,
-  // emita uma exceção: "Informe uma opção."
-  // test "Deve emitir erro não informar uma opção."
-
-  test("Uma tautologia.", () => {
-    expect(1 === 1).toBe(true);
+  it("Deve validar uma opção passada na linha de comando.", async () => {
+    await expect(processarOpcao("foo")).rejects.toThrow("Informe uma opção válida: foo");
+    await expect(processarOpcao("bar")).rejects.toThrow("Informe uma opção válida: bar");
+    await expect(processarOpcao()).rejects.toThrow("Você deve informar uma opção.");
   });
 });
