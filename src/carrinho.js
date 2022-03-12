@@ -51,22 +51,6 @@ async function processarOpcao(opcao) {
       console.table(carrinho);
       break;   
     case "4":
-      // calcInfantil = parseInt(calcInfantil)
-      // carrinho.forEach((elemento) => {
-      //   if(elemento.categoria === "Infantil"){   
-      //     if(elemento.quantidade > 0){     
-      //       calcInfantil += elemento.valor;
-      //     }
-      //   }else if(elemento.categoria === "Alimentação"){    
-      //     if(elemento.quantidade > 0){ 
-      //       calclAlimentcao += elemento.valor; 
-      //     }
-      //   }else if(elemento.categoria === "Bebida"){
-      //     if(elemento.quantidade > 0){ 
-      //       calcBedida += elemento.valor;
-      //     }  
-      //   }        
-      // });
       subtotal = calcInfantil+calclAlimentcao+calcBedida;
       aux = subtotal;
       subtotal = formatarPreco(subtotal);
