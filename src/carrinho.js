@@ -56,15 +56,15 @@ async function processarOpcao(opcao) {
       carrinho.forEach((elemento) => {
         if(elemento.categoria === "Infantil"){   
           if(elemento.quantidade > 0){     
-            calcInfantil = elemento.valor;
+            calcInfantil += elemento.valor;
           }
         }else if(elemento.categoria === "Alimentação"){    
           if(elemento.quantidade > 0){ 
-            calclAlimentcao = elemento.valor; 
+            calclAlimentcao += elemento.valor; 
           }
         }else if(elemento.categoria === "Bebida"){
           if(elemento.quantidade > 0){ 
-            calcBedida = elemento.valor;
+            calcBedida += elemento.valor;
           }  
         }        
       });
