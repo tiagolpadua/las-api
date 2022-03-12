@@ -85,6 +85,7 @@ function incluirPrecoFormatado(produto) {
   return produto;
 }
 
+
 // Crie uma função que recebe o nome de uma categoria e devolve o desconto associado a esta categoria,
 // ou 0 se não houver desconto.
 // Utilize as listas que já estão na função para implementar seu código.
