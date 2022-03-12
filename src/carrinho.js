@@ -1,6 +1,6 @@
 const { listarProdutos } = require("./api-service");
 const { askQuestion } = require("./ask-question");
-const { formatarPreco } = require("./cli");
+const { formatarPreco }  = require("./cli");
 
 let carrinho = [];
 
@@ -13,17 +13,8 @@ function mostraOpcoes(){
   console.log("x - Sair");
 }
 
-function formatarPrecoProdutos(carrinho) {
-  carrinho.forEach((elemento) => {
-    elemento.descontoDe = formatarPreco(elemento.descontoDe);
-    elemento.valor = formatarPreco(elemento.valor);
-    elemento.total = formatarPreco(elemento.total);
-  });
-  return carrinho;
-}
-
 async function processarOpcao(opcao) {
-  let codigoProduto, produtos, produto, quantidade, descontoDe, total;
+  let codigoProduto, produtos, produto, quantidade, desconto, subtotal = 0, total = 0, calcInfantil = 0, calclAlimentcao = 0, calcBedida = 0, cupom, aux;
   switch(opcao){
     case "1":
       console.log("Lista de Produtos");
@@ -42,40 +33,62 @@ async function processarOpcao(opcao) {
       if(quantidade < 0){
         console.error(`Quantidade invalida ${quantidade}`);
       }
-      carrinho.push({...produto, quantidade, valor: parseFloat(produto.preco*quantidade).toFixed(2).replace(".", ","), descontoDe,  total});
-      if(quantidade && codigoProduto){
+      carrinho.push({...produto, desconto, quantidade, valor: parseInt(produto.preco*quantidade)});
+      if(quantidade && produto){
         console.log("Produto adicionado ao carrinho");
       }
-      break;
-    case "3":
-      console.log("Carrinho");
-      console.table(carrinho);
-      break;
-      
-    case "4":
-      console.log("Total da compra");  
       carrinho.forEach((elemento) => {
-        if(elemento.categoria === "Infantil"){
-          elemento.valor = parseFloat(elemento.valor);
-          elemento.total = (elemento.valor-((elemento.valor*30)/100)); 
-          elemento.descontoDe = (elemento.valor-elemento.total);
-          console.log(elemento.total);
-          // carrinho = formatarPrecoProdutos(carrinho);
-        }else if(elemento.categoria === "AlimentaÃ§Ã£o"){
-          elemento.valor = parseFloat(elemento.valor);
-          elemento.total = (elemento.valor-((elemento.valor*15)/100)); 
-          elemento.descontoDe = (elemento.valor-elemento.total);
-          // carrinho = formatarPrecoProdutos(carrinho);
-        }else{
-          elemento.total = elemento.valor;
-          elemento.descontoDe = 0;  
+        if(elemento.categoria === "Infantil"){        
+          elemento.desconto = 15;
+        }else if(elemento.categoria === "Alimentação"){    
+          elemento.desconto = 30; 
+        }else if(elemento.categoria === "Bebida"){
+          elemento.desconto = 0;  
         }      
       });
-     console.table(carrinho);
-     
+      break;
+    case "3":
+      console.log("Carrinho de Compras");
+      console.table(carrinho);
+      break;   
+    case "4":
+      // calcInfantil = parseInt(calcInfantil)
+      carrinho.forEach((elemento) => {
+        if(elemento.categoria === "Infantil"){   
+          if(elemento.quantidade > 0){     
+            calcInfantil = elemento.valor;
+          }
+        }else if(elemento.categoria === "Alimentação"){    
+          if(elemento.quantidade > 0){ 
+            calclAlimentcao = elemento.valor; 
+          }
+        }else if(elemento.categoria === "Bebida"){
+          if(elemento.quantidade > 0){ 
+            calcBedida = elemento.valor;
+          }  
+        }        
+      });
+      subtotal = calcInfantil+calclAlimentcao+calcBedida;
+      aux = subtotal;
+      subtotal = formatarPreco(subtotal);
+      calcInfantil = (calcInfantil-((calcInfantil*15/100)));
+      calclAlimentcao = (calclAlimentcao-((calclAlimentcao*15/100)));
+      total = calcBedida+calcInfantil+calclAlimentcao;
+
+      console.log("Concluir compra:");  
+      console.table(carrinho);
+
+      cupom = await askQuestion("Digite o cupom: ");
+      if(cupom === "ALURANU" || cupom === "NULABSSA"){
+        console.log(`Subtotal: R$ ${subtotal}`);
+        console.log(`Qual nome do cupom? ${cupom}`);
+        console.log("Qual o desconto do cupom? 10");
+        total = aux-((aux*10)/100);
+        total = formatarPreco(total);
+        console.log(`Total: R$ ${total}`);
+      }
   }
 }
-
 
 async function run() {
   mostraOpcoes();
@@ -94,5 +107,4 @@ module.exports = {
   mostraOpcoes,
   run,
   processarOpcao,
-  formatarPrecoProdutos
 };

@@ -47,8 +47,8 @@ describe("Desafio", () => {
     askQuestion.mockResolvedValueOnce("3");
     askQuestion.mockResolvedValueOnce("3");
     await processarOpcao("3");
-    expect(console.log.mock.calls).toEqual([["Carrinho"]]);
-    expect(console.table.mock.calls).toEqual([[[{"categoria": "Bebida", "descontoDe": undefined, "nome": "Cerveja", "preco": 7, "quantidade": 2, "total": undefined, "valor": "14,00"}]]]);
+    expect(console.log.mock.calls).toEqual([["Carrinho de Compras"]]);
+    expect(console.table.mock.calls).toEqual([[[{"categoria": "Bebida", "desconto": 0, "nome": "Cerveja", "preco": 7, "quantidade": 2, "valor": 14}]]]);
   });
 
   test("Deve finalizar a compra e mostrar o cupom.", async() => {
@@ -57,8 +57,8 @@ describe("Desafio", () => {
     askQuestion.mockResolvedValueOnce("4");
     askQuestion.mockResolvedValueOnce("4");
     await processarOpcao("4");
-    expect(console.log.mock.calls).toEqual([["Total da compra"]]);
-    expect(console.table.mock.calls).toEqual([[[{"categoria": "Bebida", "descontoDe": 0, "nome": "Cerveja", "preco": 7, "quantidade": 2, "total": "14,00", "valor": "14,00"}]]]);
+    expect(console.log.mock.calls).toEqual([["Concluir compra:"]]);
+    expect(console.table.mock.calls).toEqual([[[{"categoria": "Bebida", "desconto": 0, "nome": "Cerveja", "preco": 7, "quantidade": 2, "valor": 14}]]]);
   });
 
 
