@@ -4,6 +4,10 @@ const { listarProdutos, listarCategorias} = require("./api-service");
 
 async function processarOpcao(opcao) {
 
+  let produtosFormatados;
+  let categorias;
+  let produtosComDesconto;
+
   switch(opcao){
     case "produtos": 
      return await listarProdutos();
@@ -13,9 +17,9 @@ async function processarOpcao(opcao) {
       return formatarPrecosProdutos(await listarProdutos());
     case "descontos": 
     
-      var produtosFormatados = formatarPrecosProdutos(await listarProdutos());
-      var categorias = await listarCategorias();
-      var produtosComDesconto = adicionaDescontoCategoria(produtosFormatados,categorias);
+      produtosFormatados = formatarPrecosProdutos(await listarProdutos());
+      categorias = await listarCategorias();
+      produtosComDesconto = adicionaDescontoCategoria(produtosFormatados,categorias);
 
     return produtosComDesconto;
     
@@ -71,5 +75,5 @@ if (require.main === module) {
 
 
 module.exports = {
-  processarOpcao,
+  processarOpcao, formatarPrecosProdutos
 };
