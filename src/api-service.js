@@ -23,6 +23,7 @@ async function listarCupons(){
     if (response.status !== 200) {
         throw new Error(`${response.statusText}: ${response.status}`);
     }
+    
     const data = await response.json();
     return data;
 }
