@@ -25,7 +25,7 @@ describe("Desejável", () => {
   // Utilize PRODUTOS_FORMATADO_MOCK
   test ("Deve listar os produtos com preço formatado.", async () => {
     listarProdutos.mockResolvedValue(PRODUTOS_FORMATADO_MOCK);
-    const resultado = await processarOpcao("produtos");
+    const resultado = await processarOpcao("produtos-formatados");
     expect(resultado).toEqual(PRODUTOS_FORMATADO_MOCK);
   });
 

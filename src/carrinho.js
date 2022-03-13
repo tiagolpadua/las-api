@@ -13,7 +13,7 @@ function exibirOpcoes() {
 const carrinho = new CarrinhoDeCompras();
 
 async function processarOpcao(opcao) {
-  let codProduto, produtos, produto, qtde;
+  let codProduto, produtos, produto, qtde, cupom;
   switch (opcao) {
     case "1":
       console.log("Lista de produtos:");
@@ -35,11 +35,17 @@ async function processarOpcao(opcao) {
         return;
       }
       carrinho.incluirProduto({ ...produto, quantidade: qtde, valor: produto.preco * qtde });
-      console.table(carrinho.produtos);
       break;
-      case "3":
-        console.table(carrinho.produtos);
-        break;
+    case "3":
+      if (!carrinho.produtos) console.error("Ainda não há itens no carrinho.");
+      else console.table(carrinho.produtos);
+      break;
+    case "4":
+      console.log(`Subtotal: ${carrinho.subtotal()}`);
+      cupom = await askQuestion("Digite o cupom: ");
+      carrinho.definirCupom(cupom.toUpperCase());
+      console.log(`Total da compra com descontos: ${carrinho.total()}`);
+      break;
     default:
       break;
   }

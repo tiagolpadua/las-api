@@ -8,10 +8,13 @@ const { incluirPrecoFormatado } = require("./objetos.js");
    if (typeof opcao === "undefined") throw new Error("Informe uma opção.");
    let resultado;
    const categorias = await listarCategorias();
-   const produtos = formatarPrecoProdutos(await listarProdutos());
+   const produtos = await listarProdutos();
    switch (opcao.toUpperCase()) {
       case "PRODUTOS":
         resultado = produtos;
+        break;
+      case "PRODUTOS-FORMATADOS":
+        resultado = formatarPrecoProdutos(produtos);
         break;
       case "CATEGORIAS":
         resultado = await listarCategorias();
