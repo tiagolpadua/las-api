@@ -1,8 +1,7 @@
 const { GET } = require("./api-service");
-const { formatarPrecoProdutos } = require("./cli");
 const readline = require("readline");
 
-const carrinhoDeCompras = [];
+// const carrinhoDeCompras = [];
 
 const askQuestion = function (query) {
   const rl = readline.createInterface({
@@ -33,15 +32,17 @@ const processarOpcao = async function (opcao) {
     case "1":
       console.table(await GET("produtos"));
       break;
-    case "2": {
-      escolhaProduto = await askQuestion("Qual produto você deseja incluir ?");
-      const produtos = await GET("produtos");
-      const produto = produtos[escolhaProduto];
-      if(!produto){
-        console.error(`O produto escolhido não existe:${escolhaProduto}`);
-
+    case "2":
+      {
+        escolhaProduto = await askQuestion(
+          "Qual produto você deseja incluir ?"
+        );
+        const produtos = await GET("produtos");
+        const produto = produtos[escolhaProduto];
+        if (!produto) {
+          console.error(`O produto escolhido não existe:${escolhaProduto}`);
+        }
       }
-    }
       break;
     default:
       "thats an error";
