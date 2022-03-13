@@ -57,9 +57,9 @@ describe("Essencial", () => {
       status: 404,
       statusText: "Not found",
     });
-    await expect(listarProdutos()).rejects.toThrow("Not found: 400");
-    await expect(listarCategorias()).rejects.toThrow("Not found: 400");
-    await expect(listarCupons()).rejects.toThrow("Not found: 400");
+    await expect(listarProdutos()).rejects.toThrow("Not found: 404");
+    await expect(listarCategorias()).rejects.toThrow("Not found: 404");
+    await expect(listarCupons()).rejects.toThrow("Not found: 404");
   });
 
 });
