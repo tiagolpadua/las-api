@@ -10,7 +10,7 @@ jest.mock("./api-service");
 const PRODUTOS_MOCK = require("../mocks/produtos.json");
 const PRODUTOS_FORMATADO_MOCK = require("../mocks/produtos-formatado.json");
 const CATEGORIAS_MOCK = require("../mocks/categorias.json");
-const PRODUTOS_DESCONTO_MOCK = require("../mocks/produtos-desconto.json");
+//const PRODUTOS_DESCONTO_MOCK = require("../mocks/produtos-desconto.json");
 
 describe("Desejável", () => {
   // Crie uma opção e o teste desta opção, que lista os produtos utilizando

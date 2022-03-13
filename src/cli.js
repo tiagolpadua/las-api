@@ -1,8 +1,4 @@
-const {
-  listarProdutos,
-  listarCategorias,
-  listarCupons,
-} = require("./api-service");
+const { listarProdutos, listarCategorias } = require("./api-service");
 const { formatarValor } = require("./objetos");
 
 async function processarOpcao(opcao) {
@@ -11,7 +7,6 @@ async function processarOpcao(opcao) {
   let retorno;
   let produtos;
   let categorias;
-  let ProdutoFormatado;
 
   switch (opcao.toUpperCase()) {
     case "PRODUTOS":
