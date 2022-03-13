@@ -46,7 +46,7 @@ function formataValorProduto(produtos){
 }
 
 async function run() {
-  const opcao = process.argv[2];
+  const opcao = process.argv[2].toUpperCase();
   const saida = await processarOpcao(opcao);
   console.table(saida);
 }
