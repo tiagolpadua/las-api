@@ -46,6 +46,7 @@
     "lint"
   ],
   "jest": {
+    "check-coverage": "istanbul check-coverage --root coverage --lines 98 --functions 98 --statements 98 --branches 98",
     "collectCoverage": true,
     "collectCoverageFrom": [
       "./src/**"
