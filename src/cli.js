@@ -7,7 +7,7 @@ async function processarOpcao(opcao) {
   let produtos;
   let categorias;
  
-  switch(opcao.toUpperCase()){
+  switch(opcao){
 
      case "PRODUTOS":
       retorno = await listarProdutos();
@@ -31,12 +31,11 @@ async function processarOpcao(opcao) {
     });  
     break;
 
-    // case undefined:
-    //   retorno = "Informe uma opção.";
-    //   break;
+    case undefined:
+      throw new Error("Informe uma opção.");
 
-    // default: 
-    //   throw new Error(`Opção inválida: ${opcao}`);
+     default: 
+       throw new Error(`Opção inválida: ${opcao}`);
       
   }
   return retorno;
