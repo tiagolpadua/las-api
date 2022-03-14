@@ -1,5 +1,5 @@
 describe("Desafio", () => {
-  const PRODUTOS_MOCK = require("../mocks/produtos.json");
+const PRODUTOS_MOCK = require("../mocks/produtos.json");
 const CATEGORIAS_MOCK = require("../mocks/categorias.json");
 const { listarProdutos, listarCategorias } = require("./api-service");
 const {
