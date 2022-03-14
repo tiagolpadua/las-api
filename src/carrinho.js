@@ -14,10 +14,26 @@
 //   );
 // }
 
-async function run() {
-  // TODO
-}
+// function imprimirOpcoes() {
+//   console.log("Escolha uma opção");
+//   console.log("1 - Liste os produtos");
+//   console.log("2 - Inclua um produto no carrinho");
+//   console.log("3 - Visualize o carrinho");
+//   console.log("4 - Finalize a compra e pergunte pelo cupom de desconto");
+//   console.log("x - Saia do sistema");
+// }
 
-if (require.main === module) {
-  run();
-}
+// async function run() {
+//   imprimirOpcoes();
+
+//   let opcao = await askQuestion("Escolja uma opção");
+// }
+
+// if (require.main === module) {
+//   run();
+// }
+
+
+// module.exports = {
+//   imprimirOpcoes
+// };
