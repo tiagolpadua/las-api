@@ -28,13 +28,12 @@ describe("Essencial", () => {
     });
     const produtos = await listarProdutos();
     expect(produtos).toEqual(PRODUTOS_MOCK);
-
   });
-
 
   // Crie uma função e o teste desta função, que lista as categorias a partir da API e retorna um JSON
   // com esta lista de categorias
   // test: "Deve ter uma função que lista as categorias."
+
   test("Deve ter uma função que lista as categorias.", async () => {
     fetch.mockResolvedValue({
       status: 200,
@@ -42,8 +41,8 @@ describe("Essencial", () => {
     });
     const categorias = await listarCategorias();
     expect(categorias).toEqual(CATEGORIAS_MOCK);
-
   });
+
 
   // Crie uma função e o teste desta função, que lista os cupons válidos a partir da API e retorna um JSON
   // com esta lista de cupons válidos
@@ -53,10 +52,11 @@ describe("Essencial", () => {
       status: 200,
       json: () => Promise.resolve(CUPONS_MOCK),
     });
-    const cupons = await listarCategorias();
+    const cupons = await listarCupons();
     expect(cupons).toEqual(CUPONS_MOCK);
 
   });
+
   // Crie um teste para quando qualquer API for acionada, caso o status code seja diferente de 200,
   // ela deve lançar uma Exceção com o seguinte formato: `${response.statusText}: ${response.status}`
   // test "Deve tratar erros 404."
@@ -67,6 +67,5 @@ describe("Essencial", () => {
     });
     await expect(listarProdutos()).rejects.toThrow("Not found: 404");
     await expect(listarCategorias()).rejects.toThrow("Not found: 404");
-    await expect(listarCupons()).rejects.toThrow("Not found: 404");
   });
 });
