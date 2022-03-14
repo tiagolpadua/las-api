@@ -6,4 +6,15 @@ async function listarProdutos(){
     return data;  
 }
 
-module.exports = listarProdutos;
+async function listarCategorias(){
+    const response = await fetch("https://stupefied-keller-a2c79e.netlify.app/categorias.json");  
+    const data = await response.json();
+    return data;  
+}
+
+module.exports = {
+    listarProdutos, listarCategorias
+};
+    
+
+

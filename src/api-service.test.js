@@ -3,7 +3,7 @@
 // - https://stupefied-keller-a2c79e.netlify.app/categorias.json
 // - https://stupefied-keller-a2c79e.netlify.app/cupons.json
 
-const listarProdutos = require("./api-service");
+const {listarProdutos, listarCategorias} = require("./api-service");
 const fetch = require("node-fetch");
 jest.mock("node-fetch");
 
@@ -14,13 +14,14 @@ jest.mock("node-fetch");
 // Utilize a lib node-fetch em sua versão 2 - https://www.npmjs.com/package/node-fetch
 
 const PRODUTOS_MOCK = require("../mocks/produtos.json");
-// const CATEGORIAS_MOCK = require("../mocks/categorias.json");
+const CATEGORIAS_MOCK = require("../mocks/categorias.json");
 // const CUPONS_MOCK = require("../mocks/cupons.json");
 
 describe("Essencial", () => {
   // Crie uma função e o teste desta função, que lista os produtos a partir da API e retorna um JSON
   // com esta lista de produtos
   // test: "Deve ter uma função que lista os produtos."
+
   test ("Deve ter uma função que lista os produtos.", async () => {
     fetch.mockResolvedValue({
       status: 200,
@@ -33,6 +34,15 @@ describe("Essencial", () => {
   // Crie uma função e o teste desta função, que lista as categorias a partir da API e retorna um JSON
   // com esta lista de categorias
   // test: "Deve ter uma função que lista as categorias."
+
+  test ("Deve ter uma função que lista as categorias.", async () => {
+    fetch.mockResolvedValue({
+      status: 200,
+      json: () => Promise.resolve(CATEGORIAS_MOCK),
+    });
+    const categorias = await listarCategorias();
+    expect(categorias).toEqual(CATEGORIAS_MOCK);
+  });
 
   // Crie uma função e o teste desta função, que lista os cupons válidos a partir da API e retorna um JSON
   // com esta lista de cupons válidos
