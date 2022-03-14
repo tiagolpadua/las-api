@@ -9,7 +9,7 @@
     "test:desejavel": "jest -t Desejável --coverage=false",
     "test:desafio": "jest -t Desafio --coverage=false",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage ./carrinho.test.js",
+    "test:coverage": "jest --coverage ./cli.test.js",
     "lint": "eslint src/**",
     "lint:fix": "eslint src/** --fix",
     "cli:produtos": "node src/cli.js produtos",
