@@ -9,19 +9,23 @@
  const { listarProdutos, listarCategorias } = require("./api-service");
  jest.mock("./api-service");
 
+
 describe("Desejável", () => {
   // Crie uma opção e o teste desta opção, que lista os produtos utilizando
   // o api-service quando é informado argumento 'produtos' na linha de comandos.
   // Utilize PRODUTOS_MOCK
+
    test ("Deve listar os produtos.", async () => {
     listarProdutos.mockResolvedValue(PRODUTOS_MOCK);
     const produtos = await processarOpcao("produtos");
     expect(produtos).toEqual(PRODUTOS_MOCK);
    });
 
+
   // Crie uma opção e o teste desta opção, que lista os produtos com o preço formatado utilizando
   // o api-service quando é informado argumento 'produtos-formatados' na linha de comandos.
   // Utilize PRODUTOS_FORMATADO_MOCK
+
   test ("Deve listar os produtos com preço formatado.", async () => {
     listarProdutos.mockResolvedValue(PRODUTOS_MOCK);
     const produtosFormatados = await processarOpcao("produtos-formatados");
@@ -31,6 +35,7 @@ describe("Desejável", () => {
   // Crie uma opção e o teste desta opção, que lista as categorias utilizando
   // o api-service quando é informado argumento 'categorias' na linha de comandos
   // Utilize CATEGORIAS_MOCK
+
   test ("Deve listar as categorias.", async () => {
     listarCategorias.mockResolvedValue(CATEGORIAS_MOCK);
     const categorias = await processarOpcao("categorias");

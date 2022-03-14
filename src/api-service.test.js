@@ -15,6 +15,7 @@
  const CATEGORIAS_MOCK = require("../mocks/categorias.json");
  const CUPONS_MOCK = require("../mocks/cupons.json");
 
+
 describe("Essencial", () => {
   // Crie uma função e o teste desta função, que lista os produtos a partir da API e retorna um JSON
   // com esta lista de produtos

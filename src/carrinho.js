@@ -125,9 +125,9 @@ async function run() {
 if (require.main === module) {
   run();
 }
-
 module.exports = {
   imprimirOpcoes,
   processarOpcao,
   aplicaDesconto
 };
+
