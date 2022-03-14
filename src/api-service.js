@@ -27,8 +27,15 @@ async function listarCupons(){
     return data;         
 }
 
+async function listarProdutosFormatados(){
+    let resultado = await listarProdutos();    
+    resultado.map(obj => {obj.preco = obj.preco.toFixed(2);
+    });
+    return resultado;
+}
+
 module.exports = {
-    listarProdutos, listarCategorias, listarCupons
+    listarProdutos, listarCategorias, listarCupons, listarProdutosFormatados
 };
     
 

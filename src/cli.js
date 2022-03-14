@@ -1,4 +1,4 @@
-const {listarProdutos} = require("./api-service");
+const {listarProdutos, listarProdutosFormatados} = require("./api-service");
 
 async function processarOpcao(opcao) {
   let retorno;
@@ -6,6 +6,9 @@ async function processarOpcao(opcao) {
   switch (opcao.toUpperCase()) {
     case "PRODUTOS":
       retorno = await listarProdutos();
+      break;
+    case "PRODUTOS-FORMATADOS":
+      retorno = await listarProdutosFormatados();
       break;
     default:
       throw new Error(`Opção Inválida: ${opcao}`);          

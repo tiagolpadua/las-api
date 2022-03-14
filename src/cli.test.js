@@ -1,11 +1,11 @@
 // Utilize as respostas "Mocadas" disponíveis em ../mocks
 // Utilize a função de mock do Jest para mocar as respostas no api-service: https://jestjs.io/pt-BR/docs/mock-functions
-const { listarProdutos} = require("./api-service");
+const { listarProdutos, listarProdutosFormatados} = require("./api-service");
 const {processarOpcao} = require("./cli");
 jest.mock("./api-service");
 
 const PRODUTOS_MOCK = require("../mocks/produtos.json");
-// const PRODUTOS_FORMATADO_MOCK = require("../mocks/produtos-formatado.json");
+const PRODUTOS_FORMATADO_MOCK = require("../mocks/produtos-formatado.json");
 // const CATEGORIAS_MOCK = require("../mocks/categorias.json");
 // const PRODUTOS_DESCONTO_MOCK = require("../mocks/produtos-desconto.json");
 
@@ -25,6 +25,13 @@ describe("Desejável", () => {
   // o api-service quando é informado argumento 'produtos-formatados' na linha de comandos.
   // Utilize PRODUTOS_FORMATADO_MOCK
   // test "Deve listar os produtos com preço formatado."
+
+  test("Deve listar os produtos com preco formatado.", async () => {
+    listarProdutosFormatados.mockResolvedValue(PRODUTOS_FORMATADO_MOCK); 
+    const produtosFormatado = await processarOpcao("produtos-formatados"); 
+    expect (produtosFormatado).toEqual(PRODUTOS_FORMATADO_MOCK); 
+  });
+  
 
   // Crie uma opção e o teste desta opção, que lista as categorias utilizando
   // o api-service quando é informado argumento 'categorias' na linha de comandos
