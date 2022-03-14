@@ -67,5 +67,6 @@ describe("Essencial", () => {
     });
     await expect(listarProdutos()).rejects.toThrow("Not found: 404");
     await expect(listarCategorias()).rejects.toThrow("Not found: 404");
+    await expect(listarCupons()).rejects.toThrow("Not found: 404");
   });
 });
