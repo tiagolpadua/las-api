@@ -20,8 +20,13 @@ async function processarOpcao(opcao) {
       // console.log(retorno);
       break;
 
+    case "CATEGORIAS":
+      retorno = await listarCategorias();
+      break;
+
     case "DESCONTOS":
       produtos = formataValorProdutos(await listarProdutos());
+      //console.log(">>>>>>" + produtos);
       categorias = await listarCategorias();
 
       retorno = produtos = produtos.map((p) => {

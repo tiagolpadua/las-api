@@ -10,7 +10,7 @@ jest.mock("./api-service");
 const PRODUTOS_MOCK = require("../mocks/produtos.json");
 const PRODUTOS_FORMATADO_MOCK = require("../mocks/produtos-formatado.json");
 const CATEGORIAS_MOCK = require("../mocks/categorias.json");
-//const PRODUTOS_DESCONTO_MOCK = require("../mocks/produtos-desconto.json");
+const PRODUTOS_DESCONTO_MOCK = require("../mocks/produtos-desconto.json");
 
 describe("Desejável", () => {
   // Crie uma opção e o teste desta opção, que lista os produtos utilizando
@@ -52,12 +52,12 @@ describe("Desejável", () => {
   // na linha de comandos. Utilize PRODUTOS_DESCONTO_MOCK
   // test "Deve listar os produtos com preço formatado e desconto."
 
-  // test("Deve listar os produtos com preço formatado e desconto.", async () => {
-  //   listarProdutos.mockResolvedValue(PRODUTOS_DESCONTO_MOCK);
+  test("Deve listar os produtos com preço formatado e desconto.", async () => {
+    listarProdutos.mockResolvedValue(PRODUTOS_MOCK);
 
-  //   const produtos = await processarOpcao("descontos");
-  //   expect(produtos).toEqual(PRODUTOS_DESCONTO_MOCK);
-  // });
+    const produtos = await processarOpcao("descontos");
+    expect(produtos).toEqual(PRODUTOS_DESCONTO_MOCK);
+  });
 
   // Valide se a opção informada é válida (não esqueça do teste :-)), se não for,
   // emita uma exceção: "Opção inválida: ${opcao-informada}"
