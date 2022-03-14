@@ -61,7 +61,14 @@ describe("Essencial", () => {
   // ela deve lançar uma Exceção com o seguinte formato: `${response.statusText}: ${response.status}`
   // test "Deve tratar erros 404."
 
-  test("Uma tautologia.", () => {
-    expect(1 === 1).toBe(true);
+  test ("Deve tratar erros 404.", async () => {
+    fetch.mockResolvedValue({
+      status: 404,
+      statusText: "Not found"
+    });
+    await expect(listarProdutos()).rejects.toThrow("Not found: 404");
+    await expect(listarCategorias()).rejects.toThrow("Not found: 404");
+    await expect(listarCupons()).rejects.toThrow("Not found: 404");
   });
+  
 });
