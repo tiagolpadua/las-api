@@ -19,10 +19,10 @@ async function processarOpcao(opcao) {
         const categoria = categorias.find((c) => p.categoria === c.nome);
         return { ...p, desconto: categoria?.desconto || 0 };
       });
-
       break;
     default:
       throw new Error(`Opção inválida: ${opcao}`);
+      
   }
   return retorno;
 }
