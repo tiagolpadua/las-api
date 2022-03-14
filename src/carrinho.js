@@ -14,11 +14,11 @@
 //   );
 // }
 
+async function run() {
+  TODO
+}
 
-//function run() {
-  //runCli();
-//}
+if (require.main === module) {
+  run();
+}
 
-//if (require.main === module) {
-  //run();
-//}
