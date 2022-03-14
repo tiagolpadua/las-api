@@ -10,55 +10,126 @@ function imprimirOpcoes() {
   console.log("x - Sair");
 }
 
+function incluiDescontoProdutos(produtos) {
+
+    let desconto;
+    
+     return produtos.map(item => {
+
+        if(item.categoria === "Alimentação") desconto = 30;
+        else if(item.categoria === "Infantil") desconto = 15;
+        else desconto = 0;
+        
+        return {...item , desconto: desconto};
+      });
+
+}
+
 let carrinho = [];
 
+
+
 async function processarOpcao(opcao) {
-  let codProduto, produtos, produto, qtd;
+  let codigoProduto, produtos, produto, quantidade, visalizaProdutoIncluidoCarrinho;
+  const produtosComDesconto = incluiDescontoProdutos(await listarProdutos());
+  let subtotal, digitarCupom, digitarDescontoCupom, total;
 
   switch (opcao) {
    
     case "1":
       console.log("Lista de Produtos");
-      console.table(await listarProdutos());
+      console.table(produtosComDesconto);
       break;
    
       case "2":
-      codProduto = await askQuestion(
+      codigoProduto = await askQuestion(
         "Qual código de produto deseja incluir no carrinho?"
       );
-      codProduto = parseInt(codProduto);
-      produtos = await listarProdutos();
-      produto = produtos[codProduto];
+      codigoProduto = parseInt(codigoProduto);
+      produtos = produtosComDesconto;
+      produto = produtos[codigoProduto];
 
       if (!produto) {
-        console.error(`Produto não localizado: ${codProduto}`);
+        console.error(`Produto não localizado: ${codigoProduto}`);
         return;
       }
 
-      qtd = await askQuestion(
+      quantidade = await askQuestion(
         "Quantas unidades deseja adicionar ao carrinho?"
       );
-      qtd = parseInt(qtd);
+      quantidade = parseInt(quantidade);
 
-      if (!qtd) {
-        console.error(`Quantidade inválida: ${qtd}`);
+      if (!quantidade) {
+        console.error(`Quantidade inválida: ${quantidade}`);
         return;
       }
 
-      carrinho.push({ ...produto, qtd, valor: produto.preco * qtd });
+      visalizaProdutoIncluidoCarrinho = { ...produto, quantidade, valor: +((produto.preco * quantidade) * (1 - (produto.desconto/100))).toFixed(2) };
+
+      carrinho.push(visalizaProdutoIncluidoCarrinho);
+
+      console.table([visalizaProdutoIncluidoCarrinho]);
+      console.log("Produto incluído com sucesso no carrinho.");
+      
+      break;
+    
+      case "3":
+
+      console.log("Carrinho de Compras");
 
       console.table(carrinho);
+     
       break;
-    default:
+      
+      
+      
+      case "4":
+        
+        console.log("Concluir compra");
+        console.table(carrinho);
+        
+        subtotal = carrinho.reduce((acc , item) => acc + item.valor , 0);
+        
+        console.log(`Subtotal: R$ ${subtotal.toFixed(2)}`);
+        digitarCupom = await askQuestion("Qual o nome do cupom?");
+        digitarDescontoCupom = await askQuestion("Qual o desconto do cupom?");
+
+        if(digitarCupom.trim().toUpperCase() === "ALURANU" || digitarCupom.trim().toUpperCase() === "NULABSSA" ) {
+          
+          total = subtotal * (1 - +(digitarDescontoCupom.trim()/100));
+        }else{
+
+          total = subtotal;
+            
+        }
+
+        console.log(`Total: R$ ${total.toFixed(2)}`);
+        console.log("Compra finalizada com sucesso!");
+
+
+
+      break;
+
+      default:
+
+      if(opcao.toUpperCase() !== "X") console.log("Digite uma opção válida!");
+      
       break;
   }
+
+  if (require.main === module && opcao.toUpperCase() !== "X")  imprimirOpcoes();
 }
 
+
+
 async function run() {
+  
   imprimirOpcoes();
+  
   let opcao;
+  
   do {
-    opcao = await askQuestion("Escolha uma opção:");
+    opcao = await askQuestion("Opção:");
     await processarOpcao(opcao);
   } while (opcao.toUpperCase() !== "X");
 }
@@ -71,5 +142,6 @@ if (require.main === module) {
 
 module.exports = {
   imprimirOpcoes,
-  processarOpcao
+  processarOpcao,
+  carrinho
 };
