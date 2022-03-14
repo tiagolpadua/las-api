@@ -1,3 +1,6 @@
+// eslint-disable-next-line no-unused-vars
+const { capitalizar } = require("./funcoes");
+
 // Observação: Para todas funções que recebem listas, se o parâmetro não for uma lista ou se a lista for vazia, retorne undefined.
 
 // =========
@@ -41,6 +44,10 @@ function capitalizarNomes(names) {
 // ('Alimentação') => 30
 // ('Infantil') => 15
 function obterDescontoCategoria(categoria) {
+    // eslint-disable-next-line no-unused-vars
+    const categorias = ["Alimentação", "Infantil", "NULABSSA", "ALURANU"];
+    // eslint-disable-next-line no-unused-vars
+    const descontos = [30, 15];
     return { "Alimentação": 30, "Infantil": 15 }[categoria] | undefined;
 }
 
