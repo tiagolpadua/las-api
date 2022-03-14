@@ -27,7 +27,7 @@ describe("Desejável", () => {
   // Utilize PRODUTOS_FORMATADO_MOCK
   // test "Deve listar os produtos com preço formatado."
   test("Deve listar os produtos com preço formatado.", async() => {
-    listarProdutos.mockResolvedValue(PRODUTOS_FORMATADO_MOCK);
+    listarProdutos.mockResolvedValue(PRODUTOS_MOCK);
 
     const produtos = await processarOpcao("produtos-formatados");
     expect(produtos).toEqual(PRODUTOS_FORMATADO_MOCK);
@@ -49,7 +49,7 @@ describe("Desejável", () => {
   // na linha de comandos. Utilize PRODUTOS_DESCONTO_MOCK
   // test "Deve listar os produtos com preço formatado e desconto."
   test("Deve listar os produtos com preço formatado e desconto.", async() => {
-    listarProdutos.mockResolvedValue(PRODUTOS_DESCONTO_MOCK);
+    listarProdutos.mockResolvedValue(PRODUTOS_MOCK);
 
     const produtos = await processarOpcao("descontos");
     expect(produtos).toEqual(PRODUTOS_DESCONTO_MOCK);

@@ -25,7 +25,7 @@ async function processarOpcao(opcao) {
       retorno = await listarCategorias();
       break;
     case "PRODUTOS-FORMATADOS":
-      retorno = await listarProdutos();
+      retorno = formatarValorProdutos(await listarProdutos());
       break;
     default:
       throw new Error((opcao === "") ? "Informe uma opção: " : `Opção Inválida: ${opcao}`);
