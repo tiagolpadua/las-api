@@ -1,6 +1,17 @@
+const {listarProdutos} = require("./api-service");
+
 async function processarOpcao(opcao) {
-  // TODO
-  console.log(opcao);
+  let retorno;
+  console.log(`A opção digitada foi: ${opcao}`);
+  switch (opcao.toUpperCase()) {
+    case "PRODUTOS":
+      retorno = await listarProdutos();
+      break;
+    default:
+      throw new Error(`Opção Inválida: ${opcao}`);          
+  }
+  return retorno;    
+  
 }
 
 async function run() {
