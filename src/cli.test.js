@@ -26,7 +26,7 @@ test("Deve listar os produtos.", async () => {
   // o api-service quando é informado argumento 'produtos-formatados' na linha de comandos.
   // Utilize PRODUTOS_FORMATADO_MOCK
 test("Deve listar os produtos com preço formatado.", async () => {
-    listarProdutos.mockResolvedValue(PRODUTOS_FORMATADO_MOCK);
+    listarCategorias.mockResolvedValue(PRODUTOS_FORMATADO_MOCK);
     const produtos = await processarOpcao("PRODUTOS-FORMATADOS");
     expect(produtos).toEqual(PRODUTOS_FORMATADO_MOCK);
 });
@@ -42,7 +42,7 @@ test("Deve listar as categorias.", async () => {
   // desconto de sua categoria utilizando o api-service quando é informado argumento 'descontos'
   // na linha de comandos. Utilize PRODUTOS_DESCONTO_MOCK
 test ("Deve listar os produtos com preço formatado e desconto.", async() =>{
-  listarProdutos.mockResolvedValue(PRODUTOS_DESCONTO_MOCK);
+  listarCategorias.mockResolvedValue(CATEGORIAS_MOCK);
   const produtos = await processarOpcao("DESCONTOS");
   expect(produtos).toEqual(PRODUTOS_DESCONTO_MOCK);
 });
@@ -50,16 +50,14 @@ test ("Deve listar os produtos com preço formatado e desconto.", async() =>{
   // emita uma exceção: "Opção inválida: ${opcao-informada}"
   // test "Deve emitir erro se informar uma opção inválida."
   test ("Deve emitir erro se informar uma opção inválida.", async() =>{
-    await expect(await processarOpcao("opção-invalida")).rejects.toThrow("Opção inválida: opcao-invalida");
+    await expect(processarOpcao("uma-opcao-invalida.")).rejects.toThrow("Opção inválida: uma-opcao-invalida.");
   });
 
   // Valide se foi informada alguma opção (não esqueça do teste :-)), se não for,
   // emita uma exceção: "Informe uma opção."
   // test "Deve emitir erro não informar uma opção."
-  test("Deve emitir erro não informar uma opção.",() =>{
-    expect(processarOpcao()).rejects.toThrow("Informe uma opção.");
+  test("Deve emitir erro não informar uma opção.", async () =>{
+    await expect(processarOpcao()).rejects.toThrow("Informe uma opção.");
   });
-  test("Uma tautologia.", () => {
-    expect(1 === 1).toBe(true);
-  });
-});
+
+}); 

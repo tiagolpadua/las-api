@@ -3,6 +3,10 @@ const {formatarValor} = require("./objetos");
 
 async function processarOpcao(opcao) {
 
+  if(opcao == undefined || opcao == ""){
+      throw new Error("Informe uma opção.");
+  }
+
   let retorno;
   let produtos;
   let categorias;
@@ -30,9 +34,6 @@ async function processarOpcao(opcao) {
       return {...p, desconto: categoria?.desconto || 0 };
     });  
     break;
-
-    case undefined:
-      throw new Error("Informe uma opção.");
 
      default: 
        throw new Error(`Opção inválida: ${opcao}`);
