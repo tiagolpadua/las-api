@@ -40,13 +40,13 @@ describe("Desafio", () => {
     expect(console.table.mock.calls).toEqual([[[{ "categoria": "Bebida", "nome": "Cerveja", "preco": 7, "qtd": 2, "valor": 14 }]]]);
   });
 
-  test("Deve finalizar compra ao digitar 4.", async () => {//mais askquestions
-    console.log = jest.fn();
-    console.table = jest.fn();
-    listarProdutos.mockResolvedValue(PRODUTOS_MOCK);
-    await processaEscolha("3");
-    expect(console.table.mock.calls).toEqual([[[{ "categoria": "Bebida", "nome": "Cerveja", "preco": 7, "qtd": 2, "valor": 14 }]]]);
-  });
+  // test("Deve finalizar compra ao digitar 4.", async () => {//mais askquestions
+  //   console.log = jest.fn();
+  //   console.table = jest.fn();
+  //   listarProdutos.mockResolvedValue(PRODUTOS_MOCK);
+  //   await processaEscolha("3");
+  //   expect(console.table.mock.calls).toEqual([[[{ "categoria": "Bebida", "nome": "Cerveja", "preco": 7, "qtd": 2, "valor": 14 }]]]);
+  // });
 
   test("Deve sair do sistema ao digita x", async () => {
     console.log = jest.fn();
