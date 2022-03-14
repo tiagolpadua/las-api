@@ -52,6 +52,10 @@ describe("Desejável", () => {
   // emita uma exceção: "Opção inválida: ${opcao-informada}"
   // test "Deve emitir erro se informar uma opção inválida."
 
+  test("Deve emitir erro se informar uma opção inválida.", async () => {
+    await expect (processarOpcao("uma-opção-inválida")).rejects.toThrow("Opção Inválida: uma-opção-inválida"); 
+  });
+
   // Valide se foi informada alguma opção (não esqueça do teste :-)), se não for,
   // emita uma exceção: "Informe uma opção."
   // test "Deve emitir erro não informar uma opção."
