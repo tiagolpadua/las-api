@@ -65,7 +65,6 @@ describe("Desejável", () => {
 
   //OK
   test("Deve emitir erro se informar uma opção inválida.", async () => {
-    listarProdutos.mockResolvedValue(PRODUTOS_MOCK);
     await expect(processarOpcao("opcao-invalida")).rejects.toThrow(
       "Opção inválida: opcao-invalida"
     );
@@ -75,7 +74,7 @@ describe("Desejável", () => {
   // emita uma exceção: "Informe uma opção."
   // test "Deve emitir erro não informar uma opção."
 
-  test("Uma tautologia.", () => {
-    expect(1 === 1).toBe(true);
+  test("Deve emitir erro não informar uma opção.", async () => {
+    await expect(processarOpcao()).rejects.toThrow("Informe uma opção");
   });
 });
