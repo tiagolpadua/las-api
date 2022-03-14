@@ -2,7 +2,7 @@ const {
   listarProdutos,
   listarCategoria,
 } = require("./api-service");
-const {obterDescontoCategoria} = require("./objetos");
+const {obterDescontoCategoria, formatarValor} = require("./objetos");
 
 async function processarOpcao(opcao) {
   // TODO
@@ -26,7 +26,7 @@ async function produtoComDesconto(){
   produto.forEach(elemento => {
       let valor = obterDescontoCategoria(elemento.categoria);
       elemento.desconto = valor;
-      elemento.preco = `${elemento.preco}`;
+      elemento.preco = formatarValor(elemento.preco);
   });
   return produto;
 }
@@ -34,7 +34,7 @@ async function produtoComDesconto(){
 
 async function produtosFormatado(){
   const produto = await listarProdutos();
-  produto.forEach(elemento => elemento.preco = `${elemento.preco}`);
+  produto.forEach(elemento => elemento.preco = formatarValor(elemento.preco));
   return produto;
 }
 
@@ -62,4 +62,5 @@ async function opcaoEscolhida(opcao){
 module.exports = {
   processarOpcao,
   opcaoEscolhida,
+  produtoComDesconto,
 };
