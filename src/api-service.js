@@ -12,8 +12,14 @@ async function listarCategorias(){
     return data;  
 }
 
+async function listarCupons(){
+    const response = await fetch("https://stupefied-keller-a2c79e.netlify.app/cupons.json");  
+    const data = await response.json();
+    return data;  
+}
+
 module.exports = {
-    listarProdutos, listarCategorias
+    listarProdutos, listarCategorias, listarCupons
 };
     
 
