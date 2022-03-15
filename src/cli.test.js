@@ -1,5 +1,4 @@
 const { processarOpcao } = require("./cli");
-const { formataValorProdutos } = require("./cli");
 const { listarProdutos } = require("./api-service");
 const { listarCategorias } = require("./api-service");
 
