@@ -1,34 +1,51 @@
 
 const { askQuestion } = require("./ask");
+const { precoProdutoFormatado } = require("./cli");
 const { listarProdutos } = require("./api-service");
 
 function exibeMenu() {
   console.log("*************************************************************");
-  console.log(" Menu de Opções");
-  console.log("  1 - Liste os produtos");
-  console.log("  2 - Inclua um produto no carrinho");
-  console.log("  3 - Visualize o carrinho");
-  console.log("  4 - Finalize a compra e pergunte pelo cupom de desconto");
-  console.log("  x - para sair");
+  console.log("      Menu de Opções");
+  console.log("  1 - Liste os produtos.");
+  console.log("  2 - Inclua um produto no carrinho.");
+  console.log("  3 - Visualize o carrinho.");
+  console.log("  4 - Insira cupom e finaliza compra.");
+  console.log("  x - para sair.");
   console.log("*************************************************************");
 }
 let CARRINHO = [];
 
-// function encerraCompra(carrinho,cupom, valor) {
-//   let parcial, total;
-//   parcial = carrinho.reduce((subtotal, atual) => {
-//     return subtotal + atual.valor;
-//   }, 0);
-//   parcial = parseInt(parcial);
-//   parcial = parcial - (parcial * (valor / 100));
-//   total = parcial;
-//   console.log(`Total R$ ${total}`);
-//   console.log("Compra finalizada com sucesso!");
-// }
+function calculaFinalCompra(carrinho, valor) {
+  let parcial = 0, total = 0;
+  parcial = carrinho.reduce((subtotal, atual) => {
+    return subtotal + atual.valor;
+  }, 0);
+  valor = valor / 100;
+  total = parcial - (parcial * valor);
+
+  console.log(`Valor Total R$${total}`);
+
+}
+
+function aplicaDescontoCategoria(carrinho, cupom) {
+  let item, retorno = 0;
+  if (cupom === "NULABSSA" || cupom === "ALURANU") {
+    for (item of carrinho) {
+      if (item.categoria === "Infantil") {
+        item.valor -= item.valor / 100 * 30;
+      }
+      if (item.categoria === "Alimentação") {
+        item.valor -= item.valor / 100 * 15;
+      }
+      retorno += item.valor;
+    }
+  }
+  console.log(`Valor com desconto da categoria: R$${retorno}`);
+}
 
 
 async function processaEscolha(opcao) {
-  let qtd, item, codigoProduto, produtos;
+  let qtd, item, codigoProduto, produtos, nomeCupom, valorDesconto;
 
   switch (opcao) {
     case "1":
@@ -54,23 +71,29 @@ async function processaEscolha(opcao) {
         return;
       }
       CARRINHO.push({ ...item, qtd, valor: item.preco * qtd });
-      console.table(CARRINHO);
+      console.table(precoProdutoFormatado(CARRINHO));
       break;
 
     case "3":
-      CARRINHO.length <= 0 ? console.error("Ainda não há itens no carrinho.") : console.table(CARRINHO);
+      CARRINHO.length <= 0 ? console.error("Ainda não há itens no carrinho.") : console.table(precoProdutoFormatado(CARRINHO));
       break;
 
-    // case "4":
-    //   console.log("Concluir compra");
-    //   console.table(CARRINHO);
-    //   console.log(`Subtotal ${CARRINHO.valor}`);
-    //   nomeCupom = await askQuestion("Digite o nome do seu cupom: ");
-    //   nomeCupom = nomeCupom.toUpperCase();
-    //   valorDesconto = await askQuestion("Digite o valor de desconto do cupom: ");
-    //   valorDesconto = parseInt(valorDesconto);
-    //   encerraCompra(CARRINHO, valorDesconto);
-    //   break;
+    case "4":
+      if (CARRINHO.length > 0) {
+        nomeCupom = await askQuestion("Digite o nome do seu cupom: ");
+        // nomeCupom = nomeCupom.toUpperCase();
+        valorDesconto = await askQuestion("Digite o valor de desconto do cupom: ");
+        valorDesconto = parseInt(valorDesconto);
+        aplicaDescontoCategoria(CARRINHO, nomeCupom);
+        console.log("Concluir compra:");
+        console.table(precoProdutoFormatado(CARRINHO));
+        calculaFinalCompra(CARRINHO, valorDesconto);
+        console.log("Compra finalizada com sucesso!");
+      }
+      else {
+        console.error("Ainda não há itens no carrinho.");
+      }
+      break;
 
     case "x":
       console.clear();
