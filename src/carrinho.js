@@ -33,6 +33,7 @@ async function tratarOpcao(opcao) {
     case "1":
       console.table(formatarPrecoProdutos(produtos));
       break;
+
     case "2":
       var codigoProduto = await askQuestion(
         "Qual código do produto deseja incluir no carinho? "
@@ -40,8 +41,33 @@ async function tratarOpcao(opcao) {
       var qntdProduto = await askQuestion(
         "Quantas unidades deseja adicionar ao carrinho? "
       );
+      if (codigoProduto < 0 || codigoProduto > produtos.length - 1) {
+        return undefined;
+      }
+      if (qntdProduto < 0 || isNaN(qntdProduto)) {
+        return undefined;
+      }
+      var categorias = await listarCategoriasAPI();
+      var produtoSelecionado = selecionaProduto(produtos, codigoProduto);
 
-      addProdutoCarrinho(produtos, codigoProduto, qntdProduto);
+      var categoriaProduto = await categorias.find(
+        (categoria) => categoria.nome === produtoSelecionado.categoria
+      );
+
+      produtoSelecionado["desconto"] =
+        categoriaProduto !== undefined ? categoriaProduto.desconto : 0;
+
+      produtoSelecionado = {
+        id: parseInt(codigoProduto),
+        ...produtoSelecionado,
+      };
+
+      produtoSelecionado["quantidade"] = parseInt(qntdProduto);
+      produtoSelecionado["valor"] =
+        produtoSelecionado.preco * produtoSelecionado.quantidade;
+
+      carrinhoDeCompras.push(produtoSelecionado);
+      console.table(produtoSelecionado);
       break;
     case "3":
       console.clear();
@@ -60,36 +86,6 @@ async function tratarOpcao(opcao) {
     default:
       return "Informe uma opção válida!";
   }
-}
-
-async function addProdutoCarrinho(listaProdutos, codigoProduto, qntdProduto) {
-  if (codigoProduto < 0 || codigoProduto > listaProdutos.length - 1) {
-    return undefined;
-  }
-  if (qntdProduto < 0 || isNaN(qntdProduto)) {
-    return undefined;
-  }
-  var categorias = await listarCategoriasAPI();
-  var produtoSelecionado = selecionaProduto(listaProdutos, codigoProduto);
-
-  const categoriaProduto = await categorias.find(
-    (categoria) => categoria.nome === produtoSelecionado.categoria
-  );
-
-  produtoSelecionado["desconto"] =
-    categoriaProduto !== undefined ? categoriaProduto.desconto : 0;
-
-  produtoSelecionado = {
-    id: parseInt(codigoProduto),
-    ...produtoSelecionado,
-  };
-
-  produtoSelecionado["quantidade"] = parseInt(qntdProduto);
-  produtoSelecionado["valor"] =
-    produtoSelecionado.preco * produtoSelecionado.quantidade;
-
-  carrinhoDeCompras.push(produtoSelecionado);
-  return produtoSelecionado;
 }
 
 function finalizarCompra(carrinhoDeCompras, descontoCupom) {
@@ -120,7 +116,6 @@ if (require.main === module) {
 
 module.exports = {
   tratarOpcao,
-  addProdutoCarrinho,
   finalizarCompra,
   mostrarMenu,
 };
