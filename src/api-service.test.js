@@ -80,4 +80,8 @@ test("Deve tratar erros 404.", async () => {
   await expect(listarCategorias()).rejects.toThrow("Not found: 404");
   await expect(listarCupons()).rejects.toThrow("Not found: 404");
   });
+  
+test("Uma tautologia.", () => {
+    expect(1 === 1).toBe(true);
+  });
 });
