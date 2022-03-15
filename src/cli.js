@@ -52,6 +52,7 @@ if (require.main === module) {
 }
 
 module.exports = {
+  formataValoresDeProdutos,
   processarOpcao,
 };
 
