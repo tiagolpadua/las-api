@@ -61,6 +61,7 @@ describe("Essencial", () => {
     const cuponsValidos = await listarCuponsValidos();
     expect(cuponsValidos).toEqual(CUPONS_MOCK);
   });
+  
   // Crie um teste para quando qualquer API for acionada, caso o status code seja diferente de 200,
   // ela deve lançar uma Exceção com o seguinte formato: `${response.statusText}: ${response.status}`
   // test "Deve tratar erros 404."
