@@ -32,7 +32,7 @@ async function listarCupons(){
 }
 
 async function listarProdutosFormatados(){
-    let resultado = await listarProdutos();    
+    let resultado = await listarProdutos();        
     resultado.map(obj => {obj.preco = obj.preco.toFixed(2);
     });
     return resultado;

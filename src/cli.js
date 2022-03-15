@@ -2,20 +2,23 @@ const {listarProdutos, listarProdutosFormatados, listarCategorias, produtoComDes
 
 async function processarOpcao(opcao) {
   let retorno;
-  console.log(`A opção digitada foi: ${opcao}`);
-  switch (opcao.toUpperCase()) {
-    case "PRODUTOS":
+  console.log(`A opção digitada foi: ${opcao}`);  
+  
+  switch (opcao) {
+    case "produtos":
       retorno = await listarProdutos();
       break;
-    case "PRODUTOS-FORMATADOS":
+    case "produtos-formatados":
       retorno = await listarProdutosFormatados();
       break;
-    case "CATEGORIAS":
+    case "categorias":
       retorno = await listarCategorias();
       break;
-    case "DESCONTOS":
+    case "descontos":
       retorno = await produtoComDesconto();
       break;
+    case undefined:
+      throw new Error("Informe uma opção.");
     default:
       throw new Error(`Opção Inválida: ${opcao}`);          
   }
