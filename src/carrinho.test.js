@@ -1,7 +1,6 @@
 const {
   imprimirOpcoes,
   processarOpcao,
-  escolherProduto,
 } = require("./carrinho");
 const { GET } = require("./api-service");
 
