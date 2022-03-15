@@ -1,14 +1,11 @@
 const PRODUTOS_MOCK = require("../mocks/produtos.json");
 const CATEGORIAS_MOCK = require("../mocks/categorias.json");
 const { listarProdutosAPI, listarCategoriasAPI } = require("./api-service");
-const {
-  tratarOpcao,
-  addProdutoCarrinho,
-  finalizarCompra,
-  mostrarMenu,
-} = require("./carrinho");
+const { tratarOpcao, finalizarCompra, mostrarMenu } = require("./carrinho");
+const askQuestion = require("./ask-question");
 
 jest.mock("./api-service");
+jest.mock("./ask-question");
 
 describe("Desafio", () => {
   // Crie uma interface com testes em linha de comandos que:
@@ -53,40 +50,24 @@ describe("Desafio", () => {
     listarProdutosAPI.mockResolvedValue(PRODUTOS_MOCK);
     listarCategoriasAPI.mockResolvedValue(CATEGORIAS_MOCK);
 
-    const listaProdutos = await listarProdutosAPI();
-    const produto01 = {
-      id: 2,
-      nome: "Cerveja",
-      categoria: "Bebida",
-      desconto: 0,
-      preco: 7,
-      quantidade: 2,
-      valor: 14,
-    };
-    const produto02 = {
-      id: 4,
-      nome: "Fruta",
-      categoria: "Alimentação",
-      desconto: 15,
-      preco: 12,
-      quantidade: 3,
-      valor: 36,
-    };
-    const produtoAddCarrinho01 = await addProdutoCarrinho(
-      listaProdutos,
-      "2",
-      "2"
-    );
-    const produtoAddCarrinho02 = await addProdutoCarrinho(
-      listaProdutos,
-      "4",
-      "3"
-    );
+    console.table = jest.fn();
 
-    expect(await produtoAddCarrinho01).toEqual(produto01);
-    expect(await produtoAddCarrinho02).toEqual(produto02);
-    expect(await addProdutoCarrinho(listaProdutos, "6", 2)).toBeUndefined();
-    expect(await addProdutoCarrinho(listaProdutos, "2", -1)).toBeUndefined();
+    askQuestion.mockResolvedValueOnce("2");
+    askQuestion.mockResolvedValueOnce("2");
+    await tratarOpcao("2");
+    expect(console.table.mock.calls).toEqual([
+      [
+        {
+          categoria: "Bebida",
+          desconto: 0,
+          id: 2,
+          nome: "Cerveja",
+          preco: 7,
+          quantidade: 2,
+          valor: 14,
+        },
+      ],
+    ]);
   });
 
   test("Deve retornar o carrinho de compras", async () => {
