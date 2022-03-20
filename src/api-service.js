@@ -11,6 +11,7 @@ async function listarProdutosAPI() {
     throw new Error(`${response.statusText}: ${response.status}`);
   }
 }
+
 async function listarCategoriasAPI() {
   const response = await fetch(
     "https://stupefied-keller-a2c79e.netlify.app/categorias.json"
@@ -22,6 +23,7 @@ async function listarCategoriasAPI() {
     throw new Error(`${response.statusText}: ${response.status}`);
   }
 }
+
 async function listarCuponsAPI() {
   const response = await fetch(
     "https://stupefied-keller-a2c79e.netlify.app/cupons.json"
