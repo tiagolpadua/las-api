@@ -27,7 +27,7 @@ describe("Essencial", () => {
     expect(rows.map((r) => r.name)).toEqual(["ID", "NOME", "DESCONTO"]);
   });
 
-  // Escreva um SQL que cria a tabela Cupons, cada cupom possui um id (inteiro auto incremento), um nome (texto) e um desconto associado (valor decimal não nulo)
+  // Escreva um SQL que cria a tabela Cupons, cada cupom possui um id (inteiro auto incremento), um nome (texto não nulo) e um desconto associado (valor decimal não nulo)
   test("Deve criar a tabela de cupons", async () => {
     const sqlCriarTabelaCupons = fs.readFileSync(
       "sql/criar_tabela_cupons.sql",
@@ -41,7 +41,7 @@ describe("Essencial", () => {
     expect(rows.map((r) => r.name)).toEqual(["ID", "NOME", "DESCONTO"]);
   });
 
-  // Escreva um SQL que cria a tabela Produtos, cada produto possui um id (inteiro auto incremento), um nome (texto) e um id de categoria obrigatório (inteiro) e um preço (decimal obrigatório)
+  // Escreva um SQL que cria a tabela Produtos, cada produto possui um id (inteiro auto incremento), um nome (texto não nulo) e um id de categoria obrigatório (inteiro) e um preço obrigatório (decimal)
   test("Deve criar a tabela de produtos", async () => {
     const sqlCriarTabelaProdutos = fs.readFileSync(
       "sql/criar_tabela_produtos.sql",
@@ -73,7 +73,7 @@ describe("Desejável", () => {
     await dao.close();
   });
 
-  // Escreva um SQL que apaga a tabela de categorias
+  // Escreva um SQL que apaga a tabela de Categorias
   test("Deve apagar a tabela de categorias", async () => {
     const sqlCriarTabelaCategorias = fs.readFileSync(
       "sql/criar_tabela_categorias.sql",
@@ -130,7 +130,7 @@ describe("Desejável", () => {
     ]);
   });
 
-  // Escreva um SQL que altera todas as categorias com desconto de 10% para 20%
+  // Escreva um SQL que altera o desconto de todas as categorias com desconto de 10% para 20%
   test("Deve alterar o desconto das categorias", async () => {
     const sqlCriarTabelaCategorias = fs.readFileSync(
       "sql/criar_tabela_categorias.sql",
@@ -217,8 +217,8 @@ describe("Desafio", () => {
     await dao.close();
   });
 
-  // Escreva um SQL que filtre os nomes das categorias com desconto entre 5% e 25%
-  test("Deve filtrar os nomes das categorias", async () => {
+  // Escreva um SQL que recupere os nomes das categorias com desconto entre 5% e 25%
+  test("Deve filtrar as categorias", async () => {
     const sqlCriarTabelaCategorias = fs.readFileSync(
       "sql/criar_tabela_categorias.sql",
       "utf8"
@@ -254,7 +254,7 @@ describe("Desafio", () => {
     ]);
   });
 
-  // Escreva um SQL que filtre o preço dos produtos que o nome começa pela letra C
+  // Escreva um SQL que recupere os preços dos produtos que o nome começam pela letra C
   test("Deve filtrar os preço dos produtos", async () => {
     const sqlCriarTabelaProdutos = fs.readFileSync(
       "sql/criar_tabela_produtos.sql",
