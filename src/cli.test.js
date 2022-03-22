@@ -5,9 +5,8 @@ const PRODUTOS_MOCK = require("../mocks/produtos.json");
 const PRODUTOS_FORMATADO_MOCK = require("../mocks/produtos-formatado.json");
 const CATEGORIAS_MOCK = require("../mocks/categorias.json");
 const PRODUTOS_DESCONTO_MOCK = require("../mocks/produtos-desconto.json");
-
-const {processarOpcao} = require("./cli");
-const {listarProdutos, listarCategorias} = require("./api-service");
+const { processarOpcao } = require("./cli");
+const { listarProdutosAPI, listarCategoriasAPI } = require("./api-service");
 
 jest.mock("./api-service");
 
@@ -16,50 +15,58 @@ describe("Desejável", () => {
   // o api-service quando é informado argumento 'produtos' na linha de comandos.
   // Utilize PRODUTOS_MOCK
   // test "Deve listar os produtos."
-test("Deve listar os produtos.", async () => {
-    listarProdutos.mockResolvedValue(PRODUTOS_MOCK);
-    const produtos = await processarOpcao("PRODUTOS");
+
+  test("Deve listar os produtos CLI.", async () => {
+    listarProdutosAPI.mockResolvedValue(PRODUTOS_MOCK);
+    const produtos = await processarOpcao("produtos");
     expect(produtos).toEqual(PRODUTOS_MOCK);
-    
-});
+  });
+
   // Crie uma opção e o teste desta opção, que lista os produtos com o preço formatado utilizando
   // o api-service quando é informado argumento 'produtos-formatados' na linha de comandos.
   // Utilize PRODUTOS_FORMATADO_MOCK
-test("Deve listar os produtos com preço formatado.", async () => {
-    listarProdutos.mockResolvedValue(PRODUTOS_FORMATADO_MOCK);
-    const produtos = await processarOpcao("PRODUTOS-FORMATADOS");
-    expect(produtos).toEqual(PRODUTOS_FORMATADO_MOCK);
-});
+  // test "Deve listar os produtos com preço formatado."
+
+  test("Deve listar os produtos com preço formatado CLI.", async () => {
+    listarProdutosAPI.mockResolvedValue(PRODUTOS_MOCK);
+    const produtosPrecoFormatado = await processarOpcao("produtos-formatados");
+    expect(produtosPrecoFormatado).toEqual(PRODUTOS_FORMATADO_MOCK);
+  });
+
   // Crie uma opção e o teste desta opção, que lista as categorias utilizando
   // o api-service quando é informado argumento 'categorias' na linha de comandos
   // Utilize CATEGORIAS_MOCK
-test("Deve listar as categorias.", async () => {
-  listarCategorias.mockResolvedValue(CATEGORIAS_MOCK);
-  const categoria = await processarOpcao("CATEGORIAS");
-  expect(categoria).toEqual(CATEGORIAS_MOCK);
-});
+  // test "Deve listar as categorias."
+
+  test("Deve listar as categorias CLI.", async () => {
+    listarCategoriasAPI.mockResolvedValue(CATEGORIAS_MOCK);
+    const categorias = await processarOpcao("categorias");
+    expect(categorias).toEqual(CATEGORIAS_MOCK);
+  });
+
   // Crie uma opção e o teste desta opção, que lista as os produtos com preço formatado e o
   // desconto de sua categoria utilizando o api-service quando é informado argumento 'descontos'
   // na linha de comandos. Utilize PRODUTOS_DESCONTO_MOCK
-test ("Deve listar os produtos com preço formatado e desconto.", async() =>{
-  listarProdutos.mockResolvedValue(PRODUTOS_DESCONTO_MOCK);
-  const produtos = await processarOpcao("DESCONTOS");
-  expect(produtos).toEqual(PRODUTOS_DESCONTO_MOCK);
-});
+  // test "Deve listar os produtos com preço formatado e desconto."
+
+  test("Deve listar os produtos com preço formatado e desconto CLI.", async () => {
+    listarProdutosAPI.mockResolvedValue(PRODUTOS_MOCK);
+    const produtosComDescontos = await processarOpcao("descontos");
+    expect(produtosComDescontos).toEqual(PRODUTOS_DESCONTO_MOCK);
+  });
+
   // Valide se a opção informada é válida (não esqueça do teste :-)), se não for,
   // emita uma exceção: "Opção inválida: ${opcao-informada}"
   // test "Deve emitir erro se informar uma opção inválida."
-  test ("Deve emitir erro se informar uma opção inválida.", async() =>{
-    await expect(await processarOpcao("opção-invalida")).rejects.toThrow("Opção inválida: opcao-invalida");
+
+  test("Deve emitir erro se informar uma opção inválida CLI.", async () => {
+    await expect(processarOpcao("kkk")).rejects.toThrow("Opção inválida: kkk");
   });
 
   // Valide se foi informada alguma opção (não esqueça do teste :-)), se não for,
   // emita uma exceção: "Informe uma opção."
   // test "Deve emitir erro não informar uma opção."
-  test("Deve emitir erro não informar uma opção.",() =>{
-    expect(processarOpcao()).rejects.toThrow("Informe uma opção.");
-  });
-  test("Uma tautologia.", () => {
-    expect(1 === 1).toBe(true);
+  test("Deve emitir erro não informar uma opção CLI.", async () => {
+    await expect(processarOpcao()).rejects.toThrow("Informe uma opção.");
   });
 });
