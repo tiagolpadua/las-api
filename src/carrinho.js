@@ -1,21 +1,25 @@
-// const readline = require("readline");
+const readline = require("readline");
+const { processarOpcao, CarrinhoDeCompras } = require("./cli.js");
 
-// function askQuestion(query) {
-//   const rl = readline.createInterface({
-//     input: process.stdin,
-//     output: process.stdout,
-//   });
+function askQuestion() {
+  const rl = readline.createInterface({ 
+    input: process.stdin,
+    output: process.stdout,
+  });
 
-//   return new Promise((resolve) =>
-//     rl.question(query, (ans) => {
-//       rl.close();
-//       resolve(ans);
-//     })
-//   );
-// }
+
+    
+
+
+
+      // rl.close();
+      // resolve(ans);
+    });
+  
+ }
 
 async function run() {
-  // TODO
+  askQuestion();
 }
 
 if (require.main === module) {
