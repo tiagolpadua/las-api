@@ -7,6 +7,7 @@ const { capitalizar } = require("./funcoes");
 // Essencial
 // =========
 
+
 function listaEhInvalida(lista) {
     return !Array.isArray(lista) || lista.length === 0;
 }
