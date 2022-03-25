@@ -1,1 +1,3 @@
-SELECT 'SUBTITUA O CONTEÚDO DESTE ARQUIVO PELA SUA RESPOSTA :-)';
+-- Escreva um SQL que apaga a tabela de Categorias
+
+DROP TABLE Categorias;

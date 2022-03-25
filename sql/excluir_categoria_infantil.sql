@@ -1,1 +1,4 @@
-SELECT 'SUBTITUA O CONTEÚDO DESTE ARQUIVO PELA SUA RESPOSTA :-)';
+-- Escreva um SQL que exclua a categoria 'Infantil'
+
+
+DELETE FROM Categorias WHERE NOME= "Infantil"
