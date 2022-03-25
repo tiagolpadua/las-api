@@ -1,1 +1,3 @@
-SELECT 'SUBTITUA O CONTEÚDO DESTE ARQUIVO PELA SUA RESPOSTA :-)';
+drop table categorias;
+
+SELECT 'categorias';
