@@ -1,1 +1,0 @@
-SELECT PRECO FROM produtos WHERE NOME LIKE 'C%';
