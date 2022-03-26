@@ -1,1 +1,2 @@
-SELECT 'SUBTITUA O CONTEÚDO DESTE ARQUIVO PELA SUA RESPOSTA :-)';
+SELECT nome FROM categorias
+        WHERE desconto > 5 AND desconto <= 25;
