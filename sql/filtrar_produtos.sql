@@ -1,1 +1,1 @@
-SELECT nome FROM Produtos WHERE nome like 'c%';
+SELECT PRECO FROM PRODUTOS WHERE NOME like 'c%';
