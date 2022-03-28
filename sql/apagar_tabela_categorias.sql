@@ -1,1 +1,1 @@
-DROP TABLE Categoria;
+DROP TABLE Categorias;

@@ -1,7 +1,7 @@
-CREATE TABLE `Produto`(
+CREATE TABLE `Produtos`(
 `id` INTEGER PRIMARY KEY  AUTOINCREMENT,
  `nome` VARCHAR(255) NOT NULL,
- `fk_categoria` BIGINT NOT NULL,
+ `fkCategoria` BIGINT NOT NULL,
  `preco` DECIMAL NOT NULL,
- FOREIGN KEY(`fk_categoria`) REFERENCES `Categoria`(`id`)
+ FOREIGN KEY(`fkCategoria`) REFERENCES `Categoria`(`id`)
 );

@@ -1,1 +1,1 @@
-DELETE FROM Categoria WHERE nome='Infantil';
+DELETE FROM Categorias WHERE nome='Infantil';

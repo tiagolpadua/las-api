@@ -1,1 +1,1 @@
-UPDATE Categoria SET desconto=20  WHERE desconto =10; 
+UPDATE Categorias SET desconto=20  WHERE desconto =10; 
