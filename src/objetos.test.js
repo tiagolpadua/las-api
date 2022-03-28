@@ -198,11 +198,12 @@ describe("Desejável", () => {
     expect(obterDescontoTotal("Alimentação", cupomAluranu)).toEqual(45);
 
     expect(obterDescontoTotal("Infantil", cupomAluranu)).toEqual(30);
+  });
 
-    test("Deve calcular o total da compra com descontos.", () => {
-        expect(calcularTotalDaCompraComDescontos([], 1, "foo")).toBeUndefined();
+  test("Deve calcular o total da compra com descontos.", () => {
+    expect(calcularTotalDaCompraComDescontos([], 1, "foo")).toBeUndefined();
 
-        expect(calcularTotalDaCompraComDescontos("foo", [], "foo")).toBeUndefined();
+    expect(calcularTotalDaCompraComDescontos("foo", [], "foo")).toBeUndefined();
 
     expect(
       obterDescontoTotal("Bebida", { texto: "CUPOM-INVALIDO", desconto: 15 })
@@ -240,7 +241,6 @@ describe("Desejável", () => {
     ).toEqual(85.95);
   });
 });
-
 describe("Desafio", () => {
   test("Deve criar o carrinho de compras.", () => {
     const carrinhoDeCompras = new CarrinhoDeCompras();
