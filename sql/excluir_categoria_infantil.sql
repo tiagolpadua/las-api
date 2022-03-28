@@ -1,3 +1,3 @@
 DELETE FROM CATEGORIAS 
-WHERE NOME = 'Infantil'
+WHERE NOME = 'Infantil';
 
