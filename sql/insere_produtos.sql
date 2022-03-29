@@ -1,3 +1,2 @@
-INSERT INTO Produtos (ID, NOME, ID_CATEGORIA, PRECO) VALUES (1, 'Coca-cola', 2, 5.50);
-
-INSERT INTO Produtos (ID, NOME, ID_CATEGORIA, PRECO) VALUES (2, 'Serpentina', 1, 3.00);
+INSERT INTO Produtos ('ID_CATEGORIA', 'NOME', 'PRECO') 
+VALUES (2, 'Coca-cola', 5.50), (1, 'Serpentina', 3.00);
