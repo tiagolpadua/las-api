@@ -16,44 +16,20 @@
   "basePath" : "/tiagolpadua/las-api/1.1.0",
   "schemes" : [ "https" ],
   "paths" : {
-    "/inventory" : {
+    "/usuario" : {
       "get" : {
-        "tags" : [ "developers" ],
-        "summary" : "searches inventory",
-        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
-        "operationId" : "searchInventory",
+        "summary" : "Lista os usuarios",
+        "description" : "Lista os usuários do LAS-API\n",
+        "operationId" : "listarUsuarios",
         "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "searchString",
-          "in" : "query",
-          "description" : "pass an optional search string for looking up inventory",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "skip",
-          "in" : "query",
-          "description" : "number of records to skip for pagination",
-          "required" : false,
-          "type" : "integer",
-          "minimum" : 0,
-          "format" : "int32"
-        }, {
-          "name" : "limit",
-          "in" : "query",
-          "description" : "maximum number of records to return",
-          "required" : false,
-          "type" : "integer",
-          "maximum" : 50,
-          "minimum" : 0,
-          "format" : "int32"
-        } ],
+        "parameters" : [ ],
         "responses" : {
           "200" : {
-            "description" : "search results matching criteria",
+            "description" : "Resultado da listagem",
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/InventoryItem"
+                "$ref" : "#/definitions/Usuario"
               }
             }
           },
@@ -63,93 +39,48 @@
         }
       },
       "post" : {
-        "tags" : [ "admins" ],
-        "summary" : "adds an inventory item",
-        "description" : "Adds an item to the system",
-        "operationId" : "addInventory",
+        "summary" : "Inclui um usuário",
+        "description" : "Inclui um usuário no sistema",
+        "operationId" : "adicionarUsuario",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
-          "name" : "inventoryItem",
-          "description" : "Inventory item to add",
+          "name" : "usuario",
+          "description" : "Usuário a ser adicionado",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/InventoryItem"
+            "$ref" : "#/definitions/Usuario"
           }
         } ],
         "responses" : {
           "201" : {
-            "description" : "item created"
+            "description" : "Usuário criado"
           },
           "400" : {
-            "description" : "invalid input, object invalid"
-          },
-          "409" : {
-            "description" : "an existing item already exists"
+            "description" : "Entrada inválida"
           }
         }
       }
     }
   },
   "definitions" : {
-    "User" : {
+    "Usuario" : {
       "type" : "object",
-      "required" : [ "id", "name", "photoURL" ],
+      "required" : [ "id", "nome", "urlFotoPerfil" ],
       "properties" : {
         "id" : {
           "type" : "string",
           "format" : "uuid",
           "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
         },
-        "name" : {
+        "nome" : {
           "type" : "string",
           "example" : "Paulo Silva"
         },
-        "photoURL" : {
+        "urlFotoPerfil" : {
           "type" : "string",
           "example" : "https://randomuser.me/api/portraits/men/91.jpg"
-        }
-      }
-    },
-    "InventoryItem" : {
-      "type" : "object",
-      "required" : [ "id", "manufacturer", "name", "releaseDate" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "format" : "uuid",
-          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
-        },
-        "name" : {
-          "type" : "string",
-          "example" : "Widget Adapter"
-        },
-        "releaseDate" : {
-          "type" : "string",
-          "format" : "date-time",
-          "example" : "2016-08-29T09:12:33.001+0000"
-        },
-        "manufacturer" : {
-          "$ref" : "#/definitions/Manufacturer"
-        }
-      }
-    },
-    "Manufacturer" : {
-      "required" : [ "name" ],
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "example" : "ACME Corporation"
-        },
-        "homePage" : {
-          "type" : "string",
-          "format" : "url",
-          "example" : "https://www.acme-corp.com"
-        },
-        "phone" : {
-          "type" : "string",
-          "example" : "408-867-5309"
         }
       }
     }
