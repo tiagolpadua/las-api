@@ -2,10 +2,10 @@
   "swagger" : "2.0",
   "info" : {
     "description" : "API do sistema de Licenciamento de Ambulantes de Salvador",
-    "version" : "1.0.0",
+    "version" : "1.1.0",
     "title" : "LAS API",
     "contact" : {
-      "email" : "you@your-company.com"
+      "email" : "admin@las.com"
     },
     "license" : {
       "name" : "Apache 2.0",
@@ -13,7 +13,7 @@
     }
   },
   "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/tiagolpadua/las-api/1.0.0",
+  "basePath" : "/tiagolpadua/las-api/1.1.0",
   "schemes" : [ "https" ],
   "paths" : {
     "/inventory" : {
