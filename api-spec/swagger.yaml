@@ -71,8 +71,7 @@
           "in" : "path",
           "description" : "ID do usuário a ser retornado",
           "required" : true,
-          "type" : "string",
-          "format" : "uuid"
+          "type" : "integer"
         } ],
         "responses" : {
           "200" : {
@@ -99,8 +98,7 @@
           "in" : "path",
           "description" : "ID do usuário a ser atualizado",
           "required" : true,
-          "type" : "string",
-          "format" : "uuid"
+          "type" : "integer"
         }, {
           "in" : "body",
           "name" : "usuario",
@@ -125,8 +123,7 @@
           "in" : "path",
           "description" : "Id do usuário a ser excluído",
           "required" : true,
-          "type" : "string",
-          "format" : "uuid"
+          "type" : "integer"
         } ],
         "responses" : {
           "400" : {
@@ -145,17 +142,50 @@
       "required" : [ "id", "nome", "urlFotoPerfil" ],
       "properties" : {
         "id" : {
-          "type" : "string",
-          "format" : "uuid",
-          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 12345
         },
         "nome" : {
           "type" : "string",
-          "example" : "Paulo Silva"
+          "example" : "Paulo Silva",
+          "minLength" : 5
         },
         "urlFotoPerfil" : {
           "type" : "string",
+          "format" : "uri",
           "example" : "https://randomuser.me/api/portraits/men/91.jpg"
+        }
+      }
+    },
+    "Evento" : {
+      "type" : "object",
+      "required" : [ "dataFim", "dataInicio", "id", "titulo", "urlFoto" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 12345
+        },
+        "titulo" : {
+          "type" : "string",
+          "example" : "Carnaval 2022",
+          "minLength" : 5
+        },
+        "urlFoto" : {
+          "type" : "string",
+          "format" : "uri",
+          "example" : "https://randomuser.me/api/portraits/men/91.jpg"
+        },
+        "dataInicio" : {
+          "type" : "string",
+          "format" : "date",
+          "example" : "2017-07-21T00:00:00.000+0000"
+        },
+        "dataFim" : {
+          "type" : "string",
+          "format" : "date",
+          "example" : "2017-07-21T00:00:00.000+0000"
         }
       }
     }
