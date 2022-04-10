@@ -110,6 +110,102 @@ paths:
           description: Id inválido fornecido
         "404":
           description: Usuário não encontrado
+  /evento:
+    get:
+      summary: Lista os eventos
+      description: |
+        Lista os eventos do LAS-API
+      operationId: listarEventos
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: Resultado da listagem
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Evento'
+    post:
+      summary: Inclui um evento
+      description: Inclui um evento no LAS-API
+      operationId: incluirEvento
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: evento
+        description: Evento a ser incluído
+        required: false
+        schema:
+          $ref: '#/definitions/Evento'
+      responses:
+        "201":
+          description: Evento incluído com sucesso
+        "400":
+          description: Entrada inválida
+  /evento/{eventoId}:
+    get:
+      summary: Busca um evento pelo Id
+      description: Busca um único evento
+      operationId: buscarEventoPorId
+      produces:
+      - application/json
+      parameters:
+      - name: eventoId
+        in: path
+        description: Id do evento a ser retornado
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Operação bem sucedida
+          schema:
+            $ref: '#/definitions/Evento'
+        "400":
+          description: Id inválido fornecido
+        "404":
+          description: Evento não encontrado
+    put:
+      summary: Atualiza um evento no LAS-API com os dados enviados
+      operationId: atualizarEvento
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: eventoId
+        in: path
+        description: Id do evento a ser atualizado
+        required: true
+        type: integer
+      - in: body
+        name: evento
+        description: Evento a ser atualizado
+        required: false
+        schema:
+          $ref: '#/definitions/Evento'
+      responses:
+        "405":
+          description: Entrada inválida
+    delete:
+      summary: Exclui um evento
+      operationId: excluirEvento
+      produces:
+      - application/json
+      parameters:
+      - name: eventoId
+        in: path
+        description: Id do evento a ser excluído
+        required: true
+        type: integer
+      responses:
+        "400":
+          description: Id inválido fornecido
+        "404":
+          description: Evento não encontrado
 definitions:
   Usuario:
     type: object
