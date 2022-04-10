@@ -11,11 +11,18 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 host: virtserver.swaggerhub.com
 basePath: /tiagolpadua/las-api/1.1.0
+tags:
+- name: usuario
+  description: Operações com usuários
+- name: evento
+  description: Operações com eventos
 schemes:
 - https
 paths:
   /usuario:
     get:
+      tags:
+      - usuario
       summary: Lista os usuarios
       description: |
         Lista os usuários do LAS-API
@@ -31,6 +38,8 @@ paths:
             items:
               $ref: '#/definitions/Usuario'
     post:
+      tags:
+      - usuario
       summary: Inclui um usuário
       description: Inclui um usuário no LAS-API
       operationId: incluirUsuario
@@ -52,6 +61,8 @@ paths:
           description: Entrada inválida
   /usuario/{usuarioId}:
     get:
+      tags:
+      - usuario
       summary: Busca um usuário pelo ID
       description: Busca um único usuário
       operationId: buscarUsuarioPorId
@@ -73,6 +84,8 @@ paths:
         "404":
           description: Usuário não encontrado
     put:
+      tags:
+      - usuario
       summary: Atualiza um usuário no LAS-API com os dados do formulário
       operationId: atualizarUsuario
       consumes:
@@ -95,6 +108,8 @@ paths:
         "405":
           description: Entrada inválida
     delete:
+      tags:
+      - usuario
       summary: Exclui um usuário
       operationId: excluirUsuario
       produces:
@@ -112,6 +127,8 @@ paths:
           description: Usuário não encontrado
   /evento:
     get:
+      tags:
+      - evento
       summary: Lista os eventos
       description: |
         Lista os eventos do LAS-API
@@ -127,6 +144,8 @@ paths:
             items:
               $ref: '#/definitions/Evento'
     post:
+      tags:
+      - evento
       summary: Inclui um evento
       description: Inclui um evento no LAS-API
       operationId: incluirEvento
@@ -148,6 +167,8 @@ paths:
           description: Entrada inválida
   /evento/{eventoId}:
     get:
+      tags:
+      - evento
       summary: Busca um evento pelo Id
       description: Busca um único evento
       operationId: buscarEventoPorId
@@ -169,6 +190,8 @@ paths:
         "404":
           description: Evento não encontrado
     put:
+      tags:
+      - evento
       summary: Atualiza um evento no LAS-API com os dados enviados
       operationId: atualizarEvento
       consumes:
@@ -191,6 +214,8 @@ paths:
         "405":
           description: Entrada inválida
     delete:
+      tags:
+      - evento
       summary: Exclui um evento
       operationId: excluirEvento
       produces:
