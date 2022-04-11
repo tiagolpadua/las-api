@@ -1,157 +1,282 @@
-{
-  "swagger" : "2.0",
-  "info" : {
-    "description" : "API do sistema de Licenciamento de Ambulantes de Salvador",
-    "version" : "1.0.0",
-    "title" : "LAS API",
-    "contact" : {
-      "email" : "you@your-company.com"
-    },
-    "license" : {
-      "name" : "Apache 2.0",
-      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
-    }
-  },
-  "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/tiagolpadua/las-api/1.0.0",
-  "schemes" : [ "https" ],
-  "paths" : {
-    "/inventory" : {
-      "get" : {
-        "tags" : [ "developers" ],
-        "summary" : "searches inventory",
-        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
-        "operationId" : "searchInventory",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "searchString",
-          "in" : "query",
-          "description" : "pass an optional search string for looking up inventory",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "skip",
-          "in" : "query",
-          "description" : "number of records to skip for pagination",
-          "required" : false,
-          "type" : "integer",
-          "minimum" : 0,
-          "format" : "int32"
-        }, {
-          "name" : "limit",
-          "in" : "query",
-          "description" : "maximum number of records to return",
-          "required" : false,
-          "type" : "integer",
-          "maximum" : 50,
-          "minimum" : 0,
-          "format" : "int32"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "search results matching criteria",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/InventoryItem"
-              }
-            }
-          },
-          "400" : {
-            "description" : "bad input parameter"
-          }
-        }
-      },
-      "post" : {
-        "tags" : [ "admins" ],
-        "summary" : "adds an inventory item",
-        "description" : "Adds an item to the system",
-        "operationId" : "addInventory",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "inventoryItem",
-          "description" : "Inventory item to add",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/InventoryItem"
-          }
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "item created"
-          },
-          "400" : {
-            "description" : "invalid input, object invalid"
-          },
-          "409" : {
-            "description" : "an existing item already exists"
-          }
-        }
-      }
-    }
-  },
-  "definitions" : {
-    "User" : {
-      "type" : "object",
-      "required" : [ "id", "name", "photoURL" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "format" : "uuid",
-          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
-        },
-        "name" : {
-          "type" : "string",
-          "example" : "Paulo Silva"
-        },
-        "photoURL" : {
-          "type" : "string",
-          "example" : "https://randomuser.me/api/portraits/men/91.jpg"
-        }
-      }
-    },
-    "InventoryItem" : {
-      "type" : "object",
-      "required" : [ "id", "manufacturer", "name", "releaseDate" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "format" : "uuid",
-          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
-        },
-        "name" : {
-          "type" : "string",
-          "example" : "Widget Adapter"
-        },
-        "releaseDate" : {
-          "type" : "string",
-          "format" : "date-time",
-          "example" : "2016-08-29T09:12:33.001+0000"
-        },
-        "manufacturer" : {
-          "$ref" : "#/definitions/Manufacturer"
-        }
-      }
-    },
-    "Manufacturer" : {
-      "required" : [ "name" ],
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "example" : "ACME Corporation"
-        },
-        "homePage" : {
-          "type" : "string",
-          "format" : "url",
-          "example" : "https://www.acme-corp.com"
-        },
-        "phone" : {
-          "type" : "string",
-          "example" : "408-867-5309"
-        }
-      }
-    }
-  }
-}
+---
+swagger: "2.0"
+info:
+  description: API do sistema de Licenciamento de Ambulantes de Salvador
+  version: 1.1.0
+  title: LAS API
+  contact:
+    email: admin@las.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: virtserver.swaggerhub.com
+basePath: /tiagolpadua/las-api/1.1.0
+tags:
+- name: usuario
+  description: Operações com usuários
+- name: evento
+  description: Operações com eventos
+schemes:
+- https
+paths:
+  /usuario:
+    get:
+      tags:
+      - usuario
+      summary: Lista os usuarios
+      description: |
+        Lista os usuários do LAS-API
+      operationId: listarUsuarios
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: Resultado da listagem
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Usuario'
+    post:
+      tags:
+      - usuario
+      summary: Inclui um usuário
+      description: Inclui um usuário no LAS-API
+      operationId: incluirUsuario
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: usuario
+        description: Usuário a ser incluído
+        required: false
+        schema:
+          $ref: '#/definitions/Usuario'
+      responses:
+        "201":
+          description: Usuário incluído com sucesso
+        "400":
+          description: Entrada inválida
+  /usuario/{usuarioId}:
+    get:
+      tags:
+      - usuario
+      summary: Busca um usuário pelo ID
+      description: Busca um único usuário
+      operationId: buscarUsuarioPorId
+      produces:
+      - application/json
+      parameters:
+      - name: usuarioId
+        in: path
+        description: ID do usuário a ser retornado
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Operação bem sucedida
+          schema:
+            $ref: '#/definitions/Usuario'
+        "400":
+          description: ID inválido fornecido
+        "404":
+          description: Usuário não encontrado
+    put:
+      tags:
+      - usuario
+      summary: Atualiza um usuário no LAS-API com os dados do formulário
+      operationId: atualizarUsuario
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: usuarioId
+        in: path
+        description: ID do usuário a ser atualizado
+        required: true
+        type: integer
+      - in: body
+        name: usuario
+        description: Usuário a ser atualizado
+        required: false
+        schema:
+          $ref: '#/definitions/Usuario'
+      responses:
+        "405":
+          description: Entrada inválida
+    delete:
+      tags:
+      - usuario
+      summary: Exclui um usuário
+      operationId: excluirUsuario
+      produces:
+      - application/json
+      parameters:
+      - name: usuarioId
+        in: path
+        description: Id do usuário a ser excluído
+        required: true
+        type: integer
+      responses:
+        "400":
+          description: Id inválido fornecido
+        "404":
+          description: Usuário não encontrado
+  /evento:
+    get:
+      tags:
+      - evento
+      summary: Lista os eventos
+      description: |
+        Lista os eventos do LAS-API
+      operationId: listarEventos
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: Resultado da listagem
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Evento'
+    post:
+      tags:
+      - evento
+      summary: Inclui um evento
+      description: Inclui um evento no LAS-API
+      operationId: incluirEvento
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: evento
+        description: Evento a ser incluído
+        required: false
+        schema:
+          $ref: '#/definitions/Evento'
+      responses:
+        "201":
+          description: Evento incluído com sucesso
+        "400":
+          description: Entrada inválida
+  /evento/{eventoId}:
+    get:
+      tags:
+      - evento
+      summary: Busca um evento pelo Id
+      description: Busca um único evento
+      operationId: buscarEventoPorId
+      produces:
+      - application/json
+      parameters:
+      - name: eventoId
+        in: path
+        description: Id do evento a ser retornado
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Operação bem sucedida
+          schema:
+            $ref: '#/definitions/Evento'
+        "400":
+          description: Id inválido fornecido
+        "404":
+          description: Evento não encontrado
+    put:
+      tags:
+      - evento
+      summary: Atualiza um evento no LAS-API com os dados enviados
+      operationId: atualizarEvento
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: eventoId
+        in: path
+        description: Id do evento a ser atualizado
+        required: true
+        type: integer
+      - in: body
+        name: evento
+        description: Evento a ser atualizado
+        required: false
+        schema:
+          $ref: '#/definitions/Evento'
+      responses:
+        "405":
+          description: Entrada inválida
+    delete:
+      tags:
+      - evento
+      summary: Exclui um evento
+      operationId: excluirEvento
+      produces:
+      - application/json
+      parameters:
+      - name: eventoId
+        in: path
+        description: Id do evento a ser excluído
+        required: true
+        type: integer
+      responses:
+        "400":
+          description: Id inválido fornecido
+        "404":
+          description: Evento não encontrado
+definitions:
+  Usuario:
+    type: object
+    required:
+    - id
+    - nome
+    - urlFotoPerfil
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 12345
+      nome:
+        type: string
+        example: Paulo Silva
+        minLength: 5
+      urlFotoPerfil:
+        type: string
+        format: uri
+        example: https://randomuser.me/api/portraits/men/91.jpg
+  Evento:
+    type: object
+    required:
+    - dataFim
+    - dataInicio
+    - id
+    - titulo
+    - urlFoto
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 12345
+      titulo:
+        type: string
+        example: Carnaval 2022
+        minLength: 5
+      urlFoto:
+        type: string
+        format: uri
+        example: https://randomuser.me/api/portraits/men/91.jpg
+      dataInicio:
+        type: string
+        format: date
+        example: 2017-07-21T00:00:00.000+0000
+      dataFim:
+        type: string
+        format: date
+        example: 2017-07-21T00:00:00.000+0000
