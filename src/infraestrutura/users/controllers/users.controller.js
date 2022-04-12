@@ -7,9 +7,13 @@ const Tabelas = require("../../../models/Tabelas");
 // };
 
 module.exports = (app) => {
-  const tabela = new Tabelas().init(conn);
+  const tabela = new Tabelas();
+
+  app.get("/users", (req, res) => {
+    tabela.listarUsuarios(res, conn);
+  });
+
   app.get("/users/:id?", (req, res) => {
-    tabela.buscarUsuariosPorId(req.params.id, res);
-    res.send("OK");
+    tabela.buscarUsuariosPorId(req.params.id, res, conn);
   });
 };

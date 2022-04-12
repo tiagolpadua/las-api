@@ -14,19 +14,19 @@ class Tabelas {
       console.log(err || "Tabela Usuários criada com sucesso")
     );
   }
-  buscarUsuarios() {
+
+  listarUsuarios(res, conn) {
     const path = "/sql/get.users.sql";
     const listUsers = fs.readFileSync(process.cwd() + path).toString();
-    this.conexao.query(listUsers, (err) =>
-      console.log(err || "Listando usuários")
-    );
+
+    conn.query(listUsers, (err, result) => err || res.json(result));
   }
-  buscarUsuariosPorId(id, res) {
+
+  buscarUsuariosPorId(id, res, conn) {
     const path = "/sql/get.users.id.sql";
     let query = fs.readFileSync(process.cwd() + path).toString();
-    this.conexao.query(query, [id], (err, result) =>
-      console.log(err || res.json(result))
-    );
+
+    conn.query(query, [id], (err, result) => err || res.json(result));
   }
 }
 
