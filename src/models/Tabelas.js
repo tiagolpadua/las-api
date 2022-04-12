@@ -3,10 +3,10 @@ const fs = require("fs");
 class Tabelas {
   init(conexao) {
     this.conexao = conexao;
-    this.criarUsuario();
+    this.criarUsuarios();
   }
 
-  criarUsuario() {
+  criarUsuarios() {
     const path = "/sql/create.table.users.sql";
     const createUserQuery = fs.readFileSync(process.cwd() + path).toString();
 
