@@ -1,18 +1,18 @@
-const getQueries = require("../util/functions");
+const fs = require("fs");
 
 class Tabelas {
   init(conexao) {
     this.conexao = conexao;
-    this.criasTabelas();
+    this.criarUsuario();
   }
 
-  criasTabelas() {
-    const createTables = (queries) =>
-      queries.forEach((query) =>
-        this.conexao.query(query, (err) => console.log(err || "OK"))
-      );
+  criarUsuario() {
+    const path = "/sql/create.table.users.sql";
+    const createUserQuery = fs.readFileSync(process.cwd() + path).toString();
 
-    getQueries(createTables);
+    this.conexao.query(createUserQuery, (err) =>
+      console.log(err || "Tabela Usuários criada com sucesso")
+    );
   }
 }
 
