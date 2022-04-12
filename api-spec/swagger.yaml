@@ -368,7 +368,7 @@ paths:
       - evento
       summary: Lista os eventos
       description: |
-        Lista os eventos do LAS-API
+        Lista os eventos do LAS-API com a descrição truncada em 100 caracteres
       operationId: listarEventos
       produces:
       - application/json
@@ -494,6 +494,43 @@ paths:
           description: Id inválido fornecido
         "404":
           description: Evento não encontrado
+  /uf:
+    get:
+      tags:
+      - endereco
+      summary: Lista as UFs
+      operationId: listarUFs
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: Resultado da listagem
+          schema:
+            type: array
+            items:
+              type: string
+  /uf/{uf}/municipio:
+    get:
+      tags:
+      - endereco
+      summary: Lista os municípios da UF
+      operationId: listarMunicipiosUF
+      produces:
+      - application/json
+      parameters:
+      - name: uf
+        in: path
+        description: UF para listar os municípios
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Resultado da listagem
+          schema:
+            type: array
+            items:
+              type: string
   /tipo-venda:
     get:
       tags:
@@ -603,7 +640,6 @@ definitions:
     - dataFim
     - dataInicio
     - id
-    - titulo
     - urlFoto
     properties:
       id:
