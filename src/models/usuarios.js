@@ -21,6 +21,17 @@ class Usuario {
     });
   }
 
+  buscaUsuarioPeloNome(nome, res) {
+    const sql = "SELECT * FROM las.usuario WHERE nome = ?";
+
+    conexao.query(sql, nome, (erro, results) => {
+      const retornoUsuario = results[0];
+
+      if (erro) res.status(400).json({ error: erro });
+      else res.status(200).json(retornoUsuario);
+    });
+  }
+
   incluirUsuarios(retornoForm, res) {
     const nomeEhvalido = retornoForm.nome.length > 4;
 

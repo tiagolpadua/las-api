@@ -11,6 +11,12 @@ module.exports = (app) => {
     Usuario.buscaUsuario(id, res);
   });
 
+  app.get("/usuarios/nome/:nome", (req, res) => {
+    const nome = req.params.nome;
+
+    Usuario.buscaUsuarioPeloNome(nome, res);
+  });
+
   app.post("/usuarios", (req, res) => {
     const retornoForm = req.body;
 
