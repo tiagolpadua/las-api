@@ -8,7 +8,6 @@ conn.connect((err) => {
 
   conn.query("CREATE DATABASE if not exists las", (err) => {
     if (err) throw err;
-
     new Tabelas().init(conn);
 
     const port = 3000;
