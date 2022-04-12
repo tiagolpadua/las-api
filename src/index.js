@@ -1,11 +1,20 @@
-const express = require("express");
-const app = express();
-const port = 3000;
+const controllers = require("./servidor/infra");
 
-app.get("/", (req, res) => {
-  res.send("Olá Mundo!");
-});
+const app = controllers();
 
-app.listen(port, () => {
-  console.log(`LAS-API ouvindo na porta: ${port}`);
+const Tabelas = require("./infraestrutura/Tabelas");
+
+const conexao = require("./infraestrutura/conexao");
+
+const port = 3001;
+
+conexao.connect((erro) => {
+  if (erro) console.log(erro);
+  else {
+    app.listen(port, () => {
+      console.log(`Servidor rodando na porta ${port}`);
+    });
+
+    Tabelas.init(conexao);
+  }
 });
