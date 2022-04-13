@@ -28,6 +28,6 @@ module.exports = app => {
         const valores = req.body.valores;
 
         Usuario.altera(id, valores, res);
-    })
+    });
 };
 
