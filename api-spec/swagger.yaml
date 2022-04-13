@@ -33,7 +33,7 @@ tags:
 schemes:
 - https
 paths:
-  /usuario:
+  /usuarios:
     get:
       tags:
       - usuario
@@ -73,7 +73,7 @@ paths:
           description: Usuário incluído com sucesso
         "400":
           description: Entrada inválida
-  /usuario/{usuarioId}:
+  /usuarios/{usuarioId}:
     get:
       tags:
       - usuario
@@ -139,7 +139,7 @@ paths:
           description: Id inválido fornecido
         "404":
           description: Usuário não encontrado
-  /usuario/{usuarioId}/dados-pessoais:
+  /usuarios/{usuarioId}/dados-pessoais:
     get:
       tags:
       - dados-pessoais
@@ -186,7 +186,7 @@ paths:
       responses:
         "405":
           description: Entrada inválida
-  /usuario/{usuarioId}/contatos:
+  /usuarios/{usuarioId}/contatos:
     get:
       tags:
       - contatos
@@ -233,7 +233,7 @@ paths:
       responses:
         "405":
           description: Entrada inválida
-  /usuario/{usuarioId}/endereco:
+  /usuarios/{usuarioId}/endereco:
     get:
       tags:
       - endereco
@@ -280,7 +280,7 @@ paths:
       responses:
         "405":
           description: Entrada inválida
-  /usuario/{usuarioId}/documento/{tipoDocumento}:
+  /usuarios/{usuarioId}/documento/{tipoDocumento}:
     get:
       tags:
       - documento
@@ -337,7 +337,7 @@ paths:
       responses:
         "405":
           description: Entrada inválida
-  /usuario/{usuarioId}/senha:
+  /usuarios/{usuarioId}/senha:
     put:
       tags:
       - senha
@@ -362,7 +362,7 @@ paths:
       responses:
         "405":
           description: Entrada inválida
-  /evento:
+  /eventos:
     get:
       tags:
       - evento
@@ -402,7 +402,7 @@ paths:
           description: Evento incluído com sucesso
         "400":
           description: Entrada inválida
-  /evento/status/{statusEvento}:
+  /eventos/status/{statusEvento}:
     get:
       tags:
       - evento
@@ -428,7 +428,7 @@ paths:
           description: Status inválido fornecido
         "404":
           description: Evento não encontrado
-  /evento/{eventoId}:
+  /eventos/{eventoId}:
     get:
       tags:
       - evento
@@ -494,7 +494,7 @@ paths:
           description: Id inválido fornecido
         "404":
           description: Evento não encontrado
-  /uf:
+  /ufs:
     get:
       tags:
       - endereco
@@ -510,7 +510,7 @@ paths:
             type: array
             items:
               type: string
-  /uf/{uf}/municipio:
+  /ufs/{uf}/municipios:
     get:
       tags:
       - endereco
@@ -531,7 +531,7 @@ paths:
             type: array
             items:
               type: string
-  /tipo-venda:
+  /tipos-venda:
     get:
       tags:
       - tipo-venda
@@ -571,7 +571,7 @@ paths:
           description: Tipo de venda incluída com sucesso
         "400":
           description: Entrada inválida
-  /tipo-venda/{tipoVendaId}:
+  /tipos-venda/{tipoVendaId}:
     put:
       tags:
       - tipo-venda
