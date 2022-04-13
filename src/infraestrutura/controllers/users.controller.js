@@ -1,46 +1,33 @@
-const conn = require("../services/conexao");
 const Tabelas = require("../models/Tabelas");
 
 module.exports = (app) => {
-  const tabela = new Tabelas();
-
   // Listar todos os usuários cadastrados
-  app.get("/users", (req, res) => {
-    tabela.listarUsuarios(res, conn);
-  });
+  app.get("/users", Tabelas.listarUsuarios);
 
   /** Buscar usuários por ID
    *  @params { id: number }
    **/
-  app.get("/users/:id?", (req, res) => {
-    tabela.buscarUsuariosPorId(req.params.id, res, conn);
-  });
+  app.get("/users/:id?", Tabelas.buscarUsuariosPorId);
 
   /** Buscar usuários por nome
    *  @params { nome: String }
    **/
-  app.get("/users/:nome?", (req, res) => {
-    tabela.buscarUsuariosPorNome(req.params.nome, res, conn);
-  });
+  app.get("/users/nome/:nome?", Tabelas.buscarUsuariosPorNome);
 
   /** Criar usuários
    *  @params { nome: String, urlFotoPerfil: String  }
    **/
-  app.post("/users/", (req, res) => {
-    tabela.criarUsuarios(req.params.id, res, conn);
-  });
+  app.post("/users/", Tabelas.cadastrarUsuario);
 
   /** Deletar usuários
    *  @params {id: number}
    **/
-  app.delete("/users/:id?", (req, res) => {
-    tabela.deletarUsuario(req.params.id, res, conn);
-  });
+  app.delete("/users/:id?", Tabelas.deletarUsuario);
 
   /** Deletar usuários
    *  @params {id: number}
    **/
-  app.put("/users/:id?", (req, res) => {
-    tabela.atualizarInformacaoUsuario(req.body, res, conn);
-  });
+  // app.put("/users/:id?", (req, res) => {
+  //   Tabelas.atualizarInformacaoUsuario(req.body, res);
+  // });
 };

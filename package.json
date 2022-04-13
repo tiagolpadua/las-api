@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/tiagolpadua/las-api#readme",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-config-standard": "^16.0.3",

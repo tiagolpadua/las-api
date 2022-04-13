@@ -1,51 +1,44 @@
-const res = require("express/lib/response");
-const fs = require("fs");
+const { getQuery, solve } = require("../utils/functions");
 
 class Tabelas {
-  init(conexao) {
-    this.conexao = conexao;
-    this.criarUsuarios();
-  }
+  static conexao = null;
 
-  criarUsuarios() {
-    const path = "/src/sql/create.table.users.sql";
-    const createUserQuery = fs.readFileSync(process.cwd() + path).toString();
-    this.conexao.query(createUserQuery, (err) =>
+  static criarUsuarios() {
+    this.conexao.query(getQuery("create.users.table"), (err) =>
       console.log(err || "Tabela Usuários criada com sucesso")
     );
   }
 
-  listarUsuarios(res, conn) {
-    const path = "/src/sql/get.users.sql";
-    const listUsers = fs.readFileSync(process.cwd() + path).toString();
-    conn.query(listUsers, (err, result) => err || res.status(200).json(result));
-  }
-
-  buscarUsuariosPorId(id, res, conn) {
-    const path = "/sql/get.users.id.sql";
-    let query = fs.readFileSync(process.cwd() + path).toString();
-    conn.query(
-      query,
-      [id],
-      (err, result) => err || res.status(200).json(result)
+  static listarUsuarios(_, res) {
+    Tabelas.conexao.query(getQuery("get.users"), (...params) =>
+      solve(params, res)
     );
   }
 
-  buscarUsuariosPorNome(nome, res, conn) {
-    const path = "/src/sql/get.users.name.sql";
-    let query = fs.readFileSync(process.cwd() + path).toString();
-    conn.query(
-      query,
-      [nome],
-      (err, result) => err || res.status(200).json(result)
+  static buscarUsuariosPorId({ params: { id } }, res) {
+    Tabelas.conexao.query(getQuery("get.user.byID"), [id], (...params) =>
+      solve(params, res)
     );
   }
 
-  cadastrarUsuario(data) {
-    res.status(201).send();
+  static buscarUsuariosPorNome({ params: { nome } }, res) {
+    Tabelas.conexao.query(getQuery("get.user.byName"), [nome], (...params) =>
+      solve(params, res)
+    );
   }
-  deletarUsuario(id, res) {
-    res.status(200).send("Deletede", res);
+
+  static cadastrarUsuario({ body: { nome, urlFotoPerfil } }, res) {
+    Tabelas.conexao.query(
+      getQuery("insert.user"),
+      [nome, urlFotoPerfil],
+      (...params) => solve(params, res, 201)
+    );
+  }
+
+  static deletarUsuario({ body: { id } }, res) {
+    Tabelas.conexao.query(getQuery("delete.user.byID"), [id], (...params) =>
+      solve(params, res)
+    );
   }
 }
 

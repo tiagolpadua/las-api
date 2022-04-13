@@ -7,9 +7,7 @@ module.exports = () => {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
-  consign({ cwd: "src" })
-    .include("/infraestrutura/users/controllers")
-    .into(app);
+  consign({ cwd: "src" }).include("infraestrutura/controllers").into(app);
 
   return app;
 };

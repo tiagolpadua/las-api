@@ -1,18 +1,14 @@
 const fs = require("fs");
-const path = require("path");
 
-const getQueries = (callback) => {
-  fs.readdir(process.cwd() + "/sql", (err, files) => {
-    if (err) throw err;
+const getQuery = (fileName) =>
+  fs.readFileSync(`${process.cwd()}/src/sql/${fileName}.sql`).toString();
 
-    const sqlQueries = files
-      .filter((file) => path.extname(file) === ".sql")
-      .map((file) =>
-        fs.readFileSync(`${process.cwd()}/sql/${file}`).toString()
-      );
+const solve = ([error, result], response, statusCode = 200) => {
+  if (error) {
+    console.log(error);
+  }
 
-    callback(sqlQueries);
-  });
+  response.status(statusCode).json(result);
 };
 
-module.exports = getQueries;
+module.exports = { getQuery, solve };
