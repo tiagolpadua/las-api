@@ -38,8 +38,7 @@ paths:
       tags:
       - usuario
       summary: Lista os usuarios
-      description: |
-        Lista os usuários do LAS-API
+      description: Lista os usuários do LAS-API
       operationId: listarUsuarios
       produces:
       - application/json
@@ -85,7 +84,7 @@ paths:
       parameters:
       - name: usuarioId
         in: path
-        description: ID do usuário a ser retornado
+        description: Id do usuário a ser retornado
         required: true
         type: integer
       responses:
@@ -94,7 +93,7 @@ paths:
           schema:
             $ref: '#/definitions/Usuario'
         "400":
-          description: ID inválido fornecido
+          description: Id inválido fornecido
         "404":
           description: Usuário não encontrado
     put:
@@ -109,7 +108,7 @@ paths:
       parameters:
       - name: usuarioId
         in: path
-        description: ID do usuário a ser atualizado
+        description: Id do usuário a ser atualizado
         required: true
         type: integer
       - in: body
@@ -174,7 +173,7 @@ paths:
       parameters:
       - name: usuarioId
         in: path
-        description: ID do usuário a ser atualizado
+        description: Id do usuário a ser atualizado
         required: true
         type: integer
       - in: body
@@ -280,7 +279,7 @@ paths:
       responses:
         "405":
           description: Entrada inválida
-  /usuarios/{usuarioId}/documento/{tipoDocumento}:
+  /usuarios/{usuarioId}/documentos/{tipoDocumento}:
     get:
       tags:
       - documento
@@ -367,8 +366,7 @@ paths:
       tags:
       - evento
       summary: Lista os eventos
-      description: |
-        Lista os eventos do LAS-API com a descrição truncada em 100 caracteres
+      description: Lista os eventos do LAS-API com a descrição truncada em 100 caracteres
       operationId: listarEventos
       produces:
       - application/json
@@ -432,7 +430,7 @@ paths:
     get:
       tags:
       - evento
-      summary: Busca um evento pelo Id
+      summary: Busca um evento pelo id
       description: Busca um único evento
       operationId: buscarEventoPorId
       produces:
@@ -639,21 +637,27 @@ definitions:
     required:
     - dataFim
     - dataInicio
+    - descricao
     - id
+    - nome
     - urlFoto
     properties:
       id:
         type: integer
         format: int32
         example: 12345
-      titulo:
+      nome:
         type: string
         example: Carnaval 2022
+        minLength: 5
+      descricao:
+        type: string
+        example: O carnaval mais animado do Brasil
         minLength: 5
       urlFoto:
         type: string
         format: uri
-        example: https://randomuser.me/api/portraits/men/91.jpg
+        example: ???
       dataInicio:
         type: string
         format: date
@@ -758,10 +762,7 @@ definitions:
         minLength: 5
   Documento:
     type: object
-    required:
-    - urlImagemDocumento
     properties:
-      urlImagemDocumento:
+      imagemDocumentoBase64:
         type: string
-        format: uri
-        example: http://enderecodosite.com.br/image-documento.png
+        example: ???
