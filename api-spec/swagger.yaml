@@ -118,6 +118,8 @@ paths:
         schema:
           $ref: '#/definitions/Usuario'
       responses:
+        "204":
+          description: Usuário atualizado com sucesso
         "405":
           description: Entrada inválida
     delete:
@@ -134,6 +136,8 @@ paths:
         required: true
         type: integer
       responses:
+        "204":
+          description: Usuário excluído com sucesso
         "400":
           description: Id inválido fornecido
         "404":
@@ -183,6 +187,8 @@ paths:
         schema:
           $ref: '#/definitions/DadosPessoais'
       responses:
+        "204":
+          description: Dados pessoais atualizados com sucesso
         "405":
           description: Entrada inválida
   /usuarios/{usuarioId}/contatos:
@@ -230,6 +236,8 @@ paths:
         schema:
           $ref: '#/definitions/Contatos'
       responses:
+        "204":
+          description: Contatos atualizados com sucesso
         "405":
           description: Entrada inválida
   /usuarios/{usuarioId}/endereco:
@@ -277,6 +285,8 @@ paths:
         schema:
           $ref: '#/definitions/Endereco'
       responses:
+        "204":
+          description: Endereço atualizado com sucesso
         "405":
           description: Entrada inválida
   /usuarios/{usuarioId}/documentos/{tipoDocumento}:
@@ -334,6 +344,8 @@ paths:
         schema:
           $ref: '#/definitions/Documento'
       responses:
+        "204":
+          description: Documento atualizado com sucesso
         "405":
           description: Entrada inválida
   /usuarios/{usuarioId}/senha:
@@ -359,6 +371,8 @@ paths:
         schema:
           $ref: '#/definitions/Senha'
       responses:
+        "204":
+          description: Senha atualizada com sucesso
         "405":
           description: Entrada inválida
   /eventos:
@@ -472,6 +486,8 @@ paths:
         schema:
           $ref: '#/definitions/Evento'
       responses:
+        "204":
+          description: Evento atualizado com sucesso
         "405":
           description: Entrada inválida
     delete:
@@ -488,6 +504,8 @@ paths:
         required: true
         type: integer
       responses:
+        "204":
+          description: Evento excluído com sucesso
         "400":
           description: Id inválido fornecido
         "404":
@@ -508,6 +526,10 @@ paths:
             type: array
             items:
               type: string
+            example:
+            - BA
+            - SP
+            - DF
   /ufs/{uf}/municipios:
     get:
       tags:
@@ -529,6 +551,11 @@ paths:
             type: array
             items:
               type: string
+            example:
+            - Salvador
+            - Ilhéus
+            - Brasília
+            - São Paulo
   /tipos-venda:
     get:
       tags:
@@ -608,6 +635,8 @@ paths:
         required: true
         type: integer
       responses:
+        "204":
+          description: Tipo de venda excluído com sucesso
         "400":
           description: Id inválido fornecido
         "404":
@@ -657,7 +686,7 @@ definitions:
       urlFoto:
         type: string
         format: uri
-        example: ???
+        example: https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bloco_da_capoeira_circuito_Campo_Grande_Salvador.jpg/1920px-Bloco_da_capoeira_circuito_Campo_Grande_Salvador.jpg
       dataInicio:
         type: string
         format: date
@@ -762,7 +791,9 @@ definitions:
         minLength: 5
   Documento:
     type: object
+    required:
+    - imagemBase64
     properties:
-      imagemDocumentoBase64:
+      imagemBase64:
         type: string
-        example: ???
+        example: iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==
