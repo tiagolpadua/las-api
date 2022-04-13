@@ -13,7 +13,7 @@ class Tabelas {
       if (erro) {
         console.log(erro);
       } else {
-        console.log("Sucesso");
+        console.log("Sucesso...");
       }
     });
   }
