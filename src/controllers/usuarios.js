@@ -3,6 +3,10 @@ module.exports = app => {
         id: req.params.id
     }));
 
+    app.post("/usuarios/:id", (req, res) => res.send({
+        id: req.params.id
+    }));
+
        
 
 };
