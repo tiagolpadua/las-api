@@ -6,7 +6,7 @@ class Tabelas {
   }
 
   criarUsuario() {
-    const sql = `CREATE TABLE IF NOT EXISTS Usuario 
+    const sql = `CREATE TABLE IF NOT EXISTS Usuario
         (id int NOT NULL AUTO_INCREMENT, nome varchar(50) NOT NULL, urlFotoPerfil text, PRIMARY KEY(id))`;
 
     this.conexao.query(sql, (erro) => {
