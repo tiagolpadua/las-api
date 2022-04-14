@@ -5,4 +5,9 @@ module.exports = (app) => {
         const id = parseInt(req.params.id);
         Usuario.buscaPorId(id, res);
     });
+
+    app.post("/usuarios", (req, res) => {
+        const usuario = req.body;
+        Usuario.add(usuario, res);
+    });
 };
