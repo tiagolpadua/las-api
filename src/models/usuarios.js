@@ -5,9 +5,9 @@ class Usuario {
     buscaPorId(id, res) {
         const sql = `SELECT * FROM usuarios WHERE ID=${id}`;
         conexao.query(sql, (erro, result) => {
-            const atendimento = result[0];
+            const usuario = result[0];
             if (erro) res.status(400).json(erro);
-            else res.status(200).json(atendimento);
+            else res.status(200).json(usuario);
         });
     }
     add(usuario, res) {
@@ -21,7 +21,13 @@ class Usuario {
             });
         } else res.status(400).json("Usuario inválido.");
     }
+    buscaPorNome(nome, res) {
+        const sql = `SELECT * FROM usuarios WHERE NOME LIKE "${nome}%"`;
+        conexao.query(sql, (erro, result) => {
+            if (erro) res.status(400).json(erro);
+            else res.status(200).json(result);
+        });
+    }
 }
-
 
 module.exports = new Usuario;
