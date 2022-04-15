@@ -1,33 +1,32 @@
-const Usuario = require("../controllers/usuarios");
+const Usuario = require("../models/usuarios");
 
-module.exports = app => {
-    app.get("/usuarios", (req, res) => {
-        Usuario.lista(res);
-    });
+module.exports = (app) => {
+  app.get("/usuarios", (req, res) => {
+    Usuario.lista(res);
+  });
 
-    app.get("/usuarios/:id", (req, res) => {
-        const id = parseInt(req.params.id);
+  app.get("/usuarios/:id", (req, res) => {
+    const id = parseInt(req.params.id);
 
-        Usuario.buscarId(id, res);
-    });
+    Usuario.buscaPorId(id, res);
+  });
 
-    app.post("/usuarios", (req, res) => {
-        const criaUsuario = req.body;
+  app.post("/usuarios", (req, res) => {
+    const atendimento = req.body;
 
-        Usuario.adiciona(criaUsuario, res);
-    });
+    Usuario.adiciona(atendimento, res);
+  });
 
-    app.delete("/usuarios/:id", (req, res) => {
-        const id = parseInt(req.params.id);
+  app.put("/usuarios/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
 
-        Usuario.deleta(id, res);
-    });
-    
-    app.patch("/usuarios/:id", (req, res) => {
-        const id = parseInt(req.params.id);
-        const valores = req.body.valores;
+    Usuario.altera(id, valores, res);
+  });
 
-        Usuario.altera(id, valores, res);
-    });
+  app.delete("/usuarios/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+
+    Usuario.deleta(id, res);
+  });
 };
-
