@@ -1,12 +1,13 @@
 const conexao = require("../infraestrutura/conexao");
+// const fetch = require("node-fetch");
 
 class Usuario {
   listarUsuarios(res) {
     const sql = "SELECT * FROM las.usuario";
 
-    conexao.query(sql, (erro, response) => {
+    conexao.query(sql, (erro, results) => {
       if (erro) res.status(400).json({ error: erro });
-      else res.status(200).json(response);
+      else res.status(200).json(results);
     });
   }
 
@@ -32,7 +33,57 @@ class Usuario {
     });
   }
 
-  incluirUsuarios(retornoForm, res) {
+  validarURLFotoPerfil(retornoForm) {
+    const validadorUrl =
+      /https?:\/\/(www.)?randomuser.me\/api\/portraits\/[women]+\/\d+.jpg/gi;
+    const urlEhValida = validadorUrl.test(retornoForm);
+
+    if (urlEhValida) return true;
+    else return false;
+  }
+
+  validarNomeUsuarioNaoUtilizado(retornoForm) {
+    return new Promise((resolve, reject) => {
+      const sql = "SELECT * FROM las.usuario WHERE nome = ?";
+      conexao.query(sql, retornoForm.nome, (erro, results) => {
+        if (erro) {
+          return reject(erro);
+        }
+
+        return resolve(results);
+      });
+    });
+  }
+
+  async incluirUsuarios(retornoForm, res) {
+    const { validadeNome, erros } = this.verificaTamanhoNome(retornoForm);
+    const urlEhValida = await this.validarURLFotoPerfil(
+      retornoForm.urlFotoPerfil
+    );
+
+    const nomeExiste = await this.validarNomeUsuarioNaoUtilizado(retornoForm);
+
+    if (!validadeNome) {
+      res.status(400).json(erros);
+    } else if (!urlEhValida) {
+      res.status(400).json("url inválida");
+    } else if (nomeExiste.length) {
+      res.status(400).json("nome já existe na base de dados");
+    } else {
+      const sql = "INSERT INTO las.usuario SET ?";
+
+      conexao.query(sql, retornoForm, (erro) => {
+        if (erro) {
+          res.status(400).json({ error: erro });
+        } else {
+          res.status(200).json(retornoForm);
+          console.log(nomeExiste);
+        }
+      });
+    }
+  }
+
+  verificaTamanhoNome(retornoForm) {
     const nomeEhvalido = retornoForm.nome.length > 4;
 
     const erros = {
@@ -42,20 +93,7 @@ class Usuario {
     };
 
     const validadeNome = erros.valido;
-
-    if (!validadeNome) {
-      res.status(400).json(erros);
-    } else {
-      const sql = "INSERT INTO las.usuario SET ?";
-
-      conexao.query(sql, retornoForm, (erro) => {
-        if (erro) {
-          res.status(400).json({ error: erro });
-        } else {
-          res.status(200).json(retornoForm);
-        }
-      });
-    }
+    return { validadeNome, erros };
   }
 
   alterarUsuario(id, retornoForm, res) {

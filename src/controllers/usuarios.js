@@ -17,10 +17,10 @@ module.exports = (app) => {
     Usuario.buscaUsuarioPeloNome(nome, res);
   });
 
-  app.post("/usuarios", (req, res) => {
+  app.post("/usuarios", async (req, res) => {
     const retornoForm = req.body;
 
-    Usuario.incluirUsuarios(retornoForm, res);
+    await Usuario.incluirUsuarios(retornoForm, res);
   });
 
   app.put("/usuarios/:id", (req, res) => {

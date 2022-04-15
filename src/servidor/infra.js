@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 module.exports = () => {
   const app = express();
 
+  app.set("json spaces", 4);
+
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
