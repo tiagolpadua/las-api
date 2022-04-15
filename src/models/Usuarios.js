@@ -1,5 +1,6 @@
 const conexao = require("../infraestrutura/conexao");
-// const fetch = require("node-fetch");
+// const http = require("http");
+const fetch = require("node-fetch");
 
 class Usuario {
   listarUsuarios(res) {
@@ -33,13 +34,19 @@ class Usuario {
     });
   }
 
-  validarURLFotoPerfil(retornoForm) {
+  async validarURLFotoPerfil(retornoForm) {
     const validadorUrl =
       /https?:\/\/(www.)?randomuser.me\/api\/portraits\/[women]+\/\d+.jpg/gi;
     const urlEhValida = validadorUrl.test(retornoForm);
+    let response;
 
-    if (urlEhValida) return true;
-    else return false;
+    if (urlEhValida) {
+      response = await fetch(retornoForm);
+
+      if (response.status === 200) return response.status;
+    } else {
+      return false;
+    }
   }
 
   validarNomeUsuarioNaoUtilizado(retornoForm) {
