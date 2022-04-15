@@ -6,7 +6,7 @@ const Tabelas = require("./infraestrutura/Tabelas");
 
 const conexao = require("./infraestrutura/conexao");
 
-const port = 3000;
+const port = 3001;
 
 conexao.connect((erro) => {
   if (erro) console.log(erro);
