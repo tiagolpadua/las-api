@@ -1,15 +1,33 @@
 const Usuario = require("../models/usuarios");
 
 module.exports = (app) => {
-  app.post("/usuarios", (req, res) => {
-    const retornoForm = req.body;
-
-    Usuario.incluirUsuarios(retornoForm, res);
+  app.get("/usuarios", (req, res) => {
+    Usuario.listarUsuarios(res);
   });
 
   app.get("/usuarios/:id", (req, res) => {
     const id = parseInt(req.params.id);
 
     Usuario.buscaUsuario(id, res);
+  });
+
+  app.post("/usuarios", async (req, res) => {
+    const retornoForm = req.body;
+
+    await Usuario.incluirUsuarios(retornoForm, res);
+  });
+
+  app.put("/usuarios/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const retornoForm = req.body;
+
+    Usuario.alterarUsuario(id, retornoForm, res);
+  });
+
+  app.delete("/usuarios/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const retornoForm = req.body;
+
+    Usuario.excluirUsuario(id, retornoForm, res);
   });
 };

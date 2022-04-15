@@ -24,6 +24,27 @@ class Usuario {
       else res.status(200).json(retornoUsuario);
     });
   }
+
+  alterarUsuario(id, retornoForm, res) {
+    const sql = "UPDATE las.usuario SET ? WHERE id = ?";
+
+    conexao.query(sql, [retornoForm, id], (erro) => {
+      if (erro) {
+        res.status(400).json({ error: erro });
+      } else {
+        res.status(200).json(retornoForm);
+      }
+    });
+  }
+
+  excluirUsuario(id, retornoForm, res) {
+    const sql = "DELETE FROM las.usuario WHERE id = ?";
+
+    conexao.query(sql, id, (erro) => {
+      if (erro) res.status(400).json({ error: erro });
+      else res.status(200).json(retornoForm);
+    });
+  }
 }
 
 module.exports = new Usuario();
