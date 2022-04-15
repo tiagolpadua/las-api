@@ -1,22 +1,27 @@
 //controlar rotas
 const Usuarios = require("../models/usuarios");
 
-module.exports = app =>{
-      /*app.get("usuarios/:id", (req, res) => {
-          const id = parseInt(req.params.id);
+module.exports = app => {     
 
-        Usuario.buscarPorId(id, res);
-    }); // ENDPOINT BUSCANDO O USUARIO
+        app.get("/usuarios", (req, res) =>{
+        Usuarios.lista(res);
+        });
+        app.get("/usuarios/:id", (req, res) =>{
+            const id = parseInt(req.params.id);
+            Usuarios.buscaPorId(id, res);
+        });
+        app.delete("/usuarios/:id", (req,res) =>{
+            const id = parseInt(req.params.id);
+            Usuarios.deleta(id, res);
+        });
+        app.post("/usuarios", (req, res) =>{
+            const usuario = req.body;
+            Usuarios.adiciona(usuario, res);
 
-        app.post("/usuarios", (req, res) => {
-        const usuario = req.body;
-
-        Usuario.criacaoDeUsuario(usuario, res);
-    }); //ENDPOINT ADICIONANDO UM USUARIO*/
-
-    app.get("/usuarios", (req, res) =>{
-        Usuarios.listaDeUsuarios(res);
-    }); //ENDPOINT LISTA DE USUARIOS
-
-
+        });
+        app.patch("/usuarios/:id", (req, res) => {
+            const id = parseInt(req.params.id);
+                    
+            Usuarios.altera(id, res);
+        });
 };
