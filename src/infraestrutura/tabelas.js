@@ -2,18 +2,18 @@ class Tabelas {
   init(conexao) {
     this.conexao = conexao;
 
-    this.criarUsuario();
+    this.criarUsuarios();
   }
 
-  criarUsuario() {
-    const sql = `CREATE TABLE IF NOT EXISTS Usuario
+  criarUsuarios() {
+    const sql = `CREATE TABLE IF NOT EXISTS Usuarios
         (id int NOT NULL AUTO_INCREMENT, nome varchar(50) NOT NULL, urlFotoPerfil text, PRIMARY KEY(id))`;
 
     this.conexao.query(sql, (erro) => {
       if (erro) {
         console.log(erro);
       } else {
-        console.log("Sucesso...");
+        console.log("Tabela Usuarios criada com sucesso");
       }
     });
   }
