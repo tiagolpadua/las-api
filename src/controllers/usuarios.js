@@ -29,4 +29,10 @@ module.exports = (app) => {
 
     Usuario.deleta(id, res);
   });
+
+  app.get("/usuarios/nome/:nome", (req, res) => {
+    const nome = req.params.nome;
+
+    Usuario.buscaPorNome(nome, res);
+  });
 };
