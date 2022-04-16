@@ -1,16 +1,29 @@
-// const Usuario = require("../models/usuarios");
+const Usuario = require("../models/usuarios");
 
 module.exports = (app) => {
   app.get("/usuarios/:id", (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
 
-    res.send(`usuário de id ${id}`);
-  });
-  app.get("/", (req, res) => {
-    res.send("Olá Mundo!");
+    Usuario.buscaUsuario(id, res);
   });
 
   app.get("/usuarios", (req, res) => {
-    res.send("Rota de atendimentos");
+    Usuario.listaUsuarios(res);
+  });
+
+  app.post("/usuarios", (req, res) => {
+    const usuario = req.body;
+    Usuario.criaUsuario(usuario, res);
+  });
+
+  app.put("/usuarios/:id", (req, res) => {
+    const id = req.params.id;
+    const valores = req.body;
+    Usuario.alteraUsuario(id, valores, res);
+  });
+
+  app.delete("/usuarios/:id", (req, res) => {
+    const id = req.params.id;
+    Usuario.excluiUsuario(id, res);
   });
 };

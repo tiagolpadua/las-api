@@ -1,9 +1,9 @@
 const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
-const usuariosController = undefined; // require("./controllers/usuarios");
+const usuariosController = require("./controllers/usuarios");
 const Usuario = require("./models/usuarios");
 const nodemon = "nodemon";
-const consign = undefined; // require("consign");
+const consign = require("consign");
 
 const urlsGet = [];
 const urlsPost = [];
