@@ -59,6 +59,7 @@
     }
   },
   "dependencies": {
+    "consign": "^0.1.6",
     "express": "^4.17.3",
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.7",
