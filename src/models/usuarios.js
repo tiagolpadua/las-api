@@ -25,6 +25,42 @@ class Usuario {
       }
     });
   }
+
+  adiciona(usuario, res) {
+    const sql = "INSERT INTO usuarios SET ?";
+
+    conexao.query(sql, usuario, (erro) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(201).json(usuario);
+      }
+    });
+  }
+
+  atualiza(id, usuarioNovo, res) {
+    const sql = "UPDATE usuarios SET ? WHERE id = ?";
+
+    conexao.query(sql, [usuarioNovo, id], (erro) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json({ ...usuarioNovo, id });
+      }
+    });
+  }
+
+  deleta(id, res) {
+    const sql = "DELETE FROM usuarios WHERE id = ?";
+
+    conexao.query(sql, id, (erro) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json({ id });
+      }
+    });
+  }
 }
 
 module.exports = new Usuario();
