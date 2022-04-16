@@ -26,6 +26,19 @@ class Usuario {
     });
   }
 
+  buscaPorNome(nome, res) {
+    nome = "'%" + nome + "%'";
+    const sql = `SELECT * FROM usuarios WHERE nome LIKE ${nome}`;
+
+    conexao.query(sql, (erro, resultados) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json(resultados);
+      }
+    });
+  }
+
   adiciona(usuario, res) {
     const sql = "INSERT INTO usuarios SET ?";
 
