@@ -10,7 +10,7 @@ module.exports = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  consign({ verbose: true }).include("controllers").into(app);
+  consign({ verbose: true }).include("./src/controllers").into(app);
 
   return app;
 };
