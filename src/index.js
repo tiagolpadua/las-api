@@ -1,8 +1,8 @@
-const rotasUsuarios = require("./controllers/usuarios");
-const express = require("express");
+const customExpress = require("./config/customExpress");
 const conexao = require("./infraestrutura/conexao");
 const tabelas = require("./infraestrutura/tabelas");
-const app = express();
+
+const app = customExpress();
 const port = 3000;
 
 conexao.connect((erro) => {
@@ -11,10 +11,6 @@ conexao.connect((erro) => {
   } else {
     tabelas.init(conexao);
     console.log("Conexão com o BD realizada com sucesso");
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-    rotasUsuarios(app);
-
     app.listen(port, () => {
       console.log(`LAS-API ouvindo na porta: ${port}`);
     });
