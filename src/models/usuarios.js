@@ -41,6 +41,16 @@ class Usuario {
       }
     });
   }
+  deleta(id, res) {
+    const sql = "DELETE FROM usuarios WHERE id = ?";
+    conexao.query(sql, id, (erro, resultado) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json(resultado);
+      }
+    });
+  }
 }
 
 module.exports = new Usuario();
