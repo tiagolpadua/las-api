@@ -1,9 +1,17 @@
-const express = require("express");
-const app = express();
 const port = 3000;
+const conexao = require("./infraestrutura/conexao");
+const Tabelas = require("./infraestrutura/tabelas");
+const customExpress = require("./config/customExpress");
 
-app.get("/", (req, res) => {
-  res.send("Olá Mundo!");
+const app = customExpress();
+
+conexao.connect(erro => {
+  if(erro){
+    console.log(erro);
+  } else {
+    console.log("conectado");
+    Tabelas.init(conexao);
+  }
 });
 
 app.listen(port, () => {
