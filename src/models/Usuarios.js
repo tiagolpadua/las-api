@@ -36,17 +36,19 @@ class Usuario {
 
   async validarURLFotoPerfil(retornoForm) {
     const validadorUrl =
-      /https?:\/\/(www.)?randomuser.me\/api\/portraits\/[women]+\/\d+.jpg/gi;
+      /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/gi;
     const urlEhValida = validadorUrl.test(retornoForm);
-    let response;
 
     if (urlEhValida) {
-      response = await fetch(retornoForm);
-
-      if (response.status === 200) return response.status;
-    } else {
-      return false;
+      try {
+        const response = await fetch(retornoForm);
+        return response.status;
+      } catch (err) {
+        return false;
+      }
     }
+
+    return false;
   }
 
   validarNomeUsuarioNaoUtilizado(retornoForm) {
