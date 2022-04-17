@@ -11,6 +11,16 @@ class Usuario {
       }
     });
   }
+  adiciona(usuario, res) {
+    const sql = "INSERT INTO usuarios SET ?";
+    conexao.query(sql, usuario, (erro, resultado) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(201).json(resultado);
+      }
+    });
+  }
 }
 
 module.exports = new Usuario();
