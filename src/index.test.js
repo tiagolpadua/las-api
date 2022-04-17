@@ -1,4 +1,4 @@
-const conexao = undefined; // require("./infraestrutura/conexao");
+const conexao = require("./infraestrutura/conexao");
 const Tabelas = undefined; // require("./infraestrutura/tabelas");
 const usuariosController = undefined; // require("./controllers/usuarios");
 const Usuario = undefined; // require("./models/usuarios");
