@@ -1,18 +1,28 @@
 const conexao = require("../infraestrutura/conexao");
+ const fetch = require("node-fetch");
+
 
 class Usuario {
-  adiciona(usuario, res) {
+ async adiciona(usuario, res) {
     const sql = "INSERT INTO Usuarios SET ?";
+    const urlValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    const nomeValido = await this.validarNomeUsuarioNaoUtilizado(usuario.nome);
 
-    conexao.query(sql, usuario, (erro) => {
-      if (erro) {
-        console.log("Usuario não foi adcionado");
-        res.status(400).json(erro);
-      } else {
-        console.log("Usuário foi adicionado");
-        res.status(201).json(usuario);
-      }
-    });
+    if(!urlValida){
+      res.status(400).json("Url Inválida");
+    }else if(!nomeValido){
+      res.status(400).json("Nome Não Disponível");
+    }else{
+      conexao.query(sql, usuario, (erro) => {
+        if (erro) {
+          console.log("Usuario não foi adcionado");
+          res.status(400).json(erro);
+        } else {
+          console.log("Usuário foi adicionado");
+          res.status(201).json(usuario);
+        }
+      });
+    }
   }
 
   lista(res) {
@@ -40,6 +50,20 @@ class Usuario {
     });
   }
 
+  buscaPorNome(nome, res){
+    nome = "'%" + nome + "%'";
+
+    const sql = `SELECT * FROM usuarios WHERE nome LIKE ${nome}`;
+
+    conexao.query(sql, (erro, resultados) => {
+      if(erro){
+        res.status(400).json(erro);
+      }else{
+        res.status(200).json(resultados);
+      }
+    });
+  }
+
   altera(id, valores, res) {
     const sql = "UPDATE Atendimentos SET ? WHERE id=?";
 
@@ -63,6 +87,38 @@ class Usuario {
       }
     });
   }
+
+  async validarURLFotoPerfil(url){
+    try {
+      const expressao = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/.]))?/;
+
+      const regex = new RegExp(expressao);
+
+      if(url.match(regex)){
+        const res = await fetch(url);
+        return res.status == 200 ? true : false;
+      }else{
+        return false;
+      }
+    }catch(erro){
+      return false;
+    }
+  }
+
+  validarNomeUsuarioNaoUtilizado(nome){
+    const sql = "SELECT * FROM usuarios WHERE nome = ?";
+
+    return new Promise((resolve, reject) => {
+      conexao.query(sql, nome, (erro, resultado) => {
+        if(erro){
+          reject(erro);
+        }else{
+          resolve(resultado.length > 0 ? false : true);
+        }
+      });      
+    });
+  }
+
 }
 
 module.exports = new Usuario();
