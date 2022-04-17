@@ -9,7 +9,7 @@ conexao.connect(erro => {
   if(erro){
     console.log(erro);
   } else {
-    console.log("conectado");
+    console.log("Conectado");
     Tabelas.init(conexao);
   }
 });
