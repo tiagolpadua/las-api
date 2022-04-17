@@ -13,7 +13,7 @@ conexao.connect((erro) => {
   if (erro) {
     console.log(erro);
   } else {
-    console.log("conectado com sucesso");
+    console.log("Conectado com Sucesso");
 
     const app = customExpress();
 
