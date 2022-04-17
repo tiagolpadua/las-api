@@ -40,10 +40,10 @@ class Usuario {
     });
   }
 
-  adiciona(usuario, res) {
+  async adiciona(usuario, res) {
     const sql = "INSERT INTO usuarios SET ?";
 
-    if (this.validarURLFotoPerfil(usuario.urlFotoPerfil)) {
+    if (await this.validarURLFotoPerfil(usuario.urlFotoPerfil)) {
       conexao.query(sql, usuario, (erro) => {
         if (erro) {
           res.status(400).json(erro);
@@ -52,7 +52,7 @@ class Usuario {
         }
       });
     } else {
-      res.status(400);
+      res.status(400).json("Url Inválida");
     }
   }
 
