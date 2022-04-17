@@ -42,8 +42,14 @@ class Usuario {
 
   async adiciona(usuario, res) {
     const sql = "INSERT INTO usuarios SET ?";
+    const urlValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    const nomeValido = await this.validarNomeUsuarioNaoUtilizado(usuario.nome);
 
-    if (await this.validarURLFotoPerfil(usuario.urlFotoPerfil)) {
+    if (!urlValida) {
+      res.status(400).json("Url Inválida");
+    } else if (!nomeValido) {
+      res.status(400).json("Nome Não Disponível");
+    } else {
       conexao.query(sql, usuario, (erro) => {
         if (erro) {
           res.status(400).json(erro);
@@ -51,8 +57,6 @@ class Usuario {
           res.status(201).json(usuario);
         }
       });
-    } else {
-      res.status(400).json("Url Inválida");
     }
   }
 
@@ -96,6 +100,20 @@ class Usuario {
     } catch (error) {
       return false;
     }
+  }
+
+  validarNomeUsuarioNaoUtilizado(nome) {
+    const sql = "SELECT * FROM usuarios WHERE nome = ?";
+
+    return new Promise((resolve, reject) => {
+      conexao.query(sql, nome, (erro, resultados) => {
+        if (erro) {
+          reject(erro);
+        } else {
+          resolve(resultados.length > 0 ? false : true);
+        }
+      });
+    });
   }
 }
 
