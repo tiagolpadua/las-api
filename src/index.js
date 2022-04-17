@@ -10,6 +10,6 @@ conexao.connect((erro) => {
   } else {
     console.log("Conectado com Sucesso!");
     Tabelas.init(conexao);
-    app.listen(port, () => console.log("Servidor Rodando na porta 3000"));
+    app.listen(port, () => console.log(`Servidor Rodando na porta ${port}`));
   }
 });
