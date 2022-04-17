@@ -31,6 +31,16 @@ class Usuario {
       }
     });
   }
+  altera(id, usuario, res) {
+    const sql = "UPDATE usuarios SET ? WHERE id = ?";
+    conexao.query(sql, [usuario, id], (erro, resultado) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json(resultado);
+      }
+    });
+  }
 }
 
 module.exports = new Usuario();
