@@ -33,7 +33,6 @@
   "homepage": "https://github.com/tiagolpadua/las-api#readme",
   "devDependencies": {
     "body-parser": "^1.20.0",
-    "consign": "^0.1.6",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-config-standard": "^16.0.3",
@@ -41,7 +40,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^5.2.0",
-    "express": "^4.17.3",
     "jest": "^27.4.5",
     "nodemon": "^2.0.15",
     "pre-commit": "^1.2.2",
@@ -63,6 +61,8 @@
   },
   "dependencies": {
     "mysql": "^2.18.1",
+    "express": "^4.17.3",
+    "consign": "^0.1.6",
     "node-fetch": "^2.6.7",
     "sqlite3": "^5.0.2"
   }
