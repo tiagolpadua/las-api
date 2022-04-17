@@ -1,9 +1,9 @@
 const Usuario = require("../src/models/usuarios");
 
 module.exports = (app) => {
-  // app.get("/usuarios", (_req, res) => {
-  //   res.send("GET");
-  // });
+  app.get("/usuarios", (_req, res) => {
+    Usuario.lista(res);
+  });
 
   app.get("/usuarios/:id", (req, res) => {
     const id = parseInt(req.params.id);
