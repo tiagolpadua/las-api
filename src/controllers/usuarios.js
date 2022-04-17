@@ -1,4 +1,5 @@
 //controlar rotas
+
 const Usuarios = require("../models/usuarios");
 
 module.exports = app => {     
@@ -16,12 +17,19 @@ module.exports = app => {
         });
         app.post("/usuarios", (req, res) =>{
             const usuario = req.body;
+
             Usuarios.adiciona(usuario, res);
+        });
+        app.get("/usuarios/nome/:nome", (req, res) => {
+            const nome = req.params.nome;
+                    
+            Usuarios.buscaPorNome(nome, res);
 
         });
-        app.patch("/usuarios/:id", (req, res) => {
+        app.put("/usuarios/:id", (req, res) => {
             const id = parseInt(req.params.id);
+            const valores = req.body;
                     
-            Usuarios.altera(id, res);
+            Usuarios.altera(id, valores, res);
         });
 };
