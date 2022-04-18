@@ -10,7 +10,7 @@ module.exports = () => {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
-  consign({ verbose: true }).include("src/controllers").into(app);
+  consign().include("src/controllers").into(app);
 
   return app;
 };
