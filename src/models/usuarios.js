@@ -14,22 +14,25 @@ class Usuario {
         });
     }
     async adiciona(usuario, res){
-        const urlValida = await this.validarURLFotoPerfil(
-            usuario.urlFotoPerfil
-          );
+        const urlValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+        const nomeExistente = await this.validarNomeUsuarioNaoUtilizado(usuario.nome);
 
-        if(!urlValida) {
-            res.status(400).json("Url inválida");
+        if(nomeExistente){
+            res.status(400).json("Nome ja existente");
         } else {
+            if(!urlValida) {
+            res.status(400).json("Url inválida");
+            } else {
             const sql = "INSERT INTO usuarios SET ?";
 
             conexao.query(sql, usuario, (erro, resultado) => {
-                if(erro){
+                    if(erro){
                     res.status(400).json(erro);
-                } else {
+                    } else {
                     res.status(200).json(resultado);
-                }
-            });
+                    }
+                });
+            }   
         }
     }
     altera(id, valores, res){
@@ -96,6 +99,22 @@ class Usuario {
         } else{
             return false;
         }
+    }
+    validarNomeUsuarioNaoUtilizado(nome){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM usuarios WHERE NOME = ?";
+            conexao.query(sql, nome, (erro, resultado) => {
+            if(erro){
+                return reject(erro);
+            } else {
+                if(resultado.length > 0){
+                    return resolve(true);
+                } else {
+                    return resolve(false);
+                    }
+                }
+            });
+        });
     }    
 }
 
