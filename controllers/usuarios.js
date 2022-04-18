@@ -10,6 +10,11 @@ module.exports = (app) => {
     Usuario.buscaId(id, res);
   });
 
+  app.get("/usuarios/nome/:nome", (req, res) => {
+    const nome = req.params.nome;
+    Usuario.buscaNome(nome, res);
+  });
+
   app.post("/usuarios", (req, res) => {
     const usuario = req.body;
     Usuario.adiciona(usuario, res);
