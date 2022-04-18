@@ -8,7 +8,7 @@ module.exports = app => {
   app.get("/user/:id", (req, res) => {
     const id = parseInt(req.params.id);
 
-    User. searchById(id, res);
+    User.searchById(id, res);
   });
 
   app.post("/user", (req, res) =>{
@@ -18,9 +18,9 @@ module.exports = app => {
 
   app.patch("/user/:id", (req, res) => {
     const id = parseInt(req.params.id);
-    const valores = req.body;
+    const values = req.body;
 
-    User.alter(id, valores, res);
+    User.alter(id, values, res);
   });
 
   app.delete("/user/:id", (req, res) => {
