@@ -1,4 +1,4 @@
-const customExpress = require("../config/customExpress");
+const customExpress = require("./config/customExpress");
 const conection = require("../sql/conection");
 const Tables = require("../sql/tables");
 
