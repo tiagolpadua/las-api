@@ -1,4 +1,3 @@
-
 const conexao = require ("../infraestrutura/conexao");
 
 class Usuarios {
