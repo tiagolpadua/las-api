@@ -6,12 +6,11 @@ class User {
 
     const nameIsValid = user.name.length < 5;
     
-    const validations = 
-      {
+    const validations = {
         name: "user",
         valid: nameIsValid,
         message: "The name must be at least 5 characters long"
-      };
+    };
 
     const errorExist = validations.nameIsValid;
 
