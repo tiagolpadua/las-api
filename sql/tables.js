@@ -7,7 +7,7 @@ class Tables {
   
     createUser() {
       const sql =
-        "CREATE TABLE IF NOT EXISTS users (id integer NOT NULL AUTO INCREMENT, nome varchar(50) NOT NULL, urlFotoPerfil varchar(2083) NOT NULL, PRIMARY KEY(id))";
+        "CREATE TABLE IF NOT EXISTS users (id integer NOT NULL AUTO_INCREMENT, nome varchar(50) NOT NULL, urlFotoPerfil varchar(2083) NOT NULL, PRIMARY KEY(id))";
   
       this.conection.query(sql, (error) => {
         if (error) {
