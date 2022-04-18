@@ -1,5 +1,4 @@
-
-const conexao = require("../sql/conection");
+const conexao = require("../../sql/conection");
 
 class User {
   add(user, res) {

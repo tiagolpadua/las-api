@@ -7,7 +7,7 @@ module.exports = () => {
   app.use(express.urlencoded());
   app.use(express.json());
 
-  consign()
+  consign({ cwd: "src" })
     .include("controllers")
     .into(app);
     
