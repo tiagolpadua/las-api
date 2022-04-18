@@ -1,8 +1,8 @@
 
+const port = 3000;
 const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
 const customExpress = require("./config/customExpress");
-
 const app = customExpress();
 
 conexao.connect(erro => {
@@ -19,7 +19,7 @@ conexao.connect(erro => {
   }
 });
 
-const port = 3000;
+
 
 
 

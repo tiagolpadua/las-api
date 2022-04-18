@@ -4,7 +4,7 @@ const consign = require("consign");
 module.exports = () => {
     const app = express();
     consign()
-  .include("controllers")
+  .include("./src/controllers")
   .into(app);
 
     return app;

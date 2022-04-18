@@ -1,11 +1,11 @@
 class Tabelas {
     init(conexao) {
         this.conexao = conexao;
-        this.listaDeUsuarios();
+        this.criarUsuarios();
     }
 
-    listaDeUsuarios() {
-        const sql = "CREATE TABLE IF NOT EXISTS Usuários (id int NOT NULL AUTO_INCREMENT, nome varchar(100) NOT NULL, urlFotoPerfil varchar(150) NOT NULL, PRIMARY KEY(id))";
+    criarUsuarios() {
+        const sql = "CREATE TABLE IF NOT EXISTS Usuários (id int NOT NULL AUTO_INCREMENT, nome varchar(100) NOT NULL, urlFotoPerfil text, PRIMARY KEY(id))";
     
         this.conexao.query(sql, erro => {
             if(erro) {
