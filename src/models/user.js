@@ -4,15 +4,15 @@ const conexao = require("../sql/conection");
 class User {
   add(user, res) {
 
-    const nameIsValid = user.name.length < 5;
+    const isInvalidName = user.name.length < 5;
     
     const validations = {
         name: "user",
-        valid: nameIsValid,
+        valid: isInvalidName,
         message: "The name must be at least 5 characters long"
     };
 
-    const errorExist = validations.nameIsValid;
+    const errorExist = validations.isInvalidName;
 
 
     if(errorExist) {
