@@ -66,6 +66,31 @@ class Usuario {
       }
     });
   }
+
+  validarNomeUsuarioNaoUtilizado(nome, res, usuario) {
+    const sql = "SELECT * FROM usuarios WHERE nome = ?";
+    conexao.query(sql, nome, (erro, resultado) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        if (resultado.length > 0) {
+          res.send(`Usuário ${nome} já existe no banco de dados`);
+        } else {
+          adicionar(usuario, res);
+        }
+      }
+    });
+  }
+}
+function adicionar(usuario, res) {
+  const sql = "INSERT INTO usuarios SET ?";
+  conexao.query(sql, usuario, (erro, resultado) => {
+    if (erro) {
+      res.status(400).json(erro);
+    } else {
+      res.status(201).json(resultado);
+    }
+  });
 }
 
 module.exports = new Usuario();

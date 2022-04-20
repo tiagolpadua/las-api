@@ -17,7 +17,8 @@ module.exports = (app) => {
 
   app.post("/usuarios", (req, res) => {
     const usuario = req.body;
-    Usuario.adiciona(usuario, res);
+    const nome = req.body.nome;
+    Usuario.validarNomeUsuarioNaoUtilizado(nome, res, usuario);
   });
 
   app.put("/usuarios/:id", (req, res) => {
