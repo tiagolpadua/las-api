@@ -11,11 +11,11 @@ module.exports = (app) => {
     Usuario.buscaPorId(id, res);
   });
 
-  //   app.post("/atendimentos", (req, res) => {
-  //     const usuario = req.body;
+  app.post("/usuarios", (req, res) => {
+    const usuario = req.body;
 
-  //     Usuario.adiciona(usuario, res);
-  //   });
+    Usuario.adiciona(usuario, res);
+  });
 
   //   app.patch("/atendimentos/:id", (req, res) => {
   //     const id = parseInt(req.params.id);

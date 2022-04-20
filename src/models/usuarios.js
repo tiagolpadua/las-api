@@ -2,47 +2,36 @@
 const conexao = require("../infraestrutura/conexao");
 
 class Usuario {
-  // adiciona(usuario, res) {
-  //   const dataCriacao = moment().format("YYYY-MM-DD HH:mm:ss");
-  //   const data = moment(usuario.data, "DD/MM/YYYY").format(
-  //     "YYYY-MM-DD HH:mm:ss"
-  //   );
+  adiciona(usuario, res) {
+    const nomeEhValido = usuario.nome.length >= 5;
 
-  //   const dataEhValida = moment(data).isSameOrAfter(dataCriacao);
-  //   const clienteEhValido = usuario.cliente.length >= 5;
+    const validacoes = [
+      {
+        nome: "nome",
+        valido: nomeEhValido,
+        mensagem: "Nome deve ter pelo menos cinco caracteres",
+      },
+    ];
 
-  //   const validacoes = [
-  //     {
-  //       nome: "data",
-  //       valido: dataEhValida,
-  //       mensagem: "Data deve ser maior ou igual a data atual",
-  //     },
-  //     {
-  //       nome: "cliente",
-  //       valido: clienteEhValido,
-  //       mensagem: "Cliente deve ter pelo menos cinco caracteres",
-  //     },
-  //   ];
+    const erros = validacoes.filter((campo) => !campo.valido);
+    const existemErros = erros.length;
 
-  //   const erros = validacoes.filter((campo) => !campo.valido);
-  //   const existemErros = erros.length;
+    if (existemErros) {
+      res.status(400).json(erros);
+    } else {
+      const usuarioObj = { ...usuario };
 
-  //   if (existemErros) {
-  //     res.status(400).json(erros);
-  //   } else {
-  //     const atendimentoDatado = { ...usuario, dataCriacao, data };
+      const sql = "INSERT INTO Usuarios SET ?";
 
-  //     const sql = "INSERT INTO atendimentos SET ?";
-
-  //     conexao.query(sql, atendimentoDatado, (erro, resultados) => {
-  //       if (erro) {
-  //         res.status(400).json(erro);
-  //       } else {
-  //         res.status(201).json(usuario);
-  //       }
-  //     });
-  //   }
-  // }
+      conexao.query(sql, usuarioObj, (erro) => {
+        if (erro) {
+          res.status(400).json(erro);
+        } else {
+          res.status(201).json(usuario);
+        }
+      });
+    }
+  }
 
   lista(res) {
     const sql = "SELECT * FROM usuarios";
