@@ -17,7 +17,7 @@ class Usuarios {
     async adiciona(usuario, res) {
 
         var idUsuario  = await this.validarNomeUsuarioNaoUtilizado(usuario.nome); 
-        var urlUsusario = await this.validaUrlFoto(usuario.urlFotoPerfil); 
+        var urlUsusario = await this.validarURLFotoPerfil(usuario.urlFotoPerfil); 
         
         if(urlUsusario == false)   {
             res.status(400).json("URL Inválida.");
@@ -112,7 +112,7 @@ class Usuarios {
           });
         });
     }
-    async validaUrlFoto(urlFoto) {
+    async validarURLFotoPerfil(urlFoto) {
         const expressao =/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi;
         const regex = new RegExp(expressao);
         if (!urlFoto.match(regex)) {
