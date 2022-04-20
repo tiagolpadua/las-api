@@ -1,4 +1,5 @@
 //const moment = require("moment");
+const fetch = require("node-fetch");
 const conexao = require("../infraestrutura/conexao");
 
 class Usuario {
@@ -94,6 +95,29 @@ class Usuario {
         res.status(200).json({ id });
       }
     });
+  }
+
+  // validaUrl2(url, res) {
+  //   var expression =
+  //     /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
+  //   var regex = new RegExp(expression);
+  // }
+
+  async validarURLFotoPerfil(url) {
+    const regex =
+      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
+    var urlValida = regex.test(url);
+    let statusCodeUrl;
+    if (urlValida) {
+      try {
+        statusCodeUrl = await fetch(url);
+        return statusCodeUrl.status === 200 ? true : false;
+      } catch (e) {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 }
 
