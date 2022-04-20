@@ -35,7 +35,7 @@ class Tabelas {
     );
   }
 
-  static deletarUsuario({ body: { id } }, res) {
+  static deletarUsuario({ params: { id } }, res) {
     Tabelas.conexao.query(getQuery("delete.user.byID"), [id], (...params) =>
       solve(params, res)
     );
