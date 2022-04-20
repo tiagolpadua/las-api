@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/tiagolpadua/las-api#readme",
   "devDependencies": {
+    "consign": "^0.1.6",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-config-standard": "^16.0.3",
@@ -60,7 +61,7 @@
     }
   },
   "dependencies": {
-    "consign": "^0.1.6",
+    "body-parser": "^1.19.2",
     "express": "^4.17.3",
     "node-fetch": "^2.6.7",
     "sqlite3": "^5.0.2"

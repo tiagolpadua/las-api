@@ -1,7 +1,7 @@
 const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
-const usuariosController = undefined; // require("./controllers/usuarios");
-const Usuario = undefined; // require("./models/usuarios");
+const usuariosController = require("./controllers/usuarios");
+const Usuario = require("./models/usuarios");
 const nodemon = require("nodemon");
 const consign = require("consign");
 
