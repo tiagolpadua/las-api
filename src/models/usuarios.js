@@ -1,7 +1,5 @@
 const conexao = require ("../infraestrutura/conexao");
 const fetch = require("node-fetch");
-//const response = require("express/lib/response");
-
 
 class Usuarios {
     lista(res){
