@@ -19,8 +19,13 @@ module.exports = (app) => {
 
   app.post("/usuarios", (req, res) => {
     const usuario = req.body;
+    //var nomeValido = Usuario.validarNomeUsuarioNaoUtilizado(usuario.nome);
 
+    // if (nomeValido) {
     Usuario.adiciona(usuario, res);
+    //} else {
+    // return res.send("Nome de usuario já cadastrado");
+    // }
   });
 
   app.put("/usuarios/:id", (req, res) => {

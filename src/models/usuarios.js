@@ -119,6 +119,26 @@ class Usuario {
       return false;
     }
   }
+
+  validarNomeUsuarioNaoUtilizado(nome) {
+    return new Promise((resolve, reject) => {
+      const sql = `SELECT * FROM usuarios WHERE nome = '${nome}'`;
+
+      conexao.query(sql, (erro, resultados) => {
+        const tamanhoNomeValido = resultados.length > 0;
+        if (erro) {
+          //res.status(400).json(erro);
+          return reject(erro);
+        } else {
+          if (tamanhoNomeValido) {
+            return resolve(true);
+          } else {
+            return resolve(false);
+          }
+        }
+      });
+    });
+  }
 }
 
 module.exports = new Usuario();
