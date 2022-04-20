@@ -40,6 +40,11 @@ class Tabelas {
       solve(params, res)
     );
   }
+  
+  static atualizarUsuario({body: { nome, urlFotoPerfil }, params: { id }}, res) {
+    const param = nome ?? urlFotoPerfil;
+    Tabelas.conexao.query(getQuery("update.users.name"), [param, id], (...params) => solve(params, res));
+  }
 }
 
 module.exports = Tabelas;

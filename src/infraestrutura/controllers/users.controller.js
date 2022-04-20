@@ -23,7 +23,8 @@ module.exports = (app) => {
    *  @params {id: number}
    **/
   app.delete("/users/:id?", Tabelas.deletarUsuario);
-
+  
+  app.patch("/users/:id?", Tabelas.atualizarUsuario);
   /** Deletar usuários
    *  @params {id: number}
    **/
