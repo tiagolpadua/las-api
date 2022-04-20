@@ -1,4 +1,7 @@
 const conexao = require ("../infraestrutura/conexao");
+const fetch = require("node-fetch");
+//const response = require("express/lib/response");
+
 
 class Usuarios {
     lista(res){
@@ -10,6 +13,33 @@ class Usuarios {
                 res.status(200).json(resultados);
             }
         });
+    }
+    async adiciona(usuario, res) {
+
+        var idUsuario  = await this.validarNomeUsuarioNaoUtilizado(usuario.nome); 
+        var urlUsusario = await this.validaUrlFoto(usuario.urlFotoPerfil); 
+        
+        if(urlUsusario == false)   {
+            res.status(400).json("URL Inválida.");
+                
+        }else if (idUsuario > 0){
+            res.status(400).json(`Usuário ${usuario.nome} já está cadastrado com o id ${idUsuario}.`);
+
+        }else{
+            const sql = "INSERT INTO Usuarios SET ?";
+            if(usuario.nome.length < 3) {
+                res.status(400).json("O Nome do usuário dever ter mais do 3 caracteres");
+            }else{
+                conexao.query(sql, usuario, (erro) => {
+                if(erro) {
+                    res.status(400).json(erro);
+                } else {
+                    res.status(200).json(usuario);
+                }
+            });
+            }
+            
+        }
     }
     
     buscaPorId(id, res){
@@ -36,27 +66,8 @@ class Usuarios {
                 res.status(200).json({id});
             } 
         });
-    }
+    }   
 
-   async adiciona(usuario, res) {
-
-        var idUsuario  = await this.validarNomeUsuarioNaoUtilizado(usuario.nome);        
-        if (idUsuario > 0){
-            res.status(400).json(`Usuário ${usuario.nome} cadastrado com o id ${idUsuario}.`);
-        }else{
-            const sql = "INSERT INTO Usuarios SET ?";        
-
-            conexao.query(sql, usuario, (erro) => {
-                if(erro) {
-                    res.status(400).json(erro);
-                } else {
-                    res.status(200).json(usuario);
-                }
-            });
-        }
-
-        
-    }
     altera(id, valores, res) {
         
         const sql = "UPDATE Usuarios SET ? WHERE id=?";
@@ -68,9 +79,7 @@ class Usuarios {
                 res.status(200).json({...valores, id});
             }
         });
-    
     }
-
 
     buscaPorNome(nome,res){
         const sql = `SELECT * FROM Usuarios WHERE nome like "%${nome}%"`;
@@ -99,8 +108,31 @@ class Usuarios {
                     resolve(0);
                 }                                        
             }
+        
           });
         });
-      }
+    }
+    async validaUrlFoto(urlFoto) {
+        const expressao =/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi;
+        const regex = new RegExp(expressao);
+        if (!urlFoto.match(regex)) {
+            return false;
+        }
+        
+        try{
+            const response = await fetch(urlFoto, { method: "HEAD"});
+          if(response.status == 200){
+              return true; 
+          }else{
+              return false;
+          }
+        
+        }catch{
+            return false;
+        }                 
+    }
 }
+    
+
+
 module.exports = new Usuarios;
