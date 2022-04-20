@@ -58,22 +58,17 @@ class Usuario {
     });
   }
 
-  // altera(id, valores, res) {
-  //   if (valores.data) {
-  //     valores.data = moment(valores.data, "DD/MM/YYYY").format(
-  //       "YYYY-MM-DD HH:mm:ss"
-  //     );
-  //   }
-  //   const sql = "UPDATE atendimentos SET ? WHERE id =?";
+  altera(id, valores, res) {
+    const sql = "UPDATE usuarios SET ? WHERE id =?";
 
-  //   conexao.query(sql, [valores, id], (erro, resultados) => {
-  //     if (erro) {
-  //       res.status(400).json(erro);
-  //     } else {
-  //       res.status(200).json({ ...valores, id });
-  //     }
-  //   });
-  // }
+    conexao.query(sql, [valores, id], (erro) => {
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json({ ...valores, id });
+      }
+    });
+  }
 
   // deleta(id, res) {
   //   const sql = "DELETE FROM atendimentos WHERE id = ?";

@@ -17,12 +17,12 @@ module.exports = (app) => {
     Usuario.adiciona(usuario, res);
   });
 
-  //   app.patch("/atendimentos/:id", (req, res) => {
-  //     const id = parseInt(req.params.id);
-  //     const valores = req.body;
+  app.put("/usuarios/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
 
-  //     Usuario.altera(id, valores, res);
-  //   });
+    Usuario.altera(id, valores, res);
+  });
 
   //   app.delete("/atendimentos/:id", (req, res) => {
   //     const id = parseInt(req.params.id);
