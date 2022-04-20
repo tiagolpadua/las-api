@@ -1,4 +1,5 @@
 const { getQuery, solve } = require("../utils/functions");
+const validarUrl = require("../utils/validarUrl");
 
 class Tabelas {
   static conexao = null;
@@ -15,6 +16,10 @@ class Tabelas {
     );
   }
 
+  static checarDuplicatas(req, res){
+    //
+  }
+
   static buscarUsuariosPorId({ params: { id } }, res) {
     Tabelas.conexao.query(getQuery("get.user.byID"), [id], (...params) =>
       solve(params, res)
@@ -28,6 +33,9 @@ class Tabelas {
   }
 
   static cadastrarUsuario({ body: { nome, urlFotoPerfil } }, res) {
+    if (!validarUrl(urlFotoPerfil)) {
+      return res.status(400).send("Parâmetro inválido"); 
+    }
     Tabelas.conexao.query(
       getQuery("insert.user"),
       [nome, urlFotoPerfil],
@@ -40,10 +48,16 @@ class Tabelas {
       solve(params, res)
     );
   }
-  
-  static atualizarUsuario({body: { nome, urlFotoPerfil }, params: { id }}, res) {
-    const param = nome ?? urlFotoPerfil;
-    Tabelas.conexao.query(getQuery("update.users.name"), [param, id], (...params) => solve(params, res));
+
+  static atualizarUsuario({ body: { nome, urlFotoPerfil }, params: { id } },res) {
+    if(!validarUrl(urlFotoPerfil)){
+      return res.status(400).send("Parâmetro inválido");
+    }
+    Tabelas.conexao.query(
+      getQuery("update.users.data"),
+      [nome, urlFotoPerfil, id],
+      (...params) => solve(params, res)
+    );
   }
 }
 
