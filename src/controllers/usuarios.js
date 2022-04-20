@@ -24,9 +24,9 @@ module.exports = (app) => {
     Usuario.altera(id, valores, res);
   });
 
-  //   app.delete("/atendimentos/:id", (req, res) => {
-  //     const id = parseInt(req.params.id);
+  app.delete("/usuarios/:id", (req, res) => {
+    const id = parseInt(req.params.id);
 
-  //     Usuario.deleta(id, res);
-  //   });
+    Usuario.deleta(id, res);
+  });
 };
