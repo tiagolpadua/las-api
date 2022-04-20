@@ -1,1 +1,1 @@
-SELECT * FROM users WHERE nome like "%"?"%"
+SELECT * FROM Users WHERE nome like "%"?"%"

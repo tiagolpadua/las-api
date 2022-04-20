@@ -1,1 +1,1 @@
-INSERT INTO users (nome, urlFotoPerfil) VALUES (?, ?)
+INSERT INTO Users (nome, urlFotoPerfil) VALUES (?, ?)
