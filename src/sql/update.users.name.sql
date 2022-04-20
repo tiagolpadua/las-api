@@ -1,1 +1,0 @@
-UPDATE Users SET nome = ? WHERE id = ?;

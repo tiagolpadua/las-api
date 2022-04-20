@@ -1,0 +1,1 @@
+UPDATE Users SET nome = ?, urlFotoPerfil = ? WHERE id = ?;
