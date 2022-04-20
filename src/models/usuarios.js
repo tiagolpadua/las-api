@@ -58,6 +58,20 @@ class Usuario {
     });
   }
 
+  buscaPorNome(nome, res) {
+    // const idUsuario = `SELECT id FROM usuarios WHERE nome like '%${nome}%'`;
+    const sql = `SELECT * FROM usuarios WHERE nome LIKE '%${nome}%'`;
+
+    conexao.query(sql, [nome], (erro, resultados) => {
+      const usuario = resultados[0];
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json(usuario);
+      }
+    });
+  }
+
   altera(id, valores, res) {
     const sql = "UPDATE usuarios SET ? WHERE id =?";
 

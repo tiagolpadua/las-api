@@ -11,6 +11,12 @@ module.exports = (app) => {
     Usuario.buscaPorId(id, res);
   });
 
+  app.get("/usuarios/nome/:nome", (req, res) => {
+    const nome = req.params.nome;
+    //console.log(">>>>>>>" + nome);
+    Usuario.buscaPorNome(nome, res);
+  });
+
   app.post("/usuarios", (req, res) => {
     const usuario = req.body;
 
