@@ -6,9 +6,9 @@ module.exports = app => {
         Usuario.buscaPorId(id, res);
     });
 
-    app.post("/usuarios", async (req, res) => {
+    app.post("/usuarios", (req, res) => {
         const usuario = req.body;
-        await Usuario.adicionar(usuario, res);
+       Usuario.adicionar(usuario, res);
      });
 
      app.put("/usuarios/:id", (req, res) => {
@@ -26,5 +26,8 @@ module.exports = app => {
         Usuario.deleta(id, res);
       });
 
-    
+      app.get("/usuarios/nome/:nome", (req,res) => {
+        const nome = req.params.nome;
+        Usuario.buscaPorNome(nome, res);
+    });   
     };

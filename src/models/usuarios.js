@@ -72,6 +72,18 @@ class Usuario {
     });
   }
 
+  buscaPorNome(nome,res){
+    const sql = `SELECT * FROM Usuarios WHERE nome like '%${nome}%' `;
+
+    conexao.query(sql, (erro, resultados) => {
+        if(erro){
+            res.status(400).json(erro);
+        }else{
+            res.status(200).json(resultados);
+        }
+    });
+}
+
 }
 
 module.exports = new Usuario;
