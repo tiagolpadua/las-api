@@ -60,16 +60,37 @@ class Usuario {
     }
   }
 
-  atualiza(id, usuarioNovo, res) {
+  async atualiza(id, usuarioNovo, res) {
     const sql = "UPDATE usuarios SET ? WHERE id = ?";
+    const urlValida = await this.validarURLFotoPerfil(
+      usuarioNovo.urlFotoPerfil
+    );
 
-    conexao.query(sql, [usuarioNovo, id], (erro) => {
-      if (erro) {
-        res.status(400).json(erro);
-      } else {
-        res.status(200).json({ ...usuarioNovo, id });
-      }
-    });
+    if (urlValida) {
+      // Verifica se nome é válido
+      // (Próprio nome do usuario a ser atualizado ou nome não cadastrado)
+      const sqlBusca = "SELECT * FROM usuarios WHERE nome = ?";
+
+      conexao.query(sqlBusca, usuarioNovo.nome, (erro, resBusca) => {
+        if (erro) {
+          res.status(400).json(erro);
+        } else {
+          if (resBusca.length == 0 || resBusca[0].id == id) {
+            conexao.query(sql, [usuarioNovo, id], (erro) => {
+              if (erro) {
+                res.status(400).json(erro);
+              } else {
+                res.status(200).json({ ...usuarioNovo, id });
+              }
+            });
+          } else {
+            res.status(400).json("Nome Não Disponível");
+          }
+        }
+      });
+    } else {
+      res.status(400).json("Url Inválida");
+    }
   }
 
   deleta(id, res) {
