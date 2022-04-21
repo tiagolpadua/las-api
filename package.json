@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "jest",
     "test:essencial": "jest -t Essencial --coverage=false",
     "test:desejavel": "jest -t Desejável --coverage=false",
@@ -46,7 +47,7 @@
     "lint"
   ],
   "jest": {
-    "collectCoverage": true,
+    "collectCoverage": false,
     "collectCoverageFrom": [
       "./src/**"
     ],
@@ -57,6 +58,7 @@
     }
   },
   "dependencies": {
+    "express": "^4.17.3",
     "node-fetch": "^2.6.7",
     "sqlite3": "^5.0.2"
   }
