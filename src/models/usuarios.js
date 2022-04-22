@@ -5,11 +5,6 @@ const conexao = require("../infraestrutura/conexao");
 class Usuario {
   adiciona(usuario, res) {
     const nomeEhValido = usuario.nome.length >= 5;
-    console.log(nomeEhValido);
-    //const sqlUsuario = `SELECT nome FROM usuarios WHERE nome = '${usuario.nome}'`;
-    //const usuarioExiste = Usuario.validarNomeUsuarioNaoUtilizado(usuario.nome);
-
-    //console.log(usuarioExiste);
     if (!nomeEhValido) {
       res.status(400).send("Nome deve ter pelo menos cinco caracteres");
     } else {
@@ -117,7 +112,6 @@ class Usuario {
     try {
       const promiseFy = new Promise((resolve, reject) => {
         const sql = `SELECT nome FROM usuarios WHERE nome = '${userName}'`;
-        console.log("Usuario: " + userName);
 
         conexao.query(sql, (erro, resultados) => {
           if (erro) {

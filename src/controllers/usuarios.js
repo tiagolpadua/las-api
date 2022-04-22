@@ -13,7 +13,6 @@ module.exports = (app) => {
 
   app.get("/usuarios/nome/:nome", (req, res) => {
     const nome = req.params.nome;
-    //console.log(">>>>>>>" + nome);
     Usuario.buscaPorNome(nome, res);
   });
 
@@ -23,7 +22,7 @@ module.exports = (app) => {
     const usuarioValido = await Usuario.validarNomeUsuarioNaoUtilizado(
       usuario.nome
     );
-    console.log("Usuario valido: ", usuarioValido);
+
     if (usuarioValido?.length || usuarioValido === null) {
       return res.status(400).send("Nome de usuário já cadastrado.");
     }
