@@ -5,20 +5,13 @@ const conexao = require("../infraestrutura/conexao");
 class Usuario {
   adiciona(usuario, res) {
     const nomeEhValido = usuario.nome.length >= 5;
+    console.log(nomeEhValido);
+    //const sqlUsuario = `SELECT nome FROM usuarios WHERE nome = '${usuario.nome}'`;
+    //const usuarioExiste = Usuario.validarNomeUsuarioNaoUtilizado(usuario.nome);
 
-    const validacoes = [
-      {
-        nome: "nome",
-        valido: nomeEhValido,
-        mensagem: "Nome deve ter pelo menos cinco caracteres",
-      },
-    ];
-
-    const erros = validacoes.filter((campo) => !campo.valido);
-    const existemErros = erros.length;
-
-    if (existemErros) {
-      res.status(400).json(erros);
+    //console.log(usuarioExiste);
+    if (!nomeEhValido) {
+      res.status(400).send("Nome deve ter pelo menos cinco caracteres");
     } else {
       const usuarioObj = { ...usuario };
 
@@ -120,25 +113,24 @@ class Usuario {
     }
   }
 
-  validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM usuarios WHERE nome = '${nome}'`;
+  async validarNomeUsuarioNaoUtilizado(userName) {
+    try {
+      const promiseFy = new Promise((resolve, reject) => {
+        const sql = `SELECT nome FROM usuarios WHERE nome = '${userName}'`;
+        console.log("Usuario: " + userName);
 
-      conexao.query(sql, (erro, resultados) => {
-        const tamanhoNomeValido = resultados.length > 0;
-        if (erro) {
-          //res.status(400).json(erro);
-          return reject(erro);
-        } else {
-          if (tamanhoNomeValido) {
-            return resolve(true);
-          } else {
-            return resolve(false);
+        conexao.query(sql, (erro, resultados) => {
+          if (erro) {
+            reject(erro);
           }
-        }
+          resolve(resultados);
+        });
       });
-    });
+      return await promiseFy;
+    } catch (erro) {
+      console.log(erro.message);
+      return null;
+    }
   }
 }
-
 module.exports = new Usuario();

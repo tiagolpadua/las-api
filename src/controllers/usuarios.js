@@ -17,15 +17,17 @@ module.exports = (app) => {
     Usuario.buscaPorNome(nome, res);
   });
 
-  app.post("/usuarios", (req, res) => {
+  app.post("/usuarios", async (req, res) => {
     const usuario = req.body;
-    //var nomeValido = Usuario.validarNomeUsuarioNaoUtilizado(usuario.nome);
 
-    // if (nomeValido) {
+    const usuarioValido = await Usuario.validarNomeUsuarioNaoUtilizado(
+      usuario.nome
+    );
+    console.log("Usuario valido: ", usuarioValido);
+    if (usuarioValido?.length || usuarioValido === null) {
+      return res.status(400).send("Nome de usuário já cadastrado.");
+    }
     Usuario.adiciona(usuario, res);
-    //} else {
-    // return res.send("Nome de usuario já cadastrado");
-    // }
   });
 
   app.put("/usuarios/:id", (req, res) => {
