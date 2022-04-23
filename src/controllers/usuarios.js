@@ -30,4 +30,8 @@ module.exports = (app) => {
         const id = req.id;
         Usuario.excluirUsuario(id, res);
     });
+
+    app.get("/usuarios/nome/:nome", (req, res) => {
+        Usuario.buscaPorNome(req.nome, res);
+    });
 };
