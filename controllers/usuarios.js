@@ -18,6 +18,8 @@ module.exports = (app) => {
   app.post("/usuarios", (req, res) => {
     const usuario = req.body;
     const nome = req.body.nome;
+    const url = req.body.urlFotoPerfil;
+    Usuario.validarURLFotoPerfil(url);
     Usuario.validarNomeUsuarioNaoUtilizado(nome, res, usuario);
   });
 

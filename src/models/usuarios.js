@@ -1,4 +1,5 @@
 const conexao = require("../infraestrutura/conexao");
+const fetch = require("node-fetch");
 
 class Usuario {
   buscaId(id, res) {
@@ -80,6 +81,20 @@ class Usuario {
         }
       }
     });
+  }
+
+  validarURLFotoPerfil(url) {
+    async function validaUrl(url) {
+      try {
+        const resposta = await fetch(url);
+        if (resposta.status === 200) {
+          return true;
+        }
+      } catch (erro) {
+        return false;
+      }
+    }
+    return validaUrl(url);
   }
 }
 function adicionar(usuario, res) {
