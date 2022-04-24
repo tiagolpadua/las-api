@@ -28,15 +28,22 @@ class Usuario {
 });
 }
 
-    adiciona(usuario, res) {
-    const sql = "INSERT INTO usuarios SET ?";
-    conexao.query(sql, usuario, (erro) => {
-      if (erro) {
-        res.status(400).json(erro);
+    async adiciona(usuario, res) {
+    
+      const validaNome = await this.validarNomeUsuarioNaoUtilizado(usuario.nome);
+      const sql = "INSERT INTO usuarios SET ?";
+
+      if(!validaNome){
+        res.status(400).json("Nome já cadastrado");
       } else {
-        res.status(200).json(usuario);
-      }
-    });
+        conexao.query(sql, usuario,(erro,resultados) => {
+          if(erro){
+            res.status(400).json(erro);
+          }else{
+            res.status(201).json(resultados);
+          }
+        });
+      } 
   }
 
   atualiza(id, usuarioAlterado, res) {
@@ -83,6 +90,23 @@ class Usuario {
         }
     });
 }
+
+  validarNomeUsuarioNaoUtilizado(nome){
+    return new Promise((res,err) => {
+      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
+      conexao.query(sql, nome, (erro, resultado) => {
+        if(erro){
+          err(erro);
+        }else{
+          if(resultado.length > 0){
+            resultado(false);
+          }else{
+            resultado(true);
+          }
+        }
+      });
+    });
+  }
 
 }
 
