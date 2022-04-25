@@ -1,5 +1,5 @@
 const conexao = require("../infraestrutura/conexao");
-const https = require("https");
+const fetch = require("node-fetch");
 
 class Usuario {
   buscaUsuario(id, res) {
@@ -82,15 +82,24 @@ class Usuario {
     });
   }
 
-  async validarURLFotoPerfil(urlFotoPerfil) {
+  validaResourceUrl(urlFotoPerfil) {
     var expressao = /(https?:\/\/.*\.(?:png|jpg))/i;
     var regex = new RegExp(expressao);
 
-    if (urlFotoPerfil.match(regex)) {
-      await https.get(urlFotoPerfil, (resp) => {
-        console.log(resp.statusCode);
-      });
+    return urlFotoPerfil.match(regex);
+  }
+
+  async validarURLFotoPerfil(urlFotoPerfil) {
+    try {
+      const resposta = await fetch(urlFotoPerfil);
+      if (resposta.status === 200) {
+        return true;
+      }
+    } catch (erro) {
+      return false;
     }
+
+    return this.validaResourceUrl(urlFotoPerfil);
   }
 
   validarNomeUsuarioNaoUtilizado(nome) {
