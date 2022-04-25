@@ -26,4 +26,10 @@ module.exports = (app) => {
     const id = req.params.id;
     Usuario.excluiUsuario(id, res);
   });
+
+  app.get("/usuarios/nome/:nome", (req, res) => {
+    const nome = req.params.nome;
+
+    Usuario.buscaUsuarioPeloNome(nome, res);
+  });
 };

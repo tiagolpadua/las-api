@@ -12,7 +12,7 @@ conexao.connect((erro) => {
   if (erro) {
     console.log(erro);
   } else {
-    console.log("conecção estabelecida");
+    console.log("conexão estabelecida");
     Tabelas.init(conexao);
   }
 });

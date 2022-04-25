@@ -1,4 +1,7 @@
+const { status, get } = require("express/lib/response");
 const conexao = require("../infraestrutura/conexao");
+const res = require("express/lib/response");
+const https = require("https");
 
 class Usuario {
   buscaUsuario(id, res) {
@@ -63,6 +66,45 @@ class Usuario {
         res.status(400).json(erro);
       } else {
         res.status(200).json(usuarios);
+      }
+    });
+  }
+
+  buscaUsuarioPeloNome(nome, res) {
+    const sql = `SELECT * FROM Usuarios WHERE nome like %${nome}%`;
+
+    conexao.query(sql, nome, (erro, resultados) => {
+      const usuarios = resultados[0];
+
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json(usuarios);
+      }
+    });
+  }
+
+  async validarURLFotoPerfil(urlFotoPerfil) {
+    var expressao = /(https?:\/\/.*\.(?:png|jpg))/i;
+    var regex = new RegExp(expressao);
+
+    if (urlFotoPerfil.match(regex)) {
+      const response = https.get(urlFotoPerfil, (resp) => {
+        return resp.statusCode == "200";
+      });
+    }
+  }
+
+  validarNomeUsuarioNaoUtilizado(nome) {
+    const sql = "SELECT nome FROM Usuarios WHERE nome = ?";
+
+    conexao.query(sql, nome, (erro, resultados) => {
+      const usuario = resultados[0];
+
+      if (usuario.nome === nome) {
+        return undefined;
+      } else {
+        return "usuário pode ser criado";
       }
     });
   }
