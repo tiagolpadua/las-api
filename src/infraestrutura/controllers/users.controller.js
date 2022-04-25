@@ -12,7 +12,10 @@ module.exports = (app) => {
   /** Buscar usuários por nome
    *  @params { nome: String }
    **/
-  app.get("/users/nome/:nome?", Tabelas.buscarUsuariosPorNome);
+  app.get("/users/nome/:nome?", (req, res) => {
+    const { nome } = req.params;
+    Tabelas.buscarUsuariosPorNome(nome, req, res);
+  });
 
   /** Criar usuários
    *  @params { nome: String, urlFotoPerfil: String  }
