@@ -1,11 +1,9 @@
-const express = require("express");
-const app = express();
+const customExpress = require("./config/customExpress");
+const app = customExpress();
 const Tabelas = require("./infraestrutura/tabelas");
 const conexao = require("./infraestrutura/conexao");
-const consign = require("consign");
-const port = 3000;
 
-consign().include("src/controllers").into(app);
+const port = 3000;
 
 conexao.connect((erro) => {
   if (erro) {
