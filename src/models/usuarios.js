@@ -6,26 +6,31 @@ class Usuario {
     const sql = "SELECT * FROM Usuarios WHERE id=?";
 
     conexao.query(sql, id, (erro, resultados) => {
-      const usuarios = resultados[0];
+      const usuario = resultados[0];
 
       if (erro) {
         res.status(400).json(erro);
       } else {
-        res.status(200).json(usuarios);
+        res.status(200).json(usuario);
       }
     });
   }
 
   criaUsuario(usuario, res) {
     const sql = "INSERT INTO Usuarios SET ?";
+    let valida =
+      this.validarURLFotoPerfil(usuario.urlFotoPerfil) &&
+      this.validarNomeUsuarioNaoUtilizado(usuario.nome);
 
-    conexao.query(sql, usuario, (erro, resultados) => {
-      if (erro) {
-        res.status(400).json(erro);
-      } else {
-        res.status(200).json(resultados);
-      }
-    });
+    if (valida) {
+      conexao.query(sql, usuario, (erro, resultados) => {
+        if (erro) {
+          res.status(400).json(erro);
+        } else {
+          res.status(200).json(resultados);
+        }
+      });
+    }
   }
 
   listaUsuarios(res) {
@@ -43,15 +48,24 @@ class Usuario {
   alteraUsuario(id, valores, res) {
     const sql = "UPDATE Usuarios SET ? WHERE id=?";
 
-    conexao.query(sql, [valores, id], (erro, resultados) => {
-      const usuarios = resultados[0];
+    let validaUrl = this.validarURLFotoPerfil(valores.urlFotoPerfil);
+    let usuario = this.buscaUsuario(id, res);
+    let nomeRepetido =
+      usuario.nome === valores.nome
+        ? true
+        : this.validarNomeUsuarioNaoUtilizado(valores.nome);
 
-      if (erro) {
-        res.status(400).json(erro);
-      } else {
-        res.status(200).json(usuarios);
-      }
-    });
+    if (validaUrl && nomeRepetido) {
+      conexao.query(sql, [valores, id], (erro, resultados) => {
+        const usuarios = resultados[0];
+
+        if (erro) {
+          res.status(400).json(erro);
+        } else {
+          res.status(200).json(usuarios);
+        }
+      });
+    }
   }
 
   excluiUsuario(id, res) {
@@ -111,7 +125,7 @@ class Usuario {
       if (usuario.nome === nome) {
         return undefined;
       } else {
-        return "usuário pode ser criado";
+        return true;
       }
     });
   }
