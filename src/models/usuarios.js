@@ -78,6 +78,36 @@ class Usuarios {
       }
     });
   }
-}
 
+  buscaPorNome(nome, res) {
+    const sql = `SELECT * FROM Usuarios WHERE nome like "%${nome}%"`;
+
+    conexao.query(sql, (erro, resultados) => {
+      const usuarioBuscado = resultados;
+      if (erro) {
+        res.status(400).json(erro);
+      } else {
+        res.status(200).json(usuarioBuscado);
+      }
+    });
+  }
+
+  validarNomeUsuarioNaoUtilizado(nome) {
+    const sql = "SELECT * FROM usuarios WHERE nome = ?";
+
+    return new Promise((resolve, reject) => {
+      conexao.query(sql, nome, (erro, resultados) => {
+        if (erro) {
+          reject(erro);
+        } else {
+          if (resultados.length > 0) {
+            resolve(resultados[0].id);
+          } else {
+            resolve(0);
+          }
+        }
+      });
+    });
+  }
+}
 module.exports = new Usuarios();
