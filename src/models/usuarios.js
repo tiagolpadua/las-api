@@ -1,6 +1,4 @@
-const { status, get } = require("express/lib/response");
 const conexao = require("../infraestrutura/conexao");
-const res = require("express/lib/response");
 const https = require("https");
 
 class Usuario {
@@ -89,8 +87,8 @@ class Usuario {
     var regex = new RegExp(expressao);
 
     if (urlFotoPerfil.match(regex)) {
-      const response = https.get(urlFotoPerfil, (resp) => {
-        return resp.statusCode == "200";
+      await https.get(urlFotoPerfil, (resp) => {
+        console.log(resp.statusCode);
       });
     }
   }
