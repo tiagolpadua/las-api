@@ -1,0 +1,69 @@
+{
+  "name": "las-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "jest",
+    "test:essencial": "jest -t Essencial --coverage=false",
+    "test:desejavel": "jest -t Desejável --coverage=false",
+    "test:desafio": "jest -t Desafio --coverage=false",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/**",
+    "lint:fix": "eslint src/** --fix",
+    "cli:produtos": "node src/cli.js produtos",
+    "cli:produtos-formatados": "node src/cli.js produtos-formatados",
+    "cli:categorias": "node src/cli.js categorias",
+    "cli:descontos": "node src/cli.js descontos"
+  },
+  "engines": {
+    "node": "14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiagolpadua/las-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tiagolpadua/las-api/issues"
+  },
+  "homepage": "https://github.com/tiagolpadua/las-api#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "jest": "^27.4.5",
+    "nodemon": "^2.0.15",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.5.1"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "jest": {
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "./src/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 90
+      }
+    }
+  },
+  "dependencies": {
+    "consign": "^0.1.6",
+    "express": "^4.17.3",
+    "moment": "^2.29.2",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.7",
+    "sqlite3": "^5.0.2"
+  }
+}
