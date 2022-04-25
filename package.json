@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+
     "start": "nodemon src/index.js",
+
     "test": "jest",
     "test:essencial": "jest -t Essencial --coverage=false",
     "test:desejavel": "jest -t Desejável --coverage=false",
@@ -59,9 +61,11 @@
     }
   },
   "dependencies": {
+
     "consign": "^0.1.6",
     "express": "^4.17.3",
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.7"
+
   }
 }

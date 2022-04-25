@@ -1,3 +1,4 @@
+
 const port = 3000;
 const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
@@ -17,6 +18,7 @@ conexao.connect(erro => {
     });
   }
 });
+
 
 
 
