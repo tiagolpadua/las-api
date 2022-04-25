@@ -12,10 +12,6 @@ conexao.connect(erro => {
 
     Tabelas.init(conexao);
 
-    app.get("/", (req, res) => {
-      res.send("Olá Mundo!");
-    });
-
     app.listen(port, () => {
       console.log(`LAS-API ouvindo na porta: ${port}`);
     });    

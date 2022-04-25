@@ -1,17 +1,17 @@
 const conexao = require("../infraestrutura/conexao");
 
 class Usuario {
-    buscaPorUsuario(nome, res) {
-        const sql = `SELECT * FROM Usuarios WHERE nome=${nome}`;
+    buscarUsuario(id, res) {
+        const sql = `SELECT * FROM las.usuario WHERE id=?`;
 
-        conexao.query(sql, (erro, resultados) => {
-            const usuario = resultados[0];
-            if (!erro && !usuario) {
+        conexao.query(sql, id, (erro, resultados) => {
+            const retornoUsuario = resultados[0];
+            if (!erro && !retornoUsuario) {
                 res.status(404).end();
             } else if (erro) {
                 res.status(400).json(erro);
             } else {
-                res.status(200).json(usuario);
+                res.status(200).json(retornoUsuario);
             }
         });
     }
