@@ -1,19 +1,6 @@
-//const res = require("express/lib/response");
 const conexao = require("../infraestrutura/conexao");
 
 class Usuario {
-    // adiciona(usuario) {
-    //     const sql = "INSERT INTO usuarios SET ?";
-
-    //     conexao.query(sql, usuario, (erro, resultados) => {
-    //         if (erro) {
-    //             res.status(400).send("erro");
-    //         } else {
-    //             res.status(200).json(resultados);
-    //         }
-    //     });
-    // }
-
     buscaPorId(id, res) {
     const sql = `SELECT * FROM Usuarios WHERE id=${id}`;
     conexao.query(sql, (erro, resultados) => {
@@ -106,6 +93,10 @@ class Usuario {
         }
       });
     });
+  }
+
+  validarURLFotoPerfil(url) {
+    return url.match(/\.(jpeg|jpg|gif|png)$/) !=null;
   }
 
 }
