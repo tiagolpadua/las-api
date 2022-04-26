@@ -8,6 +8,13 @@ module.exports = app => {
         Usuario.buscaUsuarioPorId(id, res);
     });
 
+    //Rota para buscar o usuário por parte do nome
+    app.get("/usuarios/nome/:nome", (req, res) => {
+        const nome = req.params.nome;
+
+        Usuario.buscaUsuarioPorNome(nome, res);
+    });
+
     //Rota para a lista de usuarios
     app.get("/usuarios", (req, res) => {
         Usuario.listarUsuarios(res);

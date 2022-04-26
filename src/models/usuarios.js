@@ -31,7 +31,7 @@ class Usuario{
 
     incluirUsuario(usuario, res){
 
-        const expressao = "/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi";
+        const expressao = "/[-a-zA-Z0-9@:%._~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi";
         const regex = new RegExp(expressao);
 
         const nomeEhValido = usuario.nome.length >= 5;
@@ -102,6 +102,32 @@ class Usuario{
                 }
             });
         }
+    }
+
+    buscaUsuarioPorNome(nome, res){
+        const sql = "SELECT * FROM Usuarios WHERE nome LIKE '%?%'";
+
+        conexao.query(sql, nome, (erro, resultados) => {
+            //Reformular esta função para considerar a possibilidade de não haver resultado
+            if(erro){
+                res.status(405).json("Nenhum usuário encontrado.");
+            } else {
+                res.status(200).json(resultados);
+            }
+        });
+    }
+
+    validarNomeUsuarioNaoUtilizado(nome, res){
+        const sql = "SELECT COUNT(nome) FROM Usuarios WHERE nome = ?";
+
+        conexao.query(sql, nome, (erro, resultado) => {
+            const result = resultado[0];
+            if(erro){
+                res.status(404).json("Erro interno");
+            } else if(result > 0){
+                res.status(200).json("Usuário já Cadastrado.");
+            }
+        });
     }
 }
 
