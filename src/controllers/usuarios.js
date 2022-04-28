@@ -35,3 +35,5 @@ module.exports = (app) => {
     Usuario.buscarUsuarioNome(nome, res);
   });
 };
+
+//falta desafios 9 e 10
