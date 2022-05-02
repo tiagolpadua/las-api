@@ -1,4 +1,4 @@
-const res = require("express/lib/response");
+// const res = require("express/lib/response");
 const fetch = require("node-fetch");
 const conexao = require("../infraestrutura/conexao");
 
@@ -21,7 +21,9 @@ async function validaNomeUsuario(dadosDoUsuario) {
   try {
     if (dadosDoUsuario.nome.length < 5) {
       throw new ImputsErrors(
-        "nome de usuario deve possuir pelo menos 5 caracteres", 400);
+        "nome de usuario deve possuir pelo menos 5 caracteres",
+        400
+      );
     } else {
       const sql = `select nome From usuario where nome ="${dadosDoUsuario.nome}"`;
       conexao.query(sql, (erro, resultados) => {
