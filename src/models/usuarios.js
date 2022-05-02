@@ -1,68 +1,105 @@
-const conexao = require("../infraestrutura/conexao");
+const pool = require("../infraestrutura/conexao");
 const fetch = require("node-fetch");
 
 class Usuarios {
-  buscaPorId(id, res) {
-    const sql = `SELECT * FROM Usuarios WHERE id = ${id}`;
-    conexao.query(sql, (erro, resultados) => {
+  listar(res, next) {
+    const sql = "SELECT * FROM Usuarios";
+    pool.query(sql, (erro, resultados) => {
       if (erro) {
-        res.status(400).json(erro);
+        next(erro);
       } else {
-        res.status(200).json({ resultados });
+        res.status(200).json(resultados);
       }
     });
   }
 
-  async adiciona(usuarios, res) {
-    const urlValida = await this.validarURLFotoPerfil(usuarios.urlFotoPerfil);
-    if (!urlValida) {
-      res.send("Url inválida");
+  buscarPorId(id, res, next) {
+    const sql = "SELECT * FROM Usuarios WHERE id = ?";
+    pool.query(sql, id, (erro, resultados) => {
+      const usuario = resultados[0];
+      if (erro) {
+        next(erro);
+      } else {
+        if (usuario) {
+          res.status(200).json(usuario);
+        } else {
+          res.status(404).end();
+        }
+      }
+    });
+  }
+
+  async adicionar(usuario, res, next) {
+    const nomeEhValido =
+      usuario.nome.length > 0 &&
+      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+
+    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+
+    const validacoes = [
+      {
+        nome: "nome",
+        valido: nomeEhValido,
+        mensagem: "Nome deve ser informado e deve ser único",
+      },
+      {
+        nome: "urlFotoPerfil",
+        valido: urlEhValida,
+        mensagem: "URL deve uma URL válida",
+      },
+    ];
+
+    const erros = validacoes.filter((campo) => !campo.valido);
+    const existemErros = erros.length;
+
+    if (existemErros) {
+      res.status(400).json(erros);
     } else {
       const sql = "INSERT INTO Usuarios SET ?";
 
-      conexao.query(sql, usuarios, (erro, resultados) => {
+      pool.query(sql, usuario, (erro) => {
         if (erro) {
-          res.status(400).send("Usuário já cadastrado");
+          next(erro);
         } else {
-          res.status(201).json({ resultados });
+          res.status(201).json(usuario);
         }
       });
     }
   }
 
-  altera(id, valores, res) {
-    const sql = `UPDATE Usuarios SET ? WHERE id=${id}`;
-    conexao.query(sql, valores, (erro) => {
+  alterar(id, valores, res, next) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+    pool.query(sql, [valores, id], (erro) => {
       if (erro) {
-        res.status(400).json(erro);
+        next(erro);
       } else {
-        res.status(200).json({ ...valores, id });
+        res.status(200).json(valores);
       }
     });
   }
 
-  deleta(id, res) {
-    const sql = `DELETE FROM Usuarios WHERE id=${id}`;
-    conexao.query(sql, (erro) => {
+  excluir(id, res, next) {
+    const sql = "DELETE FROM Usuarios WHERE id = ?";
+    pool.query(sql, id, (erro) => {
       if (erro) {
-        res.status(400).json(erro);
+        next(erro);
       } else {
         res.status(200).json({ id });
       }
     });
   }
 
-  buscaPorNome(nome, res) {
-    const sql = `SELECT * FROM Usuarios WHERE nome=${nome}`;
-
-    conexao.query(sql, (erro, resultados) => {
+  buscarPorNome(nome, res, next) {
+    const sql = "SELECT * FROM Usuarios WHERE nome like ?";
+    pool.query(sql, "%" + nome + "%", (erro, resultados) => {
       if (erro) {
-        res.status(400).json(erro);
+        next(erro);
       } else {
         res.status(200).json(resultados);
       }
     });
   }
+
   async validarURLFotoPerfil(url) {
     try {
       const regex =
@@ -81,8 +118,23 @@ class Usuarios {
       return false;
     }
   }
-  //somente para passar no teste, a validação foi pelo banco de dados
-  validarNomeUsuarioNaoUtilizado() {}
+
+  async validarNomeUsuarioNaoUtilizado(nome) {
+    return new Promise((resolve) => {
+      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
+      pool.query(sql, nome, (erro, resultados) => {
+        if (erro) {
+          resolve(false);
+        } else {
+          if (resultados.length > 0) {
+            resolve(false);
+          } else {
+            resolve(true);
+          }
+        }
+      });
+    });
+  }
 }
 
 module.exports = new Usuarios();

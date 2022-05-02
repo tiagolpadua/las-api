@@ -1,33 +1,33 @@
 const Usuarios = require("../models/usuarios");
 
 module.exports = (app) => {
-  app.get("/usuarios", (req, res) => {
-    Usuarios.buscaPorId(res);
+  app.get("/usuarios", (req, res, next) => {
+    Usuarios.listar(res, next);
   });
 
-  app.get("/usuarios/:id", (req, res) => {
+  app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    Usuarios.buscaPorId(id, res);
+    Usuarios.buscarPorId(id, res, next);
   });
 
-  app.post("/usuarios", (req, res) => {
+  app.post("/usuarios", (req, res, next) => {
     const usuarios = req.body;
-    Usuarios.adiciona(usuarios, res);
+    Usuarios.adicionar(usuarios, res, next);
   });
 
-  app.put("/usuarios/:id", (req, res) => {
+  app.put("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
-    Usuarios.altera(id, valores, res);
+    Usuarios.alterar(id, valores, res, next);
   });
 
-  app.delete("/usuarios/:id", (req, res) => {
+  app.delete("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    Usuarios.deleta(id, res);
+    Usuarios.excluir(id, res, next);
   });
 
-  app.get("/usuarios/nome/:nome", (req, res) => {
+  app.get("/usuarios/nome/:nome", (req, res, next) => {
     const nome = req.params.nome;
-    Usuarios.buscaPorNome(nome, res);
+    Usuarios.buscarPorNome(nome, res, next);
   });
 };

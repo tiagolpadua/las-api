@@ -1,4 +1,4 @@
-const conexao = require("./infraestrutura/conexao");
+const pool = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
 const usuariosController = require("./controllers/usuarios");
 const Usuario = require("./models/usuarios");
@@ -20,7 +20,7 @@ usuariosController &&
 
 describe("Essencial", () => {
   test("Configurar o Banco de Dados", () => {
-    expect(conexao.connect).toBeDefined();
+    expect(pool).toBeDefined();
   });
 
   test("Crie a tabela Usuarios", () => {
