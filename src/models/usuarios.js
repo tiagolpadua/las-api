@@ -1,16 +1,21 @@
-const pool = require("../infraestrutura/conexao");
+const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
+const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
-  listar(res, next) {
-    const sql = "SELECT * FROM Usuarios";
-    pool.query(sql, (erro, resultados) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json(resultados);
-      }
-    });
+  // listarOld(res, next) {
+  //   const sql = "SELECT * FROM Usuarios";
+  //   pool.query(sql, (erro, resultados) => {
+  //     if (erro) {
+  //       next(erro);
+  //     } else {
+  //       res.status(200).json(resultados);
+  //     }
+  //   });
+  // }
+
+  listar() {
+    return repositorio.listar();
   }
 
   buscarPorId(id, res, next) {
