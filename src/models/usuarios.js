@@ -1,4 +1,4 @@
-const pool = require("../infraestrutura/conexao");
+const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 
 class Usuarios {
