@@ -1,11 +1,20 @@
-const express = require("express");
-const app = express();
-const port = 3000;
+const customExpress = require("./config/customExpress");
+const pool = require("./infraestrutura/conexao");
+const Tabelas = require("./infraestrutura/tabelas");
 
-app.get("/", (req, res) => {
-  res.send("Olá Mundo!");
-});
+const PORT = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`LAS-API ouvindo na porta: ${port}`);
+// Testa conexão com o pool
+pool.getConnection((err, connection) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("conectado com sucesso");
+    connection.release();
+
+    Tabelas.init(pool);
+    const app = customExpress();
+
+    app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+  }
 });
