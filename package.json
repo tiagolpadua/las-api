@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon src/index.js",
     "test": "jest",
     "test:essencial": "jest -t Essencial --coverage=false",
     "test:desejavel": "jest -t Desejável --coverage=false",
@@ -46,7 +47,7 @@
     "lint"
   ],
   "jest": {
-    "collectCoverage": true,
+    "collectCoverage": false,
     "collectCoverageFrom": [
       "./src/**"
     ],
@@ -57,7 +58,13 @@
     }
   },
   "dependencies": {
+    "body-parser": "^1.20.0",
+    "consign": "^0.1.6",
+    "express": "^4.17.3",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "node-fetch": "^2.6.7",
+    "nodemon": "^2.0.15",
     "sqlite3": "^5.0.2"
   }
 }
