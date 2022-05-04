@@ -12,9 +12,9 @@ class Usuarios {
       .then(resultados => resultados[0]);
   }
 
-  async adicionar(usuario, res, next) {
+  async adicionar(usuario) {
     const nomeEhValido =
-      usuario.nome.length > 0 &&
+      usuario.nome.length > 4 &&
       (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
 
     const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
@@ -36,17 +36,9 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      res.status(400).json(erros);
+      throw erros;
     } else {
-      const sql = "INSERT INTO Usuarios SET ?";
-
-      pool.query(sql, usuario, (erro) => {
-        if (erro) {
-          next(erro);
-        } else {
-          res.status(201).json(usuario);
-        }
-      });
+      return repositorio.adicionar(usuario);
     }
   }
 

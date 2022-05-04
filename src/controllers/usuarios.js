@@ -12,17 +12,26 @@ module.exports = (app) => {
     Usuarios.buscarPorId(id)
       .then((resultado) => {
         if (resultado) {
-          res.json(resultado)
+          res.json(resultado);
         } else {
           res.status(404).end();
-        };
+        }
       })
       .catch((erros) => next(erros));
   });
 
   app.post("/usuarios", (req, res, next) => {
-    const usuarios = req.body;
-    Usuarios.adicionar(usuarios, res, next);
+    const usuario = req.body;
+    Usuarios.adicionar(usuario)
+    .then(() => res.status(201).json(usuario))
+    .catch((erros) => {
+      if(erros[0] && 
+        (erros[0].nome === "nome" || erros[0].nome === "urlFotoPerfil")){
+        res.status(400).send(erros);
+      } else {
+        next(erros);
+      }
+    });
   });
 
   app.put("/usuarios/:id", (req, res, next) => {
