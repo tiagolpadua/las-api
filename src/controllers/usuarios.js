@@ -1,5 +1,6 @@
 const Usuarios = require("../models/usuarios");
 
+
 module.exports = (app) => {
   // app.get("/usuarios", (req, res, next) => {
   //   Usuarios.listar(res, next);
@@ -35,4 +36,6 @@ module.exports = (app) => {
     const nome = req.params.nome;
     Usuarios.buscarPorNome(nome, res, next);
   });
+
+  
 };
