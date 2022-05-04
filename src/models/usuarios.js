@@ -7,20 +7,9 @@ class Usuarios {
     return repositorio.listar();
   }
 
-  buscarPorId(id, res, next) {
-    const sql = "SELECT * FROM Usuarios WHERE id = ?";
-    pool.query(sql, id, (erro, resultados) => {
-      const usuario = resultados[0];
-      if (erro) {
-        next(erro);
-      } else {
-        if (usuario) {
-          res.status(200).json(usuario);
-        } else {
-          res.status(404).end();
-        }
-      }
-    });
+  buscarPorId(id) {   
+    return repositorio.buscarPorId(id)
+      .then(resultados => resultados[0]);
   }
 
   async adicionar(usuario, res, next) {

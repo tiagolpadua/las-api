@@ -9,7 +9,15 @@ module.exports = (app) => {
 
   app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    Usuarios.buscarPorId(id, res, next);
+    Usuarios.buscarPorId(id)
+      .then((resultado) => {
+        if (resultado) {
+          res.json(resultado)
+        } else {
+          res.status(404).end();
+        };
+      })
+      .catch((erros) => next(erros));
   });
 
   app.post("/usuarios", (req, res, next) => {
