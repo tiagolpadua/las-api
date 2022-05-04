@@ -15,7 +15,9 @@ module.exports = (app) => {
 
   app.post("/usuarios", (req, res, next) => {
     const usuarios = req.body;
-    Usuarios.adicionar(usuarios, res, next);
+    Usuarios.adicionar(usuarios, next)
+      .then((resultados) => res.json(resultados))
+      .catch((erros) => next(erros));
   });
 
   app.put("/usuarios/:id", (req, res, next) => {
