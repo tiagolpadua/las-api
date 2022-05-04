@@ -15,6 +15,15 @@ class Usuario{
         const sql = "INSERT INTO Usuarios SET ?";
         return query(sql, usuario);
     }
+    alterar(){
+
+    }
+    excluir(){
+
+    }
+    buscarPorNome(){
+        
+    }
 }
 
 module.exports = new Usuario();
