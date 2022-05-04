@@ -3,60 +3,76 @@ const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
-  constructor(){
-    this.validacoes = [
-      {
-        nome: "nome",
-        valido: this.nomeEhValido,
-        mensagem: "Nome deve ser informado e deve ser único",
-      },
-      {
-        nome: "urlFotoPerfil",
-        valido: this.urlEhValida,
-        mensagem: "URL deve uma URL válida",
-      },
-    ];
-  }
-  
   listar() {
     return repositorio.listar();
   }
 
-  buscarPorId(id) {
-    return repositorio.buscarPorId(id);
+  buscarPorId(id) {   
+    return repositorio.buscarPorId(id)
+      .then(resultados => resultados[0]);
   }
 
   async adicionar(usuario) {
-    this.nomeEhValido =
-      usuario.nome.length > 0 &&
+    const nomeEhValido =
+      usuario.nome.length > 4 &&
       (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
 
-    this.urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
 
-    const erros = this.validacoes.filter((campo) => !campo.valido);
+    const validacoes = [
+      {
+        nome: "nome",
+        valido: nomeEhValido,
+        mensagem: "Nome deve ser informado e deve ser único",
+      },
+      {
+        nome: "urlFotoPerfil",
+        valido: urlEhValida,
+        mensagem: "URL deve uma URL válida",
+      },
+    ];
+
+    const erros = validacoes.filter((campo) => !campo.valido);
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      throw erros;
     } else {
-      return repositorio.adicionar(usuario)
-      .then( resultados => {
-        const id = resultados.insertId;
-        return { ...usuario, id};
-      });
+      return repositorio.adicionar(usuario);
     }
   }
 
-  alterar(id, valores) {
-    return repositorio.alterar(id, valores);
+  alterar(id, valores, res, next) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+    pool.query(sql, [valores, id], (erro) => {
+      if (erro) {
+        next(erro);
+      } else {
+        res.status(200).json(valores);
+      }
+    });
   }
 
-  excluir(id) {
-    return repositorio.excluir(id);
+  excluir(id, res, next) {
+    const sql = "DELETE FROM Usuarios WHERE id = ?";
+    pool.query(sql, id, (erro) => {
+      if (erro) {
+        next(erro);
+      } else {
+        res.status(200).json({ id });
+      }
+    });
   }
 
-  buscarPorNome(nome) {
-    return repositorio.buscarPorNome(nome);
+  buscarPorNome(nome, res, next) {
+    const sql = "SELECT * FROM Usuarios WHERE nome like ?";
+    pool.query(sql, "%" + nome + "%", (erro, resultados) => {
+      if (erro) {
+        next(erro);
+      } else {
+        res.status(200).json(resultados);
+      }
+    });
   }
 
   async validarURLFotoPerfil(url) {
