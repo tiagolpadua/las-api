@@ -1,6 +1,6 @@
-const pool = undefined; //require("./infraestrutura/database/conexao");
-const Tabelas = undefined; //require("./infraestrutura/database/tabelas");
-const queries = undefined; //require("./infraestrutura/database/queries");
+const pool = require("./infraestrutura/database/conexao");
+const Tabelas = require("./infraestrutura/database/tabelas");
+const queries = undefined; // require("./infraestrutura/database/queries");
 const usuariosRepository = undefined; //require("./repositorios/usuario");
 const eventosController = undefined; //require("./controllers/eventos");
 const eventosModel = undefined; //require("./models/eventos");
