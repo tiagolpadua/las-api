@@ -1,6 +1,7 @@
 const Usuario = require("../models/usuarios");
 
 module.exports = (app) => {
+  // Refatorado - Ok
   app.get("/usuarios", (req, res, next) => {
     Usuario.listar()
       .then((resultados) => res.json(resultados))
@@ -12,9 +13,12 @@ module.exports = (app) => {
     Usuario.buscarPorId(id, res, next);
   });
 
+  // Refatorado - Ok
   app.post("/usuarios", (req, res, next) => {
-    const usuarios = req.body;
-    Usuario.adicionar(usuarios, res, next);
+    const usuario = req.body;
+    Usuario.adicionar(usuario)
+      .then((usuarioAdicionado) => res.status(201).json(usuarioAdicionado))
+      .catch((erros) => next(erros));
   });
 
   app.put("/usuarios/:id", (req, res, next) => {

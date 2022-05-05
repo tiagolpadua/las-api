@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
-  // listarOld(res, next) {
+  // listar(res, next) {
   //   const sql = "SELECT * FROM Usuarios";
   //   pool.query(sql, (erro, resultados) => {
   //     if (erro) {
@@ -13,6 +13,13 @@ class Usuarios {
   //     }
   //   });
   // }
+
+  /*  Cod HTTP  - Entidade
+  C - 201       - O próprio recurso
+  R - 200       - A próprio recurso /usuarios/1 / Uma lista de recursos /usuarios
+  U - 200       - O próprio recurso
+  D - 204       - Vazio
+  */
 
   listar() {
     return repositorio.listar();
@@ -34,7 +41,7 @@ class Usuarios {
     });
   }
 
-  async adicionar(usuario, res, next) {
+  async adicionarOld(usuario, res, next) {
     const nomeEhValido =
       usuario.nome.length > 0 &&
       (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
@@ -68,6 +75,40 @@ class Usuarios {
         } else {
           res.status(201).json(usuario);
         }
+      });
+    }
+  }
+
+  async adicionar(usuario) {
+    const nomeEhValido =
+      usuario.nome.length > 0 &&
+      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+
+    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+
+    const validacoes = [
+      {
+        nome: "nome",
+        valido: nomeEhValido,
+        mensagem: "Nome deve ser informado e deve ser único",
+      },
+      {
+        nome: "urlFotoPerfil",
+        valido: urlEhValida,
+        mensagem: "URL deve uma URL válida",
+      },
+    ];
+
+    const erros = validacoes.filter((campo) => !campo.valido);
+    const existemErros = erros.length;
+
+    if (existemErros) {
+      // return new Promise((resolve, reject) => reject(erros));
+      return Promise.reject(erros);
+    } else {
+      return repositorio.adicionar(usuario).then((resultados) => {
+        const id = resultados.insertId;
+        return { ...usuario, id };
       });
     }
   }
@@ -140,6 +181,15 @@ class Usuarios {
       });
     });
   }
+
+  // Ao criar um evento, deve ser validado se a data de início é superior a data atual
+  // e se a data de fim é superior à data de início do evento
+  // isDatasValidas(dataInicio, dataFim) {
+  // Obter a data atual - var now = moment();
+  // cont objDataInicio = moment(dataInicio);
+  // const objDataFim = moment(dataFim);
+  // https://momentjscom.readthedocs.io/en/latest/moment/05-query/01-is-before/
+  // }
 }
 
 module.exports = new Usuarios();
