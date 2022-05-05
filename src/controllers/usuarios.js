@@ -6,6 +6,7 @@ module.exports = (app) => {
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
+
   app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarPorId(id)

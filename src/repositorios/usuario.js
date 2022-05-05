@@ -1,6 +1,6 @@
 const executaQuery = require("../infraestrutura/database/queries");
 
-class Usuario {
+class UsuariosRepositorio {
   listar() {
     const sql = "SELECT * FROM Usuarios";
     return executaQuery(sql);
@@ -37,4 +37,4 @@ class Usuario {
   }
 }
 
-module.exports = new Usuario();
+module.exports = new UsuariosRepositorio();

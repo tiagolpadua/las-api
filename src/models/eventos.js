@@ -1,33 +1,32 @@
-// const repositorio = require("../repositorios/usuario");
+const repositorio = require("../repositorios/eventos");
 
-// class Eventos {
-//   listar() {
-//     return repositorio.listar();
-//   }
+class Eventos {
+  listar() {
+    return repositorio.listar();
+  }
 
-//   buscarPorId(id) {
-//     return repositorio.buscarPorId(id);
-//   }
+  buscarPorId(id) {
+    return repositorio.buscarPorId(id);
+  }
 
-//    adicionar() {
+  adicionar(evento) {
+    return repositorio.adicionar(evento);
+  }
+  buscarPorStatus(status) {
+    return repositorio.buscarStatus(status);
+  }
 
-// }
-//  buscarPorStatus(){
+  alterar(id, valores) {
+    return repositorio.alterar(id, valores);
+  }
 
-// }
+  excluir(id) {
+    return repositorio.excluir(id);
+  }
 
-//   alterar(id, valores) {
-//     return repositorio.alterar(id, valores);
-//   }
+  buscarPorNome(nome) {
+    return repositorio.buscarPorNome(nome);
+  }
+}
 
-//   excluir(id) {
-//     return repositorio.excluir(id);
-//   }
-
-//   buscarPorNome(nome) {
-//     return repositorio.buscarPorNome(nome);
-//   }
-
-// }
-
-// module.exports = new Eventos();
+module.exports = new Eventos();
