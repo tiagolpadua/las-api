@@ -86,13 +86,13 @@ describe("Desejável", () => {
 });
 
 describe("Desafio", () => {
-  test("Validação Avançada de Datas dos Eventos", () => {
+  test("Listagem de eventos por status", () => {
     expect(
       urlsGet.find((url) => url === "/eventos/status/:status")
     ).toBeDefined();
   });
 
-  test("Listagem de eventos por status", () => {
+  test("Validação Avançada de Datas dos Eventos", () => {
     // Data do evento anterior ao dia de hoje
     expect(
       eventosModel.isDatasValidas({
