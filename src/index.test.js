@@ -1,17 +1,27 @@
-const conexao = undefined; // require("./infraestrutura/conexao");
-const Tabelas = undefined; // require("./infraestrutura/tabelas");
-const usuariosController = undefined; // require("./controllers/usuarios");
-const Usuario = undefined; // require("./models/usuarios");
-const nodemon = undefined; // require("nodemon");
-const consign = undefined; // require("consign");
+const pool = undefined; //require("./infraestrutura/database/conexao");
+const Tabelas = undefined; //require("./infraestrutura/database/tabelas");
+const queries = undefined; //require("./infraestrutura/database/queries");
+const usuariosRepository = undefined; //require("./repositorios/usuario");
+const eventosController = undefined; //require("./controllers/eventos");
+const eventosModel = undefined; //require("./models/eventos");
+const tiposVendasController = undefined; //require("./controllers/tiposVendas");
+const moment = undefined; //require("moment");
 
 const urlsGet = [];
 const urlsPost = [];
 const urlsPut = [];
 const urlsDelete = [];
 
-usuariosController &&
-  usuariosController({
+eventosController &&
+  eventosController({
+    get: (url) => urlsGet.push(url),
+    put: (url) => urlsPut.push(url),
+    post: (url) => urlsPost.push(url),
+    delete: (url) => urlsDelete.push(url),
+  });
+
+tiposVendasController &&
+  tiposVendasController({
     get: (url) => urlsGet.push(url),
     put: (url) => urlsPut.push(url),
     post: (url) => urlsPost.push(url),
@@ -19,65 +29,92 @@ usuariosController &&
   });
 
 describe("Essencial", () => {
-  test("Configurar o Banco de Dados", () => {
-    expect(conexao.connect).toBeDefined();
+  test("Refatore a configuraçao de conexão", () => {
+    expect(pool).toBeDefined();
   });
 
-  test("Crie a tabela Usuarios", () => {
-    expect(Tabelas.criarUsuarios).toBeDefined();
+  test("Refatore a configuração de tabelas", () => {
+    expect(Tabelas).toBeDefined();
   });
 
-  test("API de Busca de Usuário", () => {
-    expect(urlsGet.find((url) => url === "/usuarios/:id")).toBeDefined();
+  test("Crie o módulo de acionamento de queries", () => {
+    expect(queries).toBeDefined();
+  });
+
+  test("Criar o repositório de usuários", () => {
+    expect(usuariosRepository).toBeDefined();
+  });
+
+  test("Criar a tabela de Eventos", () => {
+    expect(Tabelas.criarEventos).toBeDefined();
+  });
+
+  test("API de listagem de eventos", () => {
+    expect(urlsGet.find((url) => url === "/eventos")).toBeDefined();
+  });
+
+  test("API de detalhamento de evento", () => {
+    expect(urlsGet.find((url) => url === "/eventos/:id")).toBeDefined();
+  });
+
+  test("Criar a tabela de Tipos de Vendas", () => {
+    expect(Tabelas.criarTiposVendas).toBeDefined();
+  });
+
+  test("API de listagens de Tipos de Vendas", () => {
+    expect(urlsGet.find((url) => url === "/tipos-vendas")).toBeDefined();
   });
 });
 
 describe("Desejável", () => {
-  test("Configurar nodemon", () => {
-    expect(nodemon).toBeDefined();
+  test("Crie as APIs para incluir, alterar e excluir eventos", () => {
+    expect(urlsPost.find((url) => url === "/eventos")).toBeDefined();
+    expect(urlsPut.find((url) => url === "/eventos/:id")).toBeDefined();
+    expect(urlsDelete.find((url) => url === "/eventos/:id")).toBeDefined();
   });
 
-  test("Configurar consign", () => {
-    expect(consign).toBeDefined();
+  test("Crie as APIs para detalhar, incluir, alterar e excluir tipos de vendas", () => {
+    expect(urlsGet.find((url) => url === "/tipos-vendas/:id")).toBeDefined();
+    expect(urlsPost.find((url) => url === "/tipos-vendas")).toBeDefined();
+    expect(urlsPut.find((url) => url === "/tipos-vendas/:id")).toBeDefined();
+    expect(urlsDelete.find((url) => url === "/tipos-vendas/:id")).toBeDefined();
   });
 
-  test("API de Criação Usuário", () => {
-    expect(urlsPost.find((url) => url === "/usuarios")).toBeDefined();
-  });
-
-  test("API de Alteração de Usuário", () => {
-    expect(urlsPut.find((url) => url === "/usuarios/:id")).toBeDefined();
-  });
-
-  test("API de Listagem de Usuários", () => {
-    expect(urlsGet.find((url) => url === "/usuarios")).toBeDefined();
-  });
-
-  test("API de Exclusão de Usuários", () => {
-    expect(urlsDelete.find((url) => url === "/usuarios/:id")).toBeDefined();
+  test("Configurar moment", () => {
+    expect(moment).toBeDefined();
   });
 });
 
 describe("Desafio", () => {
-  test("API de Busca de Usuários pelo Nome", () => {
-    expect(urlsGet.find((url) => url === "/usuarios/nome/:nome")).toBeDefined();
+  test("Validação Avançada de Datas dos Eventos", () => {
+    expect(
+      urlsGet.find((url) => url === "/eventos/status/:status")
+    ).toBeDefined();
   });
 
-  test("Validação de URL da Foto de Perfil", async () => {
-    expect(await Usuario.validarURLFotoPerfil("foo")).toBeFalsy();
-
+  test("Listagem de eventos por status", () => {
+    // Data do evento anterior ao dia de hoje
     expect(
-      await Usuario.validarURLFotoPerfil("http://enderecoinvalido.com.br")
+      eventosModel.isDatasValidas({
+        dataInicio: "2021-01-01",
+        dataFim: "2021-01-02",
+      })
     ).toBeFalsy();
 
+    // Data de fim do evento anterior à data de início
     expect(
-      await Usuario.validarURLFotoPerfil(
-        "https://www.randomuser.me/api/portraits/men/91.jpg"
-      )
-    ).toBeTruthy();
-  });
+      eventosModel.isDatasValidas({
+        dataInicio: "2023-01-10",
+        dataFim: "2023-01-09",
+      })
+    ).toBeFalsy();
 
-  test("Validação de Nome de Usuário", () => {
-    expect(Usuario.validarNomeUsuarioNaoUtilizado).toBeDefined();
+    // Data de fim do evento posterior à data de início
+    expect(
+      eventosModel.isDatasValidas({
+        dataInicio: "2023-01-10",
+        dataFim: "2023-01-11",
+      })
+    ).toBeTruthy();
   });
 });
