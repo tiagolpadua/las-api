@@ -15,15 +15,18 @@ class Usuario{
         const sql = "INSERT INTO Usuarios SET ?";
         return query(sql, usuario);
     }
-    alterar(){
-
+    alterar(valores, id){
+        const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+        return query(sql, [valores, id]);
     }
-    excluir(){
-
+    excluir(id){
+        const sql = "DELETE FROM Usuarios WHERE id = ?";
+        return query(sql, id);
     }
-    buscarPorNome(){
-        
-    }
+    buscarPorNome(nome){
+        const sql = "SELECT * FROM Usuarios WHERE nome like ?";
+        return query(sql, "%" + nome + "%");
+    } 
 }
 
 module.exports = new Usuario();

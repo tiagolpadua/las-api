@@ -9,7 +9,7 @@ class Usuarios {
 
   buscarPorId(id) {   
     return repositorio.buscarPorId(id)
-      .then(resultados => resultados[0]);
+    .then(resultados => resultados[0]);
   }
 
   async adicionar(usuario) {
@@ -42,37 +42,16 @@ class Usuarios {
     }
   }
 
-  alterar(id, valores, res, next) {
-    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-    pool.query(sql, [valores, id], (erro) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json(valores);
-      }
-    });
+  alterar(valores, id) {
+    return repositorio.alterar(valores, id);
   }
 
-  excluir(id, res, next) {
-    const sql = "DELETE FROM Usuarios WHERE id = ?";
-    pool.query(sql, id, (erro) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json({ id });
-      }
-    });
+  excluir(id) {
+    return repositorio.excluir(id);
   }
 
-  buscarPorNome(nome, res, next) {
-    const sql = "SELECT * FROM Usuarios WHERE nome like ?";
-    pool.query(sql, "%" + nome + "%", (erro, resultados) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json(resultados);
-      }
-    });
+  buscarPorNome(nome) {
+    return repositorio.buscarPorNome(nome);
   }
 
   async validarURLFotoPerfil(url) {
