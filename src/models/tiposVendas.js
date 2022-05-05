@@ -1,18 +1,18 @@
-const repositorio =require("../repositorios/eventos");
+const repositorio = require("../repositorios/tiposVendas");
 
-class Eventos{
+class TiposVendas{
     listar(){
         return repositorio.listar();
-    }
-
-    buscarPorId(id){
-        return repositorio.buscarPorId(id);
     }
 
     adicionar(evento) {
         return repositorio.adicionar(evento);
     }
-
+    
+    buscaPorId(id) {
+        return repositorio.buscaPorId(id);
+    }
+    
     alterar(id, valores) {
         return repositorio.alterar(id, valores);
     }
@@ -21,4 +21,4 @@ class Eventos{
         return repositorio.excluir(id);
     }
 }
-module.exports = Eventos;
+module.exports = TiposVendas;
