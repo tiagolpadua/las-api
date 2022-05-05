@@ -1,12 +1,12 @@
-const repositorio = require("../repositorios/eventos");
+const repositorio = require("../repositorios/tiposVendas");
 
-class Eventos {
+class TiposVendas {
   listar() {
     return repositorio.listar();
   }
 
-  async adicionar(evento) {
-    return repositorio.adiciona(evento);
+  async adicionar(venda) {
+    return repositorio.adiciona(venda);
   }
 
   alterar(id, valores) {
@@ -26,4 +26,4 @@ class Eventos {
   }
 }
 
-module.exports = new Eventos();
+module.exports = new TiposVendas();
