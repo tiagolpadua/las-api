@@ -20,12 +20,9 @@
   "engines": {
     "node": "14"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tiagolpadua/las-api.git"
-  },
+  "repository": "git+https://github.com/tiagolpadua/las-api.git",
   "keywords": [],
-  "author": "",
+  "author": "imagno <igor.magno@protonmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tiagolpadua/las-api/issues"
