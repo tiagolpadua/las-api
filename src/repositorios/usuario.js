@@ -10,7 +10,6 @@ class Usuario{
         const sql = "SELECT * FROM Usuarios WHERE id = ?";
         return query(sql, id);
     }
-
     adicionar(usuario){
         const sql = "INSERT INTO Usuarios SET ?";
         return query(sql, usuario);
