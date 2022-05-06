@@ -17,10 +17,9 @@ class TiposVendas {
     return repositorio.excluir(id);
   }
 
-  buscarPorId(id) {
-    return repositorio.buscaPorId(id);
-  }
-
+  // buscarPorId(id) {
+  //   return repositorio.buscaPorId(id);
+  // }
 }
 
 module.exports = new TiposVendas();

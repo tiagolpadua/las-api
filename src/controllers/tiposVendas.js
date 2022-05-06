@@ -33,11 +33,11 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
-  app.get("/tipos-vendas/:id", (req, res) => {
-    const id = parseInt(req.params.id);
-    tiposVendas
-      .buscarPorId(id)
-      .then((resultados) => res.json(resultados))
-      .catch((erros) => res.status(400).json(erros));
-  });
+  // app.get("/tipos-vendas/:id", (req, res) => {
+  //   const id = parseInt(req.params.id);
+  //   tiposVendas
+  //     .buscarPorId(id)
+  //     .then((resultados) => res.json(resultados))
+  //     .catch((erros) => res.status(400).json(erros));
+  // });
 };
