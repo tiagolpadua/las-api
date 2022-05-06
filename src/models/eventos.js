@@ -38,13 +38,10 @@ class Eventos {
   }
 
   isDatasValidas({ dataInicio, dataFim }) {
-    const dataCriacao = moment().format("YYYY-MM-DD HH:MM:SS");
-    const dataInicioEvento = moment(dataInicio, "YYYY/MM/DD").format(
-      "YYYY-MM-DD HH:MM:SS"
-    );
-    const dataFimEvento = moment(dataFim, "YYYY/MM/DD").format(
-      "YYYY-MM-DD HH:MM:SS"
-    );
+    const dataCriacao = moment().format("YYYY-MM-DD");
+    const dataInicioEvento = moment(dataInicio).format("YYYY-MM-DD");
+    const dataFimEvento = moment(dataFim).format("YYYY-MM-DD");
+
     const dataEventoEhValida =
       moment(dataInicioEvento).isSameOrAfter(dataCriacao) &&
       moment(dataFimEvento).isSameOrAfter(dataInicioEvento);
