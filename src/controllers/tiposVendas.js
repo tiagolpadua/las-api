@@ -1,45 +1,43 @@
-const TiposVendas = require("../models/tiposvendas");
+const tiposVendas = require("../models/tiposVendas");
 
 module.exports = (app) => {
-  app.get("/usuarios", (req, res, next) => {
-    TiposVendas.listar()
+  app.get("/tipos-vendas", (req, res, next) => {
+    tiposVendas
+      .listar()
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.get("/usuarios/:id", (req, res, next) => {
-    const id = parseInt(req.params.id);
-    TiposVendas.buscarPorId(id)
+  app.post("/tipos-vendas", (req, res, next) => {
+    const tiposVendas = req.body;
+    tiposVendas
+      .adicionar(tiposVendas)
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.post("/usuarios", (req, res, next) => {
-    const usuarios = req.body;
-    TiposVendas.adicionar(usuarios)
-      .then((resultados) => res.json(resultados))
-      .catch((erros) => next(erros));
-  });
-
-  app.put("/usuarios/:id", (req, res, next) => {
+  app.put("/tipos-vendas/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
-    TiposVendas.alterar(id, valores)
+    tiposVendas
+      .alterar(id, valores)
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.delete("/usuarios/:id", (req, res, next) => {
+  app.delete("/tipos-vendas/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    TiposVendas.excluir(id)
+    tiposVendas
+      .excluir(id)
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.get("/usuarios/nome/:nome", (req, res, next) => {
-    const nome = req.params.nome;
-    TiposVendas.buscarPorNome(nome)
+  app.get("/tipos-vendas/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    tiposVendas
+      .buscarPorId(id)
       .then((resultados) => res.json(resultados))
-      .catch((erros) => next(erros));
+      .catch((erros) => res.status(400).json(erros));
   });
 };

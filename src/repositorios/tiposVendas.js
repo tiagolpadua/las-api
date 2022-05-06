@@ -22,10 +22,6 @@ class TiposVendas {
     const sql = "SELECT * FROM TiposVendas WHERE id = ?";
     return query(sql, id);
   }
-  buscaPorNome(id, nome) {
-    const sql = "SELECT * FROM TiposVendas WHERE nome like ?";
-    return query(sql, nome);
-  }
 }
 
 module.exports = new TiposVendas();

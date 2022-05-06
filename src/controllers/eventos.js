@@ -1,27 +1,27 @@
 const Eventos = require("../models/eventos");
 
 module.exports = (app) => {
-  app.get("/usuarios", (req, res, next) => {
+  app.get("/eventos", (req, res, next) => {
     Eventos.listar()
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.get("/usuarios/:id", (req, res, next) => {
+  app.get("/eventos/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Eventos.buscarPorId(id)
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.post("/usuarios", (req, res, next) => {
-    const usuarios = req.body;
-    Eventos.adicionar(usuarios)
+  app.post("/eventos", (req, res, next) => {
+    const eventos = req.body;
+    Eventos.adicionar(eventos)
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.put("/usuarios/:id", (req, res, next) => {
+  app.put("/eventos/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Eventos.alterar(id, valores)
@@ -29,14 +29,14 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
-  app.delete("/usuarios/:id", (req, res, next) => {
+  app.delete("/eventos/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Eventos.excluir(id)
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.get("/usuarios/nome/:nome", (req, res, next) => {
+  app.get("/eventos/nome/:nome", (req, res, next) => {
     const nome = req.params.nome;
     Eventos.buscarPorNome(nome)
       .then((resultados) => res.json(resultados))

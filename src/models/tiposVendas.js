@@ -21,9 +21,6 @@ class TiposVendas {
     return repositorio.buscaPorId(id);
   }
 
-  buscarPorNome(nome) {
-    return repositorio.buscaPorNome(nome);
-  }
 }
 
 module.exports = new TiposVendas();
