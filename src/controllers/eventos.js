@@ -13,4 +13,20 @@ module.exports = (app) => {
         Eventos.buscarPorId(id, res, next);
       });  
 
+      app.post("/eventos", (req, res, next) => {
+        const usuarios = req.body;
+        Eventos.incluir(usuarios, res, next);
+      });
+    
+      app.put("/eventos/:id", (req, res, next) => {
+        const id = parseInt(req.params.id);
+        const valores = req.body;
+        Eventos.alterar(id, valores, res, next);
+      });
+    
+      app.delete("/eventos/:id", (req, res, next) => {
+        const id = parseInt(req.params.id);
+        Eventos.excluir(id, res, next);
+      });
+
 };

@@ -34,8 +34,7 @@ class Usuarios {
   }
 
   async adicionar(usuario, res, next) {
-    const nomeEhValido =
-      usuario.nome.length > 0 &&
+    const nomeEhValido = usuario.nome.length >= 3;
       (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
 
     const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);

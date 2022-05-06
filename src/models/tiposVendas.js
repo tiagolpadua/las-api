@@ -2,12 +2,12 @@ const pool = require("../infraestrutura/database/conexao");
 // const fetch = require("node-fetch");
 const repositorio = require("../repositorios/tiposVendas");
 
-class Vendas {
+class Venda {
   listar() {
-    return repositorio.tiposVendas();
+    return repositorio.listar();
   }
 
-  buscarTiposDeVendaPorId(id, res, next) {
+  buscarTiposDeVendasPorId(id, res, next) {
     const sql = "SELECT * FROM tiposVendas WHERE id = ?";
     pool.query(sql, id, (erro, resultados) => {
       const venda = resultados[0];
@@ -22,8 +22,56 @@ class Vendas {
       }
     });
   }
+  async incluir(venda, res, next) {
+    const descricaoEhValida = venda.descricao.length >= 5;
+    (await this.validarDescricaoVenda(venda.descricao));
+
+    const validacoes = [
+      {
+        nome: "descricao",
+        valido: descricaoEhValida,
+        mensagem: "Descricao contendo no minimo 5 caracteres",
+      }
+    ];
+    const erros = validacoes.filter((campo) => !campo.valido);
+    const existemErros = erros.length;
+
+    if (existemErros) {
+      res.status(400).json(erros);
+    } else {
+      const sql = "INSERT INTO tiposVendas SET ?";
+   
+      pool.query(sql, venda, (erro) => {
+      if (erro) {
+        next(erro);
+      } else {
+        res.status(200).json(venda);
+      }
+    });
+  }
+}
+alterar(id, valores, res, next) {
+  const sql = "UPDATE tiposVendas SET ? WHERE id = ?";
+  pool.query(sql, [valores, id], (erro) => {
+    if (erro) {
+      next(erro);
+    } else {
+      res.status(200).json(valores);
+    }
+  });
+}
+
+excluir(id, res, next) {
+  const sql = "DELETE FROM tiposVendas WHERE id = ?";
+  pool.query(sql, id, (erro) => {
+    if (erro) {
+      next(erro);
+    } else {
+      res.status(200).json({ id });
+    }
+  });
+ }
 
 
 }
-
-module.exports = new Vendas();
+module.exports = new Venda();
