@@ -16,9 +16,11 @@ class UsuariosRepositorio {
     return executaQuery(sql, nome);
   }
 
-  adicionar(usuario) {
+  async adicionar(usuario) {
     const sql = "INSERT INTO Usuarios SET ?";
-    return executaQuery(sql, usuario);
+    const resultados = await executaQuery(sql, usuario);
+    const id = resultados.insertId;
+    return { ...usuario, id };
   }
 
   buscarPorNome(nome) {

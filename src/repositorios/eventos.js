@@ -16,9 +16,11 @@ class EventosRepositorio {
     return executaQuery(sql, nome);
   }
 
-  adicionar(evento) {
+  async adicionar(evento) {
     const sql = "INSERT INTO Eventos SET ?";
-    return executaQuery(sql, evento);
+    const resultados = await executaQuery(sql, evento);
+    const id = resultados.insertId;
+    return { ...evento, id };
   }
 
   buscarStatus(status) {

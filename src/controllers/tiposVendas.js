@@ -4,7 +4,7 @@ module.exports = (app) => {
   app.get("/tipos-vendas", (req, res, next) => {
     tiposVendas
       .listar()
-      .then((resultados) => res.json(resultados))
+      .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => next(erros));
   });
 
@@ -12,7 +12,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     tiposVendas
       .buscaPorId(id)
-      .then((resultados) => res.json(resultados))
+      .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => next(erros));
   });
 
@@ -20,7 +20,7 @@ module.exports = (app) => {
     const tipoVenda = req.body;
     tiposVendas
       .adicionar(tipoVenda, next)
-      .then((resultados) => res.json(resultados))
+      .then((resultados) => res.status(201).json(resultados))
       .catch((erros) => next(erros));
   });
 
@@ -29,7 +29,7 @@ module.exports = (app) => {
     const valores = req.body;
     tiposVendas
       .alterar(id, valores)
-      .then((resultados) => res.json(resultados))
+      .then((resultados) => res.status(204).json(resultados))
       .catch((erros) => next(erros));
   });
 
@@ -37,7 +37,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     tiposVendas
       .excluir(id)
-      .then((resultados) => res.json(resultados))
+      .then((resultados) => res.status(204).json(resultados))
       .catch((erros) => next(erros));
   });
 };

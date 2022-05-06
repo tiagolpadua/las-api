@@ -1,4 +1,6 @@
 const repositorio = require("../repositorios/eventos");
+const moment = require("moment");
+const valida = require("./validacoes");
 
 class Eventos {
   listar() {
@@ -9,11 +11,20 @@ class Eventos {
     return repositorio.buscarPorId(id);
   }
 
-  adicionar(evento) {
-    return repositorio.adicionar(evento);
+  async adicionar(evento) {
+    if (this.isDatasValidas(evento)) {
+      return repositorio.adicionar(evento);
+    } else {
+      return Promise.reject({ error: "Entrada inválida" });
+    }
   }
+
   buscarPorStatus(status) {
-    return repositorio.buscarStatus(status);
+    if (valida.isStatusValidos(status)) {
+      repositorio.buscarStatus(status);
+    } else {
+      return Promise.reject({ error: "Status inválido fornecido" });
+    }
   }
 
   alterar(id, valores) {
@@ -26,6 +37,14 @@ class Eventos {
 
   buscarPorNome(nome) {
     return repositorio.buscarPorNome(nome);
+  }
+
+  isDatasValidas(evento) {
+    const dataAtual = moment().format("YYYY-MM-DD");
+    return (
+      moment(evento.dataInicio).isAfter(dataAtual) &&
+      moment(evento.dataFim).isAfter(evento.dataInicio)
+    );
   }
 }
 

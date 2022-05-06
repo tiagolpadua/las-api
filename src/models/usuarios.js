@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+const valida = require("./validacoes");
 const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
@@ -15,26 +15,24 @@ class Usuarios {
       {
         nome: `${usuario.nome}`,
         valido:
-          usuario.nome.length > 0 &&
+          valida.validarNome(usuario.nome) &&
           (await this.validarNomeUsuarioNaoUtilizado(usuario.nome)),
         mensagem: "Nome informado deve ser único e não vazio",
       },
       {
         url: `${usuario.urlFotoPerfil}`,
         valido:
-          this.validaFormatoUrl(usuario.urlFotoPerfil) &&
-          (await this.validarURLFotoPerfil(usuario.urlFotoPerfil)),
-
+          valida.validarFormatoUrl(usuario.urlFotoPerfil) &&
+          (await valida.validarURLFotoPerfil(usuario.urlFotoPerfil)),
         mensagem: "URL informada deve  ser uma URL válida",
       },
     ];
 
     const erros = validacoes.filter((campo) => !campo.valido);
-    if (erros.length > 0) {
-      return erros;
-    } else {
-      return await repositorio.adicionar(usuario);
-    }
+
+    return erros.length > 0
+      ? Promise.reject(erros)
+      : repositorio.adicionar(usuario);
   }
 
   alterar(id, valores) {
@@ -47,18 +45,6 @@ class Usuarios {
 
   buscarPorNome(nome) {
     return repositorio.buscarPorNome(nome);
-  }
-
-  validaFormatoUrl(url) {
-    const regex =
-      /https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/gm;
-    const EUmaUrl = url.match(regex);
-    return !EUmaUrl ? false : true;
-  }
-
-  async validarURLFotoPerfil(url) {
-    const response = await fetch(url, { method: "HEAD" });
-    return response.status !== 200 ? false : true;
   }
 
   async validarNomeUsuarioNaoUtilizado(nome) {
