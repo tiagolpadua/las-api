@@ -13,6 +13,12 @@ module.exports = (app) => {
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
+  app.get("/eventos/status/:status", (req, res, next) => {
+    const { status } = req.params;
+    Eventos.buscaPorStatus(status)
+      .then((resultados) => res.json(resultados))
+      .catch((erros) => next(erros));
+  });
 
   app.post("/eventos", (req, res, next) => {
     const eventos = req.body;

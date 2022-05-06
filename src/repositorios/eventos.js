@@ -22,6 +22,10 @@ class Eventos {
     const sql = "SELECT * FROM Eventos WHERE id = ?";
     return query(sql, id);
   }
+  buscaPorStatus(status) {
+    const sql = "SELECT * FROM Eventos WHERE status like ?";
+    return query(sql, status);
+  }
 
   buscaPorNome(id, nome) {
     const sql = "SELECT * FROM Eventos WHERE nome like ?";
