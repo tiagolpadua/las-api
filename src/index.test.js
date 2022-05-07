@@ -1,9 +1,9 @@
-const pool = undefined; //require("./infraestrutura/database/conexao");
-const Tabelas = undefined; //require("./infraestrutura/database/tabelas");
-const queries = undefined; //require("./infraestrutura/database/queries");
-const usuariosRepository = undefined; //require("./repositorios/usuario");
-const eventosController = undefined; //require("./controllers/eventos");
-const eventosModel = undefined; //require("./models/eventos");
+const pool = require("./infraestrutura/database/conexao");
+const Tabelas = require("./infraestrutura/database/tabelas");
+const queries = require("./infraestrutura/database/queries");
+const usuariosRepository =require("./repositorios/usuario");
+const eventosController = require("./controllers/eventos");
+const eventosModel = ("./models/eventos");
 const tiposVendasController = undefined; //require("./controllers/tiposVendas");
 const moment = undefined; //require("moment");
 
