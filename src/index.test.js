@@ -2,10 +2,10 @@ const pool = require("./infraestrutura/database/conexao");
 const Tabelas = require("./infraestrutura/database/tabelas");
 const queries = require("./infraestrutura/database/queries");
 const usuariosRepository = require("./repositorios/usuarios");
-const eventosController = undefined; //require("./controllers/eventos");
-const eventosModel = undefined; //require("./models/eventos");
-const tiposVendasController = undefined; //require("./controllers/tiposVendas");
-const moment = undefined; //require("moment");
+const eventosController = require("./controllers/eventos");
+const eventosModel = require("./models/eventos");
+const tiposVendasController = require("./controllers/tiposVendas");
+const moment = require("moment");
 
 const urlsGet = [];
 const urlsPost = [];
