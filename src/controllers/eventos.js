@@ -23,8 +23,8 @@ module.exports = (app) => {
       );
   });
 
-  app.get("/eventos/:eventoId", (req, res) => {
-    const id = parseInt(req.params.eventoId);
+  app.get("/eventos/:id", (req, res) => {
+    const id = parseInt(req.params.id);
     Evento.buscaEventoId(id)
       .then((results) => {
         if (!results.length) {
@@ -62,8 +62,8 @@ module.exports = (app) => {
       });
   });
 
-  app.put("/eventos/:eventoId", (req, res) => {
-    const id = parseInt(req.params.eventoId);
+  app.put("/eventos/:id", (req, res) => {
+    const id = parseInt(req.params.id);
     const retornoForm = req.body;
 
     console.log(retornoForm);
@@ -78,7 +78,7 @@ module.exports = (app) => {
       });
   });
 
-  app.delete("/eventos/:eventoId", (req, res) => {
+  app.delete("/eventos/:id", (req, res) => {
     const id = parseInt(req.params.eventoId);
 
     Evento.excluirEvento(id)

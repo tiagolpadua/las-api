@@ -4,7 +4,7 @@ const queries = require("./infraestrutura/database/queries");
 const usuariosRepository = require("./repositorios/usuarios");
 const eventosController = require("./controllers/eventos");
 const eventosModel = require("./models/eventos");
-const tiposVendasController = require("./controllers/tiposVendas");
+const tiposVendasController = undefined; //require("./controllers/tiposVendas");
 const moment = require("moment");
 
 const urlsGet = [];
