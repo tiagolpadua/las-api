@@ -7,6 +7,7 @@ const ENV = process.env.NODE_ENV;
 module.exports = () => {
   const app = express();
 
+  app.set("json spaces", 4);
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 

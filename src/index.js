@@ -1,6 +1,6 @@
 const customExpress = require("./config/customExpress");
-const pool = require("./infraestrutura/conexao");
-const Tabelas = require("./infraestrutura/tabelas");
+const pool = require("./infraestrutura/database/conexao");
+const Tabelas = require("./infraestrutura/database/tabelas");
 
 const PORT = process.env.PORT || 3000;
 

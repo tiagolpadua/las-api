@@ -1,139 +1,149 @@
-const pool = require("../infraestrutura/conexao");
+// const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
+const repositorio = require("../repositorios/usuarios");
 
 class Usuarios {
-  listar(res, next) {
-    const sql = "SELECT * FROM Usuarios";
-    pool.query(sql, (erro, resultados) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json(resultados);
+  constructor() {
+    this.validaSeNomeFoiUtilizado = async (retornoForm) => {
+      const existeUsuario = await repositorio.validarNomeUsuarioNaoUtilizado(
+        retornoForm
+      );
+
+      if (existeUsuario[0]?.nome === retornoForm.trim()) return !true;
+
+      return !false;
+    };
+
+    this.validarURLFotoPerfil = async (retornoForm) => {
+      const validadorUrl =
+        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/gi;
+      const urlEhValida = validadorUrl.test(retornoForm);
+
+      if (urlEhValida) {
+        const response = await fetch(retornoForm);
+
+        if (response.status === 200) return true;
+        else return false;
       }
-    });
-  }
 
-  buscarPorId(id, res, next) {
-    const sql = "SELECT * FROM Usuarios WHERE id = ?";
-    pool.query(sql, id, (erro, resultados) => {
-      const usuario = resultados[0];
-      if (erro) {
-        next(erro);
-      } else {
-        if (usuario) {
-          res.status(200).json(usuario);
-        } else {
-          res.status(404).end();
-        }
-      }
-    });
-  }
+      return false;
+    };
 
-  async adicionar(usuario, res, next) {
-    const nomeEhValido =
-      usuario.nome.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+    this.verificaTamanhoNome = (tamanho) => {
+      return tamanho > 4;
+    };
 
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    this.validarNomeUsuarioNaoUtilizadoPUT = async ({ id, retornoForm }) => {
+      const existeUsuarioPUT =
+        await repositorio.validarNomeUsuarioNaoUtilizadoPUT(id, retornoForm);
 
-    const validacoes = [
+      console.log(existeUsuarioPUT);
+
+      if (existeUsuarioPUT[0]?.nome === retornoForm.trim()) return !true;
+
+      return !false;
+    };
+
+    this.valida = async (parametros) => {
+      const validacoesComResultado = await Promise.all(
+        this.validacoes.map(async (campo) => {
+          const { nome } = campo;
+          const parametro = parametros[nome];
+
+          if (!parametro) return { ...campo, resultado: !true };
+
+          const resposta = await campo.valido(parametro);
+
+          return { ...campo, resultado: !resposta };
+        })
+      );
+
+      return validacoesComResultado.filter((campo) => campo.resultado);
+    };
+
+    this.validacoes = [
       {
-        nome: "nome",
-        valido: nomeEhValido,
-        mensagem: "Nome deve ser informado e deve ser único",
+        nome: "url",
+        valido: this.validarURLFotoPerfil,
+        mensagem: "URL inválida!",
       },
       {
-        nome: "urlFotoPerfil",
-        valido: urlEhValida,
-        mensagem: "URL deve uma URL válida",
+        nome: "nomeUsuario",
+        valido: this.verificaTamanhoNome,
+        mensagem: "usuário deve ter pelo menos cinco caracteres",
+      },
+      {
+        nome: "existeUsuario",
+        valido: this.validaSeNomeFoiUtilizado,
+        mensagem: "usuário já existe na base de dados",
+      },
+      {
+        nome: "existeUsuarioPUT",
+        valido: this.validarNomeUsuarioNaoUtilizadoPUT,
+        mensagem: "Usuario já existe na base de dados",
       },
     ];
+  }
 
-    const erros = validacoes.filter((campo) => !campo.valido);
+  listarUsuarios() {
+    return repositorio.listarUsuarios().then((resultado) => resultado);
+  }
+
+  async incluirUsuarios(retornoForm) {
+    const parametros = {
+      nomeUsuario: retornoForm.nome.length,
+      url: retornoForm.urlFotoPerfil,
+      existeUsuario: retornoForm.nome,
+    };
+
+    const erros = await this.valida(parametros);
+
     const existemErros = erros.length;
 
     if (existemErros) {
-      res.status(400).json(erros);
-    } else {
-      const sql = "INSERT INTO Usuarios SET ?";
-
-      pool.query(sql, usuario, (erro) => {
-        if (erro) {
-          next(erro);
-        } else {
-          res.status(201).json(usuario);
-        }
-      });
+      return new Promise((resolve, reject) => reject(erros));
     }
-  }
 
-  alterar(id, valores, res, next) {
-    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-    pool.query(sql, [valores, id], (erro) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json(valores);
-      }
+    return repositorio.incluirUsuarios(retornoForm).then((results) => {
+      return { id: results.insertId, ...retornoForm };
     });
   }
 
-  excluir(id, res, next) {
-    const sql = "DELETE FROM Usuarios WHERE id = ?";
-    pool.query(sql, id, (erro) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json({ id });
-      }
+  buscaUsuarioId(retornoForm) {
+    return repositorio
+      .buscaUsuarioId(retornoForm)
+      .then((resultado) => resultado);
+  }
+
+  buscaUsuarioPeloNome(retornoUrl) {
+    return repositorio.buscaUsuarioPeloNome(retornoUrl).then((resultado) => {
+      return resultado;
     });
   }
 
-  buscarPorNome(nome, res, next) {
-    const sql = "SELECT * FROM Usuarios WHERE nome like ?";
-    pool.query(sql, "%" + nome + "%", (erro, resultados) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json(resultados);
-      }
-    });
-  }
+  async alterarUsuario(id, retornoForm) {
+    const parametros = {
+      nomeUsuario: retornoForm.nome.length,
+      // existeUsuario: retornoForm.nome,
+      url: retornoForm.urlFotoPerfil,
+      existeUsuarioPUT: { id, retornoForm: retornoForm.nome },
+    };
 
-  async validarURLFotoPerfil(url) {
-    try {
-      const regex =
-        /https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/gm;
-      const verificaUrl = url.match(regex);
-      if (!verificaUrl) {
-        return false;
-      }
-      const response = await fetch(url);
-      if (response.status !== 200) {
-        return false;
-      } else {
-        return true;
-      }
-    } catch {
-      return false;
+    const erros = await this.valida(parametros);
+
+    const existemErros = erros.length;
+
+    if (existemErros) {
+      return new Promise((resolve, reject) => reject(erros));
     }
+
+    return repositorio
+      .alterarUsuario(id, retornoForm)
+      .then((resultado) => resultado);
   }
 
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
+  excluirUsuario(retornoForm) {
+    return repositorio.excluirUsuario(retornoForm);
   }
 }
 
