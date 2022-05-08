@@ -43,5 +43,4 @@ module.exports = (app) => {
         .then(resultados => res.json(resultados))
         .catch(erros => next(erros));
       });
-
 };

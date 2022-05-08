@@ -1,7 +1,6 @@
 const repositorio = require("../repositorios/evento");
 const moment = require("moment");
 
-
 class Eventos{
 
     listar(){
@@ -27,7 +26,7 @@ class Eventos{
         return repositorio.alterar(id, valores);
      }
     
-    excluir(id) {//ok
+    excluir(id) {
         return repositorio.excluir(id);
       }
 
@@ -41,21 +40,15 @@ class Eventos{
       
     validadeStatus(status){
           return (status === "agendado" || status === "em-andamento" || status === "finalizado" );
-          }
-          
-          
-          
-         isDatasValidas(evento) {
+          }         
+                    
+     isDatasValidas(evento) {
         const dataAtual = moment().format("YYYY-MM-DD");
         return (
           moment(evento.dataInicio).isAfter(dataAtual) &&
           moment(evento.dataFim).isAfter(evento.dataInicio)
         );
       }
- }
-    
-    
-
-
-
+ }  
+  
 module.exports =new Eventos;

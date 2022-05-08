@@ -1,15 +1,12 @@
-//const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
-//const conexao = require("../infraestrutura/database/conexao");
-
 
 class Usuarios {
-  listar() { //ok
+  listar() {
     return repositorio.listar();
   }
 
-  buscarPorId(id) {//ok
+  buscarPorId(id) {
     return repositorio.buscarPorId(id);
   }
 
@@ -33,15 +30,15 @@ class Usuarios {
     if (erros.length >0) {
       return Promise.reject(erros);
     } else {
-     return await repositorio.adicionar(usuario);// é uma promessa, precisa esperar 
+     return await repositorio.adicionar(usuario);
     }
   }
 
-  alterar(id, valores) {//ok
+  alterar(id, valores) {
     return repositorio.alterar(id, valores);
   }
 
-  excluir(id) {//ok
+  excluir(id) {
     return repositorio.excluir(id);
   }
 

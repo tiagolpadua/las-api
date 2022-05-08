@@ -1,5 +1,3 @@
-// sql
-
 const query = require("../infraestrutura/database/queries");
 
 class Eventos{
