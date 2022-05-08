@@ -1,27 +1,27 @@
 const query = require("../infraestrutura/database/queries");
 
 class Usuario {
-  listar() {
+  listarUsuarios() {
     const sql = "SELECT * FROM Usuarios";
     return query(sql);
   }
 
-  buscarPorId(id) {
+  buscarPorIdUsuario(id) {
     const sql = "SELECT * FROM Usuarios WHERE id = ?";
     return query(sql, id);
   }
 
-  adiciona(usuario) {
-    const sql = "INSERT INTO Atendimentos SET ?";
+  adicionaUsuario(usuario) {
+    const sql = "INSERT INTO Usuarios SET ?";
     return query(sql, usuario);
   }
 
-  alterar(id, valores) {
+  alterarUsuario(id, valores) {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
     return query(sql, [valores, id]);
   }
 
-  excluir(id) {
+  excluirUsuario(id) {
     const sql = "DELETE FROM Usuarios WHERE id = ?";
     return query(sql, id);
   }
