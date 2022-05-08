@@ -4,14 +4,14 @@ const moment = require("moment");
 
 class Evento {
   constructor() {
-    this.defineStatus = (dataInicio, dataTermino) => {
+    this.isDatasValidas = ({ dataInicio, dataFim }) => {
       const currentDate = moment().format("YYYY-MM-DD");
 
       const validEvent = moment(currentDate).isSameOrBefore(dataInicio);
 
-      const agendado = moment(dataInicio).isBefore(dataTermino);
+      const agendado = moment(dataInicio).isBefore(dataFim);
       const andamento = moment(currentDate).isSameOrAfter(dataInicio);
-      const finalizado = moment(dataTermino).isSameOrBefore(currentDate);
+      const finalizado = moment(dataFim).isSameOrBefore(currentDate);
 
       console.log("data", andamento, "dataInicio", dataInicio);
 
@@ -20,12 +20,15 @@ class Evento {
         else if (agendado) return "agendado";
         else if (finalizado) return "finalizado";
       }
+      // return false;
     };
 
-    this.dataEhValida = ({ dataInicio }) => {
+    this.dataEhValida = ({ dataInicio, dataFim }) => {
       const currentDate = moment().format("YYYY-MM-DD");
 
-      const validEvent = moment(currentDate).isSameOrBefore(dataInicio);
+      const validEvent =
+        moment(currentDate).isSameOrBefore(dataInicio) &&
+        moment(dataInicio).isSameOrBefore(dataFim);
 
       if (validEvent) return true;
       else return false;
@@ -132,7 +135,7 @@ class Evento {
       "YYYY-MM-DD"
     );
 
-    const status = this.defineStatus(dataInicio, dataFim);
+    const status = this.isDatasValidas({ dataInicio, dataFim });
 
     const retornoDatado = { ...retornoForm, dataInicio, dataFim, status };
 
@@ -180,7 +183,7 @@ class Evento {
       "YYYY-MM-DD"
     );
 
-    const status = this.defineStatus(dataInicio, dataFim);
+    const status = this.isDatasValidas({ dataInicio, dataFim });
 
     const retornoDatado = { ...retornoForm, dataInicio, dataFim, status };
 
@@ -206,7 +209,9 @@ class Evento {
   }
 
   excluirEvento(retornoForm) {
-    return repositorio.excluirEvento(retornoForm);
+    return repositorio
+      .excluirEvento(retornoForm)
+      .then((resultado) => resultado);
   }
 }
 

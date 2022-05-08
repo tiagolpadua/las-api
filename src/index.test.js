@@ -4,7 +4,7 @@ const queries = require("./infraestrutura/database/queries");
 const usuariosRepository = require("./repositorios/usuarios");
 const eventosController = require("./controllers/eventos");
 const eventosModel = require("./models/eventos");
-const tiposVendasController = undefined; //require("./controllers/tiposVendas");
+const tiposVendasController = require("./controllers/tiposVendas");
 const moment = require("moment");
 
 const urlsGet = [];
@@ -27,6 +27,15 @@ tiposVendasController &&
     post: (url) => urlsPost.push(url),
     delete: (url) => urlsDelete.push(url),
   });
+
+console.log(
+  "mostando",
+
+  urlsGet,
+  urlsPost,
+  urlsPut,
+  urlsDelete
+);
 
 describe("Essencial", () => {
   test("Refatore a configuraçao de conexão", () => {
@@ -86,13 +95,13 @@ describe("Desejável", () => {
 });
 
 describe("Desafio", () => {
-  test("Validação Avançada de Datas dos Eventos", () => {
+  test("Listagem de eventos por status", () => {
     expect(
       urlsGet.find((url) => url === "/eventos/status/:status")
     ).toBeDefined();
   });
 
-  test("Listagem de eventos por status", () => {
+  test("Validação Avançada de Datas dos Eventos", () => {
     // Data do evento anterior ao dia de hoje
     expect(
       eventosModel.isDatasValidas({

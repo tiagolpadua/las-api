@@ -14,9 +14,11 @@ module.exports = (app) => {
 
     Evento.incluirEvento(retornoForm)
       .then((resultados) => {
-        res
-          .status(201)
-          .json({ ...resultados, descrição: "Evento incluído com sucesso" });
+        res.status(201).json({
+          id: resultados.insertId,
+          ...retornoForm,
+          descrição: "Evento incluído com sucesso",
+        });
       })
       .catch((error) =>
         res.status(400).json({ erro: error, descrição: "Entrada inválida" })
@@ -42,13 +44,13 @@ module.exports = (app) => {
       });
   });
 
-  app.get("/eventos/status/:statusEvento", (req, res) => {
-    const id = parseInt(req.params.id);
+  app.get("/eventos/status/:status", (req, res) => {
+    const status = req.params.status;
 
-    Evento.buscaEventoId(id)
+    Evento.buscaEventoPeloStatus(status)
       .then((results) => {
         if (!results.length) {
-          res.status(404).json("Usuário não encontrado");
+          res.status(404).json("Status não encontrado");
         } else {
           res.status(200).json({
             ...results[0],
@@ -57,7 +59,7 @@ module.exports = (app) => {
         }
       })
       .catch((erro) => {
-        res.status(400).json("Id inválido fornecido");
+        res.status(400).json("Status inválido fornecido");
         return erro;
       });
   });
@@ -66,12 +68,14 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const retornoForm = req.body;
 
-    console.log(retornoForm);
     Evento.alterarEvento(id, retornoForm)
+      // eslint-disable-next-line no-unused-vars
       .then((resultado) => {
-        res
-          .status(201)
-          .json({ ...resultado, status: "Usuário incluído com sucesso" });
+        res.status(201).json({
+          id,
+          ...retornoForm,
+          estado: "Usuário incluído com sucesso",
+        });
       })
       .catch((erro) => {
         res.status(405).json({ erro: erro, status: "Entrada inválida" });
@@ -79,13 +83,13 @@ module.exports = (app) => {
   });
 
   app.delete("/eventos/:id", (req, res) => {
-    const id = parseInt(req.params.eventoId);
+    const id = parseInt(req.params.id);
 
     Evento.excluirEvento(id)
       .then((resultado) => {
         if (!resultado?.affectedRows)
-          res.status(404).json("Usuário não encontrado");
-        else res.status(204).json("Usuário excluído com sucesso");
+          res.status(404).json("Evento não encontrado");
+        else res.status(204).json("Evento excluído com sucesso");
       })
       .catch((erro) => {
         if (erro) res.status(400).json("Id inválido fornecido");
