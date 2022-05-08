@@ -3,6 +3,8 @@ class Tabelas {
     this.pool = pool;
 
     this.criarUsuarios();
+    this.criarEventos();
+    this.criarTiposVendas();
   }
 
   criarUsuarios() {
@@ -26,7 +28,7 @@ class Tabelas {
       if (erro) {
         console.log(erro);
       } else {
-        console.log("Tabela eventos criada com sucesso");
+        console.log("Tabela Eventos criada com sucesso");
       }
     });
   }
@@ -39,7 +41,7 @@ class Tabelas {
       if (erro) {
         console.log(erro);
       } else {
-        console.log("Tabela tipos de vendas criada com sucesso");
+        console.log("Tabela TiposVendas criada com sucesso");
       }
     });
   }
