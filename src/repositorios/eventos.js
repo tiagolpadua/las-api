@@ -21,6 +21,10 @@ class Eventos {
         const sql = "DELETE FROM Eventos WHERE id = ?";
         return query(sql, id);
     }
+    buscarPorStatus(status) {
+        const sql = "SELECT * FROM Eventos WHERE status = ?";
+        return query(sql, status);
+    }
 }
 
 module.exports = new Eventos();

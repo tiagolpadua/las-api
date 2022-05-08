@@ -20,6 +20,13 @@ module.exports = (app) => {
     .catch((erros) => next(erros));
   });
 
+  app.post("/tipos-vendas", (req, res, next) => {
+    const tiposVendas = req.body;
+    TiposVendas.adicionar(tiposVendas)
+      .then((tiposVendasAdicionado) => res.status(201).json(tiposVendasAdicionado))
+      .catch((erros) => next(erros));
+  });
+
   app.put("/tipos-vendas/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
