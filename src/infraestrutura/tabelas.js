@@ -1,22 +1,22 @@
-class Tabela {
-    init(conexao) {
-        this.conexao = conexao;
+class Tabelas {
+  init(pool) {
+    this.pool = pool;
 
-        this.criarUsuarios();
-    }
+    this.criarUsuarios();
+  }
 
-    criarUsuarios() {
-        const sql = `CREATE TABLE IF NOT EXISTS usuarios(
-            id int AUTO_INCREMENT PRIMARY KEY,
-            nome varchar(100) NOT NULL, 
-            urlFotoPerfil varchar(200))`;
+  criarUsuarios() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS Usuarios(id INT AUTO_INCREMENT NOT NULL, nome varchar(100) NOT NULL, urlFotoPerfil text, UNIQUE (nome), PRIMARY KEY(id))";
 
-        this.conexao.query(sql, (erro) => {
-            if(erro) console.log(erro);
-            else console.log("Tabela usuarios criada com sucesso.");
-        });
-    }
+    this.pool.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela Usuarios criada com sucesso");
+      }
+    });
+  }
 }
 
-
-module.exports = new Tabela;
+module.exports = new Tabelas();

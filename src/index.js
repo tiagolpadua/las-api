@@ -1,13 +1,20 @@
-const customExpress = require("../config/customExpress");
-const conexao = require("./infraestrutura/conexao");
-const Tabela = require("./infraestrutura/tabelas");
+const customExpress = require("./config/customExpress");
+const pool = require("./infraestrutura/conexao");
+const Tabelas = require("./infraestrutura/tabelas");
 
-conexao.connect((erro) => {
-    if(erro) console.log(erro);
-    else {
-        console.log("Servidor conectado.");
-        Tabela.init(conexao);
-        const app = customExpress();
-        app.listen(3000, () => console.log("Servidor rodando na 3000"));
-    }
+const PORT = process.env.PORT || 3000;
+
+// Testa conexão com o pool
+pool.getConnection((err, connection) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("conectado com sucesso");
+    connection.release();
+
+    Tabelas.init(pool);
+    const app = customExpress();
+
+    app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+  }
 });

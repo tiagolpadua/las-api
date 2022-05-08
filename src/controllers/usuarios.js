@@ -1,37 +1,33 @@
-const Usuario = require("../models/usuarios");
+const Usuarios = require("../models/usuarios");
 
 module.exports = (app) => {
-    app.get("/usuarios", (res) => {
-        Usuario.listar(res);
-    });
+  app.get("/usuarios", (req, res, next) => {
+    Usuarios.listar(res, next);
+  });
 
-    app.get("/usuarios/:id", (req, res) => {
-        const id = parseInt(req.params.id);
-        Usuario.buscaPorId(id, res);
-    });
+  app.get("/usuarios/:id", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    Usuarios.buscarPorId(id, res, next);
+  });
 
-    app.get("/usuarios/nome/:nome", (req, res) => {
-        const nome = req.params.nome;
-        Usuario.buscaPorNome(nome, res);
-    });
+  app.post("/usuarios", (req, res, next) => {
+    const usuarios = req.body;
+    Usuarios.adicionar(usuarios, res, next);
+  });
 
-    app.post("/usuarios", (req, res) => {
-        const usuario = req.body;
-        Usuario.add(usuario, res);
-    });
+  app.put("/usuarios/:id", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuarios.alterar(id, valores, res, next);
+  });
 
-    app.put("/usuarios/:id", (req, res) => {
-        const id = req.id;
-        const valores = req.body;
-        Usuario.alterarUsuario(id, valores, res);
-    });
+  app.delete("/usuarios/:id", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    Usuarios.excluir(id, res, next);
+  });
 
-    app.delete("/usuarios/:id", (req, res) => {
-        const id = req.id;
-        Usuario.excluirUsuario(id, res);
-    });
-
-    app.get("/usuarios/nome/:nome", (req, res) => {
-        Usuario.buscaPorNome(req.nome, res);
-    });
+  app.get("/usuarios/nome/:nome", (req, res, next) => {
+    const nome = req.params.nome;
+    Usuarios.buscarPorNome(nome, res, next);
+  });
 };
