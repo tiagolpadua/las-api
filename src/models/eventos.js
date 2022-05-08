@@ -10,10 +10,7 @@ class Eventos{
         .then(resultados => resultados[0]);
     }
     adicionar(evento){
-        const dataEhValida = this.isDatasValidas(
-            evento.dataInicio,
-            evento.dataFim
-        );
+        const dataEhValida = this.isDatasValidas(evento.dataInicio, evento.dataFim);
         if(dataEhValida){
             return repositorio.adicionar(evento);
         } else {
@@ -34,13 +31,12 @@ class Eventos{
         
     isDatasValidas({ dataInicio, dataFim }) {
         const dataCriacao = moment().format("YYYY-MM-DD");
-        const dataInicioEvento = moment(dataInicio).format("YYYY-MM-DD");
-        const dataFimEvento = moment(dataFim).format("YYYY-MM-DD");
+        const dataInicioFormatada = moment(dataInicio).format("YYYY-MM-DD");
+        const dataFimFormatada = moment(dataFim).format("YYYY-MM-DD");
     
-        const dataEventoEhValida =
-        moment(dataInicioEvento).isSameOrAfter(dataCriacao) &&
-        moment(dataFimEvento).isSameOrAfter(dataInicioEvento);
-        return dataEventoEhValida;
+        const dataEhValida = moment(dataInicioFormatada).isSameOrAfter(dataCriacao) && moment(dataFimFormatada).isSameOrAfter(dataInicioFormatada);
+
+        return dataEhValida;
     }
 }
 
