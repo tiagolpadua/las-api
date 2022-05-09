@@ -37,6 +37,9 @@ class Eventos {
       moment(dataFimEvento).isSameOrAfter(dataInicioEvento);
     return dataEValida;
   }
+  buscaPorStatus(status) {
+    return repositorio.buscaPorStatus(status);
+  }
 }
 
 module.exports = new Eventos();

@@ -3,7 +3,7 @@ const Tabelas = require("./infraestrutura/database/tabelas");
 const queries = require("./infraestrutura/database/queries");
 const usuariosRepository = require("./repositorios/usuario");
 const eventosController = require("./controllers/eventos");
-const eventosModel = undefined; //require("./models/eventos");
+const eventosModel = require("./models/eventos");
 const tiposVendasController = require("./controllers/tiposVendas");
 const moment = require("moment");
 

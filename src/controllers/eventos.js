@@ -46,4 +46,11 @@ module.exports = (app) => {
       .then((resultados) => res.json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });
+  app.get("/eventos/status/:status", (req, res) => {
+    const status = req.params.status;
+    eventos
+      .buscarPorNome(status)
+      .then((resultados) => res.json(resultados))
+      .catch((erros) => res.status(400).json(erros));
+  });
 };
