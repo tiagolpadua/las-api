@@ -61,6 +61,7 @@
     "body-parser": "^1.20.0",
     "consign": "^0.1.6",
     "express": "^4.17.3",
+    "moment": "^2.29.3",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "node-fetch": "^2.6.7",
