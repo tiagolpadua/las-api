@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 
 class Valida {
   isNomeValido(nome) {
-    return nome > 5;
+    return nome.length > 5;
   }
 
   isFormatoUrlFotoValido(urlFoto) {

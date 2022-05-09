@@ -23,9 +23,20 @@ class EventosRepositorio {
     return { ...evento, id };
   }
 
-  buscarStatus(status) {
-    const sql = "SELECT * FROM Eventos WHERE status like ?";
-    return executaQuery(sql, "%" + status + "%");
+  buscarStatus(status, dataAtual) {
+    let sql;
+    switch (status) {
+      case "agendado":
+        sql = `SELECT * FROM Eventos WHERE dataInicio > "${dataAtual}"`;
+        break;
+      case "em-andamento":
+        sql = `SELECT * FROM Eventos WHERE dataInicio < "${dataAtual}" and dataFim >= "${dataAtual}"`;
+        break;
+      case "finalizado":
+        sql = `SELECT * FROM Eventos WHERE dataInicio < "${dataAtual}" and dataFim < "${dataAtual}"`;
+        break;
+    }
+    return executaQuery(sql);
   }
 
   alterar(id, valores) {

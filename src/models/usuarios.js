@@ -15,15 +15,15 @@ class Usuarios {
       {
         nome: `${usuario.nome}`,
         valido:
-          valida.validarNome(usuario.nome) &&
+          valida.isNomeValido(usuario.nome) &&
           (await this.validarNomeUsuarioNaoUtilizado(usuario.nome)),
         mensagem: "Nome informado deve ser único e não vazio",
       },
       {
         url: `${usuario.urlFotoPerfil}`,
         valido:
-          valida.validarFormatoUrl(usuario.urlFotoPerfil) &&
-          (await valida.validarURLFotoPerfil(usuario.urlFotoPerfil)),
+          valida.isFormatoUrlFotoValido(usuario.urlFotoPerfil) &&
+          (await valida.isStatusFotoValido(usuario.urlFotoPerfil)),
         mensagem: "URL informada deve  ser uma URL válida",
       },
     ];

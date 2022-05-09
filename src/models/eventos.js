@@ -2,6 +2,8 @@ const repositorio = require("../repositorios/eventos");
 const moment = require("moment");
 const valida = require("./validacoes");
 
+const dataAtual = moment().format("YYYY-MM-DD");
+
 class Eventos {
   listar() {
     return repositorio.listar();
@@ -13,7 +15,9 @@ class Eventos {
 
   async adicionar(evento) {
     if (this.isDatasValidas(evento)) {
-      return repositorio.adicionar(evento);
+      const eventoAdicionado = await repositorio.adicionar(evento);
+      const eventoStatus = this.dataStatus(evento);
+      return { ...eventoAdicionado, status: eventoStatus };
     } else {
       return Promise.reject({ error: "Entrada inválida" });
     }
@@ -21,7 +25,7 @@ class Eventos {
 
   buscarPorStatus(status) {
     if (valida.isStatusValidos(status)) {
-      repositorio.buscarStatus(status);
+      return repositorio.buscarStatus(status, dataAtual);
     } else {
       return Promise.reject({ error: "Status inválido fornecido" });
     }
@@ -39,8 +43,24 @@ class Eventos {
     return repositorio.buscarPorNome(nome);
   }
 
+  dataStatus(evento) {
+    const dataFim = moment(evento.dataFim, "YYYY-MM-DD");
+    const dataInicio = moment(evento.dataInicio, "YYYY-MM-DD");
+
+    let status;
+    if (moment(dataAtual).isBetween(dataFim, dataInicio)) {
+      status = "em-andamento";
+    }
+    if (moment(dataAtual).isAfter(dataFim)) {
+      status = "finalizado";
+    }
+    if (moment(dataAtual).isBefore(dataInicio)) {
+      status = "agendado";
+    }
+    return status;
+  }
+
   isDatasValidas(evento) {
-    const dataAtual = moment().format("YYYY-MM-DD");
     return (
       moment(evento.dataInicio).isAfter(dataAtual) &&
       moment(evento.dataFim).isAfter(evento.dataInicio)
