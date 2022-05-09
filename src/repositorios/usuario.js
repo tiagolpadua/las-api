@@ -1,5 +1,5 @@
-const query = require("../infraestrutura/queries.js");
-class UsuarioRepositorios {
+const query = require("../infraestrutura/database/queries.js");
+class UsuarioRepositorio {
   listar() {
     const sql = "SELECT * FROM Usuarios";
     return query(sql);
@@ -26,4 +26,4 @@ class UsuarioRepositorios {
   }
 }
 
-module.exports = new UsuarioRepositorios();
+module.exports = new UsuarioRepositorio();

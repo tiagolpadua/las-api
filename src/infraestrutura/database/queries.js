@@ -1,4 +1,4 @@
-const conexao = require("../infraestrutura/database/conexao");
+const conexao = require("./conexao");
 
 const executaQuery = (query, parametros = "") => {
   return new Promise((resolve, reject) => {
