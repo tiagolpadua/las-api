@@ -14,7 +14,7 @@ class Eventos{
         if(dataEhValida){
             return repositorio.adicionar(evento);
         } else {
-            return Promise.reject({erro: "Data inválida, cadastre novamente com uma data válida"});
+            return Promise.reject({erro: "Data inválida, insira novamente com uma data válida"});
         }
 
     }
