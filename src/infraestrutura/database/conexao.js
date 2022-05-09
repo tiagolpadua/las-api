@@ -10,7 +10,7 @@ const pool = mysql.createPool({
   connectionLimit: 100,
   host: DBHOST || "localhost",
   port: DBPORT || 3306,
-  user: DBUSER || "las",
+  user: DBUSER || "root",
   password: DBPASS || "admin",
   database: DBNAME || "las",
 });

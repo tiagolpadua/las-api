@@ -1,13 +1,17 @@
-const Usuarios = require("../models/usuarios");
+const Usuarios = require("../repositorios/usuarios");
 
 module.exports = (app) => {
   app.get("/usuarios", (req, res, next) => {
-    Usuarios.listar(res, next);
+    Usuarios.listar()
+      .then((usuarios) => res.status(200).json(usuarios))
+      .catch((erro) => next(erro));
   });
 
   app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    Usuarios.buscarPorId(id, res, next);
+    Usuarios.buscarPorId(id)
+      .then((usuario) => res.status(200).json(usuario))
+      .catch((erro) => next(erro));
   });
 
   app.post("/usuarios", (req, res, next) => {
