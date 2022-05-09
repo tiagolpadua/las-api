@@ -1,6 +1,7 @@
 const Usuarios = require("../models/usuarios");
 
 
+
 module.exports = (app) => {
   // app.get("/usuarios", (req, res, next) => {
   //   Usuarios.listar(res, next);
@@ -9,6 +10,11 @@ module.exports = (app) => {
     Usuarios.listar()
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
+
+module.exports = (app) => {
+  app.get("/usuarios", (req, res, next) => {
+    Usuarios.listar(res, next);
+
   });
 
   app.get("/usuarios/:id", (req, res, next) => {
@@ -37,5 +43,4 @@ module.exports = (app) => {
     Usuarios.buscarPorNome(nome, res, next);
   });
 
-  
 };

@@ -1,3 +1,4 @@
+
 const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
@@ -15,6 +16,21 @@ class Usuarios {
   // }
   listar() {
     return repositorio.listar();
+
+const pool = require("../infraestrutura/conexao");
+const fetch = require("node-fetch");
+
+class Usuarios {
+  listar(res, next) {
+    const sql = "SELECT * FROM Usuarios";
+    pool.query(sql, (erro, resultados) => {
+      if (erro) {
+        next(erro);
+      } else {
+        res.status(200).json(resultados);
+      }
+    });
+
   }
 
   buscarPorId(id, res, next) {
@@ -34,7 +50,12 @@ class Usuarios {
   }
 
   async adicionar(usuario, res, next) {
+
     const nomeEhValido = usuario.nome.length >= 3;
+
+    const nomeEhValido =
+      usuario.nome.length > 0 &&
+
       (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
 
     const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
