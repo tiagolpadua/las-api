@@ -19,7 +19,7 @@ class Tabelas {
 
   criarEventos(){
 
-    const sql= "CREATE TABLE IF NOT EXISTS Eventos(id int NOT NULL AUTO_INCREMENT,nome varchar(100), descricao varchar(100), urlFoto text, dataInicio DATE, dataFim DATE, status enum('agendado', 'em-andamento', 'finalizado') NOT NULL, PRIMARY KEY(id) )";
+    const sql= "CREATE TABLE IF NOT EXISTS Eventos(id int NOT NULL AUTO_INCREMENT,nome varchar(100), descricao varchar(100), urlFoto text, dataInicio DATE, dataFim DATE, PRIMARY KEY(id) )";
     query(sql)
     .then(console.log("Tabela Eventos criada com sucesso."))
     .catch((erros) => console.log(erros));

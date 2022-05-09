@@ -1,5 +1,6 @@
 const repositorio = require("../repositorios/evento");
 const moment = require("moment");
+const dataAtual = moment().format("YYYY-MM-DD");
 
 class Eventos{
 
@@ -11,13 +12,12 @@ class Eventos{
         return repositorio.buscarPorId(id);
     }
     async incluir(evento){  
-        console.log(evento.status);
-        if(!this.validadeStatus(evento.status))  {
-            return Promise.reject({error:"Status não é válido"});
-        }if(!this.isDatasValidas(evento)){
-            return Promise.reject({error:"Data Inválida"});
+         if(!this.isDatasValidas(evento)){
+            return Promise.reject("Data Inválida");
          } else{
-            return repositorio.incluir(evento);
+             const eventoAdicionado = await repositorio.incluir(evento);
+             const eventoStatus = this.dataStatus(evento);
+             return {...eventoAdicionado, status: eventoStatus};
         }
                 
     }
@@ -31,10 +31,10 @@ class Eventos{
       }
 
      buscaPorStatus(status){
-        if(this.validadeStatus(status))  {
-            return repositorio.buscaPorStatus(status);
+        if(!this.validadeStatus(status))  {
+            return Promise.reject("Status não é válido");            
         }else{
-            return Promise.reject({error:"Status não é válido"});
+            return repositorio.buscaPorStatus(status,dataAtual);
         }          
       }    
       
@@ -49,6 +49,24 @@ class Eventos{
           moment(evento.dataFim).isAfter(evento.dataInicio)
         );
       }
+
+     dataStatus(evento) {
+        const dataFim = moment(evento.dataFim, "YYYY-MM-DD");
+        const dataInicio = moment(evento.dataInicio, "YYYY-MM-DD");
+    
+        let status;
+        if (moment(dataAtual).isBefore(dataInicio)) {
+            status = "agendado";
+         }
+        if (moment(dataAtual).isBetween(dataFim, dataInicio)) {
+          status = "em-andamento";
+        }
+        if (moment(dataAtual).isAfter(dataFim)) {
+          status = "finalizado";
+        }       
+        return status;        
+      }
+    
  }  
   
 module.exports =new Eventos;
