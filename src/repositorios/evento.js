@@ -25,10 +25,10 @@ class Evento {
     return query(sql, [valores, id]);
   }
 
-  buscaPorNome(nome) {
-    const sql = "SELECT * FROM Eventos WHERE nome LIKE ?";
+  buscaPorStatus(status) {
+    const sql = "SELECT * FROM Eventos WHERE status = ?";
 
-    return query(sql, `%${nome}%`);
+    return query(sql, status);
   }
 
   excluir(id) {

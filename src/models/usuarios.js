@@ -1,5 +1,5 @@
 const pool = require("../infraestrutura/database/conexao");
-const fetch = require("node-fetch");
+const Validacoes = require("../models/validacoes");
 const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
@@ -19,7 +19,7 @@ class Usuarios {
       usuario.nome.length > 0 &&
       (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
 
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    const urlEhValida = await Validacoes.validarUrl(usuario.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -60,25 +60,6 @@ class Usuarios {
   //Refatoração - OK
   buscaPorNome(nome) {
     return repositorio.buscaPorNome(nome);
-  }
-
-  async validarURLFotoPerfil(url) {
-    try {
-      const regex =
-        /https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/gm;
-      const verificaUrl = url.match(regex);
-      if (!verificaUrl) {
-        return false;
-      }
-      const response = await fetch(url);
-      if (response.status !== 200) {
-        return false;
-      } else {
-        return true;
-      }
-    } catch {
-      return false;
-    }
   }
 
   async validarNomeUsuarioNaoUtilizado(nome) {
