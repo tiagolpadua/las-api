@@ -29,4 +29,12 @@ module.exports = (app) => {
         Eventos.excluir(id, res, next);
       });
 
+      app.get("/eventos/status/:status",(req,res,next) => {
+        const status = req.params.status;
+        Eventos.listaEventosPorStatus(status)
+        .then((resultados) => res.json(resultados))
+        .catch((erros) => next(erros));
+      
+      });
+
 };

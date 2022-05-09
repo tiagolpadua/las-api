@@ -9,7 +9,7 @@ class Eventos {
   }
 
 
-buscarEventosPorId(id, res, next) {
+buscarPorId(id, res, next) {
   const sql = "SELECT * FROM Eventos WHERE id = ?";
   pool.query(sql, id, (erro, resultados) => {
     const evento = resultados[0];
@@ -50,6 +50,7 @@ buscarEventosPorId(id, res, next) {
     if (existemErros) {
       res.status(400).json(erros);
     } else {
+     // Eventos.adicionar(evento)
       const sql = "INSERT INTO Eventos SET ?";
 
       pool.query(sql, evento, (erro) => {
@@ -81,6 +82,10 @@ buscarEventosPorId(id, res, next) {
         res.status(200).json({ id });
       }
     });
+  }
+
+  listaEventosPorStatus(status) {
+    return repositorio.listaEventosPorStatus(status);
   }
 
  } 

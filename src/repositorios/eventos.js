@@ -10,6 +10,12 @@ class Evento {
       const sql ="SELECT * FROM Eventos";
       return query(sql);
   }
+
+  listaEventosPorStatus(status) {
+    const sql =`SELECT * FROM Eventos WHERE status= "${status}"`;
+    return query(sql);
+    
+  }
 }
 
 module.exports = new Evento();
