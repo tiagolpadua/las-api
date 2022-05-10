@@ -7,10 +7,18 @@ module.exports = (app) => {
       .catch((erros) => res.status(400).json(erros))
   );
 
-  app.post("/tipos-vendas", (req, res) => {
-    const TiposVendas = req.body;
+  app.get("/tipos-vendas/:id", (req, res) => {
+    const id = parseInt(req.params.id);
 
-    TiposVendas.incluir(TiposVendas)
+    TiposVendas.buscarPorId(id)
+      .then((resultados) => res.status(201).json(resultados))
+      .catch((erros) => res.status(400).json(erros));
+  });
+
+  app.post("/tipos-vendas", (req, res) => {
+    const tiposVenda = req.body;
+
+    TiposVendas.incluir(tiposVenda)
       .then((resultados) => res.status(201).json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });

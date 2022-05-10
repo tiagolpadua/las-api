@@ -22,7 +22,7 @@ class Tabelas {
 
   criarEventos() {
     const sql =
-      "CREATE TABLE IF NOT EXISTS Eventos(id INT AUTO_INCREMENT NOT NULL, nome varchar(100) NOT NULL, descricao varchar(300) NOT NULL, urlFoto text NOT NULL, dataInicio varchar(10) NOT NULL, dataFim varchar(10) NOT NULL, status varchar(100), PRIMARY KEY(id))";
+      "CREATE TABLE IF NOT EXISTS Eventos(id INT AUTO_INCREMENT NOT NULL, nome varchar(100) NOT NULL, descricao varchar(300) NOT NULL, urlFoto text NOT NULL, dataInicio datetime NOT NULL, dataFim datetime NOT NULL, PRIMARY KEY(id))";
 
     this.pool.query(sql, (erro) => {
       if (erro) {

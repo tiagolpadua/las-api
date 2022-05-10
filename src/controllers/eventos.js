@@ -39,4 +39,10 @@ module.exports = (app) => {
       .then((resultados) => res.status(201).json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });
+
+  app.get("/eventos/status/:status", (req, res) =>
+    Eventos.listar()
+      .then((resultados) => res.status(201).json(resultados))
+      .catch((erros) => res.status(400).json(erros))
+  );
 };
