@@ -1,6 +1,8 @@
 // const pool = require("../infraestrutura/database/conexao");
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuarios");
+const funcoesValidacoes = require("../validacoes/validacoes");
+const listaValidacoes = require("../validacoes/listaValidacoes");
 
 class Usuarios {
   constructor() {
@@ -14,64 +16,22 @@ class Usuarios {
       return !false;
     };
 
-    this.validarURLFotoPerfil = async (retornoForm) => {
-      const validadorUrl =
-        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/gi;
-      const urlEhValida = validadorUrl.test(retornoForm);
-
-      if (urlEhValida) {
-        const response = await fetch(retornoForm);
-
-        if (response.status === 200) return true;
-        else return false;
-      }
-
-      return false;
-    };
-
-    this.verificaTamanhoNome = (tamanho) => {
-      return tamanho > 4;
-    };
-
     this.validarNomeUsuarioNaoUtilizadoPUT = async ({ id, retornoForm }) => {
       const existeUsuarioPUT =
         await repositorio.validarNomeUsuarioNaoUtilizadoPUT(id, retornoForm);
-
-      console.log(existeUsuarioPUT);
 
       if (existeUsuarioPUT[0]?.nome === retornoForm.trim()) return !true;
 
       return !false;
     };
 
-    this.valida = async (parametros) => {
-      const validacoesComResultado = await Promise.all(
-        this.validacoes.map(async (campo) => {
-          const { nome } = campo;
-          const parametro = parametros[nome];
+    this.validarURLFotoPerfil = funcoesValidacoes.validarURLFotoPerfil;
 
-          if (!parametro) return { ...campo, resultado: !true };
+    this.verificaTamanhoNome = funcoesValidacoes.verificaTamanhoNome;
 
-          const resposta = await campo.valido(parametro);
-
-          return { ...campo, resultado: !resposta };
-        })
-      );
-
-      return validacoesComResultado.filter((campo) => campo.resultado);
-    };
+    this.valida = funcoesValidacoes.valida;
 
     this.validacoes = [
-      {
-        nome: "url",
-        valido: this.validarURLFotoPerfil,
-        mensagem: "URL inválida!",
-      },
-      {
-        nome: "nomeUsuario",
-        valido: this.verificaTamanhoNome,
-        mensagem: "usuário deve ter pelo menos cinco caracteres",
-      },
       {
         nome: "existeUsuario",
         valido: this.validaSeNomeFoiUtilizado,
@@ -82,6 +42,8 @@ class Usuarios {
         valido: this.validarNomeUsuarioNaoUtilizadoPUT,
         mensagem: "Usuario já existe na base de dados",
       },
+
+      ...listaValidacoes,
     ];
   }
 
@@ -131,8 +93,11 @@ class Usuarios {
 
     const erros = await this.valida(parametros);
 
+    console.log(retornoForm);
+
     const existemErros = erros.length;
 
+    console.log(existemErros);
     if (existemErros) {
       return new Promise((resolve, reject) => reject(erros));
     }

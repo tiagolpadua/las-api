@@ -1,6 +1,7 @@
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 const repositorio = require("../repositorios/eventos");
 const moment = require("moment");
+const funcoesValidacoes = require("../validacoes/validacoes");
 
 class Evento {
   constructor() {
@@ -54,47 +55,11 @@ class Evento {
       return !false;
     };
 
-    this.validarURLFotoPerfil = async (retornoForm) => {
-      const validadorUrl =
-        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/gi;
-      const urlEhValida = validadorUrl.test(retornoForm);
+    this.validarURLFotoPerfil = funcoesValidacoes.validarURLFotoPerfil;
 
-      if (urlEhValida) {
-        const response = await fetch(retornoForm);
+    this.verificaTamanhoNome = funcoesValidacoes.verificaTamanhoNome;
 
-        if (response.status === 200) return true;
-        else return false;
-      }
-
-      return false;
-    };
-
-    this.verificaTamanhoNome = async (tamanho) => {
-      return tamanho > 4;
-    };
-
-    this.valida = async (parametros) => {
-      const validacoesComResultado = await Promise.all(
-        this.validacoes.map(async (campo) => {
-          const { nome } = campo;
-          const parametro = parametros[nome];
-
-          if (!parametro) return { ...campo, resultado: !true };
-
-          const resposta = await campo.valido(parametro);
-
-          const novoCampo = { ...campo, resultado: !resposta };
-
-          return novoCampo;
-        })
-      );
-
-      const verificaErros = validacoesComResultado.filter(
-        (campo) => campo.resultado
-      );
-
-      return verificaErros;
-    };
+    this.valida = funcoesValidacoes.valida;
 
     this.validacoes = [
       {
