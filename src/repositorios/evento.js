@@ -21,18 +21,18 @@ class Eventos{
         const sql = "DELETE FROM Eventos WHERE id = ?";
         return query(sql, id);
     }
-    buscaPorStatus(status, dataAtual) {
+    buscaPorStatus(status) {
         let sql;
 
         switch (status) {
           case "agendado":
-            sql = `SELECT * FROM Eventos WHERE dataInicio > "${dataAtual}"`;
+            sql = "SELECT * FROM Eventos WHERE dataInicio > NOW()";
             break;
           case "em-andamento":
-            sql = `SELECT * FROM Eventos WHERE dataInicio < "${dataAtual}" and dataFim >= "${dataAtual}"`;
+            sql = "SELECT * FROM Eventos WHERE dataInicio <  NOW() and dataFim >=  NOW()";
             break;
           case "finalizado":
-            sql = `SELECT * FROM Eventos WHERE dataInicio < "${dataAtual}" and dataFim < "${dataAtual}"`;
+            sql = "SELECT * FROM Eventos WHERE dataInicio <  NOW() and dataFim <  NOW()";
             break;
         }
         return query(sql);             

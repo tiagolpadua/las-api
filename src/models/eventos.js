@@ -4,13 +4,24 @@ const dataAtual = moment().format("YYYY-MM-DD");
 
 class Eventos{
 
-    listar(){
-        return repositorio.listar();
+    async listar(){
+        const eventosListados = await repositorio.listar();
+            const eventosComStatus = eventosListados.map (event => {
+                return {...event , status:this.dataStatus(event)};
+            });
+
+            return eventosComStatus;
+        }       
+          
+    async buscarPorId(id){
+        const eventosListadoID = await repositorio.buscarPorId(id);
+            const eventosComStatus = eventosListadoID.map (event => {
+                return {...event , status:this.dataStatus(event)};
+            });
+
+            return eventosComStatus;
     }
 
-    buscarPorId(id){
-        return repositorio.buscarPorId(id);
-    }
     async incluir(evento){  
          if(!this.isDatasValidas(evento)){
             return Promise.reject("Data Inválida");
@@ -30,11 +41,16 @@ class Eventos{
         return repositorio.excluir(id);
       }
 
-     buscaPorStatus(status){
+     async buscaPorStatus(status){
         if(!this.validadeStatus(status))  {
             return Promise.reject("Status não é válido");            
         }else{
-            return repositorio.buscaPorStatus(status,dataAtual);
+            const eventosProcurados = await repositorio.buscaPorStatus(status);
+            const eventosComStatus = eventosProcurados.map (event => {
+                return {...event , status:this.dataStatus(event)};
+            });
+
+            return eventosComStatus;
         }          
       }    
       
