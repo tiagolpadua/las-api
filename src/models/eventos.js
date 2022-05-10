@@ -63,6 +63,12 @@ class Eventos {
       }
     });
   }
+
+  listarPorStatus(status) {
+    if (status === "agendado") {
+      return repositorio.statusAgendado().then((evento) => evento);
+    }
+  }
 }
 
 module.exports = new Eventos();

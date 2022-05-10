@@ -1,4 +1,5 @@
 const query = require("../infraestrutura/database/queries");
+const moment = require("moment");
 
 class Evento {
   listarEventos() {
@@ -24,6 +25,12 @@ class Evento {
   excluirEvento(id) {
     const sql = "DELETE FROM Eventos WHERE id = ?";
     return query(sql, id);
+  }
+
+  statusAgendado() {
+    const dataHoje = moment().format("YYYY-MM-DD HH:MM:SS");
+    const sql = "SELECT * FROM eventos WHERE dataInicio >= ?";
+    return query(sql, dataHoje);
   }
 }
 
