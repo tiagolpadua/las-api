@@ -11,9 +11,9 @@ class EventosRepositorio {
     return executaQuery(sql, id);
   }
 
-  validarNome(nome) {
-    const sql = "SELECT * FROM Eventos WHERe nome =?";
-    return executaQuery(sql, nome);
+  buscarPorNome(nome) {
+    const sql = "SELECT * FROM Eventos WHERE nome like ?";
+    return executaQuery(sql, "%" + nome + "%");
   }
 
   async adicionar(evento) {
@@ -23,17 +23,19 @@ class EventosRepositorio {
     return { ...evento, id };
   }
 
-  buscarStatus(status, dataAtual) {
+  buscarStatus(status) {
     let sql;
     switch (status) {
       case "agendado":
-        sql = `SELECT * FROM Eventos WHERE dataInicio > "${dataAtual}"`;
+        sql = "SELECT * FROM Eventos WHERE dataInicio > CURDATE()";
         break;
       case "em-andamento":
-        sql = `SELECT * FROM Eventos WHERE dataInicio < "${dataAtual}" and dataFim >= "${dataAtual}"`;
+        sql =
+          "SELECT * FROM Eventos WHERE dataInicio < CURDATE() AND dataFim >= CURDATE()";
         break;
       case "finalizado":
-        sql = `SELECT * FROM Eventos WHERE dataInicio < "${dataAtual}" and dataFim < "${dataAtual}"`;
+        sql =
+          "SELECT * FROM Eventos WHERE dataInicio < CURDATE() AND dataFim < CURDATE()";
         break;
     }
     return executaQuery(sql);

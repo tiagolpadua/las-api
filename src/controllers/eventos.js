@@ -36,6 +36,13 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
+  app.get("/eventos/nome/:nome", (req, res, next) => {
+    const nome = req.params.nome;
+    Eventos.buscarPorNome(nome)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
+
   app.get("/eventos/status/:status", (req, res, next) => {
     const status = req.params.status;
     Eventos.buscarPorStatus(status)

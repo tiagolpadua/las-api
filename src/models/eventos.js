@@ -5,27 +5,29 @@ const valida = require("./validacoes");
 const dataAtual = moment().format("YYYY-MM-DD");
 
 class Eventos {
-  listar() {
-    return repositorio.listar();
+  async listar() {
+    const eventosListados = await repositorio.listar();
+    return this.adicionaStatus(eventosListados);
   }
 
-  buscarPorId(id) {
-    return repositorio.buscarPorId(id);
+  async buscarPorId(id) {
+    const eventoListado = await repositorio.buscarPorId(id);
+    return this.adicionaStatus(eventoListado);
   }
 
   async adicionar(evento) {
     if (this.isDatasValidas(evento)) {
       const eventoAdicionado = await repositorio.adicionar(evento);
-      const eventoStatus = this.dataStatus(evento);
-      return { ...eventoAdicionado, status: eventoStatus };
+      return this.adicionaStatus(eventoAdicionado);
     } else {
       return Promise.reject({ error: "Entrada inválida" });
     }
   }
 
-  buscarPorStatus(status) {
+  async buscarPorStatus(status) {
     if (valida.isStatusValidos(status)) {
-      return repositorio.buscarStatus(status, dataAtual);
+      const eventosListados = await repositorio.buscarStatus(status);
+      return this.adicionaStatus(eventosListados);
     } else {
       return Promise.reject({ error: "Status inválido fornecido" });
     }
@@ -39,16 +41,12 @@ class Eventos {
     return repositorio.excluir(id);
   }
 
-  buscarPorNome(nome) {
-    return repositorio.buscarPorNome(nome);
-  }
-
   dataStatus(evento) {
-    const dataFim = moment(evento.dataFim, "YYYY-MM-DD");
-    const dataInicio = moment(evento.dataInicio, "YYYY-MM-DD");
+    const dataFim = moment(evento.dataFim).format("YYYY-MM-DD");
+    const dataInicio = moment(evento.dataInicio).format("YYYY-MM-DD");
 
     let status;
-    if (moment(dataAtual).isBetween(dataFim, dataInicio)) {
+    if (moment(dataAtual).isBetween(dataInicio, dataFim)) {
       status = "em-andamento";
     }
     if (moment(dataAtual).isAfter(dataFim)) {
@@ -57,7 +55,14 @@ class Eventos {
     if (moment(dataAtual).isBefore(dataInicio)) {
       status = "agendado";
     }
+
     return status;
+  }
+
+  adicionaStatus(eventos) {
+    return eventos.map((event) => {
+      return { ...event, status: this.dataStatus(event) };
+    });
   }
 
   isDatasValidas(evento) {
