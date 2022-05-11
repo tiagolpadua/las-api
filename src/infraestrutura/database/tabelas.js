@@ -46,7 +46,7 @@ class Tabelas {
   }
 
 
-  criarTipoVendas() {
+  criarTiposVendas() {
     const sql =
      `CREATE TABLE IF NOT EXISTS tipoVendas(
         id INT NOT NULL,

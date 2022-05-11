@@ -1,4 +1,4 @@
-const repositorio = require("../repositorios/tipos-vendas");
+const repositorio = require("../repositorios/tipoVendas");
 
 class tipoVendas {
   listar() {

@@ -1,4 +1,4 @@
-const tipoVendas = require("../models/tipos-vendas");
+const tipoVendas = require("../models/tiposVendas");
 
 module.exports = (app) => {
   app.get("/tipos-vendas", (req, res, next) => {
