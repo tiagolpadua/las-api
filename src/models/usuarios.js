@@ -1,4 +1,4 @@
-const pool = require("../infraestrutura/conexao");
+const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 
@@ -7,23 +7,11 @@ class Usuarios {
     return repositorio.listar();
   }
 
-  buscarPorId(id, res, next) {
-    const sql = "SELECT * FROM Usuarios WHERE id = ?";
-    pool.query(sql, id, (erro, resultados) => {
-      const usuario = resultados[0];
-      if (erro) {
-        next(erro);
-      } else {
-        if (usuario) {
-          res.status(200).json(usuario);
-        } else {
-          res.status(404).end();
-        }
-      }
-    });
+  buscarPorId(id) {
+    return repositorio.buscarPorId(id);
   }
 
-  async adicionar(usuario, res, next) {
+  async adicionar(usuario) {
     const nomeEhValido =
       usuario.nome.length > 0 &&
       (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
@@ -47,51 +35,26 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      res.status(400).json(erros);
+      return new Promise.reject(erros);
     } else {
-      const sql = "INSERT INTO Usuarios SET ?";
-
-      pool.query(sql, usuario, (erro) => {
-        if (erro) {
-          next(erro);
-        } else {
-          res.status(201).json(usuario);
-        }
-      });
+        return repositorio.adicionar(usuario)
+        .then((resultados) => {
+          const id = resultados.insertId;
+          return { ...usuario, id };
+        });
     }
   }
 
-  alterar(id, valores, res, next) {
-    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-    pool.query(sql, [valores, id], (erro) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json(valores);
-      }
-    });
+  alterar(id, valores) {
+    return repositorio.alterar(id, valores);
   }
 
-  excluir(id, res, next) {
-    const sql = "DELETE FROM Usuarios WHERE id = ?";
-    pool.query(sql, id, (erro) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json({ id });
-      }
-    });
+  excluir(id) {
+    return repositorio.excluir(id);
   }
 
-  buscarPorNome(nome, res, next) {
-    const sql = "SELECT * FROM Usuarios WHERE nome like ?";
-    pool.query(sql, "%" + nome + "%", (erro, resultados) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json(resultados);
-      }
-    });
+  buscarPorNome(nome) {
+    return repositorio.buscarPorNome(nome);
   }
 
   async validarURLFotoPerfil(url) {

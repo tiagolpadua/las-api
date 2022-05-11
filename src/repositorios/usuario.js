@@ -1,4 +1,5 @@
 const query = require("../infraestrutura/database/queries.js");
+
 class UsuarioRepositorio {
   listar() {
     const sql = "SELECT * FROM Usuarios";
