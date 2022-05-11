@@ -66,7 +66,13 @@ class Eventos {
 
   listarPorStatus(status) {
     if (status === "agendado") {
-      return repositorio.statusAgendado().then((evento) => evento);
+      return repositorio.statusAgendado().then((eventos) => eventos);
+    }
+    if (status === "em-andamento") {
+      return repositorio.statusEmAndamento().then((eventos) => eventos);
+    }
+    if (status === "finalizado") {
+      return repositorio.statusFinalizado().then((eventos) => eventos);
     }
   }
 }
