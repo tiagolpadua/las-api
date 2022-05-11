@@ -45,8 +45,8 @@ class Usuarios {
     }
   }
 
-  alterar(id, valores) {
-    return repositorio.alterar(id, valores);
+  alterar(valores, id) {
+    return repositorio.alterar(valores, id);
   }
 
   excluir(id) {

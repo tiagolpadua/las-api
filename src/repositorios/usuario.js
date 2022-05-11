@@ -13,16 +13,16 @@ class UsuarioRepositorio {
     const sql = "INSERT INTO Usuarios SET ?";
     return query(sql, usuario);
   }
-  alterar(id, valores) {
+  alterar(valores, id) {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-    return query(sql, valores, id);
+    return query(sql, [valores, id]);
   }
   excluir(id) {
     const sql = "DELETE FROM Usuarios WHERE id = ?";
     return query(sql, id);
   }
   buscarPorNome(nome) {
-    const sql = "SELECT * FROM Usuarios WHERE nome like ?";
+    const sql = "SELECT * FROM Usuarios WHERE nome LIKE ?";
     return query(sql, nome);
   }
 }

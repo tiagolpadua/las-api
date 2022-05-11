@@ -25,7 +25,7 @@ module.exports = (app) => {
   app.put("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
-    Usuarios.alterar(id, valores)
+    Usuarios.alterar(valores, id)
       .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => next(erros));
   });
