@@ -1,25 +1,18 @@
 const repositorio = require("../repositorios/evento");
 const moment = require("moment");
-const dataAtual = moment().format("YYYY-MM-DD");
+const {EM_ANDAMENTO, AGENDADO, FINALIZADO} = require ("../enums/eventoStatus");
+
 
 class Eventos{
 
     async listar(){
-        const eventosListados = await repositorio.listar();
-            const eventosComStatus = eventosListados.map (event => {
-                return {...event , status:this.dataStatus(event)};
-            });
-
-            return eventosComStatus;
-        }       
-          
+      const eventosListados = await repositorio.listar();
+      return this.listarStatus(eventosListados);
+     }
+        
     async buscarPorId(id){
         const eventosListadoID = await repositorio.buscarPorId(id);
-            const eventosComStatus = eventosListadoID.map (event => {
-                return {...event , status:this.dataStatus(event)};
-            });
-
-            return eventosComStatus;
+            return this.listarStatus(eventosListadoID);
     }
 
     async incluir(evento){  
@@ -46,17 +39,19 @@ class Eventos{
             return Promise.reject("Status não é válido");            
         }else{
             const eventosProcurados = await repositorio.buscaPorStatus(status);
-            const eventosComStatus = eventosProcurados.map (event => {
-                return {...event , status:this.dataStatus(event)};
-            });
+            return this.listarStatus(eventosProcurados);
+        }
+      }
 
-            return eventosComStatus;
-        }          
+     listarStatus(eventos){
+      return eventos.map( (event) =>{
+        return {...event, status: this.dataStatus(event)};
+     });           
       }    
       
     validadeStatus(status){
-          return (status === "agendado" || status === "em-andamento" || status === "finalizado" );
-          }         
+         return [AGENDADO, FINALIZADO, EM_ANDAMENTO].includes(status);
+      }         
                     
      isDatasValidas(evento) {
         const dataAtual = moment().format("YYYY-MM-DD");
@@ -67,18 +62,19 @@ class Eventos{
       }
 
      dataStatus(evento) {
+        const dataAtual = moment().format("YYYY-MM-DD");
         const dataFim = moment(evento.dataFim, "YYYY-MM-DD");
         const dataInicio = moment(evento.dataInicio, "YYYY-MM-DD");
     
         let status;
         if (moment(dataAtual).isBefore(dataInicio)) {
-            status = "agendado";
+            status = AGENDADO;
          }
         if (moment(dataAtual).isBetween(dataFim, dataInicio)) {
-          status = "em-andamento";
+          status = EM_ANDAMENTO;
         }
         if (moment(dataAtual).isAfter(dataFim)) {
-          status = "finalizado";
+          status = FINALIZADO;
         }       
         return status;        
       }
