@@ -6,45 +6,9 @@ const listaValidacoes = require("../validacoes/listaValidacoes");
 
 class Usuarios {
   constructor() {
-    this.validaSeNomeFoiUtilizado = async (retornoForm) => {
-      const existeUsuario = await repositorio.validarNomeUsuarioNaoUtilizado(
-        retornoForm
-      );
-
-      if (existeUsuario[0]?.nome === retornoForm.trim()) return !true;
-
-      return !false;
-    };
-
-    this.validarNomeUsuarioNaoUtilizadoPUT = async ({ id, retornoForm }) => {
-      const existeUsuarioPUT =
-        await repositorio.validarNomeUsuarioNaoUtilizadoPUT(id, retornoForm);
-
-      if (existeUsuarioPUT[0]?.nome === retornoForm.trim()) return !true;
-
-      return !false;
-    };
-
-    this.validarURLFotoPerfil = funcoesValidacoes.validarURLFotoPerfil;
-
-    this.verificaTamanhoNome = funcoesValidacoes.verificaTamanhoNome;
-
     this.valida = funcoesValidacoes.valida;
 
-    this.validacoes = [
-      {
-        nome: "existeUsuario",
-        valido: this.validaSeNomeFoiUtilizado,
-        mensagem: "usuário já existe na base de dados",
-      },
-      {
-        nome: "existeUsuarioPUT",
-        valido: this.validarNomeUsuarioNaoUtilizadoPUT,
-        mensagem: "Usuario já existe na base de dados",
-      },
-
-      ...listaValidacoes,
-    ];
+    this.validacoes = listaValidacoes;
   }
 
   listarUsuarios() {

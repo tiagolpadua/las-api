@@ -4,7 +4,7 @@ module.exports = (app) => {
   app.get("/tipos-vendas", (req, res) => {
     TiposVendas.listarTipoVenda()
       .then((data) => res.status(200).json(data))
-      .catch((erro) => res.status(400).json(erro));
+      .catch((erro) => res.status(400).json(erro.code));
   });
 
   app.get("/tipos-vendas/:id", (req, res) => {
@@ -22,7 +22,7 @@ module.exports = (app) => {
       })
       .catch((erro) => {
         res.status(400).json("Id inválido fornecido");
-        return erro;
+        return erro.code;
       });
   });
 
@@ -40,7 +40,7 @@ module.exports = (app) => {
         });
       })
       .catch((erro) => {
-        res.status(405).json({ erro: erro, status: "Entrada inválida" });
+        res.status(405).json({ erro: erro.code, status: "Entrada inválida" });
       });
   });
 

@@ -10,13 +10,12 @@ module.exports = (app) => {
   app.post("/eventos", (req, res) => {
     const retornoForm = req.body;
 
-    console.log(retornoForm);
-
     Evento.incluirEvento(retornoForm)
       .then((resultados) => {
         res.status(201).json({
           id: resultados.insertId,
           ...retornoForm,
+          status: resultados.status,
           descrição: "Evento incluído com sucesso",
         });
       })
@@ -27,6 +26,8 @@ module.exports = (app) => {
 
   app.get("/eventos/:id", (req, res) => {
     const id = parseInt(req.params.id);
+    // const retornoForm = req.body;
+
     Evento.buscaEventoId(id)
       .then((results) => {
         if (!results.length) {
@@ -53,7 +54,7 @@ module.exports = (app) => {
           res.status(404).json("Status não encontrado");
         } else {
           res.status(200).json({
-            ...results[0],
+            ...results,
             Mensagem: "Operação bem sucedida",
           });
         }
@@ -72,8 +73,7 @@ module.exports = (app) => {
       // eslint-disable-next-line no-unused-vars
       .then((resultado) => {
         res.status(201).json({
-          id,
-          ...retornoForm,
+          ...resultado,
           estado: "Usuário incluído com sucesso",
         });
       })

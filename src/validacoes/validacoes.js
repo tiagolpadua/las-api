@@ -1,4 +1,5 @@
-// const repositorio = require("../repositorios/usuarios");
+const repositorioUsuario = require("../repositorios/usuarios");
+const repositorioTipoVenda = require("../repositorios/tiposVendas");
 const fetch = require("node-fetch");
 
 class Validacao {
@@ -20,6 +21,48 @@ class Validacao {
   verificaTamanhoNome(tamanho) {
     return tamanho > 4;
   }
+
+  //Validacoes Usuarios
+
+  async validarNomeUsuarioNaoUtilizadoPUT({ id, retornoForm }) {
+    const existeUsuarioPUT =
+      await repositorioUsuario.validarNomeUsuarioNaoUtilizadoPUT(
+        id,
+        retornoForm
+      );
+
+    if (existeUsuarioPUT[0]?.nome === retornoForm.trim()) return !true;
+
+    return !false;
+  }
+
+  async validaSeNomeFoiUtilizado(retornoForm) {
+    const existeUsuario =
+      await repositorioUsuario.validarNomeUsuarioNaoUtilizado(retornoForm);
+
+    if (existeUsuario[0]?.nome === retornoForm.trim()) return !true;
+
+    return !false;
+  }
+
+  // fim validacao usuarios
+
+  //Validacoes Tipo vendas
+
+  async validaSeDescricaoFoiUtilizado(retornoForm) {
+    const existeUsuario =
+      await repositorioTipoVenda.validarNomeVendasNaoUtilizado(retornoForm);
+
+    if (existeUsuario[0]?.descricao === retornoForm.trim()) return !true;
+
+    return !false;
+  }
+
+  // fim validacao Tipo vendas
+
+  //Validacoes Eventos
+
+  // fim validacao Eventos
 
   async valida(parametros) {
     const validacoesComResultado = await Promise.all(

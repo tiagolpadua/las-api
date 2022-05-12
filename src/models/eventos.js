@@ -5,26 +5,28 @@ const funcoesValidacoes = require("../validacoes/validacoes");
 
 class Evento {
   constructor() {
-    this.isDatasValidas = ({ dataInicio, dataFim }) => {
+    this.exibeStatus = ({ dataInicio, dataFim }) => {
       const currentDate = moment().format("YYYY-MM-DD");
 
       const validEvent = moment(currentDate).isSameOrBefore(dataInicio);
 
       const agendado = moment(dataInicio).isBefore(dataFim);
       const andamento = moment(currentDate).isSameOrAfter(dataInicio);
-      const finalizado = moment(dataFim).isSameOrBefore(currentDate);
+      // const finalizado = moment(dataFim).isSameOrBefore(currentDate);
 
       console.log("data", andamento, "dataInicio", dataInicio);
 
       if (validEvent) {
         if (andamento) return "em-andamento";
         else if (agendado) return "agendado";
-        else if (finalizado) return "finalizado";
+        else return "finalizado";
+        // else if (finalizado) return "finalizado";
       }
       // return false;
+      return "finalizado";
     };
 
-    this.dataEhValida = ({ dataInicio, dataFim }) => {
+    this.isDatasValidas = ({ dataInicio, dataFim }) => {
       const currentDate = moment().format("YYYY-MM-DD");
 
       const validEvent =
@@ -64,7 +66,7 @@ class Evento {
     this.validacoes = [
       {
         nome: "data",
-        valido: this.dataEhValida,
+        valido: this.isDatasValidas,
         mensagem: "Data inválida!",
       },
       {
@@ -100,9 +102,9 @@ class Evento {
       "YYYY-MM-DD"
     );
 
-    const status = this.isDatasValidas({ dataInicio, dataFim });
+    // const status = this.isDatasValidas({ dataInicio, dataFim });
 
-    const retornoDatado = { ...retornoForm, dataInicio, dataFim, status };
+    const retornoDatado = { ...retornoForm, dataInicio, dataFim };
 
     const parametros = {
       nomeEvento: retornoDatado.nome.length,
@@ -119,23 +121,48 @@ class Evento {
       return new Promise((resolve, reject) => reject(erros));
     }
 
-    return repositorio.incluirEvento(retornoDatado).then((results) => results);
+    return repositorio.incluirEvento(retornoDatado).then((results) => {
+      const { dataInicio, dataFim } = retornoDatado;
+      const status = this.exibeStatus({ dataInicio, dataFim });
+
+      console.log(results);
+      return { results, ...retornoDatado, status };
+    });
   }
 
   listarEvento() {
-    return repositorio.listarEvento().then((resultado) => resultado);
+    return repositorio.listarEvento().then((resultado) =>
+      resultado.map((item) => {
+        const { dataInicio, dataFim } = item;
+        const status = this.exibeStatus({ dataInicio, dataFim });
+
+        return { ...item, status };
+      })
+    );
   }
 
   buscaEventoId(retornoForm) {
-    return repositorio
-      .buscaEventoId(retornoForm)
-      .then((resultado) => resultado);
+    return repositorio.buscaEventoId(retornoForm).then((resultado) => {
+      const { dataInicio, dataFim } = resultado[0];
+      const status = this.exibeStatus({ dataInicio, dataFim });
+
+      const retornoConsulta = resultado ? [{ resultado, status }] : [];
+
+      return retornoConsulta;
+    });
   }
 
   buscaEventoPeloStatus(retornoForm) {
-    return repositorio
-      .buscaEventoPeloStatus(retornoForm)
-      .then((resultado) => resultado);
+    switch (retornoForm.trim()) {
+      case "agendado":
+        return repositorio.listarEventosAgendados();
+      case "em-andamento":
+        return repositorio.listarEventosEmAndamento();
+      case "finalizado":
+        return repositorio.listarEventosFinalizados();
+      default:
+        throw new Error(`Status inválido: ${retornoForm}`);
+    }
   }
 
   async alterarEvento(id, retornoForm) {
@@ -148,9 +175,9 @@ class Evento {
       "YYYY-MM-DD"
     );
 
-    const status = this.isDatasValidas({ dataInicio, dataFim });
+    // const status = this.isDatasValidas({ dataInicio, dataFim });
 
-    const retornoDatado = { ...retornoForm, dataInicio, dataFim, status };
+    const retornoDatado = { ...retornoForm, dataInicio, dataFim };
 
     const parametros = {
       nomeEvento: retornoDatado.nome.length,
@@ -168,9 +195,13 @@ class Evento {
       return new Promise((resolve, reject) => reject(erros));
     }
 
-    return repositorio
-      .alterarEvento(id, retornoDatado)
-      .then((resultado) => resultado);
+    return repositorio.alterarEvento(id, retornoDatado).then((resultado) => {
+      const { dataInicio, dataFim } = retornoDatado;
+      const status = this.exibeStatus({ dataInicio, dataFim });
+
+      console.log(resultado);
+      return { ...retornoDatado, status };
+    });
   }
 
   excluirEvento(retornoForm) {

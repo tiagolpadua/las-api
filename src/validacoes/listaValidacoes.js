@@ -6,9 +6,42 @@ module.exports = [
     valido: validacoes.validarURLFotoPerfil,
     mensagem: "URL inválida!",
   },
+  //validacoes usuarios
   {
     nome: "nomeUsuario",
     valido: validacoes.verificaTamanhoNome,
     mensagem: "usuário deve ter pelo menos cinco caracteres",
   },
+
+  {
+    nome: "existeUsuario",
+    valido: validacoes.validaSeNomeFoiUtilizado,
+    mensagem: "usuário já existe na base de dados",
+  },
+  {
+    nome: "existeUsuarioPUT",
+    valido: validacoes.validarNomeUsuarioNaoUtilizadoPUT,
+    mensagem: "Usuario já existe na base de dados",
+  },
+
+  // fim validacao usuarios
+
+  // validacoes tipo venda
+  {
+    nome: "nomeTipoVenda",
+    valido: validacoes.verificaTamanhoNome,
+    mensagem: "tipoVenda deve ter pelo menos cinco caracteres",
+  },
+
+  {
+    nome: "existeVenda",
+    valido: validacoes.validaSeDescricaoFoiUtilizado,
+    mensagem: "tipoVenda já existe na base de dados",
+  },
+
+  // fim validacao tipo venda
+
+  // validacoes Eventos
+
+  // fim validacao Eventos
 ];

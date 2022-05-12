@@ -1,37 +1,24 @@
 const repositorio = require("../repositorios/tiposVendas");
+const funcoesValidacoes = require("../validacoes/validacoes");
+const ListaValidacoes = require("../validacoes/listaValidacoes");
 
 class TiposVendas {
   constructor() {
-    this.verificaTamanhoNome = (tamanho) => {
-      return tamanho > 4;
-    };
+    this.valida = funcoesValidacoes.valida;
 
-    this.valida = (parametros) =>
-      this.validacoes.filter((campo) => {
-        return !campo.valido(parametros);
-      });
-
-    this.validacoes = [
-      {
-        nome: "nomeTipoVenda",
-        valido: this.verificaTamanhoNome,
-        mensagem: "tipoVenda deve ter pelo menos cinco caracteres",
-      },
-    ];
+    this.validacoes = ListaValidacoes;
   }
 
-  incluirTipoVenda(retornoForm) {
-    // const parametros = {
-    //   nometipoVenda: retornoForm.descricao.length,
-    // };
+  async incluirTipoVenda(retornoForm) {
+    const parametros = {
+      nomeTipoVenda: retornoForm.descricao.length,
+      existeVenda: retornoForm.descricao,
+    };
 
-    const tamanhoNomeEvento = retornoForm.descricao.length;
+    const erros = await this.valida(parametros);
 
-    const erros = this.valida(tamanhoNomeEvento);
-
+    console.log(erros);
     const existemErros = erros.length;
-
-    // console.log(retornoForm, existemErros, erros);
 
     if (existemErros) {
       return new Promise((resolve, reject) => reject(erros));
@@ -56,14 +43,14 @@ class TiposVendas {
       .then((resultado) => resultado);
   }
 
-  alterarTipoVenda(id, retornoForm) {
+  async alterarTipoVenda(id, retornoForm) {
     // const parametros = {
     //   nomeTipoVenda: retornoForm.descricao.length,
     // };
 
     const tamanhoNomeEvento = retornoForm.descricao.length;
 
-    const erros = this.valida(tamanhoNomeEvento);
+    const erros = await this.valida(tamanhoNomeEvento);
 
     const existemErros = erros.length;
 

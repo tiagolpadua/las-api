@@ -29,6 +29,12 @@ class TiposVendas {
 
     return query(sql, id);
   }
+
+  validarNomeVendasNaoUtilizado(retornoForm) {
+    const sql = "SELECT * FROM las.tiposVendas WHERE descricao = ?";
+
+    return query(sql, retornoForm);
+  }
 }
 
 module.exports = new TiposVendas();

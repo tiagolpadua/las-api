@@ -19,14 +19,6 @@ class Evento {
     return query(sql, retornoForm);
   }
 
-  buscaEventoPeloStatus(retornoForm) {
-    const sql = "SELECT * FROM las.evento WHERE status = ?";
-
-    // "%" + retornoForm + "%";
-
-    return query(sql, retornoForm);
-  }
-
   alterarEvento(id, retornoForm) {
     const sql = "UPDATE las.evento SET ? WHERE id = ?";
     return query(sql, [retornoForm, id]);
@@ -36,6 +28,25 @@ class Evento {
     const sql = "DELETE FROM las.evento WHERE id = ?";
 
     return query(sql, id);
+  }
+
+  listarEventosAgendados() {
+    const sql = "SELECT * FROM las.evento WHERE dataInicio > CURDATE()";
+
+    return query(sql);
+  }
+
+  listarEventosEmAndamento() {
+    const sql =
+      "SELECT * FROM las.evento WHERE dataInicio <= CURDATE() and dataFim >= CURDATE()";
+
+    return query(sql);
+  }
+
+  listarEventosFinalizados() {
+    const sql = "SELECT * FROM las.evento WHERE dataFim < CURDATE()";
+
+    return query(sql);
   }
 
   // inicio query de validação
