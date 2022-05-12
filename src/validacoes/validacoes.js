@@ -1,6 +1,8 @@
 const repositorioUsuario = require("../repositorios/usuarios");
 const repositorioTipoVenda = require("../repositorios/tiposVendas");
+const repositorioEventos = require("../repositorios/eventos");
 const fetch = require("node-fetch");
+const moment = require("moment");
 
 class Validacao {
   async validarURLFotoPerfil(retornoForm) {
@@ -61,6 +63,59 @@ class Validacao {
   // fim validacao Tipo vendas
 
   //Validacoes Eventos
+
+  async validaSeNomeEventoFoiUtilizado(retornoForm) {
+    const existeEvento = await repositorioEventos.validarNomeEventoNaoUtilizado(
+      retornoForm
+    );
+    if (existeEvento[0]?.nome === retornoForm.trim()) return !true;
+
+    return !false;
+  }
+
+  async validarNomeEventoNaoUtilizadoPUT({ id, retornoForm }) {
+    const existeEvento =
+      await repositorioEventos.validarNomeEventoNaoUtilizadoPUT(
+        id,
+        retornoForm
+      );
+
+    if (existeEvento[0]?.nome === retornoForm.trim()) return !true;
+
+    return !false;
+  }
+
+  isDatasValidas({ dataInicio, dataFim }) {
+    const currentDate = moment().format("YYYY-MM-DD");
+
+    const validEvent =
+      moment(currentDate).isSameOrBefore(dataInicio) &&
+      moment(dataInicio).isSameOrBefore(dataFim);
+
+    if (validEvent) return true;
+    else return false;
+  }
+
+  exibeStatus({ dataInicio, dataFim }) {
+    const currentDate = moment().format("YYYY-MM-DD");
+
+    const validEvent = moment(currentDate).isSameOrBefore(dataInicio);
+
+    const agendado = moment(dataInicio).isBefore(dataFim);
+    const andamento = moment(currentDate).isSameOrAfter(dataInicio);
+    // const finalizado = moment(dataFim).isSameOrBefore(currentDate);
+
+    console.log("data", andamento, "dataInicio", dataInicio);
+
+    if (validEvent) {
+      if (andamento) return "em-andamento";
+      else if (agendado) return "agendado";
+      else return "finalizado";
+      // else if (finalizado) return "finalizado";
+    }
+    // return false;
+    return "finalizado";
+  }
 
   // fim validacao Eventos
 

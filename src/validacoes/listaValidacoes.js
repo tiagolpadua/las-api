@@ -43,5 +43,29 @@ module.exports = [
 
   // validacoes Eventos
 
+  {
+    nome: "nomeEvento",
+    valido: validacoes.verificaTamanhoNome,
+    mensagem: "Evento deve ter pelo menos cinco caracteres",
+  },
+
+  {
+    nome: "existeEvento",
+    valido: validacoes.validaSeNomeEventoFoiUtilizado,
+    mensagem: "Evento já existe na base de dados",
+  },
+
+  {
+    nome: "existeEventoPUT",
+    valido: validacoes.validarNomeEventoNaoUtilizadoPUT,
+    mensagem: "Evento já existe na base de dados",
+  },
+
+  {
+    nome: "data",
+    valido: validacoes.isDatasValidas,
+    mensagem: "Data inválida!",
+  },
+
   // fim validacao Eventos
 ];
