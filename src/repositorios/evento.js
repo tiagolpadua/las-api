@@ -11,3 +11,5 @@ class Eventos {
     return query(sql, id);
   }
 }
+
+module.exports = new Eventos();
