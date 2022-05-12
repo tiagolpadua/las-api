@@ -11,11 +11,19 @@ module.exports = (app) => {
       app.get("/eventos/:id", (req, res, next) => {
         const id = parseInt(req.params.id);
         Eventos.buscarPorId(id, res, next);
-      });  
+      });
+      
+      app.get("/eventos/status/:status",(req,res,next) => {
+        const status = req.params.status;
+        Eventos.listarEventosPorStatus(status)
+        .then((resultados) => res.json(resultados))
+        .catch((erros) => next(erros));
+      
+      });
 
       app.post("/eventos", (req, res, next) => {
-        const usuarios = req.body;
-        Eventos.incluir(usuarios, res, next);
+        const eventos = req.body;
+        Eventos.incluir(eventos, res, next);
       });
     
       app.put("/eventos/:id", (req, res, next) => {
@@ -29,12 +37,13 @@ module.exports = (app) => {
         Eventos.excluir(id, res, next);
       });
 
-      app.get("/eventos/status/:status",(req,res,next) => {
-        const status = req.params.status;
-        Eventos.listaEventosPorStatus(status)
-        .then((resultados) => res.json(resultados))
-        .catch((erros) => next(erros));
+      // app.get("/eventos/status/:status",(req,res,next) => {
+      //   const status = req.params.status;
+      //   Eventos.listarEventosPorStatus(status)
+      //   .then((resultados) => res.json(resultados))
+      //   .catch((erros) => next(erros));
       
-      });
+      // });
+      
 
 };

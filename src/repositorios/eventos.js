@@ -1,3 +1,4 @@
+//const { status } = require("express/lib/response");
 const query = require("../infraestrutura/database/queries");
 
 class Evento {
@@ -6,12 +7,28 @@ class Evento {
     return query(sql, evento);
   }
 
-  listaEventos() {
+  listarEventos() {
       const sql ="SELECT * FROM Eventos";
       return query(sql);
   }
 
-  listaEventosPorStatus(status) {
+  listarEventosAgendados() {
+    const sql = "SELECT * FROM Eventos WHERE dataInicio >= CURDATE()";
+    return query(sql);
+  }
+
+  listarEventosEmAndamento() {
+    const sql = "SELECT * FROM Eventos WHERE dataInicio <= CURDATE() and dataFim >= CURDATE()";
+    return query(sql);
+  }
+
+  listarEventosFinalizados() {
+    const sql = "SELECT * FROM Eventos WHERE dataFim < CURDATE()";
+    return query(sql);
+  }
+    
+  
+  listarEventosPorStatus(status) {
     const sql =`SELECT * FROM Eventos WHERE status= "${status}"`;
     return query(sql);
     

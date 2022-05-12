@@ -1,11 +1,12 @@
 
+const moment = require("moment");
 const pool = require("../infraestrutura/database/conexao");
 //const fetch = require("node-fetch");
 const repositorio = require("../repositorios/eventos");
 
 class Eventos {
   listar() {
-    return repositorio.listaEventos();
+    return repositorio.listarEventos();
   }
 
 
@@ -84,9 +85,38 @@ buscarPorId(id, res, next) {
     });
   }
 
-  listaEventosPorStatus(status) {
-    return repositorio.listaEventosPorStatus(status);
-  }
+  isDatasValidas(evento) {
+    let datasValidas = false;
+    
+    if(evento.dataInicio && evento.dataFim) {
+      const dataInicio = moment(evento.dataInicio);
+      const dataFim = moment(evento.dataFim);
+      const hoje = moment();
+
+    if(evento.dataInicio && evento.dataFim && 
+        dataInicio.isAfter(hoje) && dataFim.isAfter(dataInicio)
+        )  {
+          datasValidas = true;
+        }
+      } 
+      return datasValidas;
+    }
+    
+    listarEventosPorStatus(status) {
+      switch(status) {
+        case "agendado":
+          return repositorio.listarEventosAgendados();
+        case "em-andamento":
+          return repositorio.listarEventosEmAndamento();
+        case "finalizado":
+          return repositorio.listarEventosFinalizados();
+        default:
+          throw new Error(`Status inválido: ${status}`);  
+      }
+    }
+  // listaEventosPorStatus(status) {
+  //   return repositorio.listaEventosPorStatus(status);
+  // }
 
  } 
 
