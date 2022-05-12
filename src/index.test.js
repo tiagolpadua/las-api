@@ -1,3 +1,4 @@
+
 const pool = require("./infraestrutura/database/conexao");
 const Tabelas = require("./infraestrutura/database/tabelas");
 const queries = require("./infraestrutura/database/queries");

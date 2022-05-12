@@ -1,21 +1,14 @@
+
 const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
-  // listar(res, next) {
-  //   const sql = "SELECT * FROM Usuarios";
-  //   pool.query(sql, (erro, resultados) => {
-  //     if (erro) {
-  //       next(erro);
-  //     } else {
-  //       res.status(200).json(resultados);
-  //     }
-  //   });
-  // }
+
   listar() {
     return repositorio.listar();
-  }
+
+   }
 
   buscarPorId(id, res, next) {
     const sql = "SELECT * FROM Usuarios WHERE id = ?";
@@ -34,8 +27,10 @@ class Usuarios {
   }
 
   async adicionar(usuario, res, next) {
+
     const nomeEhValido = usuario.nome.length >= 3;
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+
+    (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
 
     const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
 
@@ -139,5 +134,7 @@ class Usuarios {
     });
   }
 }
+
+
 
 module.exports = new Usuarios();
