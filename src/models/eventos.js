@@ -8,6 +8,8 @@ class Evento {
   constructor() {
     this.exibeStatus = funcoesValidacoes.exibeStatus;
 
+    this.isDatasValidas = funcoesValidacoes.isDatasValidas;
+
     this.valida = funcoesValidacoes.valida;
 
     this.validacoes = [...listaValidacoes];
