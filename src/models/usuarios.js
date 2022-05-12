@@ -37,11 +37,7 @@ class Usuarios {
     if (existemErros) {
       return new Promise.reject(erros);
     } else {
-        return repositorio.adicionar(usuario)
-        .then((resultados) => {
-          const id = resultados.insertId;
-          return { ...usuario, id };
-        });
+        return repositorio.adicionar(usuario);
     }
   }
 
