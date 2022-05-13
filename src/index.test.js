@@ -1,11 +1,11 @@
-const pool = undefined; //require("./infraestrutura/database/conexao");
-const Tabelas = undefined; //require("./infraestrutura/database/tabelas");
-const queries = undefined; //require("./infraestrutura/database/queries");
-const usuariosRepository = undefined; //require("./repositorios/usuario");
-const eventosController = undefined; //require("./controllers/eventos");
-const eventosModel = undefined; //require("./models/eventos");
-const tiposVendasController = undefined; //require("./controllers/tiposVendas");
-const moment = undefined; //require("moment");
+const pool = require("./infraestrutura/database/conexao");
+const Tabelas = require("./infraestrutura/database/tabelas");
+const queries = require("./infraestrutura/database/queries");
+const usuariosRepository = require("./repositorio/usuario");
+const eventosController = require("./controllers/eventos");
+const eventosModel = require("./models/eventos");
+const tiposVendasController = require("./controllers/tiposVendas");
+const moment = require("moment");
 
 const urlsGet = [];
 const urlsPost = [];
@@ -86,13 +86,13 @@ describe("Desejável", () => {
 });
 
 describe("Desafio", () => {
-  test("Validação Avançada de Datas dos Eventos", () => {
+  test("Listagem de eventos por status", () => {
     expect(
       urlsGet.find((url) => url === "/eventos/status/:status")
     ).toBeDefined();
   });
 
-  test("Listagem de eventos por status", () => {
+  test("Validação Avançada de Datas dos Eventos", () => {
     // Data do evento anterior ao dia de hoje
     expect(
       eventosModel.isDatasValidas({
