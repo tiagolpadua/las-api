@@ -8,9 +8,9 @@ const DBNAME = process.env.DBNAME;
 
 const pool = mysql.createPool({
   connectionLimit: 100,
-  host: DBHOST || "localhost",
+  host: DBHOST || "127.0.0.1",
   port: DBPORT || 3306,
-  user: DBUSER || "las",
+  user: DBUSER || "root",
   password: DBPASS || "admin",
   database: DBNAME || "las",
 });

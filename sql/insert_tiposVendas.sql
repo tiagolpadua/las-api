@@ -1,0 +1,1 @@
+INSERT INTO TiposVendas VALUES(1, 'Bebidas'), (2, 'Alimentação'), (3, 'Abadá / Ingressos');
