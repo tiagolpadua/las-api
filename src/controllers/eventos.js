@@ -14,11 +14,12 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
-
   app.post("/eventos", (req, res, next) => {
     const evento = req.body;
     Eventos.adicionar(evento)
-      .then((resultados) => res.status(200).json({id : resultados.insertId, ...evento}))
+      .then((resultados) =>
+        res.status(201).json({ id: resultados.insertId, ...evento })
+      )
       .catch((erros) => next(erros));
   });
 
@@ -36,6 +37,4 @@ module.exports = (app) => {
       .then((resultados) => res.status(204).json(resultados))
       .catch((erros) => next(erros));
   });
-
 };
-
