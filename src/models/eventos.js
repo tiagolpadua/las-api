@@ -17,7 +17,7 @@ class Eventos {
   }
 
   incluir(evento) {
-    if (this.isDatasValidas(evento.dataInicio, evento.dataFim)) {
+    if (this.isDatasValidas(evento)) {
       return repositorio.incluirEvento(evento);
     } else {
       return { erro: "Data invalida" };
@@ -35,15 +35,11 @@ class Eventos {
 
   //Validações e funções auxiliares
 
-  isDatasValidas(dataInicio, dataFim) {
-    if (
-      moment(dataInicio).isAfter(moment()) &&
-      moment(dataFim).isAfter(moment(dataInicio))
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+  isDatasValidas(evento) {
+    return (
+      moment(evento.dataInicio).isAfter(moment().format("YYYY-MM-DD")) &&
+      moment(evento.dataFim).isAfter(moment(evento.dataInicio))
+    );
   }
 
   listarPorStatus(status) {
