@@ -1,6 +1,13 @@
 const Eventos = require("../models/eventos");
 
 module.exports = (app) => {
+  app.get("/eventos/status/:status", (req, res, next) => {
+    const status = req.params.status;
+    Eventos.listarPorStatus(status)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
+
   app.get("/eventos", (req, res, next) => {
     Eventos.listar()
       .then((resultados) => res.status(200).json(resultados))

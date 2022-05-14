@@ -10,6 +10,11 @@ class EventoRepositorio {
     return query(sql, id);
   }
 
+  listarPorStatus(status) {
+    const sql = "SELECT * FROM Eventos WHERE status = ?";
+    return query(sql, status);
+  }
+
   adicionar(evento) {
     const sql = "INSERT INTO Eventos SET ?";
     return query(sql, evento);
@@ -24,7 +29,6 @@ class EventoRepositorio {
     const sql = "DELETE FROM Eventos WHERE id = ?";
     return query(sql, id);
   }
-
 }
 
 module.exports = new EventoRepositorio();
