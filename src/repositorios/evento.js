@@ -10,11 +10,6 @@ class EventoRepositorio {
     return query(sql, id);
   }
 
-  listarPorStatus(status) {
-    const sql = "SELECT * FROM Eventos WHERE status = ?";
-    return query(sql, status);
-  }
-
   adicionar(evento) {
     const sql = "INSERT INTO Eventos SET ?";
     return query(sql, evento);
@@ -28,6 +23,21 @@ class EventoRepositorio {
   excluir(id) {
     const sql = "DELETE FROM Eventos WHERE id = ?";
     return query(sql, id);
+  }
+
+  listarEventosAgendados() {
+    const sql = "SELECT * FROM Eventos WHERE status = 'agendado' ";
+    return query(sql);
+  }
+
+  listarEventosEmAndamento() {
+    const sql = "SELECT * FROM Eventos WHERE status = 'em-andamento' ";
+    return query(sql);
+  }
+
+  listarEventosFinalizados() {
+    const sql = "SELECT * FROM Eventos WHERE status = 'finalizado' ";
+    return query(sql);
   }
 }
 

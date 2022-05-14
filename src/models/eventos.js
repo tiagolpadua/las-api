@@ -11,7 +11,7 @@ class Eventos {
   }
 
   adicionar(evento) {
-      return repositorio.adicionar(evento);
+    return repositorio.adicionar(evento);
   }
 
   alterar(valores, id) {
@@ -22,23 +22,54 @@ class Eventos {
     return repositorio.excluir(id);
   }
 
-  listarPorStatus(status) {
-    return repositorio.listarPorStatus(status);
-  }
-
   isDatasValidas(evento) {
-    const now = moment();
-    const inicio = moment(evento.dataInicio);
-    const fim = moment(evento.dataFim);
-
     let eventoValido = false;
 
-    if (moment(inicio).isSameOrAfter(now)){
-      if (moment(fim).isAfter(inicio)){
+    if (evento.dataFim && evento.dataInicio) {
+      const hoje = moment();
+      const dataInicio = moment(evento.dataInicio);
+      const dataFim = moment(evento.dataFim);
+
+      if (dataInicio.isAfter(hoje) && dataFim.isSameOrAfter(dataInicio)) {
         eventoValido = true;
       }
     }
     return eventoValido;
+  }
+
+  obterStatus(evento) {
+    let status;
+
+    const hoje = moment();
+    const dataInicio = moment(evento.dataInicio);
+    const dataFim = moment(evento.dataFim);
+    if (dataInicio.isAfter(hoje)) {
+      status = "agendado";
+    } else if (dataInicio.isSameOrBefore(hoje) && dataFim.isAfter(hoje)) {
+      status = "em-andamento";
+    } else if (dataFim.isBefore(hoje)) {
+      // será seguro quando haver validação na criação do objeto
+      status = "finalizado";
+    }
+    return status;
+  }
+
+  inserirStatus(evento) {
+    const status = this.obterStatus(evento);
+    return { ...evento, status: status };
+  }
+
+  listarPorStatus(status) {
+    switch (status) {
+      case "agendado":
+        return this.inserirStatus(repositorio.listarEventosAgendados());
+      case "em-andamento":
+        return this.inserirStatus(repositorio.listarEventosEmAndamento());
+      case "finalizado":
+        return this.inserirStatus(repositorio.listarEventosFinalizados());
+      default:
+        throw new Error(`Status inválido: ${status}`);
+    }
   }
 }
 module.exports = new Eventos();
