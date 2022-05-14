@@ -2,25 +2,19 @@ const repositorio = require("../repositorios/tiposVendas");
 
 class TiposVendas {
   listar() {
-    return repositorio.listarTiposVendas().then((resultados) => resultados);
+    return repositorio.listarTiposVendas();
   }
 
   buscarPorId(id) {
-    return repositorio
-      .buscarPorIdTiposVendas(id)
-      .then((tipoVenda) => tipoVenda);
+    return repositorio.buscarPorIdTiposVendas(id);
   }
 
   incluir(tipoVenda) {
-    return repositorio
-      .incluirTiposVendas(tipoVenda)
-      .then((tipoVenda) => tipoVenda);
+    return repositorio.incluirTiposVendas(tipoVenda);
   }
 
   alterar(id, valores) {
-    return repositorio
-      .alterarTiposVendas(id, valores)
-      .then((tipoVenda) => tipoVenda);
+    return repositorio.alterarTiposVendas(id, valores);
   }
 
   excluir(id) {

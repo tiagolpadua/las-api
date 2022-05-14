@@ -1,79 +1,83 @@
 const repositorio = require("../repositorios/eventos");
 const moment = require("moment");
 
+const STATUS_AGENDADO = "agendado";
+const STATUS_EM_ANDAMENTO = "em-andamento";
+const STATUS_FINALIZADO = "finalizado";
+
 class Eventos {
-  listar() {
-    return repositorio.listarEventos().then((resultados) => resultados);
+  async listar() {
+    const eventos = await repositorio.listarEventos();
+    return eventos.map((evento) => this.insereStatusNoEvento(evento));
   }
 
-  buscarPorId(id) {
-    return repositorio.buscarPorIdEvento(id).then((evento) => evento);
+  async buscarPorId(id) {
+    let evento = await repositorio.buscarPorIdEvento(id);
+    return this.insereStatusNoEvento(evento);
   }
 
-  async incluir(evento) {
-    const dataInicio = moment(evento.dataInicio, "DD/MM/YYYY").format(
-      "YYYY-MM-DD HH:MM:SS"
-    );
-    const dataFim = moment(evento.dataFim, "DD/MM/YYYY").format(
-      "YYYY-MM-DD HH:MM:SS"
-    );
-
-    const eventoDatasFormatadas = { ...evento, dataInicio, dataFim };
-
-    const isDatasValidas =
-      (await this.dataInicioEhValida(eventoDatasFormatadas.dataInicio)) &&
-      (await this.dataFimEhValida(
-        eventoDatasFormatadas.dataInicio,
-        eventoDatasFormatadas.dataFim
-      ));
-
-    if (isDatasValidas) {
-      return repositorio
-        .incluirEvento(eventoDatasFormatadas)
-        .then((evento) => evento);
+  incluir(evento) {
+    if (this.isDatasValidas(evento.dataInicio, evento.dataFim)) {
+      return repositorio.incluirEvento(evento);
     } else {
       return { erro: "Data invalida" };
     }
   }
 
-  alterar(id, valores) {
-    return repositorio.alterarEvento(id, valores).then((evento) => evento);
+  async alterar(id, valores) {
+    const evento = await repositorio.alterarEvento(id, valores);
+    return evento;
   }
 
   excluir(id) {
     return repositorio.excluirEvento(id);
   }
 
-  async dataInicioEhValida(dataInicio) {
-    return new Promise((resolve) => {
-      if (moment(dataInicio) > moment()) {
-        resolve(true);
-      } else {
-        resolve(false);
-      }
-    });
-  }
+  //Validações e funções auxiliares
 
-  async dataFimEhValida(dataInicio, dataFim) {
-    return new Promise((resolve) => {
-      if (moment(dataFim) > moment(dataInicio)) {
-        resolve(true);
-      } else {
-        resolve(false);
-      }
-    });
+  isDatasValidas(dataInicio, dataFim) {
+    if (
+      moment(dataInicio).isAfter(moment()) &&
+      moment(dataFim).isAfter(moment(dataInicio))
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   listarPorStatus(status) {
-    if (status === "agendado") {
-      return repositorio.statusAgendado().then((eventos) => eventos);
+    if (status === STATUS_AGENDADO) {
+      return repositorio.statusAgendado();
     }
-    if (status === "em-andamento") {
-      return repositorio.statusEmAndamento().then((eventos) => eventos);
+    if (status === STATUS_EM_ANDAMENTO) {
+      return repositorio.statusEmAndamento();
     }
-    if (status === "finalizado") {
-      return repositorio.statusFinalizado().then((eventos) => eventos);
+    if (status === STATUS_FINALIZADO) {
+      return repositorio.statusFinalizado();
     }
+    throw new Error(`Status inválido:${status} `);
+  }
+
+  insereStatusNoEvento(evento) {
+    const status = this.obterStatusEvento(evento);
+    return { ...evento, status };
+  }
+
+  obterStatusEvento(evento) {
+    const dataInicio = moment(evento.dataInicio);
+    const dataFim = moment(evento.dataFim);
+    const hoje = moment();
+
+    if (dataInicio.isAfter(hoje)) {
+      return STATUS_AGENDADO;
+    } else if (dataInicio.isSameOrBefore(hoje) && dataFim.isSameOrAfter(hoje)) {
+      return STATUS_EM_ANDAMENTO;
+    } else if (dataFim.isBefore(hoje)) {
+      return STATUS_FINALIZADO;
+    }
+
+    return undefined;
   }
 }
 
