@@ -4,7 +4,7 @@ class Tabelas {
 
     this.criarUsuarios();
     this.criarEventos();
-    this.criarTipoVenda();
+    this.criarTiposVendas();
   }
 
   criarUsuarios() {
@@ -21,7 +21,7 @@ class Tabelas {
   }
   criarEventos() {
     const sql =
-      "CREATE TABLE IF NOT EXISTS Eventos(id INT AUTO_INCREMENT NOT NULL, nome varchar(100) NOT NULL, descricao varchar(100) NOT NULL, urlFoto text, dataInicio DATE, dataFim DATE, status TEXT, UNIQUE (nome), PRIMARY KEY(id))";
+      "CREATE TABLE IF NOT EXISTS Eventos(id INT AUTO_INCREMENT NOT NULL, nome varchar(100) NOT NULL, descricao varchar(100) NOT NULL, urlFoto text, dataInicio DATE, dataFim DATE, UNIQUE (nome), PRIMARY KEY(id))";
 
     this.pool.query(sql, (erro) => {
       if (erro) {
@@ -31,7 +31,7 @@ class Tabelas {
       }
     });
   }
-  criarTipoVenda() {
+  criarTiposVendas() {
     const sql =
       "CREATE TABLE IF NOT EXISTS TipoVenda(id INT AUTO_INCREMENT NOT NULL, descricao VARCHAR(255), PRIMARY KEY(id))";
 
