@@ -7,13 +7,13 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
-  //   app.get("/usuarios/:id", (req, res, next) => {
-  //     const id = parseInt(req.params.id);
-  //     // Usuario.buscarPorId(id, res, next);
-  //     Usuario.buscarPorId(id)
-  //       .then((resultados) => res.json(resultados))
-  //       .catch((erros) => next(erros));
-  //   });
+  app.get("/eventos/:id", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    // Usuario.buscarPorId(id, res, next);
+    Evento.buscarPorId(id)
+      .then((resultados) => res.json(resultados))
+      .catch((erros) => next(erros));
+  });
 
   //   app.post("/usuarios", (req, res, next) => {
   //     const usuarios = req.body;
