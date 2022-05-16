@@ -1,9 +1,9 @@
 const query = require("../infraestrutura/database/queries");
 
 class Usuario {
-  adicionar(usuario) {
+  adicionar({ nome, urlFotoPerfil }) {
     const sql = "INSERT INTO usuarios SET ?";
-    return query(sql, usuario);
+    return query(sql, { nome, urlFotoPerfil });
   }
 
   listar() {
