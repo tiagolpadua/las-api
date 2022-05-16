@@ -1,44 +1,43 @@
-const Usuarios = require("../models/usuarios");
+const TiposVendas = require("../models/tiposVendas");
 
 module.exports = (app) => {
-  app.get("/usuarios", (req, res) => {
-    Usuarios.listar()
+  app.get("/tipos-vendas", (req, res) => {
+    TiposVendas.listar()
       .then((resultados) => res.json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });
-
-  app.get("/usuarios/:id", (req, res) => {
+  app.get("/tipos-vendas/:id", (req, res) => {
     const id = parseInt(req.params.id);
-    Usuarios.buscarPorId(id)
+    TiposVendas.buscarPorId(id)
       .then((resultados) => res.json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });
 
-  app.post("/usuarios", (req, res) => {
-    const usuarios = req.body;
-    Usuarios.adicionar(usuarios)
+  app.post("/tipos-vendas", (req, res) => {
+    const tipos = req.body;
+    TiposVendas.adicionar(tipos)
       .then((resultados) => res.json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });
 
-  app.put("/usuarios/:id", (req, res) => {
+  app.put("/tipos-vendas/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
-    Usuarios.alterar(id, valores)
+    TiposVendas.alterar(id, valores)
       .then((resultados) => res.json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });
 
-  app.delete("/usuarios/:id", (req, res) => {
+  app.delete("/tipos-vendas/:id", (req, res) => {
     const id = parseInt(req.params.id);
-    Usuarios.excluir(id)
+    TiposVendas.excluir(id)
       .then((resultados) => res.json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });
 
-  app.get("/usuarios/nome/:nome", (req, res) => {
+  app.get("/tipos-vendas/nome/:nome", (req, res) => {
     const nome = req.params.nome;
-    Usuarios.buscarPorNome(nome)
+    TiposVendas.buscarPorNome(nome)
       .then((resultados) => res.json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });
