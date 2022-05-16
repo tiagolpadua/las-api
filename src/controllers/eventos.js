@@ -32,4 +32,10 @@ module.exports = (app) => {
       .then((evento) => res.status(200).json(evento))
       .then((erro) => res.status(400).json(erro));
   });
+  app.get("/eventos/status/:status", (req, res) => {
+    const status = req.params.status;
+    Eventos.listarPorStatus(status)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erro) => res.status(400).json(erro));
+  });
 };

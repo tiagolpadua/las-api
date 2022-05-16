@@ -21,6 +21,20 @@ class Eventos {
     const sql = "DELETE FROM Eventos WHERE id = ?";
     return queries(sql, id);
   }
+  listarEventosAgendados() {
+    const sql = "SELECT * FROM Eventos WHERE status = 'agendado' ";
+    return queries(sql);
+  }
+
+  listarEventosEmAndamento() {
+    const sql = "SELECT * FROM Eventos WHERE status = 'em-andamento' ";
+    return queries(sql);
+  }
+
+  listarEventosFinalizados() {
+    const sql = "SELECT * FROM Eventos WHERE status = 'finalizado' ";
+    return queries(sql);
+  }
 }
 
 module.exports = new Eventos();
