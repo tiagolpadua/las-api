@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const { EM_ANDAMENTO, AGENDADO, FINALIZADO } = require("../enums/eventoStatus");
 
 class Valida {
   isNomeValido(nome) {
@@ -8,7 +9,6 @@ class Valida {
   isFormatoUrlFotoValido(urlFoto) {
     const regex =
       /https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/gm;
-
     return urlFoto.match(regex);
   }
 
@@ -18,11 +18,7 @@ class Valida {
   }
 
   isStatusValidos(status) {
-    return (
-      status === "agendado" ||
-      status === "em-andamento" ||
-      status === "finalizado"
-    );
+    return [AGENDADO, FINALIZADO, EM_ANDAMENTO].includes(status);
   }
 }
 

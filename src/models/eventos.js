@@ -1,8 +1,7 @@
 const repositorio = require("../repositorios/eventos");
 const moment = require("moment");
 const valida = require("./validacoes");
-
-const dataAtual = moment().format("YYYY-MM-DD");
+const { EM_ANDAMENTO, AGENDADO, FINALIZADO } = require("../enums/eventoStatus");
 
 class Eventos {
   async listar() {
@@ -42,18 +41,19 @@ class Eventos {
   }
 
   dataStatus(evento) {
+    const dataAtual = moment().format("YYYY-MM-DD");
     const dataFim = moment(evento.dataFim).format("YYYY-MM-DD");
     const dataInicio = moment(evento.dataInicio).format("YYYY-MM-DD");
 
     let status;
     if (moment(dataAtual).isBetween(dataInicio, dataFim)) {
-      status = "em-andamento";
+      status = EM_ANDAMENTO;
     }
     if (moment(dataAtual).isAfter(dataFim)) {
-      status = "finalizado";
+      status = FINALIZADO;
     }
     if (moment(dataAtual).isBefore(dataInicio)) {
-      status = "agendado";
+      status = AGENDADO;
     }
 
     return status;
@@ -66,6 +66,7 @@ class Eventos {
   }
 
   isDatasValidas(evento) {
+    const dataAtual = moment().format("YYYY-MM-DD");
     return (
       moment(evento.dataInicio).isAfter(dataAtual) &&
       moment(evento.dataFim).isAfter(evento.dataInicio)
