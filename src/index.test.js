@@ -5,7 +5,7 @@ const usuariosRepository = require("./repositorios/usuario");
 const eventosController = require("./controllers/eventos");
 const eventosModel = require("./models/eventos");
 const tiposVendasController = undefined; //require("./controllers/tiposVendas");
-const moment = undefined; //require("moment");
+const moment = require("moment");
 
 const urlsGet = [];
 const urlsPost = [];
