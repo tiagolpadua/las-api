@@ -17,18 +17,17 @@ class Eventos {
       {
         nome: "data",
         valido: dataEhValida,
-        mensagem:
-          "Data de inicio do evento deve ser maior ou igual a data atual",
+        mensagem: "Data do Evento invalida.",
       },
     ];
 
-    const erros = validacoes.filter((campo) => !campo.valido);
-    const existemErros = erros.length;
+    // const erros = validacoes.filter((campo) => !campo.valido);
+    // const existemErros = erros.length;
 
-    if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+    if (!dataEhValida) {
+      return new Promise((resolve, reject) => reject(validacoes[0]));
     } else {
-      return evento.adicionar(evento);
+      return repositorio.adicionar(evento);
     }
   }
 
@@ -51,6 +50,9 @@ class Eventos {
     const objDataInicio = moment(dataInicio).format("YYYY-MM-DD");
     const objDataFim = moment(dataFim).format("YYYY-MM-DD");
 
+    console.log("data hj: " + day);
+    console.log("data inicio: " + objDataInicio);
+    console.log("data fim: " + objDataFim);
     return (
       moment(objDataInicio).isSameOrAfter(day) &&
       moment(objDataFim).isSameOrAfter(objDataInicio)
