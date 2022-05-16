@@ -47,4 +47,11 @@ module.exports = (app) => {
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
+
+  app.get("/eventos/nome/:nome", (req, res, next) => {
+    const nome = req.params.nome;
+    Evento.buscarPorNome(nome)
+      .then((resultados) => res.json(resultados))
+      .catch((erros) => next(erros));
+  });
 };

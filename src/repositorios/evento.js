@@ -30,6 +30,11 @@ class Evento {
     const sql = "SELECT * FROM Eventos WHERE status like ?";
     return query(sql, status);
   }
+
+  buscarPorNome(nome) {
+    const sql = "SELECT * FROM Eventos WHERE nome like ?";
+    return query(sql, nome);
+  }
 }
 
 module.exports = new Evento();

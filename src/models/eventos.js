@@ -43,16 +43,17 @@ class Eventos {
     return repositorio.buscaPorStatus(status);
   }
 
-  isDatasValidas(dataInicio, dataFim) {
+  buscarPorNome(nome) {
+    return repositorio.buscarPorNome(nome);
+  }
+
+  isDatasValidas({ dataInicio, dataFim }) {
     //Obter a data atual - var now = moment();
     //var day = moment("1995-12-25")
     const day = moment().format("YYYY-MM-DD");
     const objDataInicio = moment(dataInicio).format("YYYY-MM-DD");
     const objDataFim = moment(dataFim).format("YYYY-MM-DD");
 
-    console.log("data hj: " + day);
-    console.log("data inicio: " + objDataInicio);
-    console.log("data fim: " + objDataFim);
     return (
       moment(objDataInicio).isSameOrAfter(day) &&
       moment(objDataFim).isSameOrAfter(objDataInicio)
