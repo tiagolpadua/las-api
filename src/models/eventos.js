@@ -70,15 +70,32 @@ class Eventos {
   isDatasValidas(evento) {
     let datasSaoValidas = false;
 
-    if(evento.dataInicio && evento.dataFim){
-      const dataInicio = moment(evento.dataInicio);
-      const dataFim = moment(evento.dataFim);
-      const hoje = moment();
+    if (evento.dataInicio && evento.dataFim) {
+      const dataInicio = moment(evento.dataInicio).format("YYYY-MM-DD");
+      const dataFim = moment(evento.dataFim).format("YYYY-MM-DD");
+      const hoje = moment().format("YYYY-MM-DD");
 
-      datasSaoValidas = (dataInicio.isAfter(hoje) && dataFim.isAfter(dataInicio));
+      datasSaoValidas =
+        moment(dataInicio).isAfter(hoje) && moment(dataFim).isAfter(dataInicio);
+      return datasSaoValidas;
     }
+  }
 
-    return datasSaoValidas;
+  listarPorStatus(status) {
+    switch (status) {
+      case "agendado":
+        return repositorio.listarEventosAgendados();
+      case "em-andamento":
+        return repositorio.listarEventosEmAndamento();
+      case "finalizado":
+        return repositorio.listarEventosFinalizados().then((resultado) => {
+          if (resultado.length === 0) {
+            throw new Error(`Não existe evento com o status: ${status}`);
+          }
+        });
+      default:
+        throw new Error(`Status Inválido: ${status}`);
+    }
   }
 }
 

@@ -36,7 +36,7 @@ module.exports = (app) => {
 
   app.get("/eventos/status/:status", (req, res, next) => {
     const status = req.params.status;
-    Eventos.buscaPorStatus(status)
+    Eventos.listarPorStatus(status)
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });

@@ -20,19 +20,21 @@ class Tabelas {
     });
   }
 
-  criarEventos(){
-    const sql = "CREATE TABLE IF NOT EXISTS Eventos(id INT AUTO_INCREMENT NOT NULL, nome VARCHAR(100) NOT NULL, descricao text, urlFoto text, dataInicio DATE, dataFim DATE, PRIMARY KEY(id))";
+  criarEventos() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS Eventos(id INT AUTO_INCREMENT NOT NULL, nome VARCHAR(100) NOT NULL, descricao text, urlFoto text, dataInicio DATE, dataFim DATE, status VARCHAR(20) NOT NULL, PRIMARY KEY(id))";
 
     this.pool.query(sql, (erro) => {
-      console.log((erro) ? erro : "Tabela Eventos criada com sucesso");
+      console.log(erro ? erro : "Tabela Eventos criada com sucesso");
     });
   }
 
-  criarTiposVendas(){
-    const sql = "CREATE TABLE IF NOT EXISTS  TipoVendas(id INT NOT NULL, descricao text)";
+  criarTiposVendas() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS  TipoVendas(id INT NOT NULL, descricao text)";
 
     this.pool.query(sql, (erro) => {
-      console.log((erro) ? erro : "Tabela TipoVendas criada com sucesso");
+      console.log(erro ? erro : "Tabela TipoVendas criada com sucesso");
     });
   }
 }
