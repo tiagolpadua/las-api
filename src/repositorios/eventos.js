@@ -14,8 +14,7 @@ class Eventos {
 
   listarPorId(id){
     const sql = "SELECT * FROM Eventos WHERE id = ?";
-    return query(sql, {id});
-    // .then((resultados) => resultados[0])
+    return query(sql,id).then((resultados) => resultados[0]);
   }
 
   listarPorStatus(status){
