@@ -26,15 +26,21 @@ class Usuario {
   }
 
   buscaPorNome(nome) {
-      const sql = "SELECT * FROM Usuarios WHERE nome LIKE ?";
+    const sql = "SELECT * FROM Usuarios WHERE nome LIKE ?";
 
-      return query(sql, `%${nome}%`);
+    return query(sql, `%${nome}%`);
   }
 
-  excluir(id){
+  excluir(id) {
     const sql = "DELETE FROM Usuarios WHERE id = ?";
 
     return query(sql, id);
+  }
+
+  validarNomeNãoUtilizado(nome) {
+    const sql = "SELECT COUNT(*) FROM Usuarios WHERE nome = ?";
+
+    return query(sql, nome);
   }
 }
 

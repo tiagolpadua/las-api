@@ -1,6 +1,6 @@
 const repositorio = require("../repositorios/evento");
 const moment = require("moment");
-const Validacoes = require("../models/validacoes");
+const Validacoes = require("../infraestrutura/validacoes");
 
 class Eventos {
   listar() {
@@ -15,7 +15,7 @@ class Eventos {
     const eventoEhValido = evento.nome.length > 4;
     const descricaoEhValida = evento.descricao.length > 4;
     const urlEhValida = await Validacoes.validarUrl(evento.urlFoto);
-    const dataEhValida = this.isDatasValidas(evento.dataInicio, evento.dataFim);
+    const dataEhValida = this.isDatasValidas(evento);
 
     const validacoes = [
       {
@@ -38,7 +38,7 @@ class Eventos {
       {
         nome: "datas",
         valido: dataEhValida,
-        mensagem: "",
+        mensagem: "As datas informadas devem ser válidas.",
       },
     ];
 
@@ -67,16 +67,18 @@ class Eventos {
     return repositorio.buscaPorStatus(status);
   }
 
-  isDatasValidas({ dataInicio, dataFim }) {
-    const dataCriacao = moment().format("YYYY-MM-DD");
-    const dataInicioEvento = moment(dataInicio).format("YYYY-MM-DD");
-    const dataFimEvento = moment(dataFim).format("YYYY-MM-DD");
+  isDatasValidas(evento) {
+    let datasSaoValidas = false;
 
-    const dataEhValida =
-      moment(dataInicioEvento).isSameOrAfter(dataCriacao) &&
-      moment(dataFimEvento).isSameOrAfter(dataInicioEvento);
+    if(evento.dataInicio && evento.dataFim){
+      const dataInicio = moment(evento.dataInicio);
+      const dataFim = moment(evento.dataFim);
+      const hoje = moment();
 
-      return dataEhValida;
+      datasSaoValidas = (dataInicio.isAfter(hoje) && dataFim.isAfter(dataInicio));
+    }
+
+    return datasSaoValidas;
   }
 }
 

@@ -1,5 +1,5 @@
-const pool = require("../infraestrutura/database/conexao");
-const Validacoes = require("../models/validacoes");
+// const pool = require("../infraestrutura/database/conexao");
+const Validacoes = require("../infraestrutura/validacoes");
 const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
@@ -62,20 +62,28 @@ class Usuarios {
     return repositorio.buscaPorNome(nome);
   }
 
+  //É necessário refatorar esta função
+  // async validarNomeUsuarioNaoUtilizado(nome) {
+  //   return new Promise((resolve) => {
+  //     const sql = "SELECT * FROM Usuarios WHERE nome = ?";
+  //     pool.query(sql, nome, (erro, resultados) => {
+  //       if (erro) {
+  //         resolve(false);
+  //       } else {
+  //         if (resultados.length > 0) {
+  //           resolve(false);
+  //         } else {
+  //           resolve(true);
+  //         }
+  //       }
+  //     });
+  //   });
+  // }
+
   async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
+    return new Promise(() => {
+      const resultado = this.repositorio.validarNomeNãoUtilizado(nome);
+      return !resultado > 0;
     });
   }
 }
