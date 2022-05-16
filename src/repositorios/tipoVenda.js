@@ -1,10 +1,10 @@
 const query = require("../infraestrutura/database/queries");
 
 class TipoVenda {
-  //   adicionar(evento) {
-  //     const sql = "INSERT INTO Eventos SET ?";
-  //     return query(sql, evento);
-  //   }
+  adicionar(tipoVenda) {
+    const sql = "INSERT INTO tiposvendas SET ?";
+    return query(sql, tipoVenda);
+  }
 
   listar() {
     const sql = "SELECT * FROM tiposvendas";
@@ -16,20 +16,15 @@ class TipoVenda {
     return query(sql, id);
   }
 
-  //   alterar(id, eventoAlterado) {
-  //     const sql = "UPDATE Eventos SET ? WHERE id = ?";
-  //     return query(sql, [eventoAlterado, id]);
-  //   }
+  alterar(id, tipoVendaAlterado) {
+    const sql = "UPDATE tiposvendas SET ? WHERE id = ?";
+    return query(sql, [tipoVendaAlterado, id]);
+  }
 
-  //   excluir(id) {
-  //     const sql = "DELETE FROM Eventos WHERE id = ?";
-  //     return query(sql, id);
-  //   }
-
-  //   buscarPorNome(nome) {
-  //     const sql = "SELECT * FROM Eventos WHERE nome like ?";
-  //     return query(sql, nome);
-  //   }
+  excluir(id) {
+    const sql = "DELETE FROM tiposvendas WHERE id = ?";
+    return query(sql, id);
+  }
 }
 
 module.exports = new TipoVenda();

@@ -10,52 +10,17 @@ class TiposVendas {
     return repositorio.buscarPorId(id);
   }
 
-  //   async adicionar(evento) {
-  //     const dataEhValida = this.isDatasValidas(evento.dataInicio, evento.dataFim);
+  async adicionar(tipoVenda) {
+    return repositorio.adicionar(tipoVenda);
+  }
 
-  //     const validacoes = [
-  //       {
-  //         nome: "data",
-  //         valido: dataEhValida,
-  //         mensagem:
-  //           "Data de inicio do evento deve ser maior ou igual a data atual",
-  //       },
-  //     ];
+  alterar(id, valores) {
+    return repositorio.alterar(id, valores);
+  }
 
-  //     const erros = validacoes.filter((campo) => !campo.valido);
-  //     const existemErros = erros.length;
-
-  //     if (existemErros) {
-  //       return new Promise((resolve, reject) => reject(erros));
-  //     } else {
-  //       return evento.adicionar(evento);
-  //     }
-  //   }
-
-  //   alterar(id, valores) {
-  //     return repositorio.alterar(id, valores);
-  //   }
-
-  //   excluir(id) {
-  //     return repositorio.excluir(id);
-  //   }
-
-  //   buscaPorStatus(status) {
-  //     return repositorio.buscaPorStatus(status);
-  //   }
-
-  //   isDatasValidas(dataInicio, dataFim) {
-  //     //Obter a data atual - var now = moment();
-  //     //var day = moment("1995-12-25")
-  //     const day = moment().format("YYYY-MM-DD");
-  //     const objDataInicio = moment(dataInicio).format("YYYY-MM-DD");
-  //     const objDataFim = moment(dataFim).format("YYYY-MM-DD");
-
-  //     return (
-  //       moment(objDataInicio).isSameOrAfter(day) &&
-  //       moment(objDataFim).isSameOrAfter(objDataInicio)
-  //     );
-  //   }
+  excluir(id) {
+    return repositorio.excluir(id);
+  }
 }
 
 module.exports = new TiposVendas();
