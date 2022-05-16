@@ -1,6 +1,7 @@
 const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
+//const moment = require("moment");
 
 class Usuarios {
   listar() {
@@ -97,6 +98,13 @@ class Usuarios {
       });
     });
   }
+
+  // isDatasValidas(dataInicio, dataFim) {
+  //   //Obter a data atual - var now = moment();
+  //   //var day = moment("1995-12-25")
+  //   const objDataInicio = moment(dataInicio);
+  //   const objDataFim = moment(dataFim);
+  // }
 }
 
 module.exports = new Usuarios();
