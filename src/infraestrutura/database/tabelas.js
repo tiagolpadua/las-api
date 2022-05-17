@@ -8,8 +8,37 @@ class Tabelas {
   }
 
   criarUsuarios() {
-    const sql =
-      "CREATE TABLE IF NOT EXISTS Usuarios(id INT AUTO_INCREMENT NOT NULL, nome varchar(100) NOT NULL, urlFotoPerfil text, UNIQUE (nome), PRIMARY KEY(id))";
+    const sql = `CREATE TABLE IF NOT EXISTS Usuarios(
+        id INT AUTO_INCREMENT NOT NULL, 
+        nome varchar(100) NOT NULL, 
+        urlFotoPerfil text, 
+        
+        -- Dados Pessoais
+
+        nomeCompleto varchar(100),
+        dataNascimento varchar(10),
+        rg varchar(30),
+        cpf varchar(11),
+
+        -- Contatos
+
+        telefone varchar(15),
+        celular varchar(15),
+        email varchar(50),
+
+        -- Senha
+
+        senha varchar(100),
+
+        -- Endereco
+
+        cep varchar(15),
+        endereco varchar(200),
+        numero INT,
+        complemento varchar(50),
+        bairro varchar(100),
+        
+        UNIQUE (nome), PRIMARY KEY(id))`;
 
     this.pool.query(sql, (erro) => {
       if (erro) {
