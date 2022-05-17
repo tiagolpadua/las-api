@@ -12,7 +12,7 @@ class Usuarios {
   }
 
   listarUsuarios() {
-    return repositorio.listarUsuarios().then((resultado) => resultado);
+    return repositorio.listarUsuarios();
   }
 
   async incluirUsuarios(retornoForm) {
@@ -30,21 +30,15 @@ class Usuarios {
       return new Promise((resolve, reject) => reject(erros));
     }
 
-    return repositorio.incluirUsuarios(retornoForm).then((results) => {
-      return { id: results.insertId, ...retornoForm };
-    });
+    return repositorio.incluirUsuarios(retornoForm);
   }
 
   buscaUsuarioId(retornoForm) {
-    return repositorio
-      .buscaUsuarioId(retornoForm)
-      .then((resultado) => resultado);
+    return repositorio.buscaUsuarioId(retornoForm);
   }
 
   buscaUsuarioPeloNome(retornoUrl) {
-    return repositorio.buscaUsuarioPeloNome(retornoUrl).then((resultado) => {
-      return resultado;
-    });
+    return repositorio.buscaUsuarioPeloNome(retornoUrl);
   }
 
   async alterarUsuario(id, retornoForm) {
@@ -66,9 +60,7 @@ class Usuarios {
       return new Promise((resolve, reject) => reject(erros));
     }
 
-    return repositorio
-      .alterarUsuario(id, retornoForm)
-      .then((resultado) => resultado);
+    return repositorio.alterarUsuario(id, retornoForm);
   }
 
   excluirUsuario(retornoForm) {

@@ -52,10 +52,12 @@ module.exports = (app) => {
 
     Usuarios.incluirUsuarios(retornoForm)
       .then((resultados) => {
-        console.log(resultados.status);
-        res
-          .status(201)
-          .json({ ...resultados, descrição: "Usuário incluído com sucesso" });
+        res.status(201).json({
+          id: resultados.insertId,
+          nome: retornoForm.nome,
+          url: retornoForm.urlFotoPerfil,
+          descrição: "Usuário incluído com sucesso",
+        });
       })
       .catch((error) =>
         res.status(400).json({ erro: error, descrição: "Entrada inválida" })
@@ -109,11 +111,9 @@ module.exports = (app) => {
 
     Usuarios.alterarUsuario(id, retornoForm)
       // eslint-disable-next-line no-unused-vars
-      .then((resultado) => {
+      .then(() => {
         res.status(201).json({
-          id: id,
-          ...retornoForm,
-          status: "Usuário incluído com sucesso",
+          status: "Usuário atualizado com sucesso",
         });
       })
       .catch((erro) => {

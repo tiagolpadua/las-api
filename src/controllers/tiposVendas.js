@@ -31,16 +31,13 @@ module.exports = (app) => {
     const retornoForm = req.body;
 
     TiposVendas.alterarTipoVenda(id, retornoForm)
-      .then((resultado) => {
-        console.log(resultado);
-        res.status(201).json({
-          id,
-          ...retornoForm,
+      .then(() => {
+        res.status(204).json({
           status: "TiposVendas incluído com sucesso",
         });
       })
       .catch((erro) => {
-        res.status(405).json({ erro: erro.code, status: "Entrada inválida" });
+        res.status(405).json({ erro, status: "Entrada inválida" });
       });
   });
 

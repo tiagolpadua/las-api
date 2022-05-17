@@ -4,6 +4,10 @@ const repositorioEventos = require("../repositorios/eventos");
 const fetch = require("node-fetch");
 const moment = require("moment");
 
+const EVENTO_AGENDADO = "agendado";
+const EVENTO_ANDAMENTO = "em-andamento";
+const EVENTO_FINALIZADO = "finalizado";
+
 class Validacao {
   async validarURLFotoPerfil(retornoForm) {
     const validadorUrl =
@@ -96,25 +100,30 @@ class Validacao {
     else return false;
   }
 
-  exibeStatus({ dataInicio, dataFim }) {
-    const currentDate = moment().format("YYYY-MM-DD");
+  insereStatus(evento) {
+    const status = this.exibeStatus(evento);
 
-    const validEvent = moment(currentDate).isSameOrBefore(dataInicio);
+    return { ...evento, status };
+  }
 
-    const agendado = moment(dataInicio).isBefore(dataFim);
-    const andamento = moment(currentDate).isSameOrAfter(dataInicio);
-    // const finalizado = moment(dataFim).isSameOrBefore(currentDate);
+  exibeStatus(evento) {
+    const dataInicio = moment(evento.dataInicio);
+    const dataFim = moment(evento.dataFim);
 
-    console.log("data", andamento, "dataInicio", dataInicio);
+    const currentDate = moment();
 
-    if (validEvent) {
-      if (andamento) return "em-andamento";
-      else if (agendado) return "agendado";
-      else return "finalizado";
-      // else if (finalizado) return "finalizado";
+    if (dataInicio.isAfter(currentDate)) {
+      return EVENTO_AGENDADO;
+    } else if (
+      dataInicio.isSameOrBefore(currentDate) &&
+      dataFim.isSameOrAfter(currentDate)
+    ) {
+      return EVENTO_ANDAMENTO;
+    } else if (dataFim.isBefore(currentDate)) {
+      return EVENTO_FINALIZADO;
     }
-    // return false;
-    return "finalizado";
+
+    return undefined;
   }
 
   // fim validacao Eventos

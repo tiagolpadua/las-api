@@ -4,10 +4,12 @@ const moment = require("moment");
 const funcoesValidacoes = require("../validacoes/validacoes");
 const listaValidacoes = require("../validacoes/listaValidacoes");
 
+const EVENTO_AGENDADO = "agendado";
+const EVENTO_ANDAMENTO = "em-andamento";
+const EVENTO_FINALIZADO = "finalizado";
+
 class Evento {
   constructor() {
-    this.exibeStatus = funcoesValidacoes.exibeStatus;
-
     this.isDatasValidas = funcoesValidacoes.isDatasValidas;
 
     this.valida = funcoesValidacoes.valida;
@@ -24,8 +26,6 @@ class Evento {
     const dataFim = moment(retornoForm.dataFim, "DD-MM-YYYY", true).format(
       "YYYY-MM-DD"
     );
-
-    // const status = this.isDatasValidas({ dataInicio, dataFim });
 
     const retornoDatado = { ...retornoForm, dataInicio, dataFim };
 
@@ -44,44 +44,32 @@ class Evento {
       return new Promise((resolve, reject) => reject(erros));
     }
 
-    return repositorio.incluirEvento(retornoDatado).then((results) => {
-      const { dataInicio, dataFim } = retornoDatado;
-      const status = this.exibeStatus({ dataInicio, dataFim });
-
-      console.log(results);
-      return { results, ...retornoDatado, status };
-    });
+    return repositorio
+      .incluirEvento(retornoDatado)
+      .then((results) => funcoesValidacoes.insereStatus(results));
   }
 
   listarEvento() {
-    return repositorio.listarEvento().then((resultado) =>
-      resultado.map((item) => {
-        const { dataInicio, dataFim } = item;
-        const status = this.exibeStatus({ dataInicio, dataFim });
-
-        return { ...item, status };
-      })
-    );
+    return repositorio
+      .listarEvento()
+      .then((resultado) =>
+        resultado.map((item) => funcoesValidacoes.insereStatus(item))
+      );
   }
 
   buscaEventoId(retornoForm) {
-    return repositorio.buscaEventoId(retornoForm).then((resultado) => {
-      const { dataInicio, dataFim } = resultado[0];
-      const status = this.exibeStatus({ dataInicio, dataFim });
-
-      const retornoConsulta = resultado ? [{ resultado, status }] : [];
-
-      return retornoConsulta;
-    });
+    return repositorio
+      .buscaEventoId(retornoForm)
+      .then((resultado) => funcoesValidacoes.insereStatus(resultado[0]));
   }
 
   buscaEventoPeloStatus(retornoForm) {
     switch (retornoForm.trim()) {
-      case "agendado":
+      case EVENTO_AGENDADO:
         return repositorio.listarEventosAgendados();
-      case "em-andamento":
+      case EVENTO_ANDAMENTO:
         return repositorio.listarEventosEmAndamento();
-      case "finalizado":
+      case EVENTO_FINALIZADO:
         return repositorio.listarEventosFinalizados();
       default:
         throw new Error(`Status inválido: ${retornoForm}`);
@@ -118,19 +106,13 @@ class Evento {
       return new Promise((resolve, reject) => reject(erros));
     }
 
-    return repositorio.alterarEvento(id, retornoDatado).then((resultado) => {
-      const { dataInicio, dataFim } = retornoDatado;
-      const status = this.exibeStatus({ dataInicio, dataFim });
-
-      console.log(resultado);
-      return { ...retornoDatado, status };
-    });
+    return repositorio
+      .alterarEvento(id, retornoDatado)
+      .then((resultado) => funcoesValidacoes.insereStatus(resultado));
   }
 
   excluirEvento(retornoForm) {
-    return repositorio
-      .excluirEvento(retornoForm)
-      .then((resultado) => resultado);
+    return repositorio.excluirEvento(retornoForm);
   }
 }
 

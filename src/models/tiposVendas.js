@@ -28,29 +28,27 @@ class TiposVendas {
   }
 
   listarTipoVenda() {
-    return repositorio.listarTipoVenda().then((resultado) => resultado);
+    return repositorio.listarTipoVenda();
   }
 
   buscaTipoVendaId(retornoForm) {
-    return repositorio
-      .buscaTipoVendaId(retornoForm)
-      .then((resultado) => resultado);
+    return repositorio.buscaTipoVendaId(retornoForm);
   }
 
   buscaTipoVendaPeloNome(retornoForm) {
-    return repositorio
-      .buscaTipoVendaPeloNome(retornoForm)
-      .then((resultado) => resultado);
+    return repositorio.buscaTipoVendaPeloNome(retornoForm);
   }
 
   async alterarTipoVenda(id, retornoForm) {
-    // const parametros = {
-    //   nomeTipoVenda: retornoForm.descricao.length,
-    // };
+    const parametros = {
+      nomeTipoVenda: retornoForm.descricao.length,
+    };
 
-    const tamanhoNomeEvento = retornoForm.descricao.length;
+    // const tamanhoNomeEvento = retornoForm.descricao.length;
 
-    const erros = await this.valida(tamanhoNomeEvento);
+    const erros = await this.valida(parametros);
+
+    console.log("tipo venda erros", erros);
 
     const existemErros = erros.length;
 
@@ -58,9 +56,7 @@ class TiposVendas {
       return new Promise((resolve, reject) => reject(erros));
     }
 
-    return repositorio
-      .alterarTipoVenda(id, retornoForm)
-      .then((resultado) => resultado);
+    return repositorio.alterarTipoVenda(id, retornoForm);
   }
 
   excluirTipoVenda(retornoForm) {

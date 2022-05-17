@@ -2,13 +2,14 @@ const query = require("../infraestrutura/database/queries");
 
 class Usuario {
   listarUsuarios() {
-    const sql = "SELECT * FROM las.usuarios";
+    const sql = "SELECT id, nome , urlFotoPerfil FROM las.usuarios";
 
     return query(sql);
   }
 
   buscaUsuarioId(retornoId) {
-    const sql = "SELECT * FROM las.usuarios WHERE id = ?";
+    const sql =
+      "SELECT id, nome , urlFotoPerfil FROM las.usuarios WHERE id = ?";
 
     return query(sql, retornoId);
   }
@@ -20,11 +21,12 @@ class Usuario {
   }
 
   buscaUsuarioPeloNome(retornoForm) {
-    const sql = "SELECT * FROM las.usuarios WHERE nome like ?";
+    const sql =
+      "SELECT id, nome , urlFotoPerfil FROM las.usuarios WHERE nome like ?";
 
     // "%" + retornoForm + "%";
 
-    return query(sql, retornoForm + "%");
+    return query(sql, "%" + retornoForm + "%");
   }
 
   alterarUsuario(id, retornoForm) {

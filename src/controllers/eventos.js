@@ -26,22 +26,22 @@ module.exports = (app) => {
 
   app.get("/eventos/:id", (req, res) => {
     const id = parseInt(req.params.id);
-    // const retornoForm = req.body;
 
     Evento.buscaEventoId(id)
       .then((results) => {
-        if (!results.length) {
+        console.log(results);
+        if (!Object.keys(results)) {
           res.status(404).json("Evento não encontrado");
         } else {
           res.status(200).json({
-            ...results[0],
+            ...results,
             descrição: "Operação bem sucedida",
           });
         }
       })
       .catch((erro) => {
         res.status(400).json("Id inválido fornecido");
-        return erro;
+        return erro.code;
       });
   });
 
@@ -71,9 +71,8 @@ module.exports = (app) => {
 
     Evento.alterarEvento(id, retornoForm)
       // eslint-disable-next-line no-unused-vars
-      .then((resultado) => {
-        res.status(201).json({
-          ...resultado,
+      .then(() => {
+        res.status(204).json({
           estado: "Usuário incluído com sucesso",
         });
       })
