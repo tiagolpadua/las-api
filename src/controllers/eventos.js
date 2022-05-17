@@ -12,4 +12,23 @@ module.exports = (app) => {
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
+  app.post("/eventos", (req, res, next) => {
+    const eventos = req.body;
+    Eventos.adicionar(eventos)
+      .then((resultados) => res.json(resultados))
+      .catch((erros) => next(erros));
+  });
+  app.put("/eventos/:id", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Eventos.alterar(id, valores)
+      .then((resultados) => res.json(resultados))
+      .catch((erros) => next(erros));
+  });
+  app.delete("/eventos/:id", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    Eventos.excluir(id)
+      .then((resultados) => res.json(resultados))
+      .catch((erros) => next(erros));
+  });
 };

@@ -16,7 +16,7 @@ module.exports = (app) => {
 
   app.post("/usuarios", (req, res, next) => {
     const usuarios = req.body;
-    Usuarios.adicionar(usuarios, next)
+    Usuarios.adicionar(usuarios)
       .then((usuarioAdicionado) => res.json(usuarioAdicionado))
       .catch((erros) => next(erros));
   });

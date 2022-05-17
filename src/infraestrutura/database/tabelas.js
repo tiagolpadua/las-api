@@ -4,7 +4,7 @@ class Tabelas {
 
     this.criarUsuarios();
     this.criarEventos();
-    this.criarTipoVenda();
+    this.criarTiposVendas();
   }
 
   criarUsuarios() {
