@@ -88,11 +88,7 @@ class Eventos {
       case "em-andamento":
         return repositorio.listarEventosEmAndamento();
       case "finalizado":
-        return repositorio.listarEventosFinalizados().then((resultado) => {
-          if (resultado.length === 0) {
-            throw new Error(`Não existe evento com o status: ${status}`);
-          }
-        });
+        return repositorio.listarEventosFinalizados();
       default:
         throw new Error(`Status Inválido: ${status}`);
     }

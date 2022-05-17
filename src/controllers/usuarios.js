@@ -36,7 +36,9 @@ module.exports = (app) => {
   //Refatoração - OK
   app.delete("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    Usuarios.excluir(id).catch((erros) => next(erros));
+    Usuarios.excluir(id)
+    .then(() => res.status(204).json("Usuario excluido com sucesso"))
+    .catch((erros) => next(erros));
   });
 
   //Refatoração - OK
