@@ -90,6 +90,10 @@ class Usuarios {
       });
     });
   }
+
+  async buscarDadosPessoaisPorId(id) {
+    return this.buscarPorId(id);
+  }
 }
 
 module.exports = new Usuarios();

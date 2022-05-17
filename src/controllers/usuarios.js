@@ -42,4 +42,19 @@ module.exports = (app) => {
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
+
+  app.get("/usuarios/:id/dados-pessoais", (req, res, next) => {
+    const { id } = req.params;
+    Usuarios.buscarDadosPessoaisPorId(id)
+      .then((resultados) => res.json(resultados))
+      .catch((erros) => next(erros));
+  });
+
+  app.put("/usuarios/:id/dados-pessoais", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuarios.alterar(id, valores)
+      .then((resultados) => res.json(resultados))
+      .catch((erros) => next(erros));
+  });
 };
