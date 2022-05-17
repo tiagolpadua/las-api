@@ -3,6 +3,8 @@ class Tabelas {
     this.pool = pool;
 
     this.criarUsuarios();
+    this.criarTiposVendas();
+    this.criarEventos();
   }
 
   criarUsuarios() {
@@ -24,7 +26,7 @@ class Tabelas {
     this.pool.query(sql, (erro) => {
       if (erro) {
         console.log(erro);
-      } else {  
+      } else {
         console.log("Tabela Eventos criada com sucesso");
       }
     });

@@ -1,9 +1,9 @@
-const pool = require("../infraestrutura/conexao");
+const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
-  listar(){
+  listar() {
     return repositorio.listar();
   }
   async adicionar(usuario) {
@@ -48,7 +48,6 @@ class Usuarios {
   }
   buscarPorNome(nome) {
     return repositorio.buscaPorNome(nome);
-
   }
 
   async validarURLFotoPerfil(url) {
@@ -87,6 +86,5 @@ class Usuarios {
     });
   }
 }
-
 
 module.exports = new Usuarios();
