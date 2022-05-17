@@ -1,18 +1,19 @@
 const Eventos = require("../models/eventos");
 
 module.exports = (app) => {
-  app.get("/eventos", (req, res) => {
+  app.get("/eventos", (req, res, next) => {
     Eventos.listar()
       .then((resultados) => res.json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => next(erros));
+
   });
 
-  app.get("/eventos/:id", (req, res) => {
+  app.get("/eventos/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
 
     Eventos.buscaPorId(id)
       .then((resultados) => res.json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => next(erros));
   });
 
   app.get("/eventos/status/:status", (req, res) => {
@@ -22,6 +23,7 @@ module.exports = (app) => {
       .then((resultados) => res.json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });
+
 
   app.post("/eventos", (req, res) => {
     const evento = req.body;
@@ -43,5 +45,12 @@ module.exports = (app) => {
     Eventos.excluir(id)
       .then(() => res.json({ id }))
       .catch((erros) => res.status(400).json(erros));
+  });
+
+  app.get("/eventos/status/:status", (req, res, next) =>{
+    const status = req.params.status;
+    Eventos.listarPorStatus(status)
+    .then((resultados) => res.json(resultados))
+    .catch((erros) => next(erros));
   });
 };

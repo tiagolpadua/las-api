@@ -12,22 +12,31 @@ module.exports = (app) => {
 
   app.post("/usuarios", (req, res, next) => {
     const usuarios = req.body;
-    Usuarios.adicionar(usuarios, res, next);
+    Usuarios.adicionar(usuarios).then((usuarioAdicionado)=>
+      res.status(201).json(usuarioAdicionado)
+    ).catch((erros)=> next(erros));
   });
 
   app.put("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
-    Usuarios.alterar(id, valores, res, next);
+    Usuarios.alterar(id, valores)
+    .then((resultado)=> res.json(resultado))
+    .catch((erros)=> next(erros));
   });
 
   app.delete("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    Usuarios.excluir(id, res, next);
+    Usuarios.excluir(id)
+    .then(()=>res.status(204).json("Usuario excluido com sucesso"))
+    .catch((erros)=> next(erros));
+  
   });
 
   app.get("/usuarios/nome/:nome", (req, res, next) => {
     const nome = req.params.nome;
-    Usuarios.buscarPorNome(nome, res, next);
+    Usuarios.buscarPorNome(nome)
+    .then((resultado)=> res.json(resultado))
+    .catch((erros)=> next(erros));
   });
 };
