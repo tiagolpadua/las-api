@@ -68,4 +68,14 @@ module.exports = [
   },
 
   // fim validacao Eventos
+
+  // Validacoes Dados Pessoais
+
+  {
+    nome: "nomeCompleto",
+    valido: validacoes.verificaTamanhoNome,
+    mensagem: "nomeCompleto deve ter pelo menos cinco caracteres",
+  },
+
+  // fim Validacoes Dados Pessoais
 ];

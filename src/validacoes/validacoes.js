@@ -128,6 +128,10 @@ class Validacao {
 
   // fim validacao Eventos
 
+  // Validacoes Dados Pessoais
+
+  // fim Validacoes Dados Pessoais
+
   async valida(parametros) {
     const validacoesComResultado = await Promise.all(
       this.validacoes.map(async (campo) => {

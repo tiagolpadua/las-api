@@ -1,23 +1,30 @@
-const repositorio = require("../repositorios/usuarios");
+const repositorio = require("../repositorios/DadosPessoais");
 const funcoesValidacoes = require("../validacoes/validacoes");
 const listaValidacoes = require("../validacoes/listaValidacoes");
+const moment = require("moment");
 
-class Usuarios {
+class DadosPessoais {
   constructor() {
     this.valida = funcoesValidacoes.valida;
 
     this.validacoes = listaValidacoes;
   }
 
-  listarUsuarios() {
-    return repositorio.listarUsuarios();
+  buscaDadosPessoaisId(idUsuario) {
+    return repositorio.buscaDadosPessoaisId(idUsuario);
   }
 
-  async incluirUsuarios(retornoForm) {
+  async alterarDadosPessoais(id, retornoForm) {
+    const dataNascimento = moment(
+      retornoForm.dataNascimento,
+      "DD-MM-YYYY",
+      true
+    ).format("YYYY-MM-DD");
+
+    const retornoFormDataNascFormatado = { ...retornoForm, dataNascimento };
+
     const parametros = {
-      nomeUsuario: retornoForm.nome.length,
-      url: retornoForm.urlFotoPerfil,
-      existeUsuario: retornoForm.nome,
+      nomeCompleto: retornoForm.nomeCompleto.length,
     };
 
     const erros = await this.valida(parametros);
@@ -28,42 +35,8 @@ class Usuarios {
       return new Promise((resolve, reject) => reject(erros));
     }
 
-    return repositorio.incluirUsuarios(retornoForm);
-  }
-
-  buscaUsuarioId(retornoForm) {
-    return repositorio.buscaUsuarioId(retornoForm);
-  }
-
-  buscaUsuarioPeloNome(retornoUrl) {
-    return repositorio.buscaUsuarioPeloNome(retornoUrl);
-  }
-
-  async alterarUsuario(id, retornoForm) {
-    const parametros = {
-      nomeUsuario: retornoForm.nome.length,
-      // existeUsuario: retornoForm.nome,
-      url: retornoForm.urlFotoPerfil,
-      existeUsuarioPUT: { id, retornoForm: retornoForm.nome },
-    };
-
-    const erros = await this.valida(parametros);
-
-    console.log(retornoForm);
-
-    const existemErros = erros.length;
-
-    console.log(existemErros);
-    if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
-    }
-
-    return repositorio.alterarUsuario(id, retornoForm);
-  }
-
-  excluirUsuario(retornoForm) {
-    return repositorio.excluirUsuario(retornoForm);
+    return repositorio.alterarDadosPessoais(id, retornoFormDataNascFormatado);
   }
 }
 
-module.exports = new Usuarios();
+module.exports = new DadosPessoais();

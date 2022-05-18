@@ -1,4 +1,3 @@
-// const fetch = require("node-fetch");
 const repositorio = require("../repositorios/eventos");
 const moment = require("moment");
 const funcoesValidacoes = require("../validacoes/validacoes");

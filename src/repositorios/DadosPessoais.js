@@ -8,7 +8,7 @@ const query = require("../infraestrutura/database/queries");
 class DadosPessoais {
   buscaDadosPessoaisId(retornoId) {
     const sql =
-      "SELECT nomeCompleto, dataNascimento , rg, cpf, FROM las.usuarios WHERE id = ?";
+      "SELECT nomeCompleto, dataNascimento , rg, cpf FROM las.usuarios WHERE id = ?";
 
     return query(sql, retornoId);
   }
