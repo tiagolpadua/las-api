@@ -15,6 +15,11 @@ class Endereco {
 
     return query(sql, retornoId);
   }
+
+  alterarEndereco(id, retornoForm) {
+    const sql = "UPDATE las.usuarios SET ? WHERE id = ?";
+    return query(sql, [retornoForm, id]);
+  }
 }
 
 module.exports = new Endereco();

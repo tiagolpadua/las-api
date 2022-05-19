@@ -16,41 +16,29 @@ module.exports = (app) => {
         }
       })
       .catch((erro) => {
-        res.status(400).json("Id inválido fornecido");
-        return erro.code;
+        res
+          .status(400)
+          .json({ erro: erro.type, status: "Id inválido fornecido" });
       });
   });
 
-  app.get("/ufs", (req, res) => {
-    Endereco.buscaUfs()
-      .then((results) => {
-        if (!results.length) {
-          res.status(404).json("UFS não encontrado");
+  app.put("/usuarios/:usuarioId/endereco", (req, res) => {
+    const id = parseInt(req.params.usuarioId);
+    const retornoForm = req.body;
+
+    Endereco.alterarEndereco(id, retornoForm)
+      // eslint-disable-next-line no-unused-vars
+      .then((resultado) => {
+        if (!resultado.affectedRows) {
+          res.status(404).json("Endereço não encontrado");
         } else {
-          res.status(200).json(results);
+          res.status(204).json({
+            status: "Endereço atualizado com sucesso",
+          });
         }
       })
       .catch((erro) => {
-        res.status(400).json({ erro, status: "UFS inválido fornecido" });
-        // return erro;
-      });
-  });
-
-  app.get("/ufs/:uf/municipios", (req, res) => {
-    const uf = req.params.uf;
-
-    Endereco.buscaMunicipiosUf(uf)
-      .then((results) => {
-        console.log(results);
-        if (!results) {
-          res.status(404).json("Municipio não encontrado");
-        } else {
-          res.status(200).json(results);
-        }
-      })
-      .catch((erro) => {
-        res.status(400).json("Id inválido fornecido");
-        return erro.code;
+        res.status(405).json({ erro: erro.code, status: "Entrada inválida" });
       });
   });
 };

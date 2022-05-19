@@ -40,24 +40,4 @@ module.exports = (app) => {
         res.status(405).json({ erro: erro.code, status: "Entrada inválida" });
       });
   });
-
-  app.put("/usuarios/:usuarioId/endereco", (req, res) => {
-    const id = parseInt(req.params.usuarioId);
-    const retornoForm = req.body;
-
-    Usuarios.alterarContatos(id, retornoForm)
-      // eslint-disable-next-line no-unused-vars
-      .then((resultado) => {
-        if (!resultado.affectedRows) {
-          res.status(404).json("Endereço não encontrado");
-        } else {
-          res.status(204).json({
-            status: "Endereço atualizado com sucesso",
-          });
-        }
-      })
-      .catch((erro) => {
-        res.status(405).json({ erro: erro.code, status: "Entrada inválida" });
-      });
-  });
 };
