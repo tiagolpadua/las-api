@@ -1,6 +1,9 @@
 const eventos = require("../models/eventos");
 
 module.exports = (app) => {
+    app.get("/", (req, res) => res.send("Servidor rodando GET"));
+    app.post("/", (req, res) => res.send("Servidor rodando POST"));
+
     app.get("/eventos", (req, res) =>{
         eventos.listar()
         .then((resultados) => res.json(resultados))

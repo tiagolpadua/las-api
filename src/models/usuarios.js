@@ -3,21 +3,25 @@ const repositorio = require("../repositorios/usuario");
 const fetch = require("node-fetch");
 
 class Usuarios {
+  //ok
   listar(){
     return repositorio.listar();
   } 
   
+  //ok
   buscarPorId(id) {
     return repositorio.buscarPorId(id);
   }
 
+  //ok
   async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nome.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
-
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
-
+    const nomeEhValido = true;
+      /*usuario.nome.length > 0 &&
+      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));*/
+    console.log(nomeEhValido);
+    const urlEhValida = true; //await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    console.log(urlEhValida);
+    
     const validacoes = [
       {
         nome: "nome",
@@ -40,16 +44,53 @@ class Usuarios {
     return repositorio.adiciona(usuario);
   }
 
+  //ok
   alterar(id, valores) {
     return repositorio.alterar(id, valores);
   }
 
+  //ok
   excluir(id, res) {
     return repositorio.excluir(id, res);
   }
 
+  //ok
   buscarPorNome(nome, res) {
     return repositorio.buscarPorNome(nome, res);
+  }
+  //ok
+  listarDadosPessoais(id) {
+    return repositorio.listarDadosPessoais(id);
+  }
+
+  //ok
+  alterarDadosPessoais(id,valores) {
+    return repositorio.alterarDadosPessoais(id,valores);
+  }
+
+  //ok
+  listarContatos(id) {
+    return repositorio.listarContatos(id);
+  }
+
+  //ok
+  alterarContatos(id,valores) {
+    return repositorio.alterarContatos(id,valores);
+  }
+  
+  //ok
+  alterarSenha(id,valores) {
+    return repositorio.alterarSenha(id,valores);
+  }
+
+  //ok
+  listarEndereco(id) {
+    return repositorio.listarEndereco(id);
+  }
+
+  //ok
+  alterarEndereco(id,valores) {
+    return repositorio.alterarEndereco(id,valores);
   }
 
   async validarURLFotoPerfil(url) {
@@ -71,6 +112,7 @@ class Usuarios {
     }
   }
 
+  
   async validarNomeUsuarioNaoUtilizado(nome) {
     return new Promise((resolve) => {
       const sql = "SELECT * FROM Usuarios WHERE nome = ?";
@@ -87,6 +129,8 @@ class Usuarios {
       });
     });
   }
+
+  
 }
 
 module.exports = new Usuarios();
