@@ -1,4 +1,4 @@
-const repositorio = require("../repositorios/senha");
+const repositorio = require("../repositorios/usuarios");
 const funcoesValidacoes = require("../validacoes/validacoes");
 const listaValidacoes = require("../validacoes/listaValidacoes");
 

@@ -40,6 +40,63 @@ class Usuario {
     return query(sql, id);
   }
 
+  //Dados Pessoais
+
+  buscaDadosPessoaisId(retornoId) {
+    const sql =
+      "SELECT nomeCompleto, dataNascimento , rg, cpf FROM las.usuarios WHERE id = ?";
+
+    return query(sql, retornoId);
+  }
+
+  alterarDadosPessoais(id, retornoForm) {
+    const sql = "UPDATE las.usuarios SET ? WHERE id = ?";
+    return query(sql, [retornoForm, id]);
+  }
+
+  //fim Dados Pessoais
+
+  // Contatos
+
+  buscaContatosId(retornoId) {
+    const sql =
+      "SELECT telefone, celular , email FROM las.usuarios WHERE id = ?";
+
+    return query(sql, retornoId);
+  }
+
+  alterarContatos(id, retornoForm) {
+    const sql = "UPDATE las.usuarios SET ? WHERE id = ?";
+    return query(sql, [retornoForm, id]);
+  }
+
+  // fim Contatos
+
+  // Senha
+
+  alterarSenha(id, retornoForm) {
+    const sql = "UPDATE las.usuarios SET ? WHERE id = ?";
+    return query(sql, [retornoForm, id]);
+  }
+
+  // fim Senha
+
+  // Endereco
+
+  buscaEnderecoId(retornoId) {
+    const sql =
+      "SELECT cep, endereco , numero, complemento, bairro FROM las.usuarios WHERE id = ?";
+
+    return query(sql, retornoId);
+  }
+
+  alterarEndereco(id, retornoForm) {
+    const sql = "UPDATE las.usuarios SET ? WHERE id = ?";
+    return query(sql, [retornoForm, id]);
+  }
+
+  // fim Endereco
+
   // inicio query de validação
 
   validarNomeUsuarioNaoUtilizado(retornoForm) {

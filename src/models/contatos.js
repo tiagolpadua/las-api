@@ -1,8 +1,8 @@
-const repositorio = require("../repositorios/contatos");
+const repositorio = require("../repositorios/usuarios");
 const funcoesValidacoes = require("../validacoes/validacoes");
 const listaValidacoes = require("../validacoes/listaValidacoes");
 
-class Usuarios {
+class Contato {
   constructor() {
     this.valida = funcoesValidacoes.valida;
 
@@ -18,4 +18,4 @@ class Usuarios {
   }
 }
 
-module.exports = new Usuarios();
+module.exports = new Contato();
