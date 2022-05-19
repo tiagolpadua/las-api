@@ -5,15 +5,19 @@ const bodyParser = require("body-parser");
 const ENV = process.env.NODE_ENV;
 
 module.exports = () => {
+  const TEXTO = "# LAS - Licenciamento de Ambulantes de Salvador";
   const app = express();
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
+  app.get("/", (requisicao, resposta) => {
+    resposta.status(200).send(TEXTO);
+  });
+
   consign().include("src/controllers").into(app);
 
-  // eslint-disable-next-line no-unused-vars
-  app.use((err, req, res, next) => {
+  app.use((err, req, res) => {
     if (err) {
       if (ENV === "production") {
         res.status(500).send({ error: "Algo deu errado..." });

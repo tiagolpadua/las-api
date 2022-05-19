@@ -6,10 +6,7 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "test": "jest",
-    "test:essencial": "jest -t Essencial --coverage=false",
-    "test:desejavel": "jest -t Desejável --coverage=false",
-    "test:desafio": "jest -t Desafio --coverage=false",
-    "test:watch": "jest --watch",
+    "watch": "jest --watch",
     "lint": "eslint src/**",
     "lint:fix": "eslint src/** --fix",
     "cli:produtos": "node src/cli.js produtos",
@@ -41,13 +38,14 @@
     "eslint-plugin-promise": "^5.2.0",
     "jest": "^27.4.5",
     "pre-commit": "^1.2.2",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "supertest": "^6.2.3"
   },
   "pre-commit": [
     "lint"
   ],
   "jest": {
-    "collectCoverage": false,
+    "collectCoverage": true,
     "collectCoverageFrom": [
       "./src/**"
     ],
