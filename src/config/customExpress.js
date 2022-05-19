@@ -10,6 +10,10 @@ module.exports = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
+  app.get("/", (req, res) => {
+    res.send("Bem vindo");
+  });
+
   consign().include("src/controllers").into(app);
 
   // eslint-disable-next-line no-unused-vars

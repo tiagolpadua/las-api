@@ -1,4 +1,5 @@
 const query = require("../infraestrutura/database/queries");
+const moment = require("moment");
 
 class Eventos {
     listar(){
@@ -21,9 +22,25 @@ class Eventos {
         const sql = "DELETE FROM Eventos WHERE id = ?";
         return query(sql, id);
     }
-    buscarPorStatus(status) {
-        const sql = "SELECT * FROM Eventos WHERE status = ?";
-        return query(sql, status);
+    statusAgendado() {
+        const dataHoje = moment().format("YYYY-MM-DD");
+        const sql = "SELECT * FROM eventos WHERE dataInicio >= ?";
+        return query(sql, dataHoje);
+    }
+    
+    statusEmAndamento() {
+        const dataHoje = {
+          inicio: moment().startOf("day").format("YYYY-MM-DD"),
+          fim: moment().endOf("day").format("YYYY-MM-DD"),
+        };
+        const sql = "SELECT * FROM eventos WHERE dataInicio <= ? AND dataFim >= ?";
+        return query(sql, [dataHoje.inicio, dataHoje.fim]);
+    }
+    
+    statusFinalizado() {
+        const dataHoje = moment().format("YYYY-MM-DD");
+        const sql = "SELECT * FROM eventos WHERE dataFim < ?";
+        return query(sql, dataHoje);
     }
 }
 

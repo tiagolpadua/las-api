@@ -2,17 +2,17 @@ const query = require("../infraestrutura/database/queries");
 
 class Usuario{
     listar(){
-        const sql = "SELECT * FROM Usuarios";
+        const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios";
         return query(sql);
     }
 
     buscarPorId(id) {
-        const sql = "SELECT * FROM Usuarios WHERE id = ?";
+        const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE id = ?";
         return query(sql, id);
     }
-    adicionar(usuario){
+    adicionar({ nome, urlFotoPerfil }) {
         const sql = "INSERT INTO Usuarios SET ?";
-        return query(sql, usuario);
+        return query(sql, { nome, urlFotoPerfil });
     }
     alterar(valores, id){
         const sql = "UPDATE Usuarios SET ? WHERE id = ?";
@@ -23,7 +23,7 @@ class Usuario{
         return query(sql, id);
     }
     buscarPorNome(nome){
-        const sql = "SELECT * FROM Usuarios WHERE nome like ?";
+        const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE nome like ?";
         return query(sql, "%" + nome + "%");
     } 
 }

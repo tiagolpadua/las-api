@@ -50,14 +50,8 @@ module.exports = (app) => {
 
       app.get("/eventos/status/:status", (req, res, next) => {
         const status = req.params.status;
-        Eventos.buscarPorStatus(status)
-        .then((resultados) => { 
-          if(resultados.length > 0){
-          return res.json(resultados);
-          } else {
-            return res.status(404).send();
-          }
-        })
-        .catch((erros) => next(erros));
+        Eventos.listarPorStatus(status)
+          .then((resultados) => res.json(resultados))
+          .catch((erros) => next(erros));
       });
 };
