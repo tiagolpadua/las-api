@@ -133,6 +133,14 @@ class Usuarios {
       });
     });
   }
+
+  async atualizaUsuarioId(usuarioId, valores) {
+    await repositorio.atualizaUsuarioId(usuarioId, valores);
+  }
+
+  obterUsuarioId(usuarioId, valores) {
+    repositorio.buscarUsuarioId(usuarioId, valores);
+  }
 }
 
 

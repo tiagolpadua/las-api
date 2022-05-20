@@ -38,4 +38,15 @@ module.exports = (app) => {
     Usuarios.buscarPorNome(nome, res, next);
   });
 
+  app.put("/usuarios/:id/dados-pessoais", async(req, res, next) => {
+    try {
+      const usuarioId = parseInt(req.params.id);
+      const valores = req.body;
+      await Usuarios.atualizaUsuarioId(usuarioId, valores);
+      return res.status(204).json(valores);      
+    } catch (erro) {
+      return next(erro);
+    }
+  });
+
 };
