@@ -6,9 +6,6 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "test": "jest",
-    "test:essencial": "jest -t Essencial --coverage=false",
-    "test:desejavel": "jest -t Desejável --coverage=false",
-    "test:desafio": "jest -t Desafio --coverage=false",
     "test:watch": "jest --watch",
     "lint": "eslint src/**",
     "lint:fix": "eslint src/** --fix",
@@ -47,13 +44,13 @@
     "lint"
   ],
   "jest": {
-    "collectCoverage": false,
+    "collectCoverage": true,
     "collectCoverageFrom": [
       "./src/**"
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 90
+        "lines": 50
       }
     }
   },
