@@ -11,7 +11,7 @@ const EVENTO_FINALIZADO = "finalizado";
 class Validacao {
   async validarURLFotoPerfil(retornoForm) {
     const validadorUrl =
-      /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/gi;
+      /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi;
     const urlEhValida = validadorUrl.test(retornoForm);
 
     if (urlEhValida) {
@@ -25,6 +25,7 @@ class Validacao {
   }
 
   verificaTamanhoNome(tamanho) {
+    if (tamanho === undefined) return true;
     return tamanho > 4;
   }
 
@@ -46,7 +47,7 @@ class Validacao {
     const existeUsuario =
       await repositorioUsuario.validarNomeUsuarioNaoUtilizado(retornoForm);
 
-    if (existeUsuario[0]?.nome === retornoForm.trim()) return !true;
+    if (existeUsuario[0]?.nome === retornoForm?.trim()) return !true;
 
     return !false;
   }
@@ -72,7 +73,9 @@ class Validacao {
     const existeEvento = await repositorioEventos.validarNomeEventoNaoUtilizado(
       retornoForm
     );
-    if (existeEvento[0]?.nome === retornoForm.trim()) return !true;
+
+    console.log("VALIDASENOMEAQUI", existeEvento, retornoForm);
+    if (existeEvento[0]?.nome === retornoForm?.trim()) return !true;
 
     return !false;
   }
@@ -138,11 +141,9 @@ class Validacao {
         const { nome } = campo;
         const parametro = parametros[nome];
 
-        if (!parametro) return { ...campo, resultado: !true };
+        if (!(nome in parametros)) return { ...campo, resultado: !true };
 
         const resposta = await campo.valido(parametro);
-
-        console.log(nome, resposta);
 
         return { ...campo, resultado: !resposta };
       })

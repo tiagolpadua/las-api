@@ -100,15 +100,13 @@ class Usuario {
   // inicio query de validação
 
   validarNomeUsuarioNaoUtilizado(retornoForm) {
-    const sql = "SELECT * FROM las.usuarios WHERE nome = ?";
+    const sql = "SELECT nome FROM las.usuarios WHERE nome = ?";
 
     return query(sql, retornoForm);
   }
 
   validarNomeUsuarioNaoUtilizadoPUT(id, retornoForm) {
     const sql = "SELECT * FROM las.usuarios WHERE id != ? AND nome = ?";
-
-    console.log(id, retornoForm);
 
     return query(sql, [id, retornoForm]);
   }

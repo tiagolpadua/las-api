@@ -1,0 +1,17 @@
+[
+  {
+    "id": 2,
+    "nome": "Caetano",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/68.jpg"
+  },
+  {
+    "id": 3,
+    "nome": "Gilberto Gil",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/78.jpg"
+  },
+  {
+    "id": 4,
+    "nome": "Veveta",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/68.jpg"
+  }
+]

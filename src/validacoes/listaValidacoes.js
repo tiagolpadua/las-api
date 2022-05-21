@@ -16,7 +16,7 @@ module.exports = [
   {
     nome: "existeUsuario",
     valido: validacoes.validaSeNomeFoiUtilizado,
-    mensagem: "usuário já existe na base de dados",
+    mensagem: "Usuário deve ser informado e ser único",
   },
   {
     nome: "existeUsuarioPUT",

@@ -33,20 +33,26 @@ class Evento {
   listarEventosAgendados() {
     const sql = "SELECT * FROM las.evento WHERE dataInicio > CURDATE()";
 
-    return query(sql);
+    return query(sql).then((agendado) => {
+      return agendado.map((item) => ({ ...item }));
+    });
   }
 
   listarEventosEmAndamento() {
     const sql =
       "SELECT * FROM las.evento WHERE dataInicio <= CURDATE() and dataFim >= CURDATE()";
 
-    return query(sql);
+    return query(sql).then((emAndamento) => {
+      return emAndamento.map((item) => ({ ...item }));
+    });
   }
 
   listarEventosFinalizados() {
     const sql = "SELECT * FROM las.evento WHERE dataFim < CURDATE()";
 
-    return query(sql);
+    return query(sql).then((finalizado) => {
+      return finalizado.map((item) => ({ ...item }));
+    });
   }
 
   // inicio query de validação

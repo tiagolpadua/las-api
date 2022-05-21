@@ -39,6 +39,8 @@ class Evento {
 
     const existemErros = erros.length;
 
+    console.log("EXISTEM ERROS EVENTO", erros);
+
     if (existemErros) {
       return new Promise((resolve, reject) => reject(erros));
     }
@@ -71,7 +73,7 @@ class Evento {
       case EVENTO_FINALIZADO:
         return repositorio.listarEventosFinalizados();
       default:
-        throw new Error(`Status inválido: ${retornoForm}`);
+        return Promise.reject(`Status inválido: ${retornoForm}`);
     }
   }
 

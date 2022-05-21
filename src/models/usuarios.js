@@ -15,9 +15,9 @@ class Usuarios {
 
   async incluirUsuarios(retornoForm) {
     const parametros = {
-      nomeUsuario: retornoForm.nome.length,
-      url: retornoForm.urlFotoPerfil,
-      existeUsuario: retornoForm.nome,
+      nomeUsuario: retornoForm?.nome?.length,
+      url: retornoForm?.urlFotoPerfil,
+      existeUsuario: retornoForm?.nome,
     };
 
     const erros = await this.valida(parametros);
@@ -49,11 +49,8 @@ class Usuarios {
 
     const erros = await this.valida(parametros);
 
-    console.log(retornoForm);
-
     const existemErros = erros.length;
 
-    console.log(existemErros);
     if (existemErros) {
       return new Promise((resolve, reject) => reject(erros));
     }
@@ -61,8 +58,8 @@ class Usuarios {
     return repositorio.alterarUsuario(id, retornoForm);
   }
 
-  excluirUsuario(retornoForm) {
-    return repositorio.excluirUsuario(retornoForm);
+  excluirUsuario(retornoId) {
+    return repositorio.excluirUsuario(retornoId);
   }
 }
 

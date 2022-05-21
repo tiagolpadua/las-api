@@ -16,12 +16,10 @@ module.exports = (app) => {
           id: resultados.insertId,
           ...retornoForm,
           status: resultados.status,
-          descrição: "Evento incluído com sucesso",
+          // descrição: "Evento incluído com sucesso",
         });
       })
-      .catch((error) =>
-        res.status(400).json({ erro: error, descrição: "Entrada inválida" })
-      );
+      .catch((error) => res.status(400).json(error));
   });
 
   app.get("/eventos/:id", (req, res) => {
@@ -35,7 +33,7 @@ module.exports = (app) => {
         } else {
           res.status(200).json({
             ...results,
-            descrição: "Operação bem sucedida",
+            // descrição: "Operação bem sucedida",
           });
         }
       })
@@ -53,10 +51,7 @@ module.exports = (app) => {
         if (!results.length) {
           res.status(404).json("Status não encontrado");
         } else {
-          res.status(200).json({
-            ...results,
-            Mensagem: "Operação bem sucedida",
-          });
+          res.status(200).json(results);
         }
       })
       .catch((erro) => {
@@ -71,13 +66,17 @@ module.exports = (app) => {
 
     Evento.alterarEvento(id, retornoForm)
       // eslint-disable-next-line no-unused-vars
-      .then(() => {
-        res.status(204).json({
-          estado: "Usuário incluído com sucesso",
-        });
+      .then((results) => {
+        console.log("RESULTADO PUT EVENTOS", results);
+        if (!results.affectedRows)
+          res.status(404).json("Evento não encontrado.");
+        else
+          res.status(204).json({
+            estado: "Evento incluído com sucesso",
+          });
       })
       .catch((erro) => {
-        res.status(405).json({ erro: erro, status: "Entrada inválida" });
+        res.status(405).json({ erro: erro.code, status: "Entrada inválida" });
       });
   });
 

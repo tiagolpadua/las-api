@@ -56,28 +56,22 @@ module.exports = (app) => {
           id: resultados.insertId,
           nome: retornoForm.nome,
           url: retornoForm.urlFotoPerfil,
-          descrição: "Usuário incluído com sucesso",
         });
       })
-      .catch((error) =>
-        res.status(400).json({ erro: error, descrição: "Entrada inválida" })
-      );
+      .catch((erro) => {
+        res.status(400).json({ erro, descrição: "Entrada inválida" });
+      });
   });
 
   app.get("/usuarios/:id", (req, res) => {
     const id = parseInt(req.params.id);
 
     Usuarios.buscaUsuarioId(id)
-      .then((results) => {
-        if (!results.length) {
-          res.status(404).json("Usuário não encontrado");
-        } else {
-          res.status(200).json({
-            ...results[0],
-            descrição: "Operação bem sucedida",
-          });
-        }
-      })
+      .then((results) =>
+        !results.length
+          ? res.status(404).json("Usuário não encontrado")
+          : res.status(200).json({ ...results[0] })
+      )
       .catch((erro) => {
         res.status(400).json("Id inválido fornecido");
         return erro;
@@ -94,7 +88,7 @@ module.exports = (app) => {
         } else {
           res.status(200).json({
             ...results[0],
-            descrição: "Operação bem sucedida",
+            // descrição: "Operação bem sucedida",
           });
         }
       })
@@ -112,7 +106,7 @@ module.exports = (app) => {
     Usuarios.alterarUsuario(id, retornoForm)
       // eslint-disable-next-line no-unused-vars
       .then(() => {
-        res.status(201).json({
+        res.status(200).json({
           status: "Usuário atualizado com sucesso",
         });
       })
