@@ -1,9 +1,14 @@
 const repositorio = require("../repositorio/evento");
 const moment = require("moment");
 
+const STATUS_AGENDADO = "agendado";
+const STATUS_EM_ANDAMENTO = "em-andamento";
+const STATUS_FINALIZADO = "finalizado";
+
 class Eventos {
-  listar() {
-    return repositorio.listar();
+  async listar() {
+    const eventos = await repositorio.listar();
+    return eventos.map((evento) => this.insereStatusNoEvento(evento));
   }
 
   adicionar(evento) {
@@ -21,12 +26,24 @@ class Eventos {
     return repositorio.adicionar(evento);
   }
 
-  buscaPorId(id) {
-    return repositorio.buscaPorId(id);
+  async buscaPorId(id) {
+    const resultado = await repositorio.buscaPorId(id);
+    return this.insereStatusNoEvento(resultado);
   }
 
   buscaPorStatus(status) {
-    return repositorio.buscaPorStatus(status);
+    switch (status) {
+      case STATUS_AGENDADO:
+        return repositorio.buscarEventosAgendado(status);
+      case STATUS_EM_ANDAMENTO:
+        return repositorio.buscarEventosEmAndamento(status);
+      case STATUS_FINALIZADO:
+        return repositorio.buscarEventosFinalizado(status);
+      default:
+        return new Promise((resolve, reject) =>
+          reject({ erro: `O Status ${status} não é válido` })
+        );
+    }
   }
 
   alterar(id, valores) {
@@ -46,6 +63,27 @@ class Eventos {
       moment(dataInicioEvento).isSameOrAfter(dataCriacao) &&
       moment(dataFimEvento).isSameOrAfter(dataInicioEvento);
     return dataEventoEhValida;
+  }
+
+  insereStatusNoEvento(evento) {
+    const status = this.obterStatusEvento(evento);
+    return { ...evento, status };
+  }
+
+  obterStatusEvento(evento) {
+    const dataInicio = moment(evento.dataInicio);
+    const dataFim = moment(evento.dataFim);
+    const dataAtual = moment();
+
+    if (dataInicio.isAfter(dataAtual)) {
+      return STATUS_AGENDADO;
+    } else if (dataAtual.isBetween(dataInicio, dataFim)) {
+      return STATUS_EM_ANDAMENTO;
+    } else if (dataFim.isBefore(dataAtual)) {
+      return STATUS_FINALIZADO;
+    }
+
+    return undefined;
   }
 }
 
