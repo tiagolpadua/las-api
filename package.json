@@ -6,9 +6,6 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "test": "jest",
-    "test:essencial": "jest -t Essencial --coverage=false",
-    "test:desejavel": "jest -t Desejável --coverage=false",
-    "test:desafio": "jest -t Desafio --coverage=false",
     "test:watch": "jest --watch",
     "lint": "eslint src/**",
     "lint:fix": "eslint src/** --fix",
@@ -47,13 +44,13 @@
     "lint"
   ],
   "jest": {
-    "collectCoverage": false,
+    "collectCoverage": true,
     "collectCoverageFrom": [
       "./src/**"
     ],
-    "coverageThreshold": {
+    "xcoverageThreshold": {
       "global": {
-        "lines": 90
+        "lines": 50
       }
     }
   },
@@ -66,6 +63,7 @@
     "mysql2": "^2.3.3",
     "node-fetch": "^2.6.7",
     "nodemon": "^2.0.15",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "supertest": "^6.2.3"
   }
 }

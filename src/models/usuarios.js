@@ -1,13 +1,12 @@
-const pool = require("../infraestrutura/database/conexao");
 const repositorio = require("../repositorios/usuario");
 const fetch = require("node-fetch");
 
 class Usuarios {
   //ok
-  listar(){
+  listar() {
     return repositorio.listar();
-  } 
-  
+  }
+
   //ok
   buscarPorId(id) {
     return repositorio.buscarPorId(id);
@@ -15,13 +14,19 @@ class Usuarios {
 
   //ok
   async adicionar(usuario) {
-    const nomeEhValido = true;
-      /*usuario.nome.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));*/
-    console.log(nomeEhValido);
-    const urlEhValida = true; //await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
-    console.log(urlEhValida);
-    
+    let nomeEhValido = false;
+
+    if (usuario?.nomeCompleto?.length > 0) {
+      const nomeJaUtilizado = await !repositorio.isNomeUsuarioUtilizado(
+        usuario.nomeCompleto
+      );
+
+      if (!nomeJaUtilizado) {
+        nomeEhValido = true;
+      }
+    }
+
+    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
     const validacoes = [
       {
         nome: "nome",
@@ -36,12 +41,15 @@ class Usuarios {
     ];
 
     const erros = validacoes.filter((campo) => !campo.valido);
-    const existemErros = erros.length;
+    const existemErros = erros.length > 0;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      console.log(erros);
+      throw { erroApp: erros };
+    } else {
+      const resp = await repositorio.adiciona(usuario);
+      return { id: resp.insertId, ...usuario };
     }
-    return repositorio.adiciona(usuario);
   }
 
   //ok
@@ -51,7 +59,12 @@ class Usuarios {
 
   //ok
   excluir(id, res) {
-    return repositorio.excluir(id, res);
+    if(repositorio.buscarPorId(id)){
+      console.log(repositorio.buscarPorId(id));
+      return repositorio.excluir(id, res);
+    }else{
+      return false;
+    }
   }
 
   //ok
@@ -64,8 +77,8 @@ class Usuarios {
   }
 
   //ok
-  alterarDadosPessoais(id,valores) {
-    return repositorio.alterarDadosPessoais(id,valores);
+  alterarDadosPessoais(id, valores) {
+    return repositorio.alterarDadosPessoais(id, valores);
   }
 
   //ok
@@ -74,13 +87,13 @@ class Usuarios {
   }
 
   //ok
-  alterarContatos(id,valores) {
-    return repositorio.alterarContatos(id,valores);
+  alterarContatos(id, valores) {
+    return repositorio.alterarContatos(id, valores);
   }
-  
+
   //ok
-  alterarSenha(id,valores) {
-    return repositorio.alterarSenha(id,valores);
+  alterarSenha(id, valores) {
+    return repositorio.alterarSenha(id, valores);
   }
 
   //ok
@@ -89,8 +102,8 @@ class Usuarios {
   }
 
   //ok
-  alterarEndereco(id,valores) {
-    return repositorio.alterarEndereco(id,valores);
+  alterarEndereco(id, valores) {
+    return repositorio.alterarEndereco(id, valores);
   }
 
   async validarURLFotoPerfil(url) {
@@ -111,26 +124,6 @@ class Usuarios {
       return false;
     }
   }
-
-  
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
-  }
-
-  
 }
 
 module.exports = new Usuarios();

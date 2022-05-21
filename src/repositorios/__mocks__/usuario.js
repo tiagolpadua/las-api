@@ -1,49 +1,48 @@
-const query = require("../infraestrutura/database/queries");
+//const query = require("../infraestrutura/database/queries");
 
-class Usuario{
+const usuariosMock = require("./usuarios");
+
+class Usuario {
     //ok
-    listar(){
-        const sql = "SELECT * FROM Usuarios";
-        return query(sql);
+    listar() {
+        return Promise.resolve(usuariosMock);
     }
 
-    //ok
-    buscarPorId(id){
-        const sql = "SELECT * FROM Usuarios WHERE id = ?";
-        return query(sql,id).then((data)=> data[0]);
+     //ok
+    buscarPorId(id) {
+        return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
     }
-
+  
     //ok
     adiciona(usuario){
-        const sql = "INSERT INTO Usuarios SET ?";
-        return query(sql,usuario);
+        return Promise.resolve(usuario && {insertId:90});
     }
-
+    
     //ok
     alterar(id, valores){
-        const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-        return query(sql,[valores,id]);
+        return Promise.resolve(usuariosMock && [valores,id]);
     }
 
     //ok
     excluir(id){
-        const sql = "DELETE FROM Usuarios WHERE id = ?";
-        return query(sql,id);
+        return Promise.resolve(usuariosMock && id);
     }
 
     //ok
     buscarPorNome(nome){
-        nome = "%" + nome + "%";
-        const sql = "SELECT * FROM Usuarios WHERE nomeCompleto like ?";
-        return query(sql, nome);
+        return Promise.resolve(usuariosMock.find((usuario) => usuario.nomeCompleto === nome));
     }
 
     //ok
     listarDadosPessoais(id){
-        const sql = "SELECT nomeCompleto, rg, cpf, dataNascimento FROM Usuarios WHERE id = ?";
-        return query(sql, id);
+        Promise.resolve(usuariosMock.find((usuario) => {
+            if(usuario.id === id){
+                return usuario.nomeCompleto, usuario.rg, usuario.cpf, usuario.dataNascimento;
+            }
+        }));
     }
-
+    
+/*
     //ok
     alterarDadosPessoais(id, valores){
         const sql = "UPDATE Usuarios SET ? WHERE id = ?";
@@ -78,20 +77,11 @@ class Usuario{
     alterarEndereco(id, valores){
         const sql = "UPDATE Usuarios SET ? WHERE id = ?";
         return query(sql,[valores,id]);
-    }
+    } */
 
     isNomeUsuarioUtilizado(nome) {
-        const sql = "SELECT * FROM Usuarios WHERE nomeCompleto = ?";
-        return query(sql, nome)
-        .then(data=>{
-            if (data.length > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }); 
-             
+        return Promise.resolve(!!usuariosMock.find((usuario) => usuario.nomeCompleto === nome));
+        
     }
 }
-
-module.exports = new Usuario;
+module.exports = new Usuario();

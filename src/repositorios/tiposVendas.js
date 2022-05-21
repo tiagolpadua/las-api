@@ -26,4 +26,4 @@ class TiposVendas{
         return query(sql, id);
     }
 }
-module.exports = TiposVendas;
+module.exports = new TiposVendas;
