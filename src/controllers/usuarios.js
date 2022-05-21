@@ -23,6 +23,7 @@ module.exports = (app) => {
     Usuarios.adicionar(usuarios)
       .then((resultado) => res.json(resultado))
       .catch((erros) => next(erros));
+      
   });
 
   //ok

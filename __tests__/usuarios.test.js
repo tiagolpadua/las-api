@@ -136,17 +136,18 @@ describe("API de Usuarios", () => {
     });
   });
 
+  //Falta ajeitar o retorno dos erros
   /*test("Adicionar Usuario com dados InValidos",async () => {
     const resp = await request.post("/usuarios").send(
       {
-      "nomeCompleto": ,
+      "nomeCompleto": "Maiure",
       "rg": "1357174500",
       "cpf": "07828625510",
       "dataNascimento": "05101999",
       "telefone": "7132121422",
       "celular": "71999663589",
       "email": "etsvaldo",
-      "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
+      "urlFotoPerfil": "./assets/salsicha.jpg",
       "senha": "123",
       "cep": "43700000",
       "endereco": "rua dois de julho",
@@ -228,18 +229,19 @@ describe("API de Usuarios", () => {
   );
   });
 
-  /*test("Listar Dados pessoais do Usuario",async () => {
+  test("Listar Dados pessoais do Usuario",async () => {
     const resp = await request.get("/usuarios/1/dados-pessoais");
     expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual([
+    expect(resp.body).toEqual(
       {
-          "nomeCompleto": "Alexandre",
-          "rg": "1357174780",
-          "cpf": "07828625510",
-          "dataNascimento": "05101999"
+        "id":1,
+        "nomeCompleto": "Alexandre",
+        "rg": "1357174780",
+        "cpf": "07828625510",
+        "dataNascimento": "05101999",
       }
-  ]);
-  });*/
+  );
+  });
 
   /*test("Alterar Dados pessoais do Usuario",async () => {
     const resp = await request.put("/usuarios/2/dados-pessoais");
@@ -247,17 +249,18 @@ describe("API de Usuarios", () => {
     expect(resp.body).toEqual();
   });*/
 
-  /*test("Listar Contatos do Usuario",async () => {
-    const resp = await request.get("/usuarios/4/contatos");
+  test("Listar Contatos do Usuario",async () => {
+    const resp = await request.get("/usuarios/1/contatos");
     expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual([
+    expect(resp.body).toEqual(
       {
-          "telefone": "7132121422",
-          "celular": "71999663589",
-          "email": "etsvaldo@gmail.com"
+        "id":1,
+        "telefone": "7132121422",
+        "celular": "71999663589",
+        "email": "etsvaldo@gmail.com"
       }
-  ]);
-  });*/
+  );
+  });
 
   /*test("Alterar Contatos do Usuario",async () => {
     const resp = await request.put("/usuarios/2/contatos");
@@ -271,19 +274,20 @@ describe("API de Usuarios", () => {
     expect(resp.body).toEqual();
   });*/
 
-  /*test("Listar Endereco do Usuario",async () => {
-    const resp = await request.get("/usuarios/4/endereco");
+  test("Listar Endereco do Usuario",async () => {
+    const resp = await request.get("/usuarios/1/endereco");
     expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual([
+    expect(resp.body).toEqual(
       {
-          "cep": "43700000",
-          "endereco": "rua dois de julho",
-          "numero": 256,
-          "complemento": "",
-          "bairro": "cia 3"
+        "id":1,
+        "cep": "43700000",
+        "endereco": "rua dois de julho",
+        "numero": 256,
+        "complemento": "",
+        "bairro": "cia 3"
       }
-  ]);
-  });*/
+  );
+  });
 
   /*test("Alterar Endereco do Usuario",async () => {
     const resp = await request.put("/usuarios/2/endereco");

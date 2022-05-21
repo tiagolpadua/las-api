@@ -1,3 +1,4 @@
+
 //const query = require("../infraestrutura/database/queries");
 
 const usuariosMock = require("./usuarios");
@@ -35,11 +36,10 @@ class Usuario {
 
     //ok
     listarDadosPessoais(id){
-        Promise.resolve(usuariosMock.find((usuario) => {
-            if(usuario.id === id){
-                return usuario.nomeCompleto, usuario.rg, usuario.cpf, usuario.dataNascimento;
-            }
-        }));
+        // eslint-disable-next-line no-unused-vars
+        const usuarios = usuariosMock.map(({ telefone,celular,email,urlFotoPerfil,senha,cep,endereco, numero,complemento,bairro, ...demais }) => demais);      
+        const usuarioSelecionado= (usuarios.find((usuario) => usuario.id === id));
+        return Promise.resolve(usuarioSelecionado);
     }
     
 /*
@@ -47,14 +47,16 @@ class Usuario {
     alterarDadosPessoais(id, valores){
         const sql = "UPDATE Usuarios SET ? WHERE id = ?";
         return query(sql,[valores,id]);
-    }
+    }*/
 
     //ok
     listarContatos(id){
-        const sql = "SELECT telefone, celular, email FROM Usuarios WHERE id = ?";
-        return query(sql, id);
+        // eslint-disable-next-line no-unused-vars
+        const usuarios = usuariosMock.map(({nomeCompleto, rg, cpf, dataNascimento,urlFotoPerfil,senha,cep,endereco, numero,complemento,bairro, ...demais }) => demais);      
+        const usuarioSelecionado= (usuarios.find((usuario) => usuario.id === id));
+        return Promise.resolve(usuarioSelecionado);
     }
-
+/*
     //ok
     alterarContatos(id, valores){
         const sql = "UPDATE Usuarios SET ? WHERE id = ?";
@@ -66,13 +68,15 @@ class Usuario {
         const sql = "UPDATE Usuarios SET ? WHERE id = ?";
         return query(sql,[valores,id]);
     }
-
+*/
     //ok
     listarEndereco(id){
-        const sql = "SELECT cep, endereco, numero, complemento, bairro FROM Usuarios WHERE id = ?";
-        return query(sql, id);
+        // eslint-disable-next-line no-unused-vars
+        const usuarios = usuariosMock.map(({nomeCompleto, rg, cpf, dataNascimento, telefone,celular,email,urlFotoPerfil,senha, ...demais }) => demais);      
+        const usuarioSelecionado= (usuarios.find((usuario) => usuario.id === id));
+        return Promise.resolve(usuarioSelecionado);
     }
-
+/*
     //ok
     alterarEndereco(id, valores){
         const sql = "UPDATE Usuarios SET ? WHERE id = ?";

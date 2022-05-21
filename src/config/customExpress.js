@@ -12,7 +12,6 @@ module.exports = () => {
 
   app.get("/",(req, res) => res.send("Curso da ALURA"));
 
-  
   consign().include("src/controllers").into(app);
 
   
@@ -25,13 +24,14 @@ module.exports = () => {
       //Error em Ambiente que nao eh de produçao
     }else if (ENV !== "production") {
       console.log("Error em Ambiente que nao eh de produçao");
-      res.status(500).send({ error: err.message });
+      res.status(500).send({ error: "err.message" });
 
       //Error em produçao
     }else{
       console.log("Error em produçao");
       res.status(500).send({ error: "Algo deu errado..." });
     }
+    
     console.log(err);
   });
 

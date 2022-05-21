@@ -1,35 +1,32 @@
 const eventos = require("../models/eventos");
 
 module.exports = (app) => {
-    app.get("/", (req, res) => res.send("Servidor rodando GET"));
-    app.post("/", (req, res) => res.send("Servidor rodando POST"));
-
-    app.get("/eventos", (req, res) =>{
+    app.get("/eventos", (req, res, next) =>{
         eventos.listar()
         .then((resultados) => res.json(resultados))
-        .catch((erros) => res.status(400).json(erros));
+        .catch((erros) => next(erros));//res.status(400).json(erros));
     });
 
-    app.get("/eventos/:id", (req, res) =>{
+    app.get("/eventos/:id", (req, res, next) =>{
         const id = parseInt(req.params.id);
         eventos.buscarPorId(id)
         .then((resultados) => res.json(resultados))
-        .catch((erros) => res.status(400).json(erros));
+        .catch((erros) => next(erros));//res.status(400).json(erros));
     });
 
-    app.post("/eventos", (req, res) => {
+    app.post("/eventos", (req, res, next) => {
         const evento = req.body;
         eventos.adicionar(evento)
           .then((resultados) => res.json({ id: resultados.insertId, ...evento }))
-          .catch((erros) => res.status(400).json(erros));
+          .catch((erros) => next(erros));//res.status(400).json(erros));
       });
     
-      app.put("/eventos/:id", (req, res) => {
+      app.put("/eventos/:id", (req, res, next) => {
         const id = parseInt(req.params.id);
         const valores = req.body;
         eventos.alterar(id, valores)
           .then(() => res.json({ id, ...valores }))
-          .catch((erros) => res.status(400).json(erros));
+          .catch((erros) => next(erros));//res.status(400).json(erros));
       });
     
       app.delete("/eventos/:id", (req, res) => {
