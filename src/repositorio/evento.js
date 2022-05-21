@@ -11,14 +11,24 @@ class Evento {
     return query(sql, evento);
   }
 
-  buscaPorId(id) {
+  async buscaPorId(id) {
     const sql = "SELECT * FROM Eventos WHERE id = ?";
-    return query(sql, id);
+    const resultados = await query(sql, id);
+    return resultados[0];
   }
 
-  buscaPorStatus(status) {
-    const sql = "SELECT * FROM Eventos WHERE status = ?";
-    return query(sql, status);
+  buscarEventosAgendado() {
+    const sql = "SELECT * FROM Eventos WHERE dataInicio > CURDATE()";
+    return query(sql);
+  }
+  buscarEventosEmAndamento() {
+    const sql =
+      "SELECT * FROM Eventos WHERE dataInicio < CURDATE() && dataFim > CURDATE()";
+    return query(sql);
+  }
+  buscarEventosFinalizado() {
+    const sql = "SELECT * FROM Eventos WHERE dataFim < CURDATE()";
+    return query(sql);
   }
 
   alterar(id, eventoAtualizado) {
