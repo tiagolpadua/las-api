@@ -1,8 +1,14 @@
 const query = require("../infraestrutura/database/queries");
 
 class Usuario {
+  constructor() {
+    this.sqlBusca = "SELECT * FROM Usuarios";
+    this.sqlBuscaPorNome = `${this.sqlBusca} WHERE nome`;
+    this.sqlBuscaPorId = `${this.sqlBusca} WHERE id =`;
+  }
+
   listar() {
-    const sql = "SELECT * FROM Usuarios";
+    const sql = this.sqlBusca; //"SELECT * FROM Usuarios";
 
     return query(sql);
   }
@@ -14,7 +20,8 @@ class Usuario {
   }
 
   buscaPorId(id) {
-    const sql = "SELECT * FROM Usuarios WHERE id = ?";
+    // const sql = "SELECT * FROM Usuarios WHERE id = ?";
+    const sql = `${this.sqlBuscaPorId} ?`;
 
     return query(sql, id);
   }
@@ -26,7 +33,7 @@ class Usuario {
   }
 
   buscaPorNome(nome) {
-    const sql = "SELECT * FROM Usuarios WHERE nome LIKE ?";
+    const sql = `${this.sqlBuscaPorNome} LIKE ?`;
 
     return query(sql, `%${nome}%`);
   }
@@ -37,10 +44,10 @@ class Usuario {
     return query(sql, id);
   }
 
-  validarNomeNãoUtilizado(nome) {
+  validarNomeNaoUtilizado(nome) {
     const sql = "SELECT COUNT(*) FROM Usuarios WHERE nome = ?";
 
-    return query(sql, nome);
+    return query(sql, `'${nome}'`);
   }
 }
 

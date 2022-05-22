@@ -2,6 +2,10 @@ const repositorio = require("../repositorios/evento");
 const moment = require("moment");
 const Validacoes = require("../infraestrutura/validacoes");
 
+const STATUS_AGENDADO = "agendado";
+const STATUS_EM_ANDAMENTO = "em-andamento";
+const STATUS_FINALIZADO = "finalizado";
+
 class Eventos {
   listar() {
     return repositorio.listar();
@@ -83,11 +87,11 @@ class Eventos {
 
   listarPorStatus(status) {
     switch (status) {
-      case "agendado":
+      case STATUS_AGENDADO:
         return repositorio.listarEventosAgendados();
-      case "em-andamento":
+      case STATUS_EM_ANDAMENTO:
         return repositorio.listarEventosEmAndamento();
-      case "finalizado":
+      case STATUS_FINALIZADO:
         return repositorio.listarEventosFinalizados();
       default:
         throw new Error(`Status Inválido: ${status}`);

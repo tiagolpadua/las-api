@@ -3,7 +3,7 @@ const query = require("../infraestrutura/database/queries");
 class Evento {
   constructor() {
     this.sqlBusca = "SELECT * FROM Eventos";
-    this.sqlBuscarStatus = `${this.sqlBusca} WHERE status =`;//"SELECT * FROM Eventos WHERE status =";
+    this.sqlBuscarStatus = `${this.sqlBusca} WHERE status =`; //"SELECT * FROM Eventos WHERE status =";
     this.sqlBuscarId = `${this.sqlBusca} WHERE id =`;
   }
 
@@ -20,7 +20,7 @@ class Evento {
   }
 
   buscaPorId(id) {
-    const sql = `${this.sqlBuscarId} ?`;//"SELECT * FROM Eventos WHERE id = ?";
+    const sql = `${this.sqlBuscarId} ?`; //"SELECT * FROM Eventos WHERE id = ?";
 
     return query(sql, id);
   }

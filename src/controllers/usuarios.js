@@ -19,7 +19,7 @@ module.exports = (app) => {
   //Refatoração - OK
   app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    Usuarios.buscarPorId(id)
+    Usuarios.buscaPorId(id)
       .then((resultado) => res.json(resultado))
       .catch((erros) => next(erros));
   });
@@ -37,8 +37,8 @@ module.exports = (app) => {
   app.delete("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.excluir(id)
-    .then(() => res.status(204).json("Usuario excluido com sucesso"))
-    .catch((erros) => next(erros));
+      .then(() => res.status(204).json("Usuario excluido com sucesso"))
+      .catch((erros) => next(erros));
   });
 
   //Refatoração - OK

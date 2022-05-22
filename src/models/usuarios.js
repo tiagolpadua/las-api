@@ -1,16 +1,17 @@
-// const pool = require("../infraestrutura/database/conexao");
 const Validacoes = require("../infraestrutura/validacoes");
 const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
   //Refatoração - OK
-  listar() {
-    return repositorio.listar();
+  async listar() {
+    return await repositorio.listar();
   }
 
   //Refatoração - OK
-  buscaPorId(id) {
-    return repositorio.buscaPorId(id);
+  async buscaPorId(id) {
+    const usuario = await repositorio.buscaPorId(id);
+
+    return usuario;
   }
 
   //Refatoração - OK
@@ -48,43 +49,23 @@ class Usuarios {
   }
 
   //Refatoração - OK
-  alterar(id, valores) {
-    return repositorio.alterar(id, valores);
+  async alterar(id, valores) {
+    return await repositorio.alterar(id, valores);
   }
 
   //Refatoração - OK
-  excluir(id) {
-    return repositorio.excluir(id);
+  async excluir(id) {
+    return await repositorio.excluir(id);
   }
 
   //Refatoração - OK
-  buscaPorNome(nome) {
-    return repositorio.buscaPorNome(nome);
+  async buscaPorNome(nome) {
+    return await repositorio.buscaPorNome(nome);
   }
 
-  //É necessário refatorar esta função
-  // async validarNomeUsuarioNaoUtilizado(nome) {
-  //   return new Promise((resolve) => {
-  //     const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-  //     pool.query(sql, nome, (erro, resultados) => {
-  //       if (erro) {
-  //         resolve(false);
-  //       } else {
-  //         if (resultados.length > 0) {
-  //           resolve(false);
-  //         } else {
-  //           resolve(true);
-  //         }
-  //       }
-  //     });
-  //   });
-  // }
-
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise(() => {
-      const resultado = this.repositorio.validarNomeNãoUtilizado(nome);
-      return !resultado > 0;
-    });
+  validarNomeUsuarioNaoUtilizado(nome) {
+    const resultado = repositorio.validarNomeNaoUtilizado(nome);
+    return !(resultado > 0);
   }
 }
 
