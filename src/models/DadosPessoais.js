@@ -25,6 +25,7 @@ class DadosPessoais {
 
     const parametros = {
       nomeCompleto: retornoForm.nomeCompleto.length,
+      validaCPF: retornoForm.cpf,
     };
 
     const erros = await this.valida(parametros);

@@ -77,5 +77,11 @@ module.exports = [
     mensagem: "nomeCompleto deve ter pelo menos cinco caracteres",
   },
 
+  {
+    nome: "validaCPF",
+    valido: validacoes.validaCPF,
+    mensagem: "CPF inválido",
+  },
+
   // fim Validacoes Dados Pessoais
 ];

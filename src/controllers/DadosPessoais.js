@@ -25,6 +25,8 @@ module.exports = (app) => {
     const id = parseInt(req.params.usuarioId);
     const retornoForm = req.body;
 
+    console.log("rota DADOS PESSOAIS", id, retornoForm);
+
     DadosPessoais.alterarDadosPessoais(id, retornoForm)
       // eslint-disable-next-line no-unused-vars
       .then(() => {

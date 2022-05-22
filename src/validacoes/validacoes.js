@@ -3,6 +3,7 @@ const repositorioTipoVenda = require("../repositorios/tiposVendas");
 const repositorioEventos = require("../repositorios/eventos");
 const fetch = require("node-fetch");
 const moment = require("moment");
+const validadorCPF = require("cpf-cnpj-validator");
 
 const EVENTO_AGENDADO = "agendado";
 const EVENTO_ANDAMENTO = "em-andamento";
@@ -130,7 +131,11 @@ class Validacao {
 
   // Validacoes Dados Pessoais
 
-  // validaCPF(cpf) {}
+  validaCPF(cpf) {
+    cpf = validadorCPF.cpf.format(cpf);
+    const CPFehValido = validadorCPF.cpf.isValid(cpf);
+    return CPFehValido;
+  }
 
   // fim Validacoes Dados Pessoais
 
