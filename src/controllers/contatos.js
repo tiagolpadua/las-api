@@ -1,7 +1,7 @@
 const Usuarios = require("../models/contatos");
 
 module.exports = (app) => {
-  app.get("/usuarios/:usuarioId/contatos", (req, res) => {
+  app.get("/usuarios/:usuarioId/contatos", (req, res, next) => {
     const id = parseInt(req.params.usuarioId);
 
     Usuarios.buscaContatosId(id)
@@ -17,7 +17,7 @@ module.exports = (app) => {
       })
       .catch((erro) => {
         res.status(400).json("Id inválido fornecido");
-        return erro;
+        next(erro);
       });
   });
 

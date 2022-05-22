@@ -222,3 +222,275 @@ describe("Testa API DELETE", () => {
     expect(response.body).toEqual("Id inválido fornecido");
   });
 });
+
+const retornoDadosPessoais = [
+  {
+    id: 3,
+    nomeCompleto: "Gilberto Passos Gil Moreira",
+    dataNascimento: "1942-06-26T03:00:00.000Z",
+    rg: "4563456784",
+    cpf: "25634428777",
+    // descrição: "Operação bem sucedida",
+  },
+  {
+    id: 4,
+    nomeCompleto: "Ivete Sangalo",
+    dataNascimento: "1972-05-27T03:00:00.000Z",
+    rg: "4563456784",
+    cpf: "25634428777",
+    // descrição: "Operação bem sucedida",
+  },
+  {
+    id: 5,
+    nomeCompleto: "Caetano Veloso",
+    dataNascimento: "1942-08-07T03:00:00.000Z",
+    rg: "4563456784",
+    cpf: "25634428777",
+    // descrição: "Operação bem sucedida",
+  },
+];
+
+describe("Testa API DADOSPESSOAIS GET", () => {
+  test("API Dados-Pessoais por ID", async () => {
+    const response = await rotas.get("/usuarios/3/dados-pessoais");
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(retornoDadosPessoais[0]);
+  });
+
+  test("API Dados-Pessoais por ID inexistente", async () => {
+    const response = await rotas.get("/usuarios/999/dados-pessoais");
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toEqual("Usuário não encontrado");
+  });
+
+  test("API Dados-Pessoais por ID inexistente", async () => {
+    const response = await rotas.get("/usuarios/kkkkk/dados-pessoais");
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual("Id inválido fornecido");
+  });
+});
+
+describe("Testa API DADOSPESSOAIS PUT", () => {
+  test("Atualiza Dados-Pessoais por ID", async () => {
+    const response = await rotas.put("/usuarios/4/dados-pessoais").send({
+      nomeCompleto: "Ivete Sangalo",
+      dataNascimento: "01-05-2000",
+      rg: "7866564576",
+      cpf: "25634428777",
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual("Usuário atualizado com sucesso");
+  });
+
+  test("Atualiza Dados-Pessoais dados inválidos", async () => {
+    const response = await rotas.put("/usuarios/4/dados-pessoais").send({
+      nomeCompleto: "Ivete Sangalo",
+      dataNascimento: "01-05-2000",
+      rg: "7866564576",
+      cpf: "85634428777",
+    });
+
+    expect(response.statusCode).toBe(405);
+    expect(response.body).toEqual({
+      erro: [
+        {
+          nome: "validaCPF",
+          mensagem: "CPF inválido",
+          resultado: true,
+        },
+      ],
+      status: "Entrada inválida",
+    });
+  });
+
+  test("Atualiza Dados-Pessoais nome inválido", async () => {
+    const response = await rotas.put("/usuarios/4/dados-pessoais").send({
+      nomeCompleto: "Iv",
+      dataNascimento: "01-05-2000",
+      rg: "7866564576",
+      cpf: "25634428777",
+    });
+
+    expect(response.statusCode).toBe(405);
+    expect(response.body).toEqual({
+      erro: [
+        {
+          nome: "nomeCompleto",
+          mensagem: "nomeCompleto deve ter pelo menos cinco caracteres",
+          resultado: true,
+        },
+      ],
+      status: "Entrada inválida",
+    });
+  });
+});
+
+describe("Testa API CONTATOS GET", () => {
+  test("API Contatos por ID", async () => {
+    const response = await rotas.get("/usuarios/5/contatos");
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual({
+      celular: "43675336789",
+      descrição: "Operação bem sucedida",
+      email: "caetano.veloso@gmail.com",
+      id: 5,
+      telefone: "4567895678",
+    });
+  });
+
+  test("API Contatos com ID inválido", async () => {
+    const response = await rotas.get("/usuarios/5666/contatos");
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toEqual("Contato não encontrado");
+  });
+
+  test("API Contatos com ID inválido", async () => {
+    const response = await rotas.get("/usuarios/dfgdfg/contatos");
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual("Id inválido fornecido");
+  });
+});
+
+describe("Testa API CONTATOS PUT", () => {
+  test("Atualiza Contato por ID", async () => {
+    const response = await rotas.put("/usuarios/5/contatos").send({
+      telefone: "6233311212",
+      celular: "62998757575",
+      email: "foobar@gmail.com",
+    });
+
+    expect(response.statusCode).toBe(204);
+    expect(response.body).toEqual({});
+  });
+
+  test("Atualiza Contato ID inválido", async () => {
+    const response = await rotas.put("/usuarios/5555/contatos").send({
+      telefone: "6233311212",
+      celular: "62998757575",
+      email: "foobar@gmail.com",
+    });
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toEqual("Contato não encontrado");
+  });
+
+  test("Atualiza Contato ID inválido", async () => {
+    const response = await rotas.put("/usuarios/kkkk/contatos").send({
+      telefone: "6233311212",
+      celular: "62998757575",
+      email: "foobar@gmail.com",
+    });
+
+    expect(response.statusCode).toBe(405);
+    expect(response.body).toEqual({
+      status: "Entrada inválida",
+    });
+  });
+});
+
+describe("Testa API SENHA PUT", () => {
+  test("Atualiza senha por ID", async () => {
+    const response = await rotas.put("/usuarios/2/senha").send({
+      senha: "admin",
+    });
+
+    expect(response.statusCode).toBe(204);
+    expect(response.body).toEqual({});
+  });
+
+  test("Atualiza senha por ID inexistente", async () => {
+    const response = await rotas.put("/usuarios/22222/senha").send({
+      senha: "admin",
+    });
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toEqual("Contato não encontrado");
+  });
+
+  test("Atualiza senha por ID inexistente", async () => {
+    const response = await rotas.put("/usuarios/kkkkk/senha").send({
+      senha: "admin",
+    });
+
+    expect(response.statusCode).toBe(405);
+    expect(response.body).toEqual({ status: "Entrada inválida" });
+  });
+});
+
+describe("Testa API ENDERECO GET", () => {
+  test("API ENDEREÇO por ID", async () => {
+    const response = await rotas.get("/usuarios/5/endereco");
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual({
+      bairro: "Leblon - Rio de Janeiro, RJ",
+      cep: "45655434",
+      complemento: "AP 402",
+      endereco: "R General Venâncio Flores",
+      id: 5,
+      numero: 475,
+    });
+  });
+
+  test("Busca ENDEREÇO por ID inexistente", async () => {
+    const response = await rotas.get("/usuarios/54545/endereco");
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toEqual("Endereco não encontrado");
+  });
+
+  test("Busca ENDEREÇO por ID inválido", async () => {
+    const response = await rotas.get("/usuarios/huahuahau/endereco");
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual({ status: "Id inválido fornecido" });
+  });
+});
+
+describe("Testa API ENDERECO PUT", () => {
+  test("Atualiza ENDERECO por ID", async () => {
+    const response = await rotas.put("/usuarios/5/endereco").send({
+      cep: "72980000",
+      endereco: "Rua 123",
+      numero: 23,
+      complemento: "Apartamento 509",
+      bairro: "Zona Norte",
+    });
+
+    expect(response.statusCode).toBe(204);
+    expect(response.body).toEqual({});
+  });
+
+  test("Atualiza ENDERECO por ID inválido", async () => {
+    const response = await rotas.put("/usuarios/54545/endereco").send({
+      cep: "72980000",
+      endereco: "Rua 123",
+      numero: 23,
+      complemento: "Apartamento 509",
+      bairro: "Zona Norte",
+    });
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toEqual("Endereço não encontrado");
+  });
+
+  test("Atualiza ENDERECO por ID inválido", async () => {
+    const response = await rotas.put("/usuarios/kkkkkk/endereco").send({
+      cep: "72980000",
+      endereco: "Rua 123",
+      numero: 23,
+      complemento: "Apartamento 509",
+      bairro: "Zona Norte",
+    });
+
+    expect(response.statusCode).toBe(405);
+    expect(response.body).toEqual({ status: "Entrada inválida" });
+  });
+});

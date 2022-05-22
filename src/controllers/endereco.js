@@ -6,12 +6,13 @@ module.exports = (app) => {
 
     Endereco.buscaEnderecoId(id)
       .then((results) => {
-        if (!Object.keys(results)) {
+        console.log("ENDERECO_ID", results);
+        if (!results.length) {
           res.status(404).json("Endereco não encontrado");
         } else {
           res.status(200).json({
             ...results[0],
-            descrição: "Operação bem sucedida",
+            // descrição: "Operação bem sucedida",
           });
         }
       })

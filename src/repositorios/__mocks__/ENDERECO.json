@@ -1,0 +1,26 @@
+[
+  {
+    "id": 3,
+    "cep": "45655434",
+    "endereco": "R General Venâncio Flores",
+    "numero": 475,
+    "complemento": "AP 403",
+    "bairro": "Leblon - Rio de Janeiro, RJ"
+  },
+  {
+    "id": 4,
+    "cep": "45655434",
+    "endereco": "Av. Sete de Setembro",
+    "numero": 1682,
+    "complemento": "AP 700",
+    "bairro": "Vitória, Salvador - BA"
+  },
+  {
+    "id": 5,
+    "cep": "45655434",
+    "endereco": "R General Venâncio Flores",
+    "numero": 475,
+    "complemento": "AP 402",
+    "bairro": "Leblon - Rio de Janeiro, RJ"
+  }
+]

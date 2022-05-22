@@ -132,7 +132,7 @@ class Validacao {
   // Validacoes Dados Pessoais
 
   validaCPF(cpf) {
-    cpf = validadorCPF.cpf.format(cpf);
+    // cpf = validadorCPF.cpf.format(cpf);
     const CPFehValido = validadorCPF.cpf.isValid(cpf);
     return CPFehValido;
   }

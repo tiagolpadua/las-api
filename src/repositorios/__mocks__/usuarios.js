@@ -1,6 +1,10 @@
 // const query = require("../infraestrutura/database/queries");
 
 const USUARIOS_MOCK = require("../__mocks__/USUARIOS.json");
+const DADOS_PESSOAIS_MOCK = require("../__mocks__/DADOS_PESSOAIS.json");
+const CONTATOS_MOCK = require("../__mocks__/CONTATOS.json");
+const SENHA_MOCK = require("../__mocks__/SENHA.json");
+const ENDERECO_MOCK = require("../__mocks__/ENDERECO.json");
 
 class Usuario {
   listarUsuarios() {
@@ -55,66 +59,99 @@ class Usuario {
     return Promise.reject("ID inválido");
   }
 
-  // //Dados Pessoais
+  //Dados Pessoais
 
-  // buscaDadosPessoaisId(retornoId) {
-  //   const sql =
-  //     "SELECT nomeCompleto, dataNascimento , rg, cpf FROM las.usuarios WHERE id = ?";
+  buscaDadosPessoaisId(retornoId) {
+    if (retornoId) {
+      const existeUsuario = DADOS_PESSOAIS_MOCK.filter(
+        (dados) => dados.id === retornoId
+      );
 
-  //   return query(sql, retornoId);
-  // }
+      return Promise.resolve(existeUsuario);
+    }
 
-  // alterarDadosPessoais(id, retornoForm) {
-  //   const sql = "UPDATE las.usuarios SET ? WHERE id = ?";
-  //   return query(sql, [retornoForm, id]);
-  // }
+    return Promise.reject("Id inválido fornecido");
+  }
+
+  alterarDadosPessoais(id) {
+    if (id) {
+      const affectedRows = { affectedRows: 0 };
+      DADOS_PESSOAIS_MOCK.find((dadosPessoais) => dadosPessoais.id === id)
+        ? (affectedRows.affectedRows = 1)
+        : (affectedRows.affectedRows = 0);
+      return Promise.resolve(id && affectedRows);
+    }
+  }
 
   // //fim Dados Pessoais
 
   // // Contatos
 
-  // buscaContatosId(retornoId) {
-  //   const sql =
-  //     "SELECT telefone, celular , email FROM las.usuarios WHERE id = ?";
+  buscaContatosId(id) {
+    if (id) {
+      const resultado = CONTATOS_MOCK.filter((contatos) => contatos.id === id);
 
-  //   return query(sql, retornoId);
-  // }
+      return Promise.resolve(id && resultado);
+    }
 
-  // alterarContatos(id, retornoForm) {
-  //   const sql = "UPDATE las.usuarios SET ? WHERE id = ?";
-  //   return query(sql, [retornoForm, id]);
-  // }
+    return Promise.reject("Id inválido fornecido");
+  }
+
+  alterarContatos(id) {
+    if (id) {
+      const affectedRows = { affectedRows: 0 };
+      CONTATOS_MOCK.find((dadosPessoais) => dadosPessoais.id === id)
+        ? (affectedRows.affectedRows = 1)
+        : (affectedRows.affectedRows = 0);
+      return Promise.resolve(id && affectedRows);
+    }
+
+    return Promise.reject("Id inválido fornecido");
+  }
 
   // // fim Contatos
 
   // // Senha
 
-  // alterarSenha(id, retornoForm) {
-  //   const sql = "UPDATE las.usuarios SET ? WHERE id = ?";
-  //   return query(sql, [retornoForm, id]);
-  // }
+  alterarSenha(id) {
+    if (id) {
+      const affectedRows = { affectedRows: 0 };
+      SENHA_MOCK.find((dadosPessoais) => dadosPessoais.id === id)
+        ? (affectedRows.affectedRows = 1)
+        : (affectedRows.affectedRows = 0);
+      return Promise.resolve(id && affectedRows);
+    }
+
+    return Promise.reject("Id inválido fornecido");
+  }
 
   // // fim Senha
 
   // // Endereco
 
-  // buscaEnderecoId(retornoId) {
-  //   const sql =
-  //     "SELECT cep, endereco , numero, complemento, bairro FROM las.usuarios WHERE id = ?";
+  buscaEnderecoId(id) {
+    if (id) {
+      const resultado = ENDERECO_MOCK.filter((contatos) => contatos.id === id);
 
-  //   return query(sql, retornoId);
-  // }
+      return Promise.resolve(id && resultado);
+    }
 
-  // alterarEndereco(id, retornoForm) {
-  //   const sql = "UPDATE las.usuarios SET ? WHERE id = ?";
-  //   return query(sql, [retornoForm, id]);
-  // }
+    return Promise.reject("Id inválido fornecido");
+  }
+
+  alterarEndereco(id) {
+    if (id) {
+      const affectedRows = { affectedRows: 0 };
+      ENDERECO_MOCK.find((contato) => contato.id === id)
+        ? (affectedRows.affectedRows = 1)
+        : (affectedRows.affectedRows = 0);
+      return Promise.resolve(id && affectedRows);
+    }
+
+    return Promise.reject("Id inválido fornecido");
+  }
 
   // // fim Endereco
-
-  // // inicio query de validação
-
-  // // fim query de validação
 }
 
 module.exports = new Usuario();

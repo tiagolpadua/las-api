@@ -11,7 +11,7 @@ module.exports = (app) => {
         } else {
           res.status(200).json({
             ...results[0],
-            descrição: "Operação bem sucedida",
+            // descrição: "Operação bem sucedida",
           });
         }
       })
@@ -25,14 +25,10 @@ module.exports = (app) => {
     const id = parseInt(req.params.usuarioId);
     const retornoForm = req.body;
 
-    console.log("rota DADOS PESSOAIS", id, retornoForm);
-
     DadosPessoais.alterarDadosPessoais(id, retornoForm)
       // eslint-disable-next-line no-unused-vars
       .then(() => {
-        res.status(201).json({
-          status: "Usuário atualizado com sucesso",
-        });
+        res.status(200).json("Usuário atualizado com sucesso");
       })
       .catch((erro) => {
         res.status(405).json({ erro: erro, status: "Entrada inválida" });
