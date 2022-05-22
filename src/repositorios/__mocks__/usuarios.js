@@ -32,11 +32,11 @@ class Usuario {
   }
 
   validarNomeUsuarioNaoUtilizadoPUT(id, retornoForm) {
-    const existeEvento = USUARIOS_MOCK.filter(
+    const existeUsuario = USUARIOS_MOCK.filter(
       (usuario) => usuario.nome === retornoForm && usuario.id !== id
     );
 
-    return Promise.resolve(existeEvento);
+    return Promise.resolve(existeUsuario);
   }
 
   alterarUsuario(id, retornoForm) {

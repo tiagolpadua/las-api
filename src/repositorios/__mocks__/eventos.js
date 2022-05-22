@@ -60,14 +60,16 @@ class Evento {
   }
 
   incluirEvento(retornoForm) {
-    return Promise.resolve(retornoForm && { insertId: 4 });
+    return Promise.resolve(
+      retornoForm && {
+        insertId: 4,
+        dataInicio: retornoForm.dataInicio,
+        dataFim: retornoForm.dataFim,
+      }
+    );
   }
 
-  alterarEvento(id, retornoForm) {
-    return Promise.resolve(id, retornoForm);
-  }
-
-  validarNomeEventoNaoUtilizadoPUT(id) {
+  alterarEvento(id) {
     if (id) {
       const affectedRows = { affectedRows: 0 };
       MOCKS_EVENTOS.find((evento) => evento.id === id)
@@ -79,10 +81,26 @@ class Evento {
     return Promise.reject("ID inválido");
   }
 
-  // excluirEvento(id) {
-  //   const sql = "DELETE FROM las.evento WHERE id = ?";
-  //   return query(sql, id);
-  // }
+  validaNomeEventoNaoUtilizadoPUT(id, retornoForm) {
+    const existeEvento = MOCKS_EVENTOS.filter(
+      (evento) => evento.nome === retornoForm && evento.id !== id
+    );
+
+    return Promise.resolve(existeEvento);
+  }
+
+  excluirEvento(id) {
+    console.log("retorno id delete", id);
+    if (id) {
+      const affectedRows = { affectedRows: 0 };
+      MOCKS_EVENTOS.find((evento) => evento.id === id)
+        ? (affectedRows.affectedRows = 1)
+        : (affectedRows.affectedRows = 0);
+      return Promise.resolve(id && affectedRows);
+    }
+
+    return Promise.reject("ID inválido");
+  }
 
   // // inicio query de validação
 

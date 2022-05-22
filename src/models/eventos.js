@@ -45,9 +45,7 @@ class Evento {
       return new Promise((resolve, reject) => reject(erros));
     }
 
-    return repositorio
-      .incluirEvento(retornoDatado)
-      .then((results) => funcoesValidacoes.insereStatus(results));
+    return repositorio.incluirEvento(retornoDatado);
   }
 
   listarEvento() {
@@ -104,12 +102,10 @@ class Evento {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      return Promise.reject(erros);
     }
 
-    return repositorio
-      .alterarEvento(id, retornoDatado)
-      .then((resultado) => funcoesValidacoes.insereStatus(resultado));
+    return repositorio.alterarEvento(id, retornoDatado);
   }
 
   excluirEvento(retornoForm) {

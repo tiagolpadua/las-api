@@ -63,7 +63,7 @@ class Evento {
     return query(sql, retornoForm);
   }
 
-  validarNomeEventoNaoUtilizadoPUT(id, retornoForm) {
+  validaNomeEventoNaoUtilizadoPUT(id, retornoForm) {
     const sql = "SELECT * FROM las.evento where not id = ? and nome = ?";
 
     return query(sql, [id, retornoForm]);

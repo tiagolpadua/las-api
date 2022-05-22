@@ -181,12 +181,7 @@ describe("Testa API EVENTOS POST", () => {
     expect(response.statusCode).toBe(201);
     expect(response.body).toEqual({
       id: 4,
-      nome: "Ensaio Ilê",
-      descricao: "festa popular nos bairros",
-      urlFoto: "https://randomuser.me/api/portraits/men/44.jpg",
-      dataInicio: "25-05-2022",
-      dataFim: "12-05-2023",
-      status: "em-andamento",
+      descrição: "Evento incluído com sucesso",
     });
   });
 
@@ -230,7 +225,7 @@ describe("Testa API EVENTOS POST", () => {
 });
 
 describe("Testa API EVENTOS PUT", () => {
-  test("Adicionar eventos com dados válidos", async () => {
+  test("Atualiza eventos com dados válidos", async () => {
     const response = await rotas.put("/eventos/1").send({
       nome: "Ensaio Ilê",
       descricao: "festa popular nos bairros",
@@ -239,146 +234,94 @@ describe("Testa API EVENTOS PUT", () => {
       dataFim: "12-05-2023",
     });
 
+    expect(response.statusCode).toBe(204);
+    expect(response.body).toEqual({});
+  });
+
+  test("Atualiza eventos com dados inválidos", async () => {
+    const response = await rotas.put("/eventos/1").send({
+      nome: "Ens",
+      descricao: "festa popular nos bairros",
+      urlFoto: "https://randomuser.me/api/portraits/men/44.jpg",
+      dataInicio: "10-05-2022",
+      dataFim: "12-05-2023",
+    });
+
     expect(response.statusCode).toBe(405);
-    expect(response.body).toEqual({
-      id: 4,
+    expect(response.body).toEqual([
+      {
+        mensagem: "Evento deve ter pelo menos cinco caracteres",
+        nome: "nomeEvento",
+        resultado: true,
+      },
+      { mensagem: "Data inválida!", nome: "data", resultado: true },
+    ]);
+  });
+
+  test("Atualiza eventos com nome inválido", async () => {
+    const response = await rotas.put("/eventos/2").send({
+      nome: "Carnaval",
+      descricao: "festa popular nos bairros",
+      urlFoto: "https://randomuser.me/api/portraits/men/44.jpg",
+      dataInicio: "10-05-2023",
+      dataFim: "12-05-2023",
+    });
+
+    expect(response.statusCode).toBe(405);
+    expect(response.body).toEqual([
+      {
+        mensagem: "Evento já existe na base de dados",
+        nome: "existeEventoPUT",
+        resultado: true,
+      },
+    ]);
+  });
+
+  test("Atualiza eventos com id inexistente", async () => {
+    const response = await rotas.put("/eventos/9999").send({
       nome: "Ensaio Ilê",
       descricao: "festa popular nos bairros",
       urlFoto: "https://randomuser.me/api/portraits/men/44.jpg",
-      dataInicio: "25-05-2022",
+      dataInicio: "10-05-2023",
       dataFim: "12-05-2023",
-      status: "em-andamento",
     });
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toEqual("Evento não encontrado.");
+  });
+
+  test("Atualiza eventos com id inválido", async () => {
+    const response = await rotas.put("/eventos/ZZZZZZ").send({
+      nome: "Ensaio Ilê",
+      descricao: "festa popular nos bairros",
+      urlFoto: "https://randomuser.me/api/portraits/men/44.jpg",
+      dataInicio: "10-05-2023",
+      dataFim: "12-05-2023",
+    });
+
+    expect(response.statusCode).toBe(405);
+    expect(response.body).toEqual("ID inválido");
   });
 });
-//
 
-//   test("Rejeita usuário com nome inválido", async () => {
-//     const response = await rotas.post("/usuarios").send({
-//       urlFotoPerfil: "https://randomuser.me/api/portraits/men/44.jpg",
-//     });
+describe("Testa API EVENTOS DELETE", () => {
+  test("Apaga usuário na base de dados", async () => {
+    const response = await rotas.delete("/eventos/2");
 
-//     expect(response.statusCode).toBe(400);
-//     expect(response.body).toEqual({
-//       descrição: "Entrada inválida",
-//       erro: [
-//         {
-//           mensagem: "Usuário deve ser informado e ser único",
-//           nome: "existeUsuario",
-//           resultado: true,
-//         },
-//       ],
-//     });
-//   });
+    expect(response.statusCode).toBe(204);
+  });
 
-//   test("Rejeita usuário com nome existente", async () => {
-//     const response = await rotas.post("/usuarios").send({
-//       nome: "Veveta",
-//       urlFotoPerfil: "https://randomuser.me/api/portraits/men/44.jpg",
-//     });
+  test("Apaga evento inexistente na base de dados", async () => {
+    const response = await rotas.delete("/eventos/666");
 
-//     expect(response.statusCode).toBe(400);
-//     expect(response.body).toEqual({
-//       descrição: "Entrada inválida",
-//       erro: [
-//         {
-//           mensagem: "Usuário deve ser informado e ser único",
-//           nome: "existeUsuario",
-//           resultado: true,
-//         },
-//       ],
-//     });
-//   });
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toEqual("Evento não encontrado");
+  });
 
-//   test("Adicionar usuário com url inválida", async () => {
-//     const response = await rotas.post("/usuarios").send({
-//       nome: "Bel Marques",
-//       urlFotoPerfil: "https://randomuser.me/api/portraits/men/67jpg",
-//     });
+  test("Apaga evento inexistente na base de dados", async () => {
+    const response = await rotas.delete("/eventos/kkkk");
 
-//     expect(response.statusCode).toBe(400);
-//     expect(response.body).toEqual({
-//       descrição: "Entrada inválida",
-//       erro: [
-//         {
-//           mensagem: "URL inválida!",
-//           nome: "url",
-//           resultado: true,
-//         },
-//       ],
-//     });
-//   });
-
-//   test("Adicionar usuário com url inexistente", async () => {
-//     const response = await rotas.post("/usuarios").send({
-//       nome: "Bel Marques",
-//     });
-
-//     expect(response.statusCode).toBe(400);
-//     expect(response.body).toEqual({
-//       descrição: "Entrada inválida",
-//       erro: [
-//         {
-//           mensagem: "URL inválida!",
-//           nome: "url",
-//           resultado: true,
-//         },
-//       ],
-//     });
-//   });
-// });
-
-// describe("Testa API PUT", () => {
-//   test("Atualiza usuário com dados válidos", async () => {
-//     const response = await rotas.put("/usuarios/2").send({
-//       nome: "Luís Caldas",
-//       urlFotoPerfil: "https://randomuser.me/api/portraits/men/44.jpg",
-//     });
-
-//     expect(response.statusCode).toBe(200);
-//     expect(response.body).toEqual({
-//       status: "Usuário atualizado com sucesso",
-//     });
-//   });
-
-//   test("Atualiza usuário já cadastrado", async () => {
-//     const response = await rotas.put("/usuarios/2").send({
-//       nome: "Veveta",
-//       urlFotoPerfil: "https://randomuser.me/api/portraits/men/44.jpg",
-//     });
-
-//     expect(response.statusCode).toBe(405);
-//     expect(response.body).toEqual({
-//       erro: [
-//         {
-//           nome: "existeUsuarioPUT",
-//           mensagem: "Usuario já existe na base de dados",
-//           resultado: true,
-//         },
-//       ],
-//       status: "Entrada inválida",
-//     });
-//   });
-// });
-
-// describe("Testa API DELETE", () => {
-//   test("Apaga usuário na base de dados", async () => {
-//     const response = await rotas.delete("/usuarios/2");
-
-//     expect(response.statusCode).toBe(204);
-//   });
-
-//   test("Apaga usuário inexistente na base de dados", async () => {
-//     const response = await rotas.delete("/usuarios/1");
-
-//     expect(response.statusCode).toBe(404);
-//     expect(response.body).toEqual("Usuário não encontrado");
-//   });
-
-//   test("Apaga usuário com ID inexistente", async () => {
-//     const response = await rotas.delete("/usuarios/efef");
-
-//     expect(response.statusCode).toBe(400);
-//     expect(response.body).toEqual("Id inválido fornecido");
-//   });
-// });
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual("Id inválido fornecido");
+  });
+});

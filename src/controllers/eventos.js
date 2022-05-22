@@ -12,11 +12,10 @@ module.exports = (app) => {
 
     Evento.incluirEvento(retornoForm)
       .then((resultados) => {
+        console.log("RESULTADOS", resultados);
         res.status(201).json({
           id: resultados.insertId,
-          ...retornoForm,
-          status: resultados.status,
-          // descrição: "Evento incluído com sucesso",
+          descrição: "Evento incluído com sucesso",
         });
       })
       .catch((error) => res.status(400).json(error));
@@ -67,7 +66,6 @@ module.exports = (app) => {
     Evento.alterarEvento(id, retornoForm)
       // eslint-disable-next-line no-unused-vars
       .then((results) => {
-        console.log("RESULTADO PUT EVENTOS", results);
         if (!results.affectedRows)
           res.status(404).json("Evento não encontrado.");
         else
@@ -76,7 +74,8 @@ module.exports = (app) => {
           });
       })
       .catch((erro) => {
-        res.status(405).json({ erro: erro.code, status: "Entrada inválida" });
+        const erros = erro.sql ? "ID inválido" : erro;
+        res.status(405).json(erros);
       });
   });
 

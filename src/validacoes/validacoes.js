@@ -82,10 +82,7 @@ class Validacao {
 
   async validarNomeEventoNaoUtilizadoPUT({ id, retornoForm }) {
     const existeEvento =
-      await repositorioEventos.validarNomeEventoNaoUtilizadoPUT(
-        id,
-        retornoForm
-      );
+      await repositorioEventos.validaNomeEventoNaoUtilizadoPUT(id, retornoForm);
 
     if (existeEvento[0]?.nome === retornoForm.trim()) return !true;
 
@@ -132,6 +129,8 @@ class Validacao {
   // fim validacao Eventos
 
   // Validacoes Dados Pessoais
+
+  // validaCPF(cpf) {}
 
   // fim Validacoes Dados Pessoais
 
