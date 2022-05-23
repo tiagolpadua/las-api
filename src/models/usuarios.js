@@ -4,11 +4,11 @@ const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
   listar() {
-    return repositorio.listarUsuarios().then((resultados) => resultados);
+    return repositorio.listarUsuarios();
   }
 
   buscarPorId(id) {
-    return repositorio.buscarPorIdUsuario(id).then((usuario) => usuario);
+    return repositorio.buscarPorIdUsuario(id);
   }
 
   async adicionar(usuario) {
@@ -37,14 +37,12 @@ class Usuarios {
     if (existemErros) {
       return new Promise((resolve, reject) => reject(erros));
     } else {
-      return repositorio
-        .adicionaUsuario(usuario)
-        .then((usuarioAdicionado) => usuarioAdicionado);
+      return repositorio.adicionaUsuario(usuario);
     }
   }
 
   alterar(id, valores) {
-    return repositorio.alterarUsuario(id, valores).then((usuario) => usuario);
+    return repositorio.alterarUsuario(id, valores);
   }
 
   excluir(id) {
@@ -52,7 +50,7 @@ class Usuarios {
   }
 
   buscarPorNome(nome) {
-    return repositorio.buscarPorNome(nome).then((usuario) => usuario);
+    return repositorio.buscarPorNome(nome);
   }
 
   async validarURLFotoPerfil(url) {
@@ -91,8 +89,40 @@ class Usuarios {
     });
   }
 
-  async buscarDadosPessoaisPorId(id) {
-    return this.buscarPorId(id);
+  //Dados pessoais
+
+  atualizarDadosPessoais(id, dadosPessoais) {
+    return repositorio.atualizarDadosPessoais(id, dadosPessoais);
+  }
+
+  buscarDadosPessoaisPorId(id) {
+    return repositorio.listarDadosPessoaisPorId(id);
+  }
+
+  //Contatos
+
+  atualizarContatos(id, contatos) {
+    return repositorio.atualizarContatos(id, contatos);
+  }
+
+  buscarContatosPorId(id) {
+    return repositorio.listarContatosPorId(id);
+  }
+
+  //Senha
+
+  atualizarSenha(id, novaSenha) {
+    return repositorio.atualizarSenha(id, novaSenha);
+  }
+
+  //Endereco
+
+  buscarEnderecoPorId(id) {
+    return repositorio.listarEnderecoPorId(id);
+  }
+
+  atualizarEndereco(id, endereco) {
+    return repositorio.atualizarEndereco(id, endereco);
   }
 }
 
