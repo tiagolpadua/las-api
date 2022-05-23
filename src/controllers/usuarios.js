@@ -2,6 +2,8 @@ const Usuarios = require("../models/usuarios");
 
 
 
+
+
 module.exports = (app) => {
   // app.get("/usuarios", (req, res, next) => {
   //   Usuarios.listar(res, next);
@@ -44,6 +46,16 @@ module.exports = (app) => {
       const valores = req.body;
       await Usuarios.atualizaUsuarioId(usuarioId, valores);
       return res.status(204).json(valores);      
+    } catch (erro) {
+      return next(erro);
+    }
+  });
+
+  app.get("/usuarios/:usuarioId/dados-pessoais", async (req, res, next) => {
+    try {
+      const usuarioId = parseInt(req.params.usuarioId);
+      const usuario = await Usuarios.obterUsuarioId(usuarioId);
+      return res.status(200).json(usuario);
     } catch (erro) {
       return next(erro);
     }

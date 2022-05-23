@@ -17,10 +17,10 @@ class Usuario {
     return query(sql, [valores, usuarioId]);
   }
 
-  buscarUsuarioId(usuarioId) {
-    const sql = `SELECT nomeCompleto, dataNascimento, rg, cpf FROM WHERE id = ${usuarioId}`;
-    console.log(sql);
-    return query(sql);
+  async buscarUsuarioId(usuarioId) {
+    const sql =
+      "SELECT nomeCompleto, dataNascimento, rg, cpf FROM usuarios WHERE id = ?";
+    return query(sql, [usuarioId]);
   }
 }
 

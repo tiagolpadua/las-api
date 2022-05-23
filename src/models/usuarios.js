@@ -138,8 +138,9 @@ class Usuarios {
     await repositorio.atualizaUsuarioId(usuarioId, valores);
   }
 
-  obterUsuarioId(usuarioId, valores) {
-    repositorio.buscarUsuarioId(usuarioId, valores);
+  async obterUsuarioId(usuarioId) {
+    return await repositorio.buscarUsuarioId(usuarioId);
+    
   }
 }
 
