@@ -1,0 +1,2504 @@
+[
+  {
+    "id": 2900108,
+    "nome": "Abaíra",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2900207,
+    "nome": "Abaré",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2900306,
+    "nome": "Acajutiba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2900355,
+    "nome": "Adustina",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2900405,
+    "nome": "Água Fria",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2900603,
+    "nome": "Aiquara",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2900702,
+    "nome": "Alagoinhas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2900801,
+    "nome": "Alcobaça",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2900900,
+    "nome": "Almadina",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901007,
+    "nome": "Amargosa",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901106,
+    "nome": "Amélia Rodrigues",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901155,
+    "nome": "América Dourada",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901205,
+    "nome": "Anagé",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901304,
+    "nome": "Andaraí",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901353,
+    "nome": "Andorinha",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901403,
+    "nome": "Angical",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901502,
+    "nome": "Anguera",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901601,
+    "nome": "Antas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901700,
+    "nome": "Antônio Cardoso",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901809,
+    "nome": "Antônio Gonçalves",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901908,
+    "nome": "Aporá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2901957,
+    "nome": "Apuarema",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902054,
+    "nome": "Araçás",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902005,
+    "nome": "Aracatu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902104,
+    "nome": "Araci",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902203,
+    "nome": "Aramari",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902252,
+    "nome": "Arataca",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902302,
+    "nome": "Aratuípe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902401,
+    "nome": "Aurelino Leal",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902500,
+    "nome": "Baianópolis",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902609,
+    "nome": "Baixa Grande",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902658,
+    "nome": "Banzaê",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902708,
+    "nome": "Barra",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902807,
+    "nome": "Barra da Estiva",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2902906,
+    "nome": "Barra do Choça",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903003,
+    "nome": "Barra do Mendes",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903102,
+    "nome": "Barra do Rocha",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903201,
+    "nome": "Barreiras",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903235,
+    "nome": "Barro Alto",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903300,
+    "nome": "Barro Preto",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903276,
+    "nome": "Barrocas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903409,
+    "nome": "Belmonte",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903508,
+    "nome": "Belo Campo",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903607,
+    "nome": "Biritinga",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903706,
+    "nome": "Boa Nova",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903805,
+    "nome": "Boa Vista do Tupim",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903904,
+    "nome": "Bom Jesus da Lapa",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2903953,
+    "nome": "Bom Jesus da Serra",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904001,
+    "nome": "Boninal",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904050,
+    "nome": "Bonito",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904100,
+    "nome": "Boquira",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904209,
+    "nome": "Botuporã",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904308,
+    "nome": "Brejões",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904407,
+    "nome": "Brejolândia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904506,
+    "nome": "Brotas de Macaúbas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904605,
+    "nome": "Brumado",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904704,
+    "nome": "Buerarema",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904753,
+    "nome": "Buritirama",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904803,
+    "nome": "Caatiba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904852,
+    "nome": "Cabaceiras do Paraguaçu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2904902,
+    "nome": "Cachoeira",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905008,
+    "nome": "Caculé",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905107,
+    "nome": "Caém",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905156,
+    "nome": "Caetanos",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905206,
+    "nome": "Caetité",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905305,
+    "nome": "Cafarnaum",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905404,
+    "nome": "Cairu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905503,
+    "nome": "Caldeirão Grande",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905602,
+    "nome": "Camacan",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905701,
+    "nome": "Camaçari",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905800,
+    "nome": "Camamu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2905909,
+    "nome": "Campo Alegre de Lourdes",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906006,
+    "nome": "Campo Formoso",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906105,
+    "nome": "Canápolis",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906204,
+    "nome": "Canarana",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906303,
+    "nome": "Canavieiras",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906402,
+    "nome": "Candeal",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906501,
+    "nome": "Candeias",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906600,
+    "nome": "Candiba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906709,
+    "nome": "Cândido Sales",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906808,
+    "nome": "Cansanção",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906824,
+    "nome": "Canudos",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906857,
+    "nome": "Capela do Alto Alegre",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906873,
+    "nome": "Capim Grosso",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906899,
+    "nome": "Caraíbas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2906907,
+    "nome": "Caravelas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907004,
+    "nome": "Cardeal da Silva",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907103,
+    "nome": "Carinhanha",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907202,
+    "nome": "Casa Nova",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907301,
+    "nome": "Castro Alves",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907400,
+    "nome": "Catolândia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907509,
+    "nome": "Catu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907558,
+    "nome": "Caturama",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907608,
+    "nome": "Central",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907707,
+    "nome": "Chorrochó",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907806,
+    "nome": "Cícero Dantas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2907905,
+    "nome": "Cipó",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2908002,
+    "nome": "Coaraci",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2908101,
+    "nome": "Cocos",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2908200,
+    "nome": "Conceição da Feira",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2908309,
+    "nome": "Conceição do Almeida",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2908408,
+    "nome": "Conceição do Coité",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2908507,
+    "nome": "Conceição do Jacuípe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2908606,
+    "nome": "Conde",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2908705,
+    "nome": "Condeúba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2908804,
+    "nome": "Contendas do Sincorá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2908903,
+    "nome": "Coração de Maria",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2909000,
+    "nome": "Cordeiros",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2909109,
+    "nome": "Coribe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2909208,
+    "nome": "Coronel João Sá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2909307,
+    "nome": "Correntina",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2909406,
+    "nome": "Cotegipe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2909505,
+    "nome": "Cravolândia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2909604,
+    "nome": "Crisópolis",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2909703,
+    "nome": "Cristópolis",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2909802,
+    "nome": "Cruz das Almas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2909901,
+    "nome": "Curaçá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910008,
+    "nome": "Dário Meira",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910057,
+    "nome": "Dias d'Ávila",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910107,
+    "nome": "Dom Basílio",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910206,
+    "nome": "Dom Macedo Costa",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910305,
+    "nome": "Elísio Medrado",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910404,
+    "nome": "Encruzilhada",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910503,
+    "nome": "Entre Rios",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2900504,
+    "nome": "Érico Cardoso",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910602,
+    "nome": "Esplanada",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910701,
+    "nome": "Euclides da Cunha",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910727,
+    "nome": "Eunápolis",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910750,
+    "nome": "Fátima",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910776,
+    "nome": "Feira da Mata",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910800,
+    "nome": "Feira de Santana",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910859,
+    "nome": "Filadélfia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2910909,
+    "nome": "Firmino Alves",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911006,
+    "nome": "Floresta Azul",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911105,
+    "nome": "Formosa do Rio Preto",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911204,
+    "nome": "Gandu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911253,
+    "nome": "Gavião",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911303,
+    "nome": "Gentio do Ouro",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911402,
+    "nome": "Glória",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911501,
+    "nome": "Gongogi",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911600,
+    "nome": "Governador Mangabeira",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911659,
+    "nome": "Guajeru",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911709,
+    "nome": "Guanambi",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911808,
+    "nome": "Guaratinga",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911857,
+    "nome": "Heliópolis",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2911907,
+    "nome": "Iaçu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2912004,
+    "nome": "Ibiassucê",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2912103,
+    "nome": "Ibicaraí",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2912202,
+    "nome": "Ibicoara",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2912301,
+    "nome": "Ibicuí",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2912400,
+    "nome": "Ibipeba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2912509,
+    "nome": "Ibipitanga",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2912608,
+    "nome": "Ibiquera",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2912707,
+    "nome": "Ibirapitanga",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2912806,
+    "nome": "Ibirapuã",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2912905,
+    "nome": "Ibirataia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913002,
+    "nome": "Ibitiara",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913101,
+    "nome": "Ibititá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913200,
+    "nome": "Ibotirama",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913309,
+    "nome": "Ichu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913408,
+    "nome": "Igaporã",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913457,
+    "nome": "Igrapiúna",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913507,
+    "nome": "Iguaí",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913606,
+    "nome": "Ilhéus",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913705,
+    "nome": "Inhambupe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913804,
+    "nome": "Ipecaetá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2913903,
+    "nome": "Ipiaú",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914000,
+    "nome": "Ipirá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914109,
+    "nome": "Ipupiara",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914208,
+    "nome": "Irajuba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914307,
+    "nome": "Iramaia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914406,
+    "nome": "Iraquara",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914505,
+    "nome": "Irará",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914604,
+    "nome": "Irecê",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914653,
+    "nome": "Itabela",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914703,
+    "nome": "Itaberaba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914802,
+    "nome": "Itabuna",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2914901,
+    "nome": "Itacaré",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915007,
+    "nome": "Itaeté",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915106,
+    "nome": "Itagi",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915205,
+    "nome": "Itagibá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915304,
+    "nome": "Itagimirim",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915353,
+    "nome": "Itaguaçu da Bahia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915403,
+    "nome": "Itaju do Colônia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915502,
+    "nome": "Itajuípe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915601,
+    "nome": "Itamaraju",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915700,
+    "nome": "Itamari",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915809,
+    "nome": "Itambé",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2915908,
+    "nome": "Itanagra",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916005,
+    "nome": "Itanhém",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916104,
+    "nome": "Itaparica",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916203,
+    "nome": "Itapé",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916302,
+    "nome": "Itapebi",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916401,
+    "nome": "Itapetinga",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916500,
+    "nome": "Itapicuru",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916609,
+    "nome": "Itapitanga",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916708,
+    "nome": "Itaquara",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916807,
+    "nome": "Itarantim",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916856,
+    "nome": "Itatim",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2916906,
+    "nome": "Itiruçu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917003,
+    "nome": "Itiúba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917102,
+    "nome": "Itororó",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917201,
+    "nome": "Ituaçu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917300,
+    "nome": "Ituberá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917334,
+    "nome": "Iuiu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917359,
+    "nome": "Jaborandi",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917409,
+    "nome": "Jacaraci",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917508,
+    "nome": "Jacobina",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917607,
+    "nome": "Jaguaquara",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917706,
+    "nome": "Jaguarari",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917805,
+    "nome": "Jaguaripe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2917904,
+    "nome": "Jandaíra",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918001,
+    "nome": "Jequié",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918100,
+    "nome": "Jeremoabo",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918209,
+    "nome": "Jiquiriçá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918308,
+    "nome": "Jitaúna",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918357,
+    "nome": "João Dourado",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918407,
+    "nome": "Juazeiro",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918456,
+    "nome": "Jucuruçu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918506,
+    "nome": "Jussara",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918555,
+    "nome": "Jussari",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918605,
+    "nome": "Jussiape",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918704,
+    "nome": "Lafaiete Coutinho",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918753,
+    "nome": "Lagoa Real",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918803,
+    "nome": "Laje",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2918902,
+    "nome": "Lajedão",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919009,
+    "nome": "Lajedinho",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919058,
+    "nome": "Lajedo do Tabocal",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919108,
+    "nome": "Lamarão",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919157,
+    "nome": "Lapão",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919207,
+    "nome": "Lauro de Freitas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919306,
+    "nome": "Lençóis",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919405,
+    "nome": "Licínio de Almeida",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919504,
+    "nome": "Livramento de Nossa Senhora",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919553,
+    "nome": "Luís Eduardo Magalhães",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919603,
+    "nome": "Macajuba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919702,
+    "nome": "Macarani",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919801,
+    "nome": "Macaúbas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919900,
+    "nome": "Macururé",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919926,
+    "nome": "Madre de Deus",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2919959,
+    "nome": "Maetinga",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920007,
+    "nome": "Maiquinique",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920106,
+    "nome": "Mairi",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920205,
+    "nome": "Malhada",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920304,
+    "nome": "Malhada de Pedras",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920403,
+    "nome": "Manoel Vitorino",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920452,
+    "nome": "Mansidão",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920502,
+    "nome": "Maracás",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920601,
+    "nome": "Maragogipe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920700,
+    "nome": "Maraú",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920809,
+    "nome": "Marcionílio Souza",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2920908,
+    "nome": "Mascote",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921005,
+    "nome": "Mata de São João",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921054,
+    "nome": "Matina",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921104,
+    "nome": "Medeiros Neto",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921203,
+    "nome": "Miguel Calmon",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921302,
+    "nome": "Milagres",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921401,
+    "nome": "Mirangaba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921450,
+    "nome": "Mirante",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921500,
+    "nome": "Monte Santo",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921609,
+    "nome": "Morpará",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921708,
+    "nome": "Morro do Chapéu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921807,
+    "nome": "Mortugaba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2921906,
+    "nome": "Mucugê",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922003,
+    "nome": "Mucuri",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922052,
+    "nome": "Mulungu do Morro",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922102,
+    "nome": "Mundo Novo",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922201,
+    "nome": "Muniz Ferreira",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922250,
+    "nome": "Muquém do São Francisco",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922300,
+    "nome": "Muritiba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922409,
+    "nome": "Mutuípe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922508,
+    "nome": "Nazaré",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922607,
+    "nome": "Nilo Peçanha",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922656,
+    "nome": "Nordestina",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922706,
+    "nome": "Nova Canaã",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922730,
+    "nome": "Nova Fátima",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922755,
+    "nome": "Nova Ibiá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922805,
+    "nome": "Nova Itarana",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922854,
+    "nome": "Nova Redenção",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2922904,
+    "nome": "Nova Soure",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923001,
+    "nome": "Nova Viçosa",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923035,
+    "nome": "Novo Horizonte",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923050,
+    "nome": "Novo Triunfo",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923100,
+    "nome": "Olindina",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923209,
+    "nome": "Oliveira dos Brejinhos",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923308,
+    "nome": "Ouriçangas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923357,
+    "nome": "Ourolândia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923407,
+    "nome": "Palmas de Monte Alto",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923506,
+    "nome": "Palmeiras",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923605,
+    "nome": "Paramirim",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923704,
+    "nome": "Paratinga",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923803,
+    "nome": "Paripiranga",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2923902,
+    "nome": "Pau Brasil",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924009,
+    "nome": "Paulo Afonso",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924058,
+    "nome": "Pé de Serra",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924108,
+    "nome": "Pedrão",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924207,
+    "nome": "Pedro Alexandre",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924306,
+    "nome": "Piatã",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924405,
+    "nome": "Pilão Arcado",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924504,
+    "nome": "Pindaí",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924603,
+    "nome": "Pindobaçu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924652,
+    "nome": "Pintadas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924678,
+    "nome": "Piraí do Norte",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924702,
+    "nome": "Piripá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924801,
+    "nome": "Piritiba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2924900,
+    "nome": "Planaltino",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925006,
+    "nome": "Planalto",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925105,
+    "nome": "Poções",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925204,
+    "nome": "Pojuca",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925253,
+    "nome": "Ponto Novo",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925303,
+    "nome": "Porto Seguro",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925402,
+    "nome": "Potiraguá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925501,
+    "nome": "Prado",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925600,
+    "nome": "Presidente Dutra",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925709,
+    "nome": "Presidente Jânio Quadros",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925758,
+    "nome": "Presidente Tancredo Neves",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925808,
+    "nome": "Queimadas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925907,
+    "nome": "Quijingue",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925931,
+    "nome": "Quixabeira",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2925956,
+    "nome": "Rafael Jambeiro",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926004,
+    "nome": "Remanso",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926103,
+    "nome": "Retirolândia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926202,
+    "nome": "Riachão das Neves",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926301,
+    "nome": "Riachão do Jacuípe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926400,
+    "nome": "Riacho de Santana",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926509,
+    "nome": "Ribeira do Amparo",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926608,
+    "nome": "Ribeira do Pombal",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926657,
+    "nome": "Ribeirão do Largo",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926707,
+    "nome": "Rio de Contas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926806,
+    "nome": "Rio do Antônio",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2926905,
+    "nome": "Rio do Pires",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2927002,
+    "nome": "Rio Real",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2927101,
+    "nome": "Rodelas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2927200,
+    "nome": "Ruy Barbosa",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2927309,
+    "nome": "Salinas da Margarida",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2927408,
+    "nome": "Salvador",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2927507,
+    "nome": "Santa Bárbara",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2927606,
+    "nome": "Santa Brígida",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2927705,
+    "nome": "Santa Cruz Cabrália",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2927804,
+    "nome": "Santa Cruz da Vitória",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2927903,
+    "nome": "Santa Inês",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928059,
+    "nome": "Santa Luzia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928109,
+    "nome": "Santa Maria da Vitória",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928406,
+    "nome": "Santa Rita de Cássia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928505,
+    "nome": "Santa Terezinha",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928000,
+    "nome": "Santaluz",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928208,
+    "nome": "Santana",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928307,
+    "nome": "Santanópolis",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928604,
+    "nome": "Santo Amaro",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928703,
+    "nome": "Santo Antônio de Jesus",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928802,
+    "nome": "Santo Estêvão",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928901,
+    "nome": "São Desidério",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2928950,
+    "nome": "São Domingos",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929107,
+    "nome": "São Felipe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929008,
+    "nome": "São Félix",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929057,
+    "nome": "São Félix do Coribe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929206,
+    "nome": "São Francisco do Conde",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929255,
+    "nome": "São Gabriel",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929305,
+    "nome": "São Gonçalo dos Campos",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929354,
+    "nome": "São José da Vitória",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929370,
+    "nome": "São José do Jacuípe",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929404,
+    "nome": "São Miguel das Matas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929503,
+    "nome": "São Sebastião do Passé",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929602,
+    "nome": "Sapeaçu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929701,
+    "nome": "Sátiro Dias",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929750,
+    "nome": "Saubara",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929800,
+    "nome": "Saúde",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2929909,
+    "nome": "Seabra",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930006,
+    "nome": "Sebastião Laranjeiras",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930105,
+    "nome": "Senhor do Bonfim",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930204,
+    "nome": "Sento Sé",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930154,
+    "nome": "Serra do Ramalho",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930303,
+    "nome": "Serra Dourada",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930402,
+    "nome": "Serra Preta",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930501,
+    "nome": "Serrinha",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930600,
+    "nome": "Serrolândia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930709,
+    "nome": "Simões Filho",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930758,
+    "nome": "Sítio do Mato",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930766,
+    "nome": "Sítio do Quinto",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930774,
+    "nome": "Sobradinho",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930808,
+    "nome": "Souto Soares",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2930907,
+    "nome": "Tabocas do Brejo Velho",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931004,
+    "nome": "Tanhaçu",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931053,
+    "nome": "Tanque Novo",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931103,
+    "nome": "Tanquinho",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931202,
+    "nome": "Taperoá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931301,
+    "nome": "Tapiramutá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931350,
+    "nome": "Teixeira de Freitas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931400,
+    "nome": "Teodoro Sampaio",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931509,
+    "nome": "Teofilândia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931608,
+    "nome": "Teolândia",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931707,
+    "nome": "Terra Nova",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931806,
+    "nome": "Tremedal",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2931905,
+    "nome": "Tucano",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932002,
+    "nome": "Uauá",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932101,
+    "nome": "Ubaíra",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932200,
+    "nome": "Ubaitaba",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932309,
+    "nome": "Ubatã",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932408,
+    "nome": "Uibaí",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932457,
+    "nome": "Umburanas",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932507,
+    "nome": "Una",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932606,
+    "nome": "Urandi",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932705,
+    "nome": "Uruçuca",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932804,
+    "nome": "Utinga",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2932903,
+    "nome": "Valença",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933000,
+    "nome": "Valente",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933059,
+    "nome": "Várzea da Roça",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933109,
+    "nome": "Várzea do Poço",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933158,
+    "nome": "Várzea Nova",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933174,
+    "nome": "Varzedo",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933208,
+    "nome": "Vera Cruz",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933257,
+    "nome": "Vereda",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933307,
+    "nome": "Vitória da Conquista",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933406,
+    "nome": "Wagner",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933455,
+    "nome": "Wanderley",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933505,
+    "nome": "Wenceslau Guimarães",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  },
+  {
+    "id": 2933604,
+    "nome": "Xique-Xique",
+    "UF-sigla": "BA",
+    "UF-nome": "Bahia"
+  }
+]
