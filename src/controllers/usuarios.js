@@ -65,4 +65,54 @@ module.exports = (app) => {
       )
       .catch((erros) => res.status(402).json(erros));
   });
+
+  // CONTATOS
+
+  app.get("/usuarios/:usuarioId/contatos", (req, res) => {
+    const id = req.params.usuarioId;
+    Usuarios.buscarContatos(id)
+      .then((resultado) => res.json(resultado))
+      .catch((erros) => res.status(402).json(erros));
+  });
+
+  app.put("/usuarios/:usuarioId/contatos", (req, res) => {
+    const id = req.params.usuarioId;
+    const valores = req.body;
+    Usuarios.atualizarContatos(id, valores)
+      .then((resultados) =>
+        resultados ? res.json(valores) : res.status(404).end()
+      )
+      .catch((erros) => res.status(402).json(erros));
+  });
+
+  // SENHA
+
+  app.put("/usuarios/:usuarioId/senha", (req, res) => {
+    const id = req.params.usuarioId;
+    const valores = req.body;
+    Usuarios.atualizarSenha(id, valores)
+      .then((resultados) =>
+        resultados ? res.json(valores) : res.status(404).end()
+      )
+      .catch((erros) => res.status(402).json(erros));
+  });
+
+  // ENDEREÇO
+
+  app.get("/usuarios/:usuarioId/endereco", (req, res) => {
+    const id = req.params.usuarioId;
+    Usuarios.buscarEndereco(id)
+      .then((resultado) => res.json(resultado))
+      .catch((erros) => res.status(402).json(erros));
+  });
+
+  app.put("/usuarios/:usuarioId/endereco", (req, res) => {
+    const id = req.params.usuarioId;
+    const valores = req.body;
+    Usuarios.atualizarEndereco(id, valores)
+      .then((resultados) =>
+        resultados ? res.json(valores) : res.status(404).end()
+      )
+      .catch((erros) => res.status(402).json(erros));
+  });
 };
