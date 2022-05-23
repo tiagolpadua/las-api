@@ -1,4 +1,3 @@
-const pool = require("../infraestrutura/database/conexao");
 const repositorio = require("../repositorio/usuario");
 const fetch = require("node-fetch");
 
@@ -12,11 +11,18 @@ class Usuarios {
   }
 
   async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nome.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+    let nomeEhValido = false;
+    if (usuario?.nome?.length > 0) {
+      const nomeUtilizado = await repositorio.isNomeUsuarioUtilizado(
+        usuario.nome
+      );
 
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+      if (!nomeUtilizado) {
+        nomeEhValido = true;
+      }
+    }
+
+    const urlEhValida = await this.validarURLFotoPerfil(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -37,8 +43,8 @@ class Usuarios {
     if (existemErros) {
       return new Promise((resolve, reject) => reject(erros));
     }
-
-    return repositorio.adiciona(usuario);
+    const resp = await repositorio.adiciona(usuario);
+    return { id: resp.insertId, ...usuario };
   }
 
   alterar(id, valores) {
@@ -51,6 +57,14 @@ class Usuarios {
 
   buscarPorNome(nome) {
     return repositorio.buscarPorNome(nome);
+  }
+
+  buscarDadosPessoais(id) {
+    return repositorio.buscarDadosPessoais(id);
+  }
+
+  atualizarDadosPessoais(id, valores) {
+    return repositorio.atualizarDadosPessoais(id, valores);
   }
 
   async validarURLFotoPerfil(url) {
@@ -70,23 +84,6 @@ class Usuarios {
     } catch {
       return false;
     }
-  }
-
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
   }
 }
 
