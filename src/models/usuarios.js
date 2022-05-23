@@ -67,6 +67,26 @@ class Usuarios {
     return repositorio.atualizarDadosPessoais(id, valores);
   }
 
+  buscarContatos(id) {
+    return repositorio.buscarContatos(id);
+  }
+
+  atualizarContatos(id, valores) {
+    return repositorio.atualizarContatos(id, valores);
+  }
+
+  atualizarSenha(id, valores) {
+    return repositorio.atualizarSenha(id, valores);
+  }
+
+  buscarEndereco(id) {
+    return repositorio.buscarEndereco(id);
+  }
+
+  atualizarEndereco(id, valores) {
+    return repositorio.atualizarEndereco(id, valores);
+  }
+
   async validarURLFotoPerfil(url) {
     try {
       const regex =
