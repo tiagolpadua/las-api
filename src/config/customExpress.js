@@ -28,5 +28,9 @@ module.exports = () => {
     }
   });
 
+  app.get("/", (req, res) => {
+    res.send("Bem Vindo Ao LAS-API");
+  });
+
   return app;
 };
