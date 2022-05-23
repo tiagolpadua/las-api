@@ -12,6 +12,10 @@ module.exports = () => {
 
   consign().include("src/controllers").into(app);
 
+  app.get("/", (req, res) => {
+    res.send("Bem Vindo ao Las-API");
+  });
+
   // eslint-disable-next-line no-unused-vars
   app.use((err, req, res, next) => {
     if (err) {
