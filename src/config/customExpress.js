@@ -10,6 +10,10 @@ module.exports = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
+  app.get("/", (req, res) => {
+    res.send("Bem vindo ao Las Api");
+  });
+
   consign().include("src/controllers").into(app);
 
   // eslint-disable-next-line no-unused-vars
@@ -20,7 +24,7 @@ module.exports = () => {
       } else {
         res.status(500).send({ error: err });
       }
-      console.log(err);
+      //console.log(err);
     }
   });
 

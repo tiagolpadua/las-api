@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "nome": "Ano Novo 2023",
+    "descricao": "virada do ano",
+    "urlFoto": "https://img.freepik.com/vetores-gratis/ilustracao-em-vetor-feliz-ano-novo-2023-do-esquema-de-cores-vermelho-e-azul-de-feliz-ano-novo_565745-89.jpg?w=740",
+    "dataInicio": "2022-12-31T03:00:00.000Z",
+    "dataFim": "2023-01-01T03:00:00.000Z"
+  },
+
+  {
+    "id": 2,
+    "nome": "NuLab",
+    "descricao": "Treinando novos Devs",
+    "urlFoto": "https://logospng.org/wp-content/uploads/nubank.jpg",
+    "dataInicio": "2021-11-16T03:00:00.000Z",
+    "dataFim": "2022-06-05T03:00:00.000Z"
+  },
+
+  {
+    "id": 3,
+    "nome": "reveillon 2021",
+    "descricao": "Mais um ano que termina",
+    "urlFoto": "https://headbangersbr.com/wp-content/uploads/2021/12/2021.jpg",
+    "dataInicio": "2021-12-31T03:00:00.000Z",
+    "dataFim": "2022-01-01T03:00:00.000Z"
+  }
+]

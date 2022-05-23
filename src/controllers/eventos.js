@@ -14,6 +14,13 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
+  app.get("/eventos/status/:status", (req, res, next) => {
+    const status = req.params.status;
+    Eventos.buscarPorStatus(status)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
+
   app.post("/eventos", (req, res, next) => {
     const valores = req.body;
     Eventos.adicionar(valores, next)
@@ -33,20 +40,6 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     Eventos.excluir(id)
       .then((resultados) => res.status(204).json(resultados))
-      .catch((erros) => next(erros));
-  });
-
-  app.get("/eventos/nome/:nome", (req, res, next) => {
-    const nome = req.params.nome;
-    Eventos.buscarPorNome(nome)
-      .then((resultados) => res.status(200).json(resultados))
-      .catch((erros) => next(erros));
-  });
-
-  app.get("/eventos/status/:status", (req, res, next) => {
-    const status = req.params.status;
-    Eventos.buscarPorStatus(status)
-      .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => next(erros));
   });
 };

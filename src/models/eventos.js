@@ -11,13 +11,17 @@ class Eventos {
 
   async buscarPorId(id) {
     const eventoListado = await repositorio.buscarPorId(id);
-    return this.adicionaStatus(eventoListado);
+    return this.adicionaStatus(eventoListado)[0];
   }
 
   async adicionar(evento) {
-    if (this.isDatasValidas(evento)) {
+    if (
+      this.isDatasValidas(evento) &&
+      valida.isFormatoUrlFotoValido(evento.urlFoto) &&
+      (await valida.isStatusFotoValido(evento.urlFoto))
+    ) {
       const eventoAdicionado = await repositorio.adicionar(evento);
-      return this.adicionaStatus(eventoAdicionado);
+      return this.adicionaStatus(eventoAdicionado)[0];
     } else {
       return Promise.reject({ error: "Entrada inválida" });
     }
@@ -26,14 +30,15 @@ class Eventos {
   async buscarPorStatus(status) {
     if (valida.isStatusValidos(status)) {
       const eventosListados = await repositorio.buscarStatus(status);
-      return this.adicionaStatus(eventosListados);
+      return this.adicionaStatus(eventosListados)[0];
     } else {
-      return Promise.reject({ error: "Status inválido fornecido" });
+      return Promise.reject({ error: "Status fornecido inválido " });
     }
   }
 
-  alterar(id, valores) {
-    return repositorio.alterar(id, valores);
+  async alterar(id, valores) {
+    const eventoAlterado = await repositorio.alterar(id, valores);
+    return this.adicionaStatus(eventoAlterado)[0];
   }
 
   excluir(id) {

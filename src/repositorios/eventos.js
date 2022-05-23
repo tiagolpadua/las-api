@@ -11,16 +11,11 @@ class EventosRepositorio {
     return executaQuery(sql, id);
   }
 
-  buscarPorNome(nome) {
-    const sql = "SELECT * FROM Eventos WHERE nome like ?";
-    return executaQuery(sql, "%" + nome + "%");
-  }
-
   async adicionar(evento) {
     const sql = "INSERT INTO Eventos SET ?";
     const resultados = await executaQuery(sql, evento);
     const id = resultados.insertId;
-    return { ...evento, id };
+    return [{ ...evento, id }];
   }
 
   buscarStatus(status) {
@@ -51,5 +46,4 @@ class EventosRepositorio {
     return executaQuery(sql, id);
   }
 }
-
 module.exports = new EventosRepositorio();
