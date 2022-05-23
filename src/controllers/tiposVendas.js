@@ -33,7 +33,7 @@ module.exports = (app) => {
   app.delete("/tipos-vendas/:id", (req, res) => {
     const id = parseInt(req.params.id);
     TiposVendas.excluir(id)
-      .then(() => res.json({ id }))
+      .then(() => res.status(204).end())
       .catch((erros) => res.status(400).json(erros));
   });
 };
