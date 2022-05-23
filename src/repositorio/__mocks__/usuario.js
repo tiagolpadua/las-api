@@ -1,4 +1,5 @@
 const usuariosMockados = require("./usuariosMock.json");
+const dadosPessoais = require("./dadosPessoaisMock.json");
 class Usuario {
   listar() {
     return Promise.resolve(usuariosMockados);
@@ -20,33 +21,36 @@ class Usuario {
     );
   }
 
-  //   alterar(id, usuarioAtualizado) {
-  //     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-  //     return query(sql, [usuarioAtualizado, id]);
-  //   }
+  // eslint-disable-next-line no-unused-vars
+  alterar(id, usuarioAtualizado) {
+    return Promise.resolve(
+      usuariosMockados.find((usuario) => usuario.id == id)
+    );
+  }
 
-  //   excluir(id) {
-  //     const sql = "DELETE FROM Usuarios WHERE id = ?";
-  //     return query(sql, id);
-  //   }
+  excluir(id) {
+    return Promise.resolve(
+      usuariosMockados.find((usuario) => usuario.id == id)
+    );
+  }
 
-  //   buscarPorNome(nome) {
-  //     nome = "%" + nome + "%";
-  //     const sql =
-  //       "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE nome like ?";
-  //     return query(sql, nome);
-  //   }
+  buscarPorNome(nome) {
+    const usuariosBusca = usuariosMockados.filter((user) => {
+      const nomeBusca = new RegExp(nome);
+      if (user.nome.match(nomeBusca)) {
+        return user;
+      }
+    });
+    return Promise.resolve(usuariosBusca);
+  }
 
-  //   buscarDadosPessoais(id) {
-  //     const sql =
-  //       "SELECT nomeCompleto, dataNascimento, rg, cpf FROM Usuarios WHERE id = ?";
-  //     return query(sql, id);
-  //   }
+  buscarDadosPessoais(id) {
+    return Promise.resolve(dadosPessoais[id - 1] ? dadosPessoais[id - 1] : []);
+  }
 
-  //   atualizarDadosPessoais(id, dadosPessoais) {
-  //     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-  //     return query(sql, [dadosPessoais, id]);
-  //   }
+  atualizarDadosPessoais(id, dadosPessoais) {
+    return Promise.resolve(dadosPessoais[id - 1] ? dadosPessoais[id - 1] : []);
+  }
 }
 
 module.exports = new Usuario();
