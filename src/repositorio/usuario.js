@@ -45,6 +45,33 @@ class Usuario {
     return query(sql, [dadosPessoais, id]);
   }
 
+  async buscarContatos(id) {
+    const sql = "SELECT telefone, celular, email FROM Usuarios WHERE id = ?";
+    const resultados = await query(sql, id);
+    return resultados[0];
+  }
+
+  atualizarContatos(id, contatos) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+    return query(sql, [contatos, id]);
+  }
+
+  atualizarSenha(id, senha) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+    return query(sql, [senha, id]);
+  }
+
+  buscarEndereco(id) {
+    const sql =
+      "SELECT cep, endereco, numero, complemento, bairro FROM Usuarios WHERE id = ?";
+    return query(sql, id);
+  }
+
+  atualizarEndereco(id, endereco) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+    return query(sql, [endereco, id]);
+  }
+
   async isNomeUsuarioUtilizado(nome) {
     const sql = "SELECT * FROM Usuarios WHERE nome = ?";
 
