@@ -10,7 +10,7 @@ module.exports = (app) => {
   app.get("/usuarios/:id", (req, res) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarPorId(id)
-      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).send()))
+      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).end()))
       .catch((erros) => res.status(404).json(erros));
   });
 
@@ -25,14 +25,18 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterar(id, valores)
-      .then(() => res.json({ id, ...valores }))
+      .then((resultados) =>
+        resultados ? res.json({ id, ...valores }) : res.status(404).end()
+      )
       .catch((erros) => res.status(404).json(erros));
   });
 
   app.delete("/usuarios/:id", (req, res) => {
     const id = parseInt(req.params.id);
     Usuarios.excluir(id)
-      .then(() => res.json({ id }))
+      .then((resposta) =>
+        resposta ? res.status(204).end() : res.status(404).end()
+      )
       .catch((erros) => res.status(404).json(erros));
   });
 
@@ -56,7 +60,9 @@ module.exports = (app) => {
     const id = req.params.usuarioId;
     const valores = req.body;
     Usuarios.atualizarDadosPessoais(id, valores)
-      .then((resultado) => res.json(resultado))
+      .then((resultados) =>
+        resultados ? res.json(valores) : res.status(404).end()
+      )
       .catch((erros) => res.status(402).json(erros));
   });
 };
