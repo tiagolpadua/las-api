@@ -5,6 +5,8 @@ class Tabelas {
     this.criarUsuarios();
     this.criarEventos();
     this.criarTiposVendas();
+    this.criarUfs();
+    this.criarMunicipios();
   }
 
   criarUsuarios() {
@@ -64,6 +66,26 @@ class Tabelas {
     this.pool.query(sql, (erro) => {
       if (erro) console.log(erro);
       else console.log("Tabela tiposVendas criada com sucesso!");
+    });
+  }
+
+  criarUfs() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS las.UFS(id INT NOT NULL, sigla VARCHAR(2) NOT NULL, nome VARCHAR(80) NOT NULL, PRIMARY KEY(id))";
+
+    this.pool.query(sql, (erro) => {
+      if (erro) console.log(erro);
+      else console.log("Tabela Ufs criada com sucesso!");
+    });
+  }
+
+  criarMunicipios() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS las.municipios(id INT NOT NULL,nome VARCHAR(80) NOT NULL,`UF-sigla` VARCHAR(2) NOT NULL,`UF-nome` varchar(80),PRIMARY KEY(id));";
+
+    this.pool.query(sql, (erro) => {
+      if (erro) console.log(erro);
+      else console.log("Tabela Municipios criada com sucesso!");
     });
   }
 }

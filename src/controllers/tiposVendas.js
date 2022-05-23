@@ -31,10 +31,16 @@ module.exports = (app) => {
     const retornoForm = req.body;
 
     TiposVendas.alterarTipoVenda(id, retornoForm)
-      .then(() => {
-        res.status(204).json({
-          status: "TiposVendas incluído com sucesso",
-        });
+      .then((results) => {
+        if (results.affectedRows) {
+          res.status(204).json({
+            status: "TiposVendas incluído com sucesso",
+          });
+        } else {
+          res.status(400).json({
+            status: "TiposVendas não encontrado",
+          });
+        }
       })
       .catch((erro) => {
         res.status(405).json({ erro, status: "Entrada inválida" });
@@ -46,15 +52,18 @@ module.exports = (app) => {
 
     TiposVendas.incluirTipoVenda(retornoForm)
       .then((resultados) => {
-        console.log(resultados.status);
+        console.log(resultados.insertId);
         res.status(201).json({
+          id: resultados.insertId,
           ...retornoForm,
           status: "Tipo de venda incluída com sucesso",
         });
       })
-      .catch((erro) =>
-        res.status(400).json({ erro, status: "Entrada inválida" })
-      );
+      .catch((erro) => {
+        const error = erro.sql ? erro.code : erro;
+
+        res.status(400).json({ error, status: "Entrada inválida" });
+      });
   });
 
   app.delete("/tipos-vendas/:id", (req, res) => {

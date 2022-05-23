@@ -19,28 +19,38 @@ class TiposVendas {
     return Promise.reject("Id tipos-vendas inválido");
   }
 
-  // incluirTipoVenda(retornoForm) {
-  //   const sql = "INSERT INTO las.tiposVendas SET ?";
+  incluirTipoVenda(retornoForm) {
+    return Promise.resolve(retornoForm && { insertId: 4 });
+  }
 
-  //   return query(sql, retornoForm);
-  // }
+  validarNomeVendasNaoUtilizado(retornoForm) {
+    const resultado = TIPOVENDAS_MOCKS.filter(
+      (venda) => venda.descricao === retornoForm
+    );
 
-  // alterarTipoVenda(id, retornoForm) {
-  //   const sql = "UPDATE las.tiposVendas SET ? WHERE id = ?";
-  //   return query(sql, [retornoForm, id]);
-  // }
+    console.log("VER RESULTADO TIPOVENDAS", resultado);
 
-  // excluirTipoVenda(id) {
-  //   const sql = "DELETE FROM las.tiposVendas WHERE id = ?";
+    return Promise.resolve(resultado);
+  }
 
-  //   return query(sql, id);
-  // }
+  alterarTipoVenda(id) {
+    const resultado = TIPOVENDAS_MOCKS.filter((venda) => venda.id === id);
+    return resultado.length
+      ? Promise.resolve({ affectedRows: 1 })
+      : Promise.resolve({ affectedRows: 0 });
+  }
 
-  // validarNomeVendasNaoUtilizado(retornoForm) {
-  //   const sql = "SELECT * FROM las.tiposVendas WHERE descricao = ?";
+  excluirTipoVenda(id) {
+    if (id) {
+      const affectedRows = { affectedRows: 0 };
+      TIPOVENDAS_MOCKS.find((venda) => venda.id === id)
+        ? (affectedRows.affectedRows = 1)
+        : (affectedRows.affectedRows = 0);
+      return Promise.resolve(id && affectedRows);
+    }
 
-  //   return query(sql, retornoForm);
-  // }
+    return Promise.reject("ID inválido");
+  }
 }
 
 module.exports = new TiposVendas();

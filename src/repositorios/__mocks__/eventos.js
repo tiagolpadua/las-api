@@ -90,7 +90,6 @@ class Evento {
   }
 
   excluirEvento(id) {
-    console.log("retorno id delete", id);
     if (id) {
       const affectedRows = { affectedRows: 0 };
       MOCKS_EVENTOS.find((evento) => evento.id === id)
