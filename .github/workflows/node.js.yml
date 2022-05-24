@@ -27,56 +27,56 @@ jobs:
       - run: npm ci
       - run: npm run lint
 
-  test-essencial:
-    runs-on: ubuntu-latest
+  # test-essencial:
+  #   runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
+  #   strategy:
+  #     matrix:
+  #       node-version: [14.x]
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: npm ci
-      - run: npm run test:essencial
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #         cache: "npm"
+  #     - run: npm ci
+  #     - run: npm run test:essencial
 
-  test-desejavel:
-    runs-on: ubuntu-latest
+  # test-desejavel:
+  #   runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
+  #   strategy:
+  #     matrix:
+  #       node-version: [14.x]
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: npm ci
-      - run: npm run test:desejavel
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #         cache: "npm"
+  #     - run: npm ci
+  #     - run: npm run test:desejavel
 
-  test-desafio:
-    runs-on: ubuntu-latest
+  # test-desafio:
+  #   runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
+  #   strategy:
+  #     matrix:
+  #       node-version: [14.x]
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: npm ci
-      - run: npm run test:desafio
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #         cache: "npm"
+  #     - run: npm ci
+  #     - run: npm run test:desafio
 
   test-with-coverage:
     runs-on: ubuntu-latest
