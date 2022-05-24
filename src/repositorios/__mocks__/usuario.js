@@ -4,10 +4,9 @@ class Usuario {
   listarUsuarios() {
     return Promise.resolve(usuariosMock);
   }
-  // buscarPorIdUsuario(id) {
-  //   const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE id = ?";
-  //   return query(sql, id);
-  // }
+  buscarPorIdUsuario(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
+  }
   // adicionaUsuario(usuario) {
   //   const sql = "INSERT INTO Usuarios SET ?";
   //   return query(sql, usuario);

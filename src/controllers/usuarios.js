@@ -10,7 +10,7 @@ module.exports = (app) => {
   app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarPorId(id)
-      .then((resultados) => res.json(resultados))
+      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).send()))
       .catch((erros) => next(erros));
   });
 
