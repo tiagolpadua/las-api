@@ -11,7 +11,7 @@ class Eventos {
   }
 
   async adicionar(evento) {
-    return repositorio.adiciona(evento);
+    return repositorio.adicionar(evento);
   }
 
   alterar(id, valores) {

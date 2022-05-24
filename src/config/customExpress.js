@@ -17,12 +17,12 @@ module.exports = () => {
 
   consign().include("src/controllers").into(app);
 
-  app.use((err, req, res) => {
+  app.use((err, req, resposta) => {
     if (err) {
       if (ENV === "production") {
-        res.status(500).send({ error: "Algo deu errado..." });
+        resposta.status(500).send({ error: "Algo deu errado..." });
       } else {
-        res.status(500).send({ error: err });
+        resposta.status(500).send({ error: err });
       }
       console.log(err);
     }

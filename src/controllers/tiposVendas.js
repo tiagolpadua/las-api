@@ -9,10 +9,12 @@ module.exports = (app) => {
   });
 
   app.post("/tipos-vendas", (req, res) => {
-    const tiposVendas = req.body;
+    const tiposVendasDadoRequest = req.body;
     tiposVendas
-      .adicionar(tiposVendas)
-      .then((resultados) => res.status(201).json(resultados))
+      .adicionar(tiposVendasDadoRequest)
+      .then((resultados) =>
+        res.json({ id: resultados.insertId, ...tiposVendasDadoRequest })
+      )
       .catch((erros) => res.status(400).json(erros));
   });
 

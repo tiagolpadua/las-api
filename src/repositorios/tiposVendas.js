@@ -18,10 +18,10 @@ class TiposVendas {
     const sql = "DELETE FROM TiposVendas WHERE id = ?";
     return query(sql, id);
   }
-  // buscaPorId(id) {
-  //   const sql = "SELECT * FROM TiposVendas WHERE id = ?";
-  //   return query(sql, id);
-  // }
+  buscaPorId(id) {
+    const sql = "SELECT * FROM TiposVendas WHERE id = ?";
+    return query(sql, id);
+  }
 }
 
 module.exports = new TiposVendas();

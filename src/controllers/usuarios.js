@@ -43,4 +43,60 @@ module.exports = (app) => {
       .catch((erros) => res.status(400).json(erros));
   });
 
+  //api dados pessoais
+  app.get("/usuarios/:id/dados-pessoais", (req, res) => {
+    const id = parseInt(req.params.id);
+    Usuarios.listaDadosPessoais(id)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => res.status(400).json(erros));
+  });
+
+  app.put("/usuarios/:id/dados-pessoais", (req, res) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuarios.alterar(id, valores)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => res.status(400).json(erros));
+  });
+
+  //contatos
+  app.get("/usuarios/:id/contatos", (req, res) => {
+    const id = parseInt(req.params.id);
+    Usuarios.listaContatos(id)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => res.status(400).json(erros));
+  });
+
+  app.put("/usuarios/:id/contatos", (req, res) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuarios.alterarContatos(id, valores)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => res.status(400).json(erros));
+  });
+
+  //endereço
+  app.get("/usuarios/:id/endereco", (req, res) => {
+    const id = parseInt(req.params.id);
+    Usuarios.listaEndereco(id)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => res.status(400).json(erros));
+  });
+
+  app.put("/usuarios/:id/endereco", (req, res) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuarios.alterarContatos(id, valores)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => res.status(400).json(erros));
+  });
+
+  //senha
+  app.put("usuarios/:id/senha", (req, res) => {
+    const id = parseInt(req.params.id);
+    const senha = req.body;
+    Usuarios.alterarSenha(id, senha)
+      .then((resultados) => res.status(204).json(resultados))
+      .catch((erros) => res.status(405).json(erros));
+  });
 };

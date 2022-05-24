@@ -50,6 +50,40 @@ class Usuarios {
     return repositorio.buscaPorNome(nome);
   }
 
+  //dados-pessoais
+  listaDadosPessoais(id) {
+    return repositorio.listaDadosPessoais(id);
+  }
+
+  alterarDadosPessoais(id, valores) {
+    return repositorio.alterarDadosPessoais(id, valores);
+  }
+
+  //contatos
+  listaContatos(id) {
+    return repositorio.listaContatos(id);
+  }
+
+  alterarContatos(id, valores) {
+    return repositorio.alterarContatos(id, valores);
+  }
+
+  //endereco
+  listaEndereco(id) {
+    return repositorio.listaEndereco(id);
+  }
+
+  alterarEndereco(id, valores) {
+    return repositorio.alterarEndereco(id, valores);
+  }
+
+  //senha
+  alterarSenha(id, senha) {
+    return repositorio.alterarSenha(id, senha);
+  }
+
+  //validações
+
   async validarURLFotoPerfil(url) {
     try {
       const regex =
