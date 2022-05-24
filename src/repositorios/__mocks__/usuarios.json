@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "nome": "Joaquina",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/50.jpg"
+  },
+  {
+    "id": 2,
+    "nome": "Fernandina",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/32.jpg"
+  },
+  {
+    "id": 3,
+    "nome": "Clara",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/31.jpg"
+  }
+]

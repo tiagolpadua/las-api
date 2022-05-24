@@ -2,12 +2,12 @@ const query = require("../infraestrutura/database/queries");
 
 class Usuario {
   listarUsuarios() {
-    const sql = "SELECT * FROM Usuarios";
+    const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios";
     return query(sql);
   }
 
   buscarPorIdUsuario(id) {
-    const sql = "SELECT * FROM Usuarios WHERE id = ?";
+    const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE id = ?";
     return query(sql, id);
   }
 
@@ -27,7 +27,8 @@ class Usuario {
   }
 
   buscarPorNome(nome) {
-    const sql = "SELECT * FROM Usuarios WHERE nome like ?";
+    const sql =
+      "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE nome like ?";
     return query(sql, "%" + nome + "%");
   }
 
