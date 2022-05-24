@@ -33,7 +33,7 @@ class DadosPessoais {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      return Promise.reject(erros);
     }
 
     return repositorio.alterarDadosPessoais(id, retornoFormDataNascFormatado);

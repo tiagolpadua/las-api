@@ -1,7 +1,7 @@
 const UFs = require("../models/UFs");
 
 module.exports = (app) => {
-  app.get("/ufs", (req, res) => {
+  app.get("/ufs", (_req, res) => {
     UFs.buscaUfs()
       .then((results) => {
         if (!results.length) {

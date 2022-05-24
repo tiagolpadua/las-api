@@ -42,7 +42,7 @@ class Evento {
     console.log("EXISTEM ERROS EVENTO", erros);
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      return Promise.reject(erros);
     }
 
     return repositorio.incluirEvento(retornoDatado);
@@ -85,13 +85,10 @@ class Evento {
       "YYYY-MM-DD"
     );
 
-    // const status = this.isDatasValidas({ dataInicio, dataFim });
-
     const retornoDatado = { ...retornoForm, dataInicio, dataFim };
 
     const parametros = {
       nomeEvento: retornoDatado.nome.length,
-      // existeEvento: retornoDatado.nome,
       url: retornoDatado.urlFoto,
       data: retornoDatado,
       existeEventoPUT: { id, retornoForm: retornoDatado.nome },

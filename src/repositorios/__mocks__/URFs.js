@@ -1,5 +1,3 @@
-// const query = require("../infraestrutura/database/queries");
-
 const URFs = require("../__mocks__/URF.json");
 const MUNICIPIOS = require("../__mocks__/municipios.json");
 

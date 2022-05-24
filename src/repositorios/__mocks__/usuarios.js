@@ -1,5 +1,3 @@
-// const query = require("../infraestrutura/database/queries");
-
 const USUARIOS_MOCK = require("../__mocks__/USUARIOS.json");
 const DADOS_PESSOAIS_MOCK = require("../__mocks__/DADOS_PESSOAIS.json");
 const CONTATOS_MOCK = require("../__mocks__/CONTATOS.json");
@@ -48,39 +46,23 @@ class Usuario {
   }
 
   excluirUsuario(id) {
-    if (id) {
-      const affectedRows = { affectedRows: 0 };
-      USUARIOS_MOCK.find((usuario) => usuario.id === id)
-        ? (affectedRows.affectedRows = 1)
-        : (affectedRows.affectedRows = 0);
-      return Promise.resolve(id && affectedRows);
-    }
-
-    return Promise.reject("ID inválido");
+    return this.checkDataBaseInsertion(id, USUARIOS_MOCK);
   }
 
   //Dados Pessoais
 
   buscaDadosPessoaisId(retornoId) {
     if (retornoId) {
-      const existeUsuario = DADOS_PESSOAIS_MOCK.filter(
-        (dados) => dados.id === retornoId
+      return Promise.resolve(
+        DADOS_PESSOAIS_MOCK.filter((dados) => dados.id === retornoId)
       );
-
-      return Promise.resolve(existeUsuario);
     }
 
     return Promise.reject("Id inválido fornecido");
   }
 
   alterarDadosPessoais(id) {
-    if (id) {
-      const affectedRows = { affectedRows: 0 };
-      DADOS_PESSOAIS_MOCK.find((dadosPessoais) => dadosPessoais.id === id)
-        ? (affectedRows.affectedRows = 1)
-        : (affectedRows.affectedRows = 0);
-      return Promise.resolve(id && affectedRows);
-    }
+    return this.checkDataBaseInsertion(id, DADOS_PESSOAIS_MOCK);
   }
 
   // //fim Dados Pessoais
@@ -91,22 +73,14 @@ class Usuario {
     if (id) {
       const resultado = CONTATOS_MOCK.filter((contatos) => contatos.id === id);
 
-      return Promise.resolve(id && resultado);
+      return Promise.resolve(resultado);
     }
 
     return Promise.reject("Id inválido fornecido");
   }
 
   alterarContatos(id) {
-    if (id) {
-      const affectedRows = { affectedRows: 0 };
-      CONTATOS_MOCK.find((dadosPessoais) => dadosPessoais.id === id)
-        ? (affectedRows.affectedRows = 1)
-        : (affectedRows.affectedRows = 0);
-      return Promise.resolve(id && affectedRows);
-    }
-
-    return Promise.reject("Id inválido fornecido");
+    return this.checkDataBaseInsertion(id, CONTATOS_MOCK);
   }
 
   // // fim Contatos
@@ -114,15 +88,7 @@ class Usuario {
   // // Senha
 
   alterarSenha(id) {
-    if (id) {
-      const affectedRows = { affectedRows: 0 };
-      SENHA_MOCK.find((dadosPessoais) => dadosPessoais.id === id)
-        ? (affectedRows.affectedRows = 1)
-        : (affectedRows.affectedRows = 0);
-      return Promise.resolve(id && affectedRows);
-    }
-
-    return Promise.reject("Id inválido fornecido");
+    return this.checkDataBaseInsertion(id, SENHA_MOCK);
   }
 
   // // fim Senha
@@ -133,25 +99,30 @@ class Usuario {
     if (id) {
       const resultado = ENDERECO_MOCK.filter((contatos) => contatos.id === id);
 
-      return Promise.resolve(id && resultado);
+      return Promise.resolve(resultado);
     }
 
     return Promise.reject("Id inválido fornecido");
   }
 
   alterarEndereco(id) {
-    if (id) {
-      const affectedRows = { affectedRows: 0 };
-      ENDERECO_MOCK.find((contato) => contato.id === id)
-        ? (affectedRows.affectedRows = 1)
-        : (affectedRows.affectedRows = 0);
-      return Promise.resolve(id && affectedRows);
-    }
-
-    return Promise.reject("Id inválido fornecido");
+    return this.checkDataBaseInsertion(id, ENDERECO_MOCK);
   }
 
   // // fim Endereco
+
+  checkDataBaseInsertion(identifier, list) {
+    const affectedRows = { affectedRows: 0 };
+
+    if (identifier) {
+      list.find((item) => item.id === identifier)
+        ? (affectedRows.affectedRows = 1)
+        : affectedRows;
+      return Promise.resolve(affectedRows);
+    }
+
+    return Promise.reject("ID inválido");
+  }
 }
 
 module.exports = new Usuario();

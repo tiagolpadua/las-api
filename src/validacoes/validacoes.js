@@ -18,8 +18,7 @@ class Validacao {
     if (urlEhValida) {
       const response = await fetch(retornoForm);
 
-      if (response.status === 200) return true;
-      else return false;
+      return response.status === 200;
     }
 
     return false;
@@ -39,18 +38,18 @@ class Validacao {
         retornoForm
       );
 
-    if (existeUsuarioPUT[0]?.nome === retornoForm.trim()) return !true;
+    if (existeUsuarioPUT[0]?.nome === retornoForm.trim()) return false;
 
-    return !false;
+    return true;
   }
 
   async validaSeNomeFoiUtilizado(retornoForm) {
     const existeUsuario =
       await repositorioUsuario.validarNomeUsuarioNaoUtilizado(retornoForm);
 
-    if (existeUsuario[0]?.nome === retornoForm?.trim()) return !true;
+    if (existeUsuario[0]?.nome === retornoForm?.trim()) return false;
 
-    return !false;
+    return true;
   }
 
   // fim validacao usuarios
@@ -61,9 +60,9 @@ class Validacao {
     const existeUsuario =
       await repositorioTipoVenda.validarNomeVendasNaoUtilizado(retornoForm);
 
-    if (existeUsuario[0]?.descricao === retornoForm.trim()) return !true;
+    if (existeUsuario[0]?.descricao === retornoForm.trim()) return false;
 
-    return !false;
+    return true;
   }
 
   // fim validacao Tipo vendas
@@ -76,18 +75,18 @@ class Validacao {
     );
 
     console.log("VALIDASENOMEAQUI", existeEvento, retornoForm);
-    if (existeEvento[0]?.nome === retornoForm?.trim()) return !true;
+    if (existeEvento[0]?.nome === retornoForm?.trim()) return false;
 
-    return !false;
+    return true;
   }
 
   async validarNomeEventoNaoUtilizadoPUT({ id, retornoForm }) {
     const existeEvento =
       await repositorioEventos.validaNomeEventoNaoUtilizadoPUT(id, retornoForm);
 
-    if (existeEvento[0]?.nome === retornoForm.trim()) return !true;
+    if (existeEvento[0]?.nome === retornoForm.trim()) return false;
 
-    return !false;
+    return true;
   }
 
   isDatasValidas({ dataInicio, dataFim }) {
@@ -97,8 +96,7 @@ class Validacao {
       moment(currentDate).isSameOrBefore(dataInicio) &&
       moment(dataInicio).isSameOrBefore(dataFim);
 
-    if (validEvent) return true;
-    else return false;
+    return validEvent;
   }
 
   insereStatus(evento) {
@@ -132,9 +130,7 @@ class Validacao {
   // Validacoes Dados Pessoais
 
   validaCPF(cpf) {
-    // cpf = validadorCPF.cpf.format(cpf);
-    const CPFehValido = validadorCPF.cpf.isValid(cpf);
-    return CPFehValido;
+    return validadorCPF.cpf.isValid(cpf);
   }
 
   // fim Validacoes Dados Pessoais
@@ -145,7 +141,7 @@ class Validacao {
         const { nome } = campo;
         const parametro = parametros[nome];
 
-        if (!(nome in parametros)) return { ...campo, resultado: !true };
+        if (!(nome in parametros)) return { ...campo, resultado: false };
 
         const resposta = await campo.valido(parametro);
 

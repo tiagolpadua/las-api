@@ -1,7 +1,7 @@
 const Evento = require("../models/eventos");
 
 module.exports = (app) => {
-  app.get("/eventos", (req, res) => {
+  app.get("/eventos", (_req, res) => {
     Evento.listarEvento()
       .then((data) => res.status(200).json(data))
       .catch((erro) => res.status(400).json(erro));
@@ -32,7 +32,6 @@ module.exports = (app) => {
         } else {
           res.status(200).json({
             ...results,
-            // descrição: "Operação bem sucedida",
           });
         }
       })

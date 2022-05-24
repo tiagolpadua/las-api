@@ -25,7 +25,7 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      return Promise.reject(erros);
     }
 
     return repositorio.incluirUsuarios(retornoForm);
@@ -42,7 +42,6 @@ class Usuarios {
   async alterarUsuario(id, retornoForm) {
     const parametros = {
       nomeUsuario: retornoForm.nome.length,
-      // existeUsuario: retornoForm.nome,
       url: retornoForm.urlFotoPerfil,
       existeUsuarioPUT: { id, retornoForm: retornoForm.nome },
     };
@@ -52,7 +51,7 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      return Promise.reject(erros);
     }
 
     return repositorio.alterarUsuario(id, retornoForm);

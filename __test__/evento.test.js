@@ -35,33 +35,6 @@ const retornoEventos = [
   },
 ];
 
-// const retornoEventosSemStatus = [
-//   {
-//     id: 1,
-//     nome: "Carnaval",
-//     descricao: "festa popular",
-//     urlFoto: "https://randomuser.me/api/portraits/men/98.jpg",
-//     dataInicio: "2023-02-10T03:00:00.000Z",
-//     dataFim: "2023-02-17T03:00:00.000Z",
-//   },
-//   {
-//     id: 2,
-//     nome: "Carnaval de Bairro",
-//     descricao: "festa popular nos bairros",
-//     urlFoto: "https://randomuser.me/api/portraits/men/98.jpg",
-//     dataInicio: "2022-05-10T03:00:00.000Z",
-//     dataFim: "2022-05-30T03:00:00.000Z",
-//   },
-//   {
-//     id: 3,
-//     nome: "Lavagem de Itapuã",
-//     descricao: "festa popular nos bairros",
-//     urlFoto: "https://randomuser.me/api/portraits/men/98.jpg",
-//     dataInicio: "2022-05-10T03:00:00.000Z",
-//     dataFim: "2022-05-12T03:00:00.000Z",
-//   },
-// ];
-
 describe("Testa API EVENTOS GET", () => {
   test("API de Eventos", async () => {
     const response = await rotas.get("/eventos");

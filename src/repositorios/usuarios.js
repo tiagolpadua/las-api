@@ -24,8 +24,6 @@ class Usuario {
     const sql =
       "SELECT id, nome , urlFotoPerfil FROM las.usuarios WHERE nome like ?";
 
-    // "%" + retornoForm + "%";
-
     return query(sql, "%" + retornoForm + "%");
   }
 

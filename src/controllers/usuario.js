@@ -41,7 +41,7 @@ const Usuarios = require("../models/usuarios");
 */
 
 module.exports = (app) => {
-  app.get("/usuarios", (req, res) => {
+  app.get("/usuarios", (_req, res) => {
     Usuarios.listarUsuarios()
       .then((data) => res.status(200).json(data))
       .catch((erro) => res.status(400).json(erro));
@@ -88,7 +88,6 @@ module.exports = (app) => {
         } else {
           res.status(200).json({
             ...results[0],
-            // descrição: "Operação bem sucedida",
           });
         }
       })

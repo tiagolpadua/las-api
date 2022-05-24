@@ -1,5 +1,3 @@
-// const query = require("../infraestrutura/database/queries");
-
 const TIPOVENDAS_MOCKS = require("./TIPO_VENDAS.json");
 
 class TiposVendas {
@@ -13,7 +11,7 @@ class TiposVendas {
         (venda) => venda.id === retornoId
       );
 
-      return Promise.resolve(retornoId && tipoVenda);
+      return Promise.resolve(tipoVenda);
     }
 
     return Promise.reject("Id tipos-vendas inválido");
@@ -28,8 +26,6 @@ class TiposVendas {
       (venda) => venda.descricao === retornoForm
     );
 
-    console.log("VER RESULTADO TIPOVENDAS", resultado);
-
     return Promise.resolve(resultado);
   }
 
@@ -41,12 +37,17 @@ class TiposVendas {
   }
 
   excluirTipoVenda(id) {
-    if (id) {
-      const affectedRows = { affectedRows: 0 };
-      TIPOVENDAS_MOCKS.find((venda) => venda.id === id)
+    return this.checkDataBaseInsertion(id, TIPOVENDAS_MOCKS);
+  }
+
+  checkDataBaseInsertion(identifier, list) {
+    const affectedRows = { affectedRows: 0 };
+
+    if (identifier) {
+      list.find((item) => item.id === identifier)
         ? (affectedRows.affectedRows = 1)
-        : (affectedRows.affectedRows = 0);
-      return Promise.resolve(id && affectedRows);
+        : affectedRows;
+      return Promise.resolve(affectedRows);
     }
 
     return Promise.reject("ID inválido");

@@ -21,7 +21,7 @@ class TiposVendas {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      return Promise.reject(erros);
     }
 
     return repositorio.incluirTipoVenda(retornoForm).then((results) => results);
@@ -44,8 +44,6 @@ class TiposVendas {
       nomeTipoVenda: retornoForm.descricao.length,
     };
 
-    // const tamanhoNomeEvento = retornoForm.descricao.length;
-
     const erros = await this.valida(parametros);
 
     console.log("tipo venda erros", erros);
@@ -53,7 +51,7 @@ class TiposVendas {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      return Promise.reject(erros);
     }
 
     return repositorio.alterarTipoVenda(id, retornoForm);

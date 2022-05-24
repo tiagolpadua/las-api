@@ -12,7 +12,6 @@ module.exports = (app) => {
         } else {
           res.status(200).json({
             ...results[0],
-            // descrição: "Operação bem sucedida",
           });
         }
       })

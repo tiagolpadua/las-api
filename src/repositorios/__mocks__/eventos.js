@@ -1,4 +1,3 @@
-// const query = require("../infraestrutura/database/queries");
 const moment = require("moment");
 
 const MOCKS_EVENTOS = require("./EVENTOS.json");
@@ -70,15 +69,7 @@ class Evento {
   }
 
   alterarEvento(id) {
-    if (id) {
-      const affectedRows = { affectedRows: 0 };
-      MOCKS_EVENTOS.find((evento) => evento.id === id)
-        ? (affectedRows.affectedRows = 1)
-        : (affectedRows.affectedRows = 0);
-      return Promise.resolve(id && affectedRows);
-    }
-
-    return Promise.reject("ID inválido");
+    return this.checkDataBaseInsertion(id, MOCKS_EVENTOS);
   }
 
   validaNomeEventoNaoUtilizadoPUT(id, retornoForm) {
@@ -90,12 +81,17 @@ class Evento {
   }
 
   excluirEvento(id) {
-    if (id) {
-      const affectedRows = { affectedRows: 0 };
-      MOCKS_EVENTOS.find((evento) => evento.id === id)
+    return this.checkDataBaseInsertion(id, MOCKS_EVENTOS);
+  }
+
+  checkDataBaseInsertion(identifier, list) {
+    const affectedRows = { affectedRows: 0 };
+
+    if (identifier) {
+      list.find((item) => item.id === identifier)
         ? (affectedRows.affectedRows = 1)
-        : (affectedRows.affectedRows = 0);
-      return Promise.resolve(id && affectedRows);
+        : affectedRows;
+      return Promise.resolve(affectedRows);
     }
 
     return Promise.reject("ID inválido");
