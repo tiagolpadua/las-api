@@ -41,13 +41,10 @@ class TiposVendas {
   }
 
   checkDataBaseInsertion(identifier, list) {
-    const affectedRows = { affectedRows: 0 };
-
     if (identifier) {
-      list.find((item) => item.id === identifier)
-        ? (affectedRows.affectedRows = 1)
-        : affectedRows;
-      return Promise.resolve(affectedRows);
+      return list.find((item) => item.id === identifier)
+        ? Promise.resolve({ affectedRows: 1 })
+        : Promise.resolve({ affectedRows: 0 });
     }
 
     return Promise.reject("ID inválido");

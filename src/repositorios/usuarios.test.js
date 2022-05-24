@@ -28,16 +28,6 @@ const usuariosBanco = [
   },
 ];
 
-const dadosPessoais = [
-  {
-    id: 3,
-    nomeCompleto: "Gilberto Passos Gil Moreira",
-    dataNascimento: "1942-06-26T03:00:00.000Z",
-    rg: "4563456784",
-    cpf: "25634428777",
-  },
-];
-
 it("Testa query listarUsuarios", async () => {
   let usuarios = await USUARIO.listarUsuarios();
 
@@ -76,17 +66,4 @@ it("Testa query buscaUsuarioPeloNome nome inválido", async () => {
   const retorno = usuariosBanco.filter((item) => item.nome === nome);
 
   expect(usuarios).toEqual(retorno);
-});
-
-it("Testa query buscaDadosPessoais por Id", async () => {
-  const id = 3;
-  let usuarios = await USUARIO.buscaDadosPessoaisId(id);
-  const retorno = dadosPessoais
-    .filter((item) => item.id === id)
-    .map((item) => {
-      delete item.id;
-      return item;
-    });
-
-  expect(usuarios[0]).toEqual(retorno[0]);
 });
