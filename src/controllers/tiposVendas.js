@@ -12,14 +12,14 @@ module.exports = (app) => {
 
     TiposVendas.buscaPorId(id)
       .then((resultados) => res.json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.post("/tipos-vendas", (req, res) => {
     const tipoVenda = req.body;
     TiposVendas.adicionar(tipoVenda)
-      .then((resultados) => res.json({ id: resultados.insertId, ...tipoVenda }))
-      .catch((erros) => res.status(400).json(erros));
+      .then((resultados) => res.status(201).json(resultados))
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.put("/tipos-vendas/:id", (req, res) => {
@@ -27,13 +27,13 @@ module.exports = (app) => {
     const valores = req.body;
     TiposVendas.alterar(id, valores)
       .then(() => res.json({ id, ...valores }))
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.delete("/tipos-vendas/:id", (req, res) => {
     const id = parseInt(req.params.id);
     TiposVendas.excluir(id)
       .then(() => res.status(204).end())
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 };

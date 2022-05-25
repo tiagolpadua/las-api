@@ -5,8 +5,9 @@ class TiposVendas {
     return repositorio.listar();
   }
 
-  adicionar(evento) {
-    return repositorio.adicionar(evento);
+  async adicionar(evento) {
+    const resp = await repositorio.adicionar(evento);
+    return { id: resp.insertId, ...evento };
   }
 
   buscaPorId(id) {
