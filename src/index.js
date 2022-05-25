@@ -4,7 +4,7 @@ const Tabelas = require("./infraestrutura/tabelas");
 
 const PORT = process.env.PORT || 3000;
 
-// Testa conexão com o pool
+// Testa conexão com o pool.
 pool.getConnection((err, connection) => {
   if (err) {
     console.log(err);
