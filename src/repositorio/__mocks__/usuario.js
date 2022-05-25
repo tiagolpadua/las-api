@@ -1,6 +1,6 @@
-const usuariosMockados = require("./dados_mockados/usuariosMock.json");
-const dadosPessoaisMockados = require("./dados_mockados/dadosPessoaisMock.json");
-const contatosMockados = require("./dados_mockados/contatos.json");
+const usuariosMockados = require("./dados_mockados/usuariosMockados.json");
+const dadosPessoaisMockados = require("./dados_mockados/dadosPessoaisMockados.json");
+const contatosMockados = require("./dados_mockados/contatosMockados.json");
 class Usuario {
   listar() {
     return Promise.resolve(usuariosMockados);

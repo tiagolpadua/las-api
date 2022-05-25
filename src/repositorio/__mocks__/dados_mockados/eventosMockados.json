@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "nome": "Carnaval 2021",
+    "descricao": "Carnaval de Salvador 2021",
+    "urlFoto": "https://trello.com/1/cards/6270532f00826702fcde8c27/attachments/6270532f00826702fcde8d83/download/image.png",
+    "dataInicio": "2022-05-01",
+    "dataFim": "2022-05-07",
+    "status": "finalizado"
+  },
+  {
+    "id": 2,
+    "nome": "São João",
+    "descricao": "São João de Salvador",
+    "urlFoto": "https://trello.com/1/cards/6270532f00826702fcde8c27/attachments/6270532f00826702fcde8d83/download/image.png",
+    "dataInicio": "2022-06-11",
+    "dataFim": "2022-06-24",
+    "status": "agendado"
+  },
+  {
+    "id": 3,
+    "nome": "Festa -o Ano Todo-",
+    "descricao": "Festa que acontece todos os dias do ano",
+    "urlFoto": "https://salvador/assets/imgs/festa-ano-todo.png",
+    "dataInicio": "2022-01-01",
+    "dataFim": "2022-12-31",
+    "status": "em-andamento"
+  }
+]
