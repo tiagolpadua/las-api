@@ -2,7 +2,7 @@ const query = require("../infraestrutura/database/queries");
 
 class Usuario {
   listar() {
-    const sql = "SELECT * FROM Usuarios";
+    const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios";
     return query(sql);
   }
   adicionar(usuario) {
@@ -25,6 +25,17 @@ class Usuario {
   buscaPorNome(id, nome) {
     const sql = "SELECT * FROM Usuarios WHERE nome like ?";
     return query(sql, nome);
+  }
+
+  isNomeUsuarioUtilizado(nome) {
+    const sql = "SELECT * FROM Usuarios WHERE nome = ?";
+    return query(sql, nome).then((data) => {
+      if (data.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 
   //dados-pessoais

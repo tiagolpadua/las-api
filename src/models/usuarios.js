@@ -1,4 +1,3 @@
-const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 
@@ -7,11 +6,17 @@ class Usuarios {
     return repositorio.listar();
   }
   async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nome.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+    let nomeEhValido = false;
 
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    if (usuario?.nome?.length > 0) {
+      const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
+        usuario.nome
+      );
+      if (!nomeJaUtilizado) {
+        nomeEhValido = true;
+      }
+    }
+    const urlEhValida = await this.validarURLFotoPerfil(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -27,13 +32,14 @@ class Usuarios {
     ];
 
     const erros = validacoes.filter((campo) => !campo.valido);
-    const existemErros = erros.length;
+    const existemErros = erros.length > 0;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      throw { erroApp: erros };
+    } else {
+      const resp = await repositorio.adicionar(usuario);
+      return { id: resp.insertId, ...usuario };
     }
-
-    return repositorio.adiciona(usuario);
   }
   alterar(id, valores) {
     return repositorio.alterar(id, valores);
@@ -101,23 +107,6 @@ class Usuarios {
     } catch {
       return false;
     }
-  }
-
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
   }
 }
 

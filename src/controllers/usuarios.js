@@ -10,7 +10,7 @@ module.exports = (app) => {
   app.post("/usuarios", (req, res) => {
     const usuarios = req.body;
     Usuarios.adicionar(usuarios)
-      .then((resultados) => res.status(201).json(resultados))
+      .then((usuario) => (usuario ? res.json(usuario) : res.status(404)).end())
       .catch((erros) => res.status(400).json(erros));
   });
 
@@ -32,7 +32,7 @@ module.exports = (app) => {
   app.get("/usuarios/:id", (req, res) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarPorId(id)
-      .then((resultados) => res.status(200).json(resultados))
+      .then((resultados) => res.status(200).json(resultados[0]))
       .catch((erros) => res.status(400).json(erros));
   });
 
