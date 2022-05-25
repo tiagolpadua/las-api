@@ -18,23 +18,17 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Eventos.alterar(id, valores)
-      .then((resultados) => res.status(200).json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .then((resultados) => res.status(204).json(resultados))
+      .catch((erros) => res.status(405).json(erros));
   });
 
   app.delete("/eventos/:id", (req, res) => {
     const id = parseInt(req.params.id);
     Eventos.excluir(id)
       .then((resultados) => res.status(204).json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
-  app.get("/eventos/nome/:nome", (req, res) => {
-    const nome = req.params.nome;
-    Eventos.buscarPorNome(nome)
-      .then((resultados) => res.status(200).json(resultados))
-      .catch((erros) => res.status(400).json(erros));
-  });
   app.get("/eventos/:id", (req, res) => {
     const id = parseInt(req.params.id);
     Eventos.buscarPorId(id)

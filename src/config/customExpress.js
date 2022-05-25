@@ -5,24 +5,22 @@ const bodyParser = require("body-parser");
 const ENV = process.env.NODE_ENV;
 
 module.exports = () => {
-  const TEXTO = "# LAS - Licenciamento de Ambulantes de Salvador";
   const app = express();
-
+  const TEXTO = "# LAS - Licenciamento de Ambulantes de Salvador";
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
+  consign().include("src/controllers").into(app);
   app.get("/", (requisicao, resposta) => {
     resposta.status(200).send(TEXTO);
   });
-
-  consign().include("src/controllers").into(app);
-
-  app.use((err, req, resposta) => {
+  // eslint-disable-next-line no-unused-vars
+  app.use((err, req, res, next) => {
     if (err) {
       if (ENV === "production") {
-        resposta.status(500).send({ error: "Algo deu errado..." });
+        res.status(500).send({ error: "Algo deu errado..." });
       } else {
-        resposta.status(500).send({ error: err });
+        res.status(500).send({ error: err });
       }
       console.log(err);
     }

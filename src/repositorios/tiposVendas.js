@@ -12,7 +12,7 @@ class TiposVendas {
 
   alterar(id, venda) {
     const sql = "UPDATE TiposVendas SET ? WHERE id = ?";
-    return query(sql, [id, venda]);
+    return query(sql, [ venda, id]);
   }
   excluir(id) {
     const sql = "DELETE FROM TiposVendas WHERE id = ?";

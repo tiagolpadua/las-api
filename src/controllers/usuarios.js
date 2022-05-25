@@ -18,8 +18,8 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterar(id, valores)
-      .then((resultados) => res.status(200).json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .then((resultados) => res.status(204).json(resultados))
+      .catch((erros) => res.status(405).json(erros));
   });
 
   app.delete("/usuarios/:id", (req, res) => {
@@ -55,8 +55,8 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterar(id, valores)
-      .then((resultados) => res.status(200).json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .then((resultados) => res.status(204).json(resultados))
+      .catch((erros) => res.status(405).json(erros));
   });
 
   //contatos
@@ -71,8 +71,8 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterarContatos(id, valores)
-      .then((resultados) => res.status(200).json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .then((resultados) => res.status(204).json(resultados))
+      .catch((erros) => res.status(405).json(erros));
   });
 
   //endereço
@@ -87,8 +87,8 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterarContatos(id, valores)
-      .then((resultados) => res.status(200).json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .then((resultados) => res.status(204).json(resultados))
+      .catch((erros) => res.status(405).json(erros));
   });
 
   //senha

@@ -12,10 +12,11 @@ class Eventos {
 
   alterar(id, evento) {
     const sql = "UPDATE Eventos SET ? WHERE id = ?";
-    return query(sql, [id, evento]);
+    return query(sql, [evento, id]);
   }
   excluir(id) {
     const sql = "DELETE FROM Eventos WHERE id = ?";
+    console.log(sql);
     return query(sql, id);
   }
   buscaPorId(id) {
@@ -25,11 +26,6 @@ class Eventos {
   buscaPorStatus(status) {
     const sql = "SELECT * FROM Eventos WHERE status like ?";
     return query(sql, status);
-  }
-
-  buscaPorNome(id, nome) {
-    const sql = "SELECT * FROM Eventos WHERE nome like ?";
-    return query(sql, id, nome);
   }
 }
 

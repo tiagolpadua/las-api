@@ -30,10 +30,6 @@ class Eventos {
     return repositorio.buscaPorStatus(status);
   }
 
-  buscarPorNome(nome) {
-    return repositorio.buscaPorNome(nome);
-  }
-
   isDatasValidas(datas) {
     const { dataInicio, dataFim } = datas;
     return (

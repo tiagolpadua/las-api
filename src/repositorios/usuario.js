@@ -12,7 +12,7 @@ class Usuario {
 
   alterar(id, valores) {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-    return query(sql, [id, valores]);
+    return query(sql, [valores, id]);
   }
   excluir(id) {
     const sql = "DELETE FROM Usuarios WHERE id = ?";
