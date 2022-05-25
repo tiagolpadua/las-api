@@ -51,7 +51,20 @@ describe("API de Usuários", () => {
 
   test("Deve retornar sucesso quando usuário for válido", async () => {
     const resp = await request.post("/usuarios").send(novoUsuario);
-
     expect(resp.statusCode).toBe(201);
-  });
+    expect(resp.body).toEqual({
+      id: 4
+    });
+    expect(resp.body).toHaveProperty("id");
+    });
+
+    test("Deve retornar erro quando o usuário for inválido", async () => {
+      const res = await request.post("/usuarios").send({
+        urlFotoPerfil: "url inválida",
+       nome: "Renata",
+      });
+   expect(res.statusCode).toBe(406);
+   expect(res.body.error.message).toBe("Usuário inválido");
+    })
+
 });
