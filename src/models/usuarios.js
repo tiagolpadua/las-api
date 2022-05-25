@@ -6,8 +6,29 @@ class Usuarios {
     return repositorio.listar();
   }
 
-  buscarPorId(id) {
-    return repositorio.buscarPorId(id);
+  async buscarPorNome(nome) {
+    const resutados = await repositorio.buscarPorNome(nome);
+    return resutados[0];
+  }
+
+  async buscarPorId(id) {
+    const resp = await repositorio.buscarPorId(id);
+    return resp[0];
+  }
+
+  async buscarEndereco(id) {
+    const resp = await repositorio.buscarEndereco(id);
+    return resp[0];
+  }
+
+  async buscarDadosContatos(id) {
+    const resp = await repositorio.buscarDadosContatos(id);
+    return resp[0];
+  }
+
+  async buscarDadosPessoais(id) {
+    const resp = await repositorio.buscarDadosPessoais(id);
+    return resp[0];
   }
 
   async adicionar(usuario) {
@@ -29,22 +50,39 @@ class Usuarios {
     ];
 
     const erros = validacoes.filter((campo) => !campo.valido);
+    const novoUsuario = await repositorio.adicionar(usuario);
 
-    return erros.length > 0
-      ? Promise.reject(erros)
-      : repositorio.adicionar(usuario);
+    return erros.length > 0 ? Promise.reject(erros) : novoUsuario[0];
   }
 
   alterar(id, valores) {
     return repositorio.alterar(id, valores);
   }
 
-  excluir(id) {
-    return repositorio.excluir(id);
+  alterarContatos(id, telefone, celular, email) {
+    return repositorio.alterarContatos(id, telefone, celular, email);
   }
 
-  buscarPorNome(nome) {
-    return repositorio.buscarPorNome(nome);
+  alterarSenha(id, senha) {
+    return repositorio.alterarSenha(id, senha);
+  }
+
+  alterarEndereco(id, endereco) {
+    return repositorio.alterarEndereco(id, endereco);
+  }
+
+  alterarDadosPessoais(id, nomeCompleto, dataNascimento, rg, cpf) {
+    return repositorio.alterarDadosPessoais(
+      id,
+      nomeCompleto,
+      dataNascimento,
+      rg,
+      cpf
+    );
+  }
+
+  excluir(id) {
+    return repositorio.excluir(id);
   }
 
   async validarNomeUsuarioNaoUtilizado(nome) {

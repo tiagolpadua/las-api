@@ -20,6 +20,59 @@ class Valida {
   isStatusValidos(status) {
     return [AGENDADO, FINALIZADO, EM_ANDAMENTO].includes(status);
   }
+
+  objCamposAceitos(obj, listaChaves) {
+    const chaves = Object.keys(obj);
+    const camposMantidos = chaves.filter((chave) =>
+      listaChaves.includes(chave)
+    );
+    return camposMantidos.reduce((novo, chave) => {
+      novo[chave] = obj[chave];
+      return novo;
+    }, {});
+  }
+
+  postBodyUsuarios(body) {
+    const campos = [
+      "nome",
+      "urlFotoPerfil",
+      "nomeCompleto",
+      "dataNascimento",
+      "rg",
+      "cpf",
+      "cep",
+      "endereco",
+      "numero",
+      "complemento",
+      "bairro",
+      "telefone",
+      "celular",
+      "email",
+      "senha",
+      "documento",
+    ];
+    return this.objCamposAceitos(body, campos);
+  }
+
+  putBodyContatos(body) {
+    const campos = ["telefone", "celular", "email"];
+    return this.objCamposAceitos(body, campos);
+  }
+
+  putBodySenha(body) {
+    const campos = ["senha"];
+    return this.objCamposAceitos(body, campos);
+  }
+
+  putBodyEndereco(body) {
+    const campos = ["endereco"];
+    return this.objCamposAceitos(body, campos);
+  }
+
+  putBodyDadosPessoais(body) {
+    const campos = ["nomeCompleto", "dataNascimento", "rg", "cpf"];
+    return this.objCamposAceitos(body, campos);
+  }
 }
 
 module.exports = new Valida();

@@ -10,7 +10,7 @@ class Tabelas {
 
   criarUsuarios() {
     const sql =
-      "CREATE TABLE IF NOT EXISTS Usuarios(id INT AUTO_INCREMENT NOT NULL, nome varchar(100) NOT NULL, urlFotoPerfil text, UNIQUE (nome), PRIMARY KEY(id))";
+      "CREATE TABLE IF NOT EXISTS Usuarios(id INT AUTO_INCREMENT NOT NULL, nome varchar(100) NOT NULL, urlFotoPerfil text, UNIQUE (nome), nomeCompleto varchar(100), dataNascimento DATE, rg varchar(50), cpf varchar(11), cep varchar(10), endereco varchar (100), numero integer, complemento varchar (50), bairro varchar (50), telefone varchar (10), celular varchar (11), email varchar (50), senha text, documento varchar (150), PRIMARY KEY(id))";
     executaQuery(sql)
       .then(console.log("tabela Usuarios criada com sucesso"))
       .catch((erros) => console.log(erros));

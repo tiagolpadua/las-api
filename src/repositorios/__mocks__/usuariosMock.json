@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "nome": "Lilian",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/94.jpg",
+    "nomeCompleto": "Fulana de Tal",
+    "dataNascimento": "2000-01-01",
+    "rg": "123321 SSP BA",
+    "cep": "72980000",
+    "endereco": "Rua A",
+    "numero": 12,
+    "complemento": "Apartamento 12",
+    "bairro": "Zona Norte",
+    "telefone": 6233311212,
+    "celular": 92998757575,
+    "email": "foo@foo.com",
+    "senha": "123456",
+    "documento": "imagemBase64 iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+  },
+
+  {
+    "id": 2,
+    "nome": "Angelita",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/60.jpg",
+    "nomeCompleto": "Fulana de Tal",
+    "dataNascimento": "2000-01-01",
+    "rg": "123321 SSP BA",
+    "cep": "72980000",
+    "endereco": "Rua B",
+    "numero": 34,
+    "complemento": "Apartamento 12",
+    "bairro": "Zona Norte",
+    "telefone": 6233311212,
+    "celular": 92998757575,
+    "email": "foo@foo.com",
+    "senha": "123456",
+    "documento": "imagemBase64 iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+  },
+  {
+    "id": 3,
+    "nome": "Rafaela",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/60.jpg",
+    "nomeCompleto": "Fulana de Tal",
+    "dataNascimento": "2000-01-01",
+    "rg": "123321 SSP BA",
+    "cep": "72980000",
+    "endereco": "Rua C",
+    "numero": 56,
+    "complemento": "Apartamento 12",
+    "bairro": "Zona Norte",
+    "telefone": 6233311212,
+    "celular": 92998757575,
+    "email": "foo@foo.com",
+    "senha": "123456",
+    "documento": "imagemBase64 iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+  }
+]

@@ -29,16 +29,13 @@ class EventosRepositorio {
     return Promise.resolve([evento]);
   }
 
-  alterar(id, valores) {
-    const evento = eventosMock.find((evento) => evento.id === id);
-    const eventoAlterado = Object.assign({ ...evento }, valores);
-    return Promise.resolve([eventoAlterado]);
+  alterar() {
+    return Promise.resolve([]);
   }
 
-  // excluir(id) {
-  //   const sql = "DELETE FROM Eventos WHERE id = ?";
-  //   return executaQuery(sql, id);
-  // }
+  excluir() {
+    return Promise.resolve([]);
+  }
 }
 
 module.exports = new EventosRepositorio();
