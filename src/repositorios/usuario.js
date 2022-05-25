@@ -32,6 +32,11 @@ class Usuario {
     return query(sql, "%" + nome + "%");
   }
 
+  async vericaNomeUsuario(nome) {
+    const sql = "SELECT * FROM Usuarios WHERE nome = ?";
+    return query(sql, nome);
+  }
+
   //Dados pessoais
 
   atualizarDadosPessoais(id, dadosPessoais) {

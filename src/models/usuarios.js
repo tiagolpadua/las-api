@@ -1,6 +1,7 @@
 const pool = require("../infraestrutura/database/conexao");
-const fetch = require("node-fetch");
+const { vericaNomeUsuario } = require("../repositorios/usuario");
 const repositorio = require("../repositorios/usuario");
+const validarURL = require("../validators/validators");
 
 class Usuarios {
   listar() {
@@ -13,8 +14,7 @@ class Usuarios {
 
   async adicionar(usuario) {
     const nomeEhValido =
-      usuario.nome.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+      usuario.nome.length > 0 && (await this.usuarioNaoExiste(usuario.nome));
 
     const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
 
@@ -54,39 +54,16 @@ class Usuarios {
   }
 
   async validarURLFotoPerfil(url) {
-    try {
-      const regex =
-        /https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/gm;
-      const verificaUrl = url.match(regex);
-      if (!verificaUrl) {
-        return false;
-      }
-      const response = await fetch(url);
-      if (response.status !== 200) {
-        return false;
-      } else {
-        return true;
-      }
-    } catch {
-      return false;
-    }
+    return validarURL(url);
   }
 
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
+  async usuarioNaoExiste(nome) {
+    const usuarios = await repositorio.vericaNomeUsuario(nome);
+    if (usuarios.length > 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   //Dados pessoais

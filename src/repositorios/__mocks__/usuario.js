@@ -7,10 +7,20 @@ class Usuario {
   buscarPorIdUsuario(id) {
     return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
   }
-  // adicionaUsuario(usuario) {
-  //   const sql = "INSERT INTO Usuarios SET ?";
-  //   return query(sql, usuario);
-  // }
+  adicionaUsuario(usuario) {
+    if (usuario) {
+      return Promise.resolve({ id: 2 });
+    } else {
+      return Promise.reject();
+    }
+  }
+
+  async vericaNomeUsuario(nome) {
+    return Promise.resolve(
+      usuariosMock.filter((usuario) => usuario.nome === nome)
+    );
+  }
+
   // alterarUsuario(id, valores) {
   //   const sql = "UPDATE Usuarios SET ? WHERE id = ?";
   //   return query(sql, [valores, id]);

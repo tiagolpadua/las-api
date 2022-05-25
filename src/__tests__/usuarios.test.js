@@ -5,6 +5,12 @@ const request = supertest(customExpress());
 
 jest.mock("../repositorios/usuario");
 
+const novoUsuario = {
+  id: 4,
+  nome: "Júlia",
+  urlFotoPerfil: "https://randomuser.me/api/portraits/women/35.jpg",
+};
+
 describe("API de Usuários", () => {
   test("Listar usuários", async () => {
     const resp = await request.get("/usuarios");
@@ -41,5 +47,11 @@ describe("API de Usuários", () => {
   test("Buscar usuário por um id inexistente", async () => {
     const resp = await request.get("/usuarios/9999");
     expect(resp.statusCode).toBe(404);
+  });
+
+  test("Deve retornar sucesso quando usuário for válido", async () => {
+    const resp = await request.post("/usuarios").send(novoUsuario);
+
+    expect(resp.statusCode).toBe(201);
   });
 });
