@@ -34,11 +34,11 @@ class Eventos {
   buscaPorStatus(status) {
     switch (status) {
       case STATUS_AGENDADO:
-        return repositorio.buscarEventosAgendado(status);
+        return repositorio.buscarEventosAgendado();
       case STATUS_EM_ANDAMENTO:
-        return repositorio.buscarEventosEmAndamento(status);
+        return repositorio.buscarEventosEmAndamento();
       case STATUS_FINALIZADO:
-        return repositorio.buscarEventosFinalizado(status);
+        return repositorio.buscarEventosFinalizado();
       default:
         return new Promise((resolve, reject) =>
           reject({ erro: `O Status ${status} não é válido` })
