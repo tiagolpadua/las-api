@@ -177,7 +177,9 @@ describe("API de Usuários", () => {
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual([]);
   });
+});
 
+describe("API de Dados Pessoais", () => {
   test("Buscar Dados Pessoais do Usuários com Id Existente", async () => {
     const resp = await request.get("/usuarios/2/dados-pessoais");
     const dadosPessoaisUsuario = {
@@ -211,5 +213,89 @@ describe("API de Usuários", () => {
 
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual(dadosPessoaisUsuario);
+  });
+});
+
+describe("API de Contatos", () => {
+  test("Buscar Contatos do Usuários com Id Existente", async () => {
+    const resp = await request.get("/usuarios/1/contatos");
+    const contatosUsuario = {
+      telefone: "99999999",
+      celular: "999999999",
+      email: "m@m.com.br",
+    };
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual(contatosUsuario);
+  });
+
+  test("Buscar Contatos do Usuários com Id Inexistente", async () => {
+    const resp = await request.get("/usuarios/99/contatos");
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual([]);
+  });
+
+  test("Atualizar Contatos de um Usuário com Id Existente", async () => {
+    const contatosUsuario = {
+      telefone: "99999999",
+      celular: "999999999",
+      email: "m@m.com",
+    };
+    const resp = await request
+      .put("/usuarios/2/contatos")
+      .send(contatosUsuario);
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual(contatosUsuario);
+  });
+});
+
+describe("API de Senhas", () => {
+  test("Atualizar Senha de um Usuário com Id Existente", async () => {
+    const senhaUsuario = {
+      senha: "admin",
+    };
+    const resp = await request.put("/usuarios/1/senha").send(senhaUsuario);
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual(senhaUsuario);
+  });
+});
+
+describe("API de Endereços", () => {
+  test("Buscar Endereço do Usuários com Id Existente", async () => {
+    const resp = await request.get("/usuarios/1/endereco");
+    const enderecoUsuario = {
+      cep: "99999999",
+      endereco: "rua r",
+      numero: 9,
+      bairro: "b",
+      complemento: "nenhum",
+    };
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual(enderecoUsuario);
+  });
+
+  test("Buscar Endereço do Usuários com Id Inexistente", async () => {
+    const resp = await request.get("/usuarios/99/endereco");
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual([]);
+  });
+
+  test("Atualizar Endereço de um Usuário com Id Existente", async () => {
+    const contatosUsuario = {
+      telefone: "99999999",
+      celular: "999999999",
+      email: "m@m.com",
+    };
+    const resp = await request
+      .put("/usuarios/2/endereco")
+      .send(contatosUsuario);
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual(contatosUsuario);
   });
 });
