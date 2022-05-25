@@ -12,7 +12,7 @@ module.exports = (app) => {
 
     Eventos.buscaPorId(id)
       .then((resultados) => res.json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.get("/eventos/status/:status", (req, res) => {
@@ -20,13 +20,15 @@ module.exports = (app) => {
 
     Eventos.buscaPorStatus(status)
       .then((resultados) => res.json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.post("/eventos", (req, res) => {
     const evento = req.body;
     Eventos.adicionar(evento)
-      .then((resultados) => res.json({ id: resultados.insertId, ...evento }))
+      .then((resultados) =>
+        res.status(201).json({ id: resultados.insertId, ...evento })
+      )
       .catch((erros) => res.status(400).json(erros));
   });
 
@@ -35,13 +37,13 @@ module.exports = (app) => {
     const valores = req.body;
     Eventos.alterar(id, valores)
       .then(() => res.json({ id, ...valores }))
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.delete("/eventos/:id", (req, res) => {
     const id = parseInt(req.params.id);
     Eventos.excluir(id)
-      .then(() => res.json({ id }))
-      .catch((erros) => res.status(400).json(erros));
+      .then(() => res.status(204).end())
+      .catch((erros) => res.status(404).json(erros));
   });
 };
