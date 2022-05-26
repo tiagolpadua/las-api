@@ -205,14 +205,30 @@ describe("API de Dados Pessoais", () => {
       nomeCompleto: "Mauricio Menezes",
       dataNascimento: "1995-07-30",
       rg: "9999999999",
+      cpf: "03402143410",
+    };
+    const dadosPessoaisCpfInvalido = {
+      nomeCompleto: "Mauricio Menezes",
+      dataNascimento: "1995-07-30",
+      rg: "9999999999",
       cpf: "99999999999",
     };
-    const resp = await request
+    const resp01 = await request
       .put("/usuarios/2/dados-pessoais")
       .send(dadosPessoaisUsuario);
+    const resp02 = await request
+      .put("/usuarios/2/dados-pessoais")
+      .send(dadosPessoaisCpfInvalido);
 
-    expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual(dadosPessoaisUsuario);
+    expect(resp01.statusCode).toBe(200);
+    expect(resp01.body).toEqual(dadosPessoaisUsuario);
+
+    expect(resp02.statusCode).toBe(404);
+    expect(resp02.body).toEqual({
+      mensagem: "CPF informado deve ser válido",
+      nome: "cpf",
+      valido: false,
+    });
   });
 });
 
