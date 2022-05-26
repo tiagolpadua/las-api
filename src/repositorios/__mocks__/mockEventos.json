@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "nome": "evento1",
+    "descricao": "primeiro evento",
+    "urlFoto": null,
+    "dataInicio": "24/05/2022",
+    "dataFim": "225/05/2022",
+    "status": null
+  },
+  {
+    "id": 2,
+    "nome": "evento2",
+    "descricao": "segundo evento",
+    "urlFoto": null,
+    "dataInicio": "22/05/2022",
+    "dataFim": "23/05/2022",
+    "status": null
+  },
+  {
+    "id": 3,
+    "nome": "lucas lucas",
+    "descricao": "5252525252",
+    "urlFoto": null,
+    "dataInicio": "22/05/2022",
+    "dataFim": "23/05/2022",
+    "status": null
+  }
+]

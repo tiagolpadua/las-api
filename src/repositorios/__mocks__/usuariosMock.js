@@ -5,7 +5,7 @@ class Usuario {
     return Promise.resolve(usuariosMock);
   }
   adicionar(usuario) {
-    return Promise.resolve(usuario && { insertId: 99 });
+    return Promise.resolve(usuario && { insertId: 3 });
   }
 
   isNomeUsuarioUtilizado(nome) {

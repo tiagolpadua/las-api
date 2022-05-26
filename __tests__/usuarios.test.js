@@ -76,21 +76,10 @@ describe("API de Usuários", () => {
     const res = await request.get("/usuarios/3");
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual([
-      { id: 1, nome: "lucas", urlFotoPerfil: null },
       {
         id: 3,
         nome: "nomee",
         urlFotoPerfil: "https://randomuser.me/api/portraits/men/91.jpg",
-      },
-      {
-        id: 4,
-        nome: "marcos",
-        urlFotoPerfil: "https://randomuser.me/api/portraits/women/55.jpg",
-      },
-      {
-        id: 5,
-        nome: "m",
-        urlFotoPerfil: "https://randomuser.me/api/portraits/women/55.jpg",
       },
     ]);
   });
