@@ -125,9 +125,4 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-# garbage directory
-
-
-
-
+test-report.xml
