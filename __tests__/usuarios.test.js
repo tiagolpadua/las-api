@@ -243,11 +243,22 @@ describe("API de Usuarios", () => {
   );
   });
 
-  /*test("Alterar Dados pessoais do Usuario",async () => {
-    const resp = await request.put("/usuarios/2/dados-pessoais");
+  test("Alterar Dados pessoais do Usuario",async () => {
+    const resp = await request.put("/usuarios/2/dados-pessoais").send({
+      "nomeCompleto": "Maiure Brito15",
+      "rg": "1357174500",
+      "cpf": "07828625510",
+      "dataNascimento": "05101999"}
+    );
     expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual();
-  });*/
+    expect(resp.body).toEqual({
+      "id": 2,
+      "nomeCompleto": "Maiure Brito15",
+      "rg": "1357174500",
+      "cpf": "07828625510",
+      "dataNascimento": "05101999"
+  });
+  });
 
   test("Listar Contatos do Usuario",async () => {
     const resp = await request.get("/usuarios/1/contatos");
@@ -262,17 +273,33 @@ describe("API de Usuarios", () => {
   );
   });
 
-  /*test("Alterar Contatos do Usuario",async () => {
-    const resp = await request.put("/usuarios/2/contatos");
+  test("Alterar Contatos do Usuario",async () => {
+    const resp = await request.put("/usuarios/2/contatos").send({
+      "telefone": "7132121422",
+      "celular": "71999663589",
+      "email": "etsvaldo@gmail.com"
+    });
     expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual();
-  });*/
+    expect(resp.body).toEqual(
+      {
+        "id":2,
+        "telefone": "7132121422",
+        "celular": "71999663589",
+        "email": "etsvaldo@gmail.com"
+      }
+  );
+  });
 
-  /*test("Alterar Senha do Usuario",async () => {
-    const resp = await request.put("/usuarios/2/senha");
+  test("Alterar Senha do Usuario",async () => {
+    const resp = await request.put("/usuarios/2/senha").send({
+    "senha": "321"
+    });
     expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual();
-  });*/
+    expect(resp.body).toEqual({
+      "id": 2,
+      "senha": "321"
+    });
+  });
 
   test("Listar Endereco do Usuario",async () => {
     const resp = await request.get("/usuarios/1/endereco");
@@ -289,11 +316,22 @@ describe("API de Usuarios", () => {
   );
   });
 
-  /*test("Alterar Endereco do Usuario",async () => {
-    const resp = await request.put("/usuarios/2/endereco");
+  test("Alterar Endereco do Usuario",async () => {
+    const resp = await request.put("/usuarios/2/endereco").send({
+      "cep": "43700000",
+      "endereco": "rua dois de julho",
+      "numero": 256,
+      "complemento": "",
+      "bairro": "cia 30"
+    });
     expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual();
+    expect(resp.body).toEqual({
+      "id":2,
+      "cep": "43700000",
+      "endereco": "rua dois de julho",
+      "numero": 256,
+      "complemento": "",
+      "bairro": "cia 30"
+    });
   });
-*/
-
 });

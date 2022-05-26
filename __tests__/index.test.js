@@ -7,7 +7,7 @@ describe("Pagina inicial", () => {
   test("URL base",async () => {
     const resp = await request.get("/");
     expect(resp.statusCode).toBe(200);
-    expect(resp.text).toBe("Curso da ALURA");
+    expect(resp.text).toBe("Bem-Vindo ao LAS-API");
   });
 
 });

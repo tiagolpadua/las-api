@@ -42,12 +42,10 @@ class Usuario {
         return Promise.resolve(usuarioSelecionado);
     }
     
-/*
     //ok
     alterarDadosPessoais(id, valores){
-        const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-        return query(sql,[valores,id]);
-    }*/
+        return Promise.resolve(usuariosMock && [valores,id]);
+    }
 
     //ok
     listarContatos(id){
@@ -56,19 +54,17 @@ class Usuario {
         const usuarioSelecionado= (usuarios.find((usuario) => usuario.id === id));
         return Promise.resolve(usuarioSelecionado);
     }
-/*
+
     //ok
     alterarContatos(id, valores){
-        const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-        return query(sql,[valores,id]);
+        return Promise.resolve(usuariosMock && [valores,id]);
     }
 
     //ok
     alterarSenha(id, valores){
-        const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-        return query(sql,[valores,id]);
+        return Promise.resolve(usuariosMock && [valores,id]);
     }
-*/
+
     //ok
     listarEndereco(id){
         // eslint-disable-next-line no-unused-vars
@@ -76,12 +72,11 @@ class Usuario {
         const usuarioSelecionado= (usuarios.find((usuario) => usuario.id === id));
         return Promise.resolve(usuarioSelecionado);
     }
-/*
+
     //ok
     alterarEndereco(id, valores){
-        const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-        return query(sql,[valores,id]);
-    } */
+        return Promise.resolve(usuariosMock && [valores,id]);
+    } 
 
     isNomeUsuarioUtilizado(nome) {
         return Promise.resolve(!!usuariosMock.find((usuario) => usuario.nomeCompleto === nome));

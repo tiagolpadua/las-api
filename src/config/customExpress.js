@@ -10,7 +10,7 @@ module.exports = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  app.get("/",(req, res) => res.send("Curso da ALURA"));
+  app.get("/",(req, res) => res.send("Bem-Vindo ao LAS-API"));
 
   consign().include("src/controllers").into(app);
 

@@ -60,7 +60,6 @@ class Usuarios {
   //ok
   excluir(id, res) {
     if(repositorio.buscarPorId(id)){
-      console.log(repositorio.buscarPorId(id));
       return repositorio.excluir(id, res);
     }else{
       return false;
