@@ -1,16 +1,16 @@
 const repositorio = require("../repositorios/tiposVendas");
 
 
-class TiposVendas{
-    listar(){
+class TiposVendas {
+    listar() {
         return repositorio.listar();
     }
-    buscarPorId(id) {   
-        return repositorio.buscarPorId(id)
-        .then(resultados => resultados[0]);
+    buscarPorId(id) {
+        return repositorio.buscarPorId(id);
     }
-    adicionar(tipoVenda){
-        return repositorio.adicionar(tipoVenda);
+    async adicionar(tipoVenda) {
+        const resp = await repositorio.adicionar(tipoVenda);
+        return { id: resp.insertId, ...tipoVenda };
     }
     alterar(valores, id) {
         return repositorio.alterar(valores, id);

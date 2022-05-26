@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "nome": "Leonardo",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/71.jpg"
+  },
+  {
+    "id": 2,
+    "nome": "Pedro",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/71.jpg"
+  },
+  {
+    "id": 3,
+    "nome": "João Paulo",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/71.jpg"
+  }
+]

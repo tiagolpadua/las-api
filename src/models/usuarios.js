@@ -1,4 +1,3 @@
-const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 
@@ -7,17 +6,22 @@ class Usuarios {
     return repositorio.listar();
   }
 
-  buscarPorId(id) {   
-    return repositorio.buscarPorId(id)
-    .then(resultados => resultados[0]);
+  buscarPorId(id) {
+    return repositorio.buscarPorId(id);
   }
 
   async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nome.length > 4 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
 
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    let nomeEhValido = false;
+
+    if (usuario?.nome?.length > 4) {
+      const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(usuario.nome);
+
+      if (!nomeJaUtilizado)
+        nomeEhValido = true;
+    }
+
+    const urlEhValida = await this.validarURLFotoPerfil(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -36,9 +40,10 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      throw erros;
+      throw { erroApp: erros };
     } else {
-      return repositorio.adicionar(usuario);
+      const resp = await repositorio.adicionar(usuario);
+      return { id: resp.insertId, ...usuario };
     }
   }
 
@@ -49,9 +54,29 @@ class Usuarios {
   excluir(id) {
     return repositorio.excluir(id);
   }
-
   buscarPorNome(nome) {
     return repositorio.buscarPorNome(nome);
+  }
+  buscarDadosPessoais(id) {
+    return repositorio.buscarDadosPessoais(id);
+  }
+  buscarContatos(id) {
+    return repositorio.buscarContatos(id);
+  }
+  buscarEndereco(id) {
+    return repositorio.buscarEndereco(id);
+  }
+  alterarDadosPessoais(valores, id) {
+    return repositorio.alterarDadosPessoais(valores, id);
+  }
+  alterarContatos(valores, id) {
+    return repositorio.alterarContatos(valores, id);
+  }
+  alterarEndereco(valores, id) {
+    return repositorio.alterarEndereco(valores, id);
+  }
+  alterarSenha(valores, id) {
+    return repositorio.alterarSenha(valores, id);
   }
 
   async validarURLFotoPerfil(url) {
@@ -71,23 +96,6 @@ class Usuarios {
     } catch {
       return false;
     }
-  }
-
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
   }
 }
 

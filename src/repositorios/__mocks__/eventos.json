@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "nome": "Sao Joao 2022",
+    "descricao": "Sao Joao da cidade de Pojuca do ano de 2022",
+    "urlFoto": "https://blog.gazinatacado.com.br/wp-content/uploads/2016/06/como-preparar-a-loja-para-festas-juninas.png",
+    "dataInicio": "2022-06-22T03:00:00.000Z",
+    "dataFim": "2022-06-25T03:00:00.000Z",
+    "status": "agendado"
+  },
+  {
+    "id": 2,
+    "nome": "Carnaval 2022",
+    "descricao": "Carnaval de Salvador do ano de 2022",
+    "urlFoto": "https://blog.gazinatacado.com.br/wp-content/uploads/2016/06/como-preparar-a-loja-para-festas-juninas.png",
+    "dataInicio": "2022-06-22T03:00:00.000Z",
+    "dataFim": "2022-06-25T03:00:00.000Z",
+    "status": "agendado"
+  }
+]

@@ -2,23 +2,23 @@ const query = require("../infraestrutura/database/queries");
 const moment = require("moment");
 
 class Eventos {
-    listar(){
+    listar() {
         const sql = "SELECT * FROM Eventos";
         return query(sql);
     }
-    buscarPorId(id) {
+    buscarPorIdEvento(id) {
         const sql = "SELECT * FROM Eventos WHERE id = ?";
         return query(sql, id);
     }
-    adicionar(evento){
+    adicionar(evento) {
         const sql = "INSERT INTO Eventos SET ?";
         return query(sql, evento);
     }
-    alterar(valores, id){
+    alterar(valores, id) {
         const sql = "UPDATE Eventos SET ? WHERE id = ?";
         return query(sql, [valores, id]);
     }
-    excluir(id){
+    excluir(id) {
         const sql = "DELETE FROM Eventos WHERE id = ?";
         return query(sql, id);
     }
@@ -27,16 +27,16 @@ class Eventos {
         const sql = "SELECT * FROM eventos WHERE dataInicio >= ?";
         return query(sql, dataHoje);
     }
-    
+
     statusEmAndamento() {
         const dataHoje = {
-          inicio: moment().startOf("day").format("YYYY-MM-DD"),
-          fim: moment().endOf("day").format("YYYY-MM-DD"),
+            inicio: moment().startOf("day").format("YYYY-MM-DD"),
+            fim: moment().endOf("day").format("YYYY-MM-DD"),
         };
         const sql = "SELECT * FROM eventos WHERE dataInicio <= ? AND dataFim >= ?";
         return query(sql, [dataHoje.inicio, dataHoje.fim]);
     }
-    
+
     statusFinalizado() {
         const dataHoje = moment().format("YYYY-MM-DD");
         const sql = "SELECT * FROM eventos WHERE dataFim < ?";
