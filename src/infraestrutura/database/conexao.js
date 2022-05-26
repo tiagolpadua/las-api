@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 const DBHOST = process.env.DBHOST;
 const DBPORT = process.env.DBPORT;
