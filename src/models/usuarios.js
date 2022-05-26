@@ -34,7 +34,7 @@ class Usuarios {
       {
         nome: "urlFotoPerfil",
         valido: urlEhValida,
-        mensagem: "URL deve uma URL válida",
+        mensagem: "URL deve ser válida",
       },
     ];
 
