@@ -8,8 +8,9 @@ class Evento {
   }
 
   buscaEventoId(retornoId) {
+    if (!retornoId) return Promise.reject("Id inválido");
     return Promise.resolve(
-      MOCKS_EVENTOS.filter((evento) => evento.id === retornoId)
+      MOCKS_EVENTOS.filter((evento) => evento?.id === retornoId)
     );
   }
 

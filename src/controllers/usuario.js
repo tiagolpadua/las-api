@@ -1,45 +1,5 @@
 const Usuarios = require("../models/usuarios");
 
-/*
-
-
-
-  -----------------------------------------------------------
-
-  app.get("/usuarios", (req, res, next) => {
-    Usuarios.listar()
-      .then((resultados) => res.json(resultados))
-      .catch((erros) => next(erros));
-  });
-
-  app.get("/usuarios/:id", (req, res, next) => {
-    const id = parseInt(req.params.id);
-    Usuarios.buscarPorId(id, res, next);
-  });
-
-  app.post("/usuarios", (req, res, next) => {
-    const usuarios = req.body;
-    Usuarios.adicionar(usuarios, res, next);
-  });
-
-  app.put("/usuarios/:id", (req, res, next) => {
-    const id = parseInt(req.params.id);
-    const valores = req.body;
-    Usuarios.alterar(id, valores, res, next);
-  });
-
-  app.delete("/usuarios/:id", (req, res, next) => {
-    const id = parseInt(req.params.id);
-    Usuarios.excluir(id, res, next);
-  });
-
-  app.get("/usuarios/nome/:nome", (req, res, next) => {
-    const nome = req.params.nome;
-    Usuarios.buscarPorNome(nome, res, next);
-  });
-
-*/
-
 module.exports = (app) => {
   app.get("/usuarios", (_req, res) => {
     Usuarios.listarUsuarios()
@@ -72,9 +32,8 @@ module.exports = (app) => {
           ? res.status(404).json("Usuário não encontrado")
           : res.status(200).json({ ...results[0] })
       )
-      .catch((erro) => {
+      .catch(() => {
         res.status(400).json("Id inválido fornecido");
-        return erro;
       });
   });
 

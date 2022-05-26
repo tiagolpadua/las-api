@@ -59,7 +59,7 @@ class Evento {
   buscaEventoId(retornoForm) {
     return repositorio
       .buscaEventoId(retornoForm)
-      .then((resultado) => funcoesValidacoes.insereStatus(resultado[0]));
+      .then((resultado) => funcoesValidacoes.insereStatus(resultado));
   }
 
   buscaEventoPeloStatus(retornoForm) {

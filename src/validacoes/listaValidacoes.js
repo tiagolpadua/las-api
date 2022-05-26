@@ -84,4 +84,14 @@ module.exports = [
   },
 
   // fim Validacoes Dados Pessoais
+
+  // Validacoes UFs
+
+  {
+    nome: "isUFvalid",
+    valido: validacoes.validaUF,
+    mensagem: "Digite uma UF válida",
+  },
+
+  // fim Validacoes UFs
 ];

@@ -38,18 +38,14 @@ class Validacao {
         retornoForm
       );
 
-    if (existeUsuarioPUT[0]?.nome === retornoForm.trim()) return false;
-
-    return true;
+    return !(existeUsuarioPUT[0]?.nome === retornoForm.trim());
   }
 
   async validaSeNomeFoiUtilizado(retornoForm) {
     const existeUsuario =
       await repositorioUsuario.validarNomeUsuarioNaoUtilizado(retornoForm);
 
-    if (existeUsuario[0]?.nome === retornoForm?.trim()) return false;
-
-    return true;
+    return !(existeUsuario[0]?.nome === retornoForm?.trim());
   }
 
   // fim validacao usuarios
@@ -60,9 +56,7 @@ class Validacao {
     const existeUsuario =
       await repositorioTipoVenda.validarNomeVendasNaoUtilizado(retornoForm);
 
-    if (existeUsuario[0]?.descricao === retornoForm.trim()) return false;
-
-    return true;
+    return !(existeUsuario[0]?.descricao === retornoForm.trim());
   }
 
   // fim validacao Tipo vendas
@@ -74,29 +68,23 @@ class Validacao {
       retornoForm
     );
 
-    console.log("VALIDASENOMEAQUI", existeEvento, retornoForm);
-    if (existeEvento[0]?.nome === retornoForm?.trim()) return false;
-
-    return true;
+    return !(existeEvento[0]?.nome === retornoForm?.trim());
   }
 
   async validarNomeEventoNaoUtilizadoPUT({ id, retornoForm }) {
     const existeEvento =
       await repositorioEventos.validaNomeEventoNaoUtilizadoPUT(id, retornoForm);
 
-    if (existeEvento[0]?.nome === retornoForm.trim()) return false;
-
-    return true;
+    return !(existeEvento[0]?.nome === retornoForm.trim());
   }
 
   isDatasValidas({ dataInicio, dataFim }) {
     const currentDate = moment().format("YYYY-MM-DD");
 
-    const validEvent =
+    return (
       moment(currentDate).isSameOrBefore(dataInicio) &&
-      moment(dataInicio).isSameOrBefore(dataFim);
-
-    return validEvent;
+      moment(dataInicio).isSameOrBefore(dataFim)
+    );
   }
 
   insereStatus(evento) {
@@ -134,6 +122,44 @@ class Validacao {
   }
 
   // fim Validacoes Dados Pessoais
+
+  // validação UF
+
+  validaUF(UF) {
+    const UFs = [
+      "AC",
+      "AL",
+      "AP",
+      "AM",
+      "BA",
+      "CE",
+      "DF",
+      "ES",
+      "GO",
+      "MA",
+      "MT",
+      "MS",
+      "MG",
+      "PA",
+      "PB",
+      "PR",
+      "PE",
+      "PI",
+      "RJ",
+      "RN",
+      "RS",
+      "RO",
+      "RR",
+      "SC",
+      "SP",
+      "SE",
+      "TO",
+    ];
+
+    return UFs.includes(UF);
+  }
+
+  // fim validação UF
 
   async valida(parametros) {
     const validacoesComResultado = await Promise.all(

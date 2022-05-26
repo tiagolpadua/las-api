@@ -12,7 +12,6 @@ module.exports = (app) => {
 
     Evento.incluirEvento(retornoForm)
       .then((resultados) => {
-        console.log("RESULTADOS", resultados);
         res.status(201).json({
           id: resultados.insertId,
           descrição: "Evento incluído com sucesso",
@@ -26,18 +25,18 @@ module.exports = (app) => {
 
     Evento.buscaEventoId(id)
       .then((results) => {
-        console.log(results);
-        if (!Object.keys(results)) {
+        if (Object.keys(results).length === 1) {
           res.status(404).json("Evento não encontrado");
         } else {
           res.status(200).json({
-            ...results,
+            ...results[0],
+            status: results.status,
           });
         }
       })
       .catch((erro) => {
+        console.log("BUSCA EVENTO", erro);
         res.status(400).json("Id inválido fornecido");
-        return erro.code;
       });
   });
 
@@ -45,13 +44,7 @@ module.exports = (app) => {
     const status = req.params.status;
 
     Evento.buscaEventoPeloStatus(status)
-      .then((results) => {
-        if (!results.length) {
-          res.status(404).json("Status não encontrado");
-        } else {
-          res.status(200).json(results);
-        }
-      })
+      .then((results) => res.status(200).json(results))
       .catch((erro) => {
         res.status(400).json("Status inválido fornecido");
         return erro;

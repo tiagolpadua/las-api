@@ -17,7 +17,7 @@ describe("Testa API GET", () => {
   });
 });
 
-describe("Testa API GET por Sigla válida", () => {
+describe("Testa API GET UF", () => {
   test("API URF", async () => {
     const sigla = "BA";
     const municipiosPorSigla = municipios
@@ -27,5 +27,23 @@ describe("Testa API GET por Sigla válida", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(municipiosPorSigla);
+  });
+
+  test("API URF inválida", async () => {
+    const sigla = "BAT";
+
+    const response = await rotas.get(`/ufs/${sigla}/municipios`);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual({
+      erro: [
+        {
+          nome: "isUFvalid",
+          mensagem: "Digite uma UF válida",
+          resultado: true,
+        },
+      ],
+      status: "Id inválido fornecido",
+    });
   });
 });

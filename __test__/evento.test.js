@@ -57,10 +57,10 @@ describe("Testa API EVENTOS GET", () => {
 
   test("Retorna Eventos por ID inexistente", async () => {
     const id = "99999";
-    const retorno = "Id inválido fornecido";
+    const retorno = "Evento não encontrado";
 
     const response = await rotas.get(`/eventos/${id}`);
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(404);
     expect(response.body).toEqual(retorno);
   });
 
@@ -147,7 +147,7 @@ describe("Testa API EVENTOS POST", () => {
       nome: "Ensaio Ilê",
       descricao: "festa popular nos bairros",
       urlFoto: "https://randomuser.me/api/portraits/men/44.jpg",
-      dataInicio: "25-05-2022",
+      dataInicio: "02-05-2023",
       dataFim: "12-05-2023",
     });
 
@@ -203,7 +203,7 @@ describe("Testa API EVENTOS PUT", () => {
       nome: "Ensaio Ilê",
       descricao: "festa popular nos bairros",
       urlFoto: "https://randomuser.me/api/portraits/men/44.jpg",
-      dataInicio: "25-05-2022",
+      dataInicio: "05-05-2023",
       dataFim: "12-05-2023",
     });
 
