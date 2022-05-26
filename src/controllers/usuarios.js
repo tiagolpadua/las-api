@@ -18,7 +18,12 @@ module.exports = (app) => {
     const usuario = req.body;
     Usuarios.adicionar(usuario)
       .then((resultados) => res.status(201).json({ id: resultados.insertId }))
-      .catch((erros) => next(erros));
+      .catch((erros) => {
+        if (erros.find((error) => !error.valido)) {
+          res.status(406).send({ error: { message: "Usuário inválido" } });
+        }
+        next(erros);
+      });
   });
 
   app.put("/usuarios/:id", (req, res, next) => {

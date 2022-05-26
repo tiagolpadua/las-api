@@ -9,7 +9,7 @@ class Usuario {
   }
   adicionaUsuario(usuario) {
     if (usuario) {
-      return Promise.resolve({ id: 2 });
+      return Promise.resolve({ insertId: 2 });
     } else {
       return Promise.reject();
     }

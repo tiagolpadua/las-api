@@ -1,5 +1,3 @@
-const pool = require("../infraestrutura/database/conexao");
-const { vericaNomeUsuario } = require("../repositorios/usuario");
 const repositorio = require("../repositorios/usuario");
 const validarURL = require("../validators/validators");
 
