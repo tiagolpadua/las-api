@@ -5,6 +5,7 @@ class Tabelas {
     this.criarUsuarios();
     this.criarTiposVendas();
     this.criarEventos();
+    this.criarUFs();
   }
 
   criarUsuarios() {
@@ -41,7 +42,7 @@ class Tabelas {
       }
     });
   }
-  
+
   criarEventos() {
     const sql =
       "CREATE TABLE IF NOT EXISTS Eventos(id INT AUTO_INCREMENT NOT NULL, nome varchar(100) NOT NULL,       descricao varchar(100) NOT NULL, urlFoto text, dataInicio varchar(50) NOT NULL, dataFim varchar(50) NOT NULL, status enum('agendado', 'em-andamento', 'finalizado'), PRIMARY KEY(id))";
@@ -64,6 +65,19 @@ class Tabelas {
         console.log(erro);
       } else {
         console.log("Tabela TiposVendas criada com sucesso");
+      }
+    });
+  }
+
+  criarUFs() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS UFs (id INT AUTO_INCREMENT NOT NULL, cidade varchar(100) NOT NULL, sigla varchar(2) NOT NULL, estado varchar(50) NOT NULL, PRIMARY KEY(id))";
+
+    this.pool.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela UFs criada com sucesso");
       }
     });
   }

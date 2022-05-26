@@ -13,21 +13,20 @@ class Usuario {
       !!usuariosMock.find((usuario) => usuario.nome === nome)
     );
   }
-  // alterar(id, valores) {
-  //   const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-  //   return query(sql, [valores, id]);
-  // }
-  // excluir(id) {
-  //   const sql = "DELETE FROM Usuarios WHERE id = ?";
-  //   return query(sql, id);
-  // }
+  alterar(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id == id));
+  }
+  excluir(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id == id));
+  }
   buscaPorId(id) {
     return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
   }
-  // buscaPorNome(id, nome) {
-  //   const sql = "SELECT * FROM Usuarios WHERE nome like ?";
-  //   return query(sql, nome);
-  // }
+  buscaPorNome(nome) {
+    return Promise.resolve(
+      usuariosMock.find((usuario) => usuario.nome === nome)
+    );
+  }
 
   // //dados-pessoais
   // listaDadosPessoais(id) {

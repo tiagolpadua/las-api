@@ -19,9 +19,9 @@ module.exports = () => {
     if (err.erroApp) {
       res.status(400).send(err.erroApp);
     } else if (ENV !== "production") {
-      res.status(500).send({error: err});
-    }else{
-      res.status(500).send({error: "Algo deu errado..."});
+      res.status(500).send({ Error: err });
+    } else {
+      res.status(500).send({ error: "Algo deu errado..." });
     }
   });
 

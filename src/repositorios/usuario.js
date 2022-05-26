@@ -19,11 +19,11 @@ class Usuario {
     return query(sql, id);
   }
   buscaPorId(id) {
-    const sql = "SELECT * FROM Usuarios WHERE id = ?";
+    const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE id = ?";
     return query(sql, id);
   }
-  buscaPorNome(id, nome) {
-    const sql = "SELECT * FROM Usuarios WHERE nome like ?";
+  buscaPorNome(nome) {
+    const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE nome = ?";
     return query(sql, nome);
   }
 
