@@ -53,7 +53,7 @@ module.exports = (app) => {
     const id = req.params.usuarioId;
     Usuarios.buscarDadosPessoais(id)
       .then((resultado) => res.json(resultado))
-      .catch((erros) => res.status(402).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.put("/usuarios/:usuarioId/dados-pessoais", (req, res) => {
@@ -63,7 +63,7 @@ module.exports = (app) => {
       .then((resultados) =>
         resultados ? res.json(valores) : res.status(404).end()
       )
-      .catch((erros) => res.status(402).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   // CONTATOS
@@ -72,7 +72,7 @@ module.exports = (app) => {
     const id = req.params.usuarioId;
     Usuarios.buscarContatos(id)
       .then((resultado) => res.json(resultado))
-      .catch((erros) => res.status(402).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.put("/usuarios/:usuarioId/contatos", (req, res) => {
@@ -82,7 +82,7 @@ module.exports = (app) => {
       .then((resultados) =>
         resultados ? res.json(valores) : res.status(404).end()
       )
-      .catch((erros) => res.status(402).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   // SENHA
@@ -94,7 +94,7 @@ module.exports = (app) => {
       .then((resultados) =>
         resultados ? res.json(valores) : res.status(404).end()
       )
-      .catch((erros) => res.status(402).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   // ENDEREÇO
@@ -103,7 +103,7 @@ module.exports = (app) => {
     const id = req.params.usuarioId;
     Usuarios.buscarEndereco(id)
       .then((resultado) => res.json(resultado))
-      .catch((erros) => res.status(402).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.put("/usuarios/:usuarioId/endereco", (req, res) => {
@@ -113,6 +113,6 @@ module.exports = (app) => {
       .then((resultados) =>
         resultados ? res.json(valores) : res.status(404).end()
       )
-      .catch((erros) => res.status(402).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 };
