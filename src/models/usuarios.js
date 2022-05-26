@@ -1,5 +1,6 @@
 const repositorio = require("../repositorio/usuario");
 const fetch = require("node-fetch");
+const { cpf } = require("cpf-cnpj-validator");
 
 class Usuarios {
   listar() {
@@ -41,7 +42,7 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      return Promise.reject(erros);
     }
     const resp = await repositorio.adiciona(usuario);
     return { id: resp.insertId, ...usuario };
@@ -63,8 +64,16 @@ class Usuarios {
     return repositorio.buscarDadosPessoais(id);
   }
 
-  atualizarDadosPessoais(id, valores) {
-    return repositorio.atualizarDadosPessoais(id, valores);
+  atualizarDadosPessoais(id, dadosPessoais) {
+    const cpfEhValido = this.isCPFValido(dadosPessoais.cpf);
+    if (!cpfEhValido) {
+      return Promise.reject({
+        nome: "cpf",
+        valido: cpfEhValido,
+        mensagem: "CPF informado deve ser válido",
+      });
+    }
+    return repositorio.atualizarDadosPessoais(id, dadosPessoais);
   }
 
   buscarContatos(id) {
@@ -104,6 +113,10 @@ class Usuarios {
     } catch {
       return false;
     }
+  }
+
+  isCPFValido(numCpf) {
+    return cpf.isValid(numCpf);
   }
 }
 
