@@ -2,11 +2,15 @@ const query = require("../infraestrutura/database/queries.js");
 
 class UsuarioRepositorio {
   listar() {
-    const sql = "SELECT * FROM Usuarios";
+    const sql = `SELECT 
+    nomeCompleto, urlFotoPerfil, email
+    FROM Usuarios`;
     return query(sql);
   }
   buscarPorId(id) {
-    const sql = "SELECT * FROM Usuarios WHERE id = ?";
+    const sql = `SELECT 
+    nomeCompleto, urlFotoPerfil, email
+    FROM Usuarios WHERE id = ?`;
     return query(sql, id);
   }
   adicionar(usuario) {
@@ -22,7 +26,9 @@ class UsuarioRepositorio {
     return query(sql, id);
   }
   buscarPorNome(nome) {
-    const sql = "SELECT * FROM Usuarios WHERE nome LIKE ?";
+    const sql = `SELECT
+    nomeCompleto, urlFotoPerfil, email 
+    FROM Usuarios WHERE nome LIKE ?`;
     return query(sql, nome);
   }
 
