@@ -64,6 +64,16 @@ class Usuarios {
   }
 
 
+  // contatos
+
+  listarContatos(id) {
+    return repositorio.listarContatos(id);
+  }
+
+  alterarContatos(valores, id) {
+    return repositorio.alterarContatos(valores, id);
+  }
+
   async validarURLFotoPerfil(url) {
     try {
       const regex =

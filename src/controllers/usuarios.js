@@ -64,4 +64,22 @@ module.exports = (app) => {
   });
 
 
+  // contatos
+
+  app.get("/usuarios/:id/contatos", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    Usuarios.listarContatos(id)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
+
+
+  app.put("/usuarios/:id/contatos", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuarios.alterarContatos(valores, id)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
+
 };

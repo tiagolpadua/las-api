@@ -41,6 +41,22 @@ class UsuarioRepositorio {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
     return query(sql, [valores, id]);
   }
+
+  // contatos
+
+  listarContatos(id) {
+    const sql = `SELECT 
+    telefone, celular, email
+    from Usuarios WHERE id = ?`;
+
+    return query(sql, id);
+  }
+
+  alterarContatos(valores, id) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+    return query(sql, [valores, id]);
+  }
+  
 }
 
 module.exports = new UsuarioRepositorio();
