@@ -11,17 +11,17 @@ describe("API de usuários", () => {
     expect(resp.body).toBe([
       {
         "nomeCompleto": "user1",
-        "urlFotoPerfil": "https://randomuser.me/portraits/women/75.jpg",
+        "urlFotoPerfil": "https://randomuser.me/api/portraits/women/75.jpg",
         "email": "email1"
       },
       {
         "nomeCompleto": "user2",
-        "urlFotoPerfil": "https://randomuser.me/portraits/women/74.jpg",
+        "urlFotoPerfil": "https://randomuser.me/api/portraits/women/74.jpg",
         "email": "email2"
       },
       {
         "nomeCompleto": "user3",
-        "urlFotoPerfil": "https://randomuser.me/portraits/women/90.jpg",
+        "urlFotoPerfil": "https://randomuser.me/api/portraits/women/90.jpg",
         "email": "email3"
       }
     ]);
