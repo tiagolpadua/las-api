@@ -19,8 +19,8 @@ module.exports = (app) => {
   //Refatoração - OK
   app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    Usuarios.buscaPorId(id)
-      .then((resultado) => res.json(resultado))
+    Usuarios.buscarPorId(id)
+      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).send()))
       .catch((erros) => next(erros));
   });
 

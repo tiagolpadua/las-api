@@ -8,19 +8,27 @@ class Usuarios {
   }
 
   //Refatoração - OK
-  async buscaPorId(id) {
-    const usuario = await repositorio.buscaPorId(id);
+  async buscarPorId(id) {
+    const usuario = await repositorio.buscarPorId(id);
 
     return usuario;
   }
 
   //Refatoração - OK
   async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nome.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+    let nomeEhValido = false;
 
-    const urlEhValida = await Validacoes.validarUrl(usuario.urlFotoPerfil);
+    if (usuario?.nome?.length > 0) {
+      const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
+        usuario.nome
+      );
+
+      if (!nomeJaUtilizado) {
+        nomeEhValido = true;
+      }
+    }
+
+    const urlEhValida = await Validacoes.validarUrl(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -39,12 +47,10 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return Promise.reject(erros);
+      throw { erroApp: erros };
     } else {
-      return repositorio.adicionar(usuario).then((resultados) => {
-        const id = resultados.insertId;
-        return { ...usuario, id };
-      });
+      const resp = await repositorio.adicionar(usuario);
+      return { id: resp.insertId, ...usuario };
     }
   }
 
@@ -63,10 +69,10 @@ class Usuarios {
     return await repositorio.buscaPorNome(nome);
   }
 
-  validarNomeUsuarioNaoUtilizado(nome) {
-    const resultado = repositorio.validarNomeNaoUtilizado(nome);
-    return !(resultado > 0);
-  }
+  // async isNomeUsuarioUtilizado(nome) {
+  //   const resultado = await repositorio.isNomeUsuarioUtilizado(nome);
+  //   return !(resultado > 0);
+  // }
 }
 
 module.exports = new Usuarios();

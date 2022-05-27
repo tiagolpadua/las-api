@@ -2,9 +2,9 @@ const query = require("../infraestrutura/database/queries");
 
 class Usuario {
   constructor() {
-    this.sqlBusca = "SELECT * FROM Usuarios";
-    this.sqlBuscaPorNome = `${this.sqlBusca} WHERE nome`;
-    this.sqlBuscaPorId = `${this.sqlBusca} WHERE id =`;
+    this.sqlBusca = "SELECT id, nome, urlFotoPerfil FROM Usuarios";
+    this.sqlBuscarPorNome = `${this.sqlBusca} WHERE nome`;
+    this.sqlBuscarPorId = `${this.sqlBusca} WHERE id =`;
   }
 
   listar() {
@@ -19,11 +19,11 @@ class Usuario {
     return query(sql, usuario);
   }
 
-  buscaPorId(id) {
+  buscarPorId(id) {
     // const sql = "SELECT * FROM Usuarios WHERE id = ?";
-    const sql = `${this.sqlBuscaPorId} ?`;
+    const sql = `${this.sqlBuscarPorId} ?`;
 
-    return query(sql, id);
+    return query(sql, id).then((data) => data[0]);
   }
 
   alterar(id, valores) {
@@ -33,7 +33,7 @@ class Usuario {
   }
 
   buscaPorNome(nome) {
-    const sql = `${this.sqlBuscaPorNome} LIKE ?`;
+    const sql = `${this.sqlBuscarPorNome} LIKE ?`;
 
     return query(sql, `%${nome}%`);
   }
@@ -44,7 +44,7 @@ class Usuario {
     return query(sql, id);
   }
 
-  validarNomeNaoUtilizado(nome) {
+  isNomeUsuarioUtilizado(nome) {
     const sql = "SELECT COUNT(*) FROM Usuarios WHERE nome = ?";
 
     return query(sql, `'${nome}'`);
