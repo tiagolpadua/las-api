@@ -29,11 +29,7 @@ describe("API de usuário", () => {
   test("Consultar usuário por um id existente", async () => {
     const resp = await request.get("/usuarios/1");
     expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual({
-      id: 1,
-      nome: "Leonardo",
-      urlFotoPerfil: "https://randomuser.me/api/portraits/men/71.jpg"
-    });
+    expect(resp.body).toEqual({ "id": 1, "nome": "Leonardo", "urlFotoPerfil": "https://randomuser.me/api/portraits/men/71.jpg" });
   });
 
   test("Buscar usuário por um id inexistente", async () => {
@@ -96,6 +92,53 @@ describe("API de usuário", () => {
       id: 1,
       nome: "Leonardo",
       urlFotoPerfil: "https://randomuser.me/api/portraits/men/71.jpg"
+    });
+  });
+  test("Consultar dados pessoais de um usuário", async () => {
+    const resp = await request.get("/usuarios/1/dados-pessoais");
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({ "cpf": "12312312312", "dataNascimento": "1998-07-02T03:00:00.000Z", "nomeCompleto": "Leonardo Gomes da Silva", "rg": "123321 SSP BA" });
+  });
+  test("Consultar contato de um usuário", async () => {
+    const resp = await request.get("/usuarios/1/contatos");
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({ "celular": "62998757575", "email": "lalalala@gmail.com", "telefone": "6233311212" });
+  });
+  test("Consultar endereco de um usuário", async () => {
+    const resp = await request.get("/usuarios/1/endereco");
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({ "bairro": "pojuca nova", "cep": "48120000", "complemento": "casa verde", "endereco": "Rua castro alves", "numero": 430 });
+  });
+  test("Alterar dados pessoais de um usuario com dados válidos", async () => {
+    const resp = await request.put("/usuarios/1/dados-pessoais").send({
+      nomeCompleto: "Pedro Alcantara"
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      "cpf": "12312312312", "dataNascimento": "1998-07-02T03:00:00.000Z", "nomeCompleto": "Pedro Alcantara", "rg": "123321 SSP BA"
+    });
+  });
+  test("Alterar contatos de um usuario com dados válidos", async () => {
+    const resp = await request.put("/usuarios/1/contatos").send({
+      email: "la12345@gmail.com"
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({ "celular": "62998757575", "email": "la12345@gmail.com", "telefone": "6233311212" });
+  });
+  test("Alterar endereco de um usuario com dados válidos", async () => {
+    const resp = await request.put("/usuarios/1/endereco").send({
+      numero: 580
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({ "bairro": "pojuca nova", "cep": "48120000", "complemento": "casa verde", "endereco": "Rua castro alves", "numero": 580 });
+  });
+  test("Alterar senha de um usuario", async () => {
+    const resp = await request.put("/usuarios/1/senha").send({
+      senha: "trintaquarenta"
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      "senha": "Senha inserida com sucesso"
     });
   });
 });

@@ -42,30 +42,32 @@ describe("API de Eventos", () => {
             "status": "agendado"
         });
     });
-    // test("Buscar tipos de vendas por um id inexistente", async () => {
-    //     const resp = await request.get("/tipos-vendas/500");
-    //     expect(resp.statusCode).toBe(404);
-    // });
-    // test("Inserir tipo de venda", async () => {
-    //     const resp = await request.post("/tipos-vendas").send({
-    //         descricao: "Infantil"
-    //     });
-    //     expect(resp.statusCode).toBe(201);
-    //     expect(resp.body).toEqual({ "descricao": "Infantil", "id": 99 });
-    // });
-    // test("Alterar tipode de venda com dados válidos", async () => {
-    //     const resp = await request.put("/tipos-vendas/3").send({
-    //         descricao: "Ingressos"
-    //     });
-    //     expect(resp.statusCode).toBe(200);
-    //     expect(resp.body).toEqual({
-    //         id: 3,
-    //         descricao: "Ingressos"
-    //     });
-    // });
-    // test("Excluir um usuário", async () => {
-    //     const resp = await request.delete("/tipos-vendas/2");
-    //     expect(resp.statusCode).toBe(200);
-    //     expect(resp.body).toEqual([{ "descricao": "Bebidas", "id": 1 }, { "descricao": "Ingressos", "id": 3 }]);
-    // });
+    test("Buscar eventos por um id inexistente", async () => {
+        const resp = await request.get("/eventos/500");
+        expect(resp.statusCode).toBe(404);
+    });
+    test("Inserir evento", async () => {
+        const resp = await request.post("/eventos").send({
+            "nome": "Carnaval 2023",
+            "descricao": "Carnaval de Salvador do ano de 2023",
+            "urlFoto": "https://blog.gazinatacado.com.br/wp-content/uploads/2016/06/como-preparar-a-loja-para-festas-juninas.png",
+            "dataInicio": "2022-06-22T03:00:00.000Z",
+            "dataFim": "2022-06-25T03:00:00.000Z",
+            "status": "agendado"
+        });
+        expect(resp.statusCode).toBe(201);
+        expect(resp.body).toEqual({ "dataFim": "2022-06-25T03:00:00.000Z", "dataInicio": "2022-06-22T03:00:00.000Z", "descricao": "Carnaval de Salvador do ano de 2023", "id": 99, "nome": "Carnaval 2023", "status": "agendado", "urlFoto": "https://blog.gazinatacado.com.br/wp-content/uploads/2016/06/como-preparar-a-loja-para-festas-juninas.png" });
+    });
+    test("Alterar evento com dados válidos", async () => {
+        const resp = await request.put("/eventos/2").send({
+            nome: "Carnaval 2024"
+        });
+        expect(resp.statusCode).toBe(200);
+        expect(resp.body).toEqual({ "dataFim": "2022-06-25T03:00:00.000Z", "dataInicio": "2022-06-22T03:00:00.000Z", "descricao": "Carnaval de Salvador do ano de 2022", "id": 2, "nome": "Carnaval 2022", "status": "agendado", "urlFoto": "https://blog.gazinatacado.com.br/wp-content/uploads/2016/06/como-preparar-a-loja-para-festas-juninas.png" });
+    });
+    test("Excluir um usuário", async () => {
+        const resp = await request.delete("/eventos/2");
+        expect(resp.statusCode).toBe(200);
+        expect(resp.body).toEqual([{ "dataFim": "2022-06-25T03:00:00.000Z", "dataInicio": "2022-06-22T03:00:00.000Z", "descricao": "Sao Joao da cidade de Pojuca do ano de 2022", "id": 1, "nome": "Sao Joao 2022", "status": "agendado", "urlFoto": "https://blog.gazinatacado.com.br/wp-content/uploads/2016/06/como-preparar-a-loja-para-festas-juninas.png" }]);
+    });
 });

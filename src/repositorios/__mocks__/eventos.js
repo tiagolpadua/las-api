@@ -8,19 +8,19 @@ class Eventos {
     buscarPorIdEvento(id) {
         return Promise.resolve(eventosMock.find((eventos) => eventos.id === id));
     }
-    // adicionar(tipoVenda) {
-    //     return Promise.resolve(tipoVenda && { insertId: 99 });
-    // }
-    // alterar(valores, id) {
-    //     if (valores.descricao) {
-    //         tiposVendasMock[id - 1].descricao = valores.descricao;
-    //     }
-    //     return Promise.resolve(tiposVendasMock.find((usuario) => usuario.id === id));
-    // }
-    // excluir(id) {
-    //     const novaLista = tiposVendasMock.filter((tipoVenda) => tipoVenda.id !== id);
-    //     return Promise.resolve(novaLista);
-    // }
+    adicionar(evento) {
+        return Promise.resolve(evento && { insertId: 99 });
+    }
+    alterar(valores, id) {
+        if (valores.descricao) {
+            eventosMock[id - 1].descricao = valores.descricao;
+        }
+        return Promise.resolve(eventosMock.find((usuario) => usuario.id === id));
+    }
+    excluir(id) {
+        const novaLista = eventosMock.filter((evento) => evento.id !== id);
+        return Promise.resolve(novaLista);
+    }
     // statusAgendado() {
     //     const dataHoje = moment().format("YYYY-MM-DD");
     //     const sql = "SELECT * FROM eventos WHERE dataInicio >= ?";

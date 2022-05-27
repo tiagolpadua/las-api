@@ -12,12 +12,17 @@ class Eventos {
   }
   async buscarPorId(id) {
     let evento = await repositorio.buscarPorIdEvento(id);
-    return this.insereStatusNoEvento(evento);
+    if (evento) {
+      return this.insereStatusNoEvento(evento);
+    } else {
+      return undefined;
+    }
   }
-  adicionar(evento) {
+  async adicionar(evento) {
     const dataEhValida = this.isDatasValidas(evento.dataInicio, evento.dataFim);
     if (dataEhValida) {
-      return repositorio.adicionar(evento);
+      const resp = await repositorio.adicionar(evento);
+      return { id: resp.insertId, ...evento };
     } else {
       return Promise.reject({ erro: "Data inválida, insira novamente com uma data válida" });
     }

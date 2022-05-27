@@ -36,7 +36,7 @@ describe("API de Tipos de vendas", () => {
             descricao: "Ingressos"
         });
     });
-    test("Excluir um usuário", async () => {
+    test("Excluir um tipo de venda", async () => {
         const resp = await request.delete("/tipos-vendas/2");
         expect(resp.statusCode).toBe(200);
         expect(resp.body).toEqual([{ "descricao": "Bebidas", "id": 1 }, { "descricao": "Ingressos", "id": 3 }]);
