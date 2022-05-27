@@ -12,7 +12,7 @@ class Tabelas {
       `CREATE TABLE IF NOT EXISTS Usuarios(
         id INT AUTO_INCREMENT NOT NULL,
         urlFotoPerfil text,
-        UNIQUE (nomeCompleto), PRIMARY KEY(id))
+        UNIQUE (nomeCompleto), PRIMARY KEY(id),
 
         nomeCompleto varchar(200) NOT NULL,
         dataNascimento date NOT NULL,
@@ -21,7 +21,7 @@ class Tabelas {
         
         telefone varchar(20) NOT NULL,
         celular varchar(20) NOT NULL,
-        email varchar(50) NOT NULL
+        email varchar(50) NOT NULL,
 
         senha varchar(50) NOT NULL,
 
@@ -29,7 +29,8 @@ class Tabelas {
         endereco varchar(70) NOT NULL,
         numero int NOT NULL,
         bairro varchar(30) NOT NULL,
-        complemento varchar(30)`;
+        complemento varchar(30)
+      )`;
 
     this.pool.query(sql, (erro) => {
       if (erro) {
