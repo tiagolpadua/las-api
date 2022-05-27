@@ -1,9 +1,9 @@
-const repositorio = require("../src/repositorios/URFs");
+const repositorio = require("../repositorios/URFs");
 
 const fs = require("fs");
 const fastcsv = require("fast-csv");
 
-let stream = fs.createReadStream("municipios.csv");
+let stream = fs.createReadStream("ufs.csv");
 let csvData = [];
 let csvStream = fastcsv
   .parse()
@@ -13,6 +13,6 @@ let csvStream = fastcsv
   .on("end", function () {
     csvData.shift();
 
-    repositorio.incluirMunicipios(csvData);
+    repositorio.incluirURFs(csvData);
   });
 stream.pipe(csvStream);

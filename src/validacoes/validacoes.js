@@ -38,14 +38,14 @@ class Validacao {
         retornoForm
       );
 
-    return existeUsuarioPUT[0]?.nome !== retornoForm.trim();
+    return !(existeUsuarioPUT[0]?.nome === retornoForm.trim());
   }
 
   async validaSeNomeFoiUtilizado(retornoForm) {
     const existeUsuario =
       await repositorioUsuario.validarNomeUsuarioNaoUtilizado(retornoForm);
 
-    return existeUsuario[0]?.nome !== retornoForm?.trim();
+    return !(existeUsuario[0]?.nome === retornoForm?.trim());
   }
 
   // fim validacao usuarios
@@ -56,7 +56,7 @@ class Validacao {
     const existeUsuario =
       await repositorioTipoVenda.validarNomeVendasNaoUtilizado(retornoForm);
 
-    return existeUsuario[0]?.descricao !== retornoForm.trim();
+    return !(existeUsuario[0]?.descricao === retornoForm.trim());
   }
 
   // fim validacao Tipo vendas
@@ -68,14 +68,14 @@ class Validacao {
       retornoForm
     );
 
-    return existeEvento[0]?.nome !== retornoForm?.trim();
+    return !(existeEvento[0]?.nome === retornoForm?.trim());
   }
 
   async validarNomeEventoNaoUtilizadoPUT({ id, retornoForm }) {
     const existeEvento =
       await repositorioEventos.validaNomeEventoNaoUtilizadoPUT(id, retornoForm);
 
-    return existeEvento[0]?.nome !== retornoForm.trim();
+    return !(existeEvento[0]?.nome === retornoForm.trim());
   }
 
   isDatasValidas({ dataInicio, dataFim }) {
