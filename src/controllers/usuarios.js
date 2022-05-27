@@ -43,4 +43,25 @@ module.exports = (app) => {
       .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => next(erros));
   });
+
+
+
+  // dados pessoais
+  app.get("/usuarios/:id/dados-pessoais", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    Usuarios.listarDadosPessoais(id)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
+
+
+  app.put("/usuarios/:id/dados-pessoais", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuarios.alterarDadosPessoais(valores, id)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
+
+
 };

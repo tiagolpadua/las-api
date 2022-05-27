@@ -25,6 +25,22 @@ class UsuarioRepositorio {
     const sql = "SELECT * FROM Usuarios WHERE nome LIKE ?";
     return query(sql, nome);
   }
+
+  
+  // dados pessoais
+
+  listarDadosPessoais(id) {
+    const sql = `SELECT 
+    nomeCompleto, dataNascimento, rg, cpf 
+    from Usuarios WHERE id = ?`;
+
+    return query(sql, id);
+  }
+
+  alterarDadosPessoais(valores, id) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+    return query(sql, [valores, id]);
+  }
 }
 
 module.exports = new UsuarioRepositorio();

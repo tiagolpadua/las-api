@@ -53,6 +53,17 @@ class Usuarios {
     return repositorio.buscarPorNome(nome);
   }
 
+  // dados pessoais
+
+  listarDadosPessoais(id) {
+    return repositorio.listarDadosPessoais(id);
+  }
+
+  alterarDadosPessoais(valores, id) {
+    return repositorio.alterarDadosPessoais(valores, id);
+  }
+
+
   async validarURLFotoPerfil(url) {
     try {
       const regex =
