@@ -11,7 +11,7 @@ module.exports = (app) => {
   app.get("/usuarios/:id", (req, res , next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarPorId(id)
-      .then((resultados) => res.status(200).json(resultados))
+      .then((resultados) => res.status(200).json(resultados[0]))
       .catch((erros) => next (erros));
   });
 
@@ -50,7 +50,7 @@ module.exports = (app) => {
   app.get("/usuarios/:id/dados-pessoais", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.listarDadosPessoais(id)
-      .then((resultados) => res.status(200).json(resultados))
+      .then((resultados) => res.status(200).json(resultados[0]))
       .catch((erros) => next(erros));
   });
 
@@ -69,7 +69,7 @@ module.exports = (app) => {
   app.get("/usuarios/:id/contatos", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.listarContatos(id)
-      .then((resultados) => res.status(200).json(resultados))
+      .then((resultados) => res.status(200).json(resultados[0]))
       .catch((erros) => next(erros));
   });
 
