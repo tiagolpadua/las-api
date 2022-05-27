@@ -56,6 +56,13 @@ class UsuarioRepositorio {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
     return query(sql, [valores, id]);
   }
+
+  // senha
+
+  alterarSenha(senha, id) {
+    const sql = "UPDATE Usuarios SET senha = ? WHERE id = ?";
+    return query(sql, [senha, id]);
+  }
   
 }
 

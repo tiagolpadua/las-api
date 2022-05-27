@@ -82,4 +82,15 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
+  // senha
+
+  app.put("/usuarios/:id/senha", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const senha = req.body.senha;
+    Usuarios.alterarSenha(senha, id)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
+
+
 };

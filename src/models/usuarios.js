@@ -74,6 +74,15 @@ class Usuarios {
     return repositorio.alterarContatos(valores, id);
   }
 
+  // senha
+
+  alterarSenha(senha, id) {
+    return repositorio.alterarSenha(senha, id);
+  }
+
+
+
+
   async validarURLFotoPerfil(url) {
     try {
       const regex =
