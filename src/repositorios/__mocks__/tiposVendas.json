@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "descricao": "bebida"
+    },
+    {
+        "id": 2,
+        "descricao": "comida"
+    },
+    {
+        "id": 3,
+        "descricao": "brindes"
+    }
+]

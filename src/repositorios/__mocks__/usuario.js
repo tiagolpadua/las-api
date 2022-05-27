@@ -1,6 +1,3 @@
-
-//const query = require("../infraestrutura/database/queries");
-
 const usuariosMock = require("./usuarios");
 
 class Usuario {

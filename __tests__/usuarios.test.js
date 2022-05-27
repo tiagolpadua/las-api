@@ -136,29 +136,6 @@ describe("API de Usuarios", () => {
     });
   });
 
-  //Falta ajeitar o retorno dos erros
-  /*test("Adicionar Usuario com dados InValidos",async () => {
-    const resp = await request.post("/usuarios").send(
-      {
-      "nomeCompleto": "Maiure",
-      "rg": "1357174500",
-      "cpf": "07828625510",
-      "dataNascimento": "05101999",
-      "telefone": "7132121422",
-      "celular": "71999663589",
-      "email": "etsvaldo",
-      "urlFotoPerfil": "./assets/salsicha.jpg",
-      "senha": "123",
-      "cep": "43700000",
-      "endereco": "rua dois de julho",
-      "numero": 256,
-      "complemento": "",
-      "bairro": "cia 1"
-    });
-    expect(resp.statusCode).toBe(400);
-    expect(resp.body).toEqual();
-  });*/
-
   test("Alterar Usuario",async () => {
     const resp = await request.put("/usuarios/2").send({
         "nomeCompleto": "Maiure Brito",

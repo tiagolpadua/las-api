@@ -1,5 +1,6 @@
 const repositorio = require("../repositorios/usuario");
 const fetch = require("node-fetch");
+const {cpf} = require("cpf-cnpj-validator");
 
 class Usuarios {
   //ok
@@ -27,9 +28,10 @@ class Usuarios {
     }
 
     const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    const cpfEhValida = this.validaCPF(usuario.cpf);
     const validacoes = [
       {
-        nome: "nome",
+        nome: "nomeCompleto",
         valido: nomeEhValido,
         mensagem: "Nome deve ser informado e deve ser único",
       },
@@ -37,6 +39,10 @@ class Usuarios {
         nome: "urlFotoPerfil",
         valido: urlEhValida,
         mensagem: "URL deve uma URL válida",
+      },{
+        nome: "cpf",
+        valido: cpfEhValida,
+        mensagem: "CPF informado deve ser válido",
       },
     ];
 
@@ -123,6 +129,11 @@ class Usuarios {
       return false;
     }
   }
+
+  validaCPF(pessoaCPF) {
+    return cpf.isValid(pessoaCPF);
+  }
+
 }
 
 module.exports = new Usuarios();
