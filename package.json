@@ -53,7 +53,7 @@
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 70
+        "lines": 82
       }
     },
     "testResultsProcessor": "jest-sonar-reporter"
