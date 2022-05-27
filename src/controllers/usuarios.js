@@ -148,7 +148,7 @@ module.exports = (app) => {
     Usuarios.alterarSenha(valores, id)
       .then((resultado) => {
         if (resultado) {
-          res.json({ senha: "Senha inserida com sucesso" });
+          res.json({ "senha": "Senha alterada com sucesso" });
         } else {
           res.status(404).end();
         }
