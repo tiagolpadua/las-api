@@ -10,19 +10,27 @@ module.exports = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
+  app.get("/", (req, res) => {
+    res.send("Bem vindo ao LAS-API");
+  });
+  
   consign().include("src/controllers").into(app);
 
   // eslint-disable-next-line no-unused-vars
   app.use((err, req, res, next) => {
-    if (err) {
-      if (ENV === "production") {
-        res.status(500).send({ error: "Algo deu errado..." });
+    
+    if(err.erroApp) {
+      res.status(400).send(err.erroApp); 
+
+      //Erro do servidor em ambiente que não é de produção
+    } else if (ENV !== "production") {
+        res.status(500).send({ error: err.message });
+
+        //Erro do servidor em ambiente de produção
       } else {
-        res.status(500).send({ error: err });
+        res.status(500).send({ error: "Algo deu errado..." });
       }
-      console.log(err);
-    }
-  });
+    });
 
   return app;
 };

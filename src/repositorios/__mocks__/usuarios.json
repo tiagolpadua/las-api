@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "nome": "Pedro",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/91.jpg",
+    "nomeCompleto": "alex Silva",
+    "dataNascimento": "1988-04-27T03:00:00.000Z",
+    "rg": "1516171819",
+    "cpf": "11911923945",
+    "telefone": "7132988888",
+    "celular": "71988888888",
+    "email": "alex@alex.com.br",
+    "senha": "12345",
+    "cep": "42374508",
+    "endereco": "Rua Sil",
+    "numero": 123,
+    "complemento": "",
+    "bairro": "Lauis "
+  }
+];

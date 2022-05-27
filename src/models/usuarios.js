@@ -10,29 +10,39 @@ class Usuarios {
 
    }
 
-  buscarPorId(id, res, next) {
-    const sql = "SELECT * FROM Usuarios WHERE id = ?";
-    pool.query(sql, id, (erro, resultados) => {
-      const usuario = resultados[0];
-      if (erro) {
-        next(erro);
-      } else {
-        if (usuario) {
-          res.status(200).json(usuario);
-        } else {
-          res.status(404).end();
-        }
-      }
-    });
+  buscarPorId(id) {
+    return repositorio.buscarPorId(id);
   }
 
-  async adicionar(usuario, res, next) {
+  async isURLValida(url) {
+    try {
+    const regex =
+      /https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/gm;
+    const verificaUrl = url.match(regex);
+    if (!verificaUrl) {
+      return false;
+    }
+    const response = await fetch(url);
+    if (response.status !== 200) {
+      return false;
+    } else {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+}
 
-    const nomeEhValido = usuario.nome.length >= 3;
+  async adicionar(usuario) {
+    let nomeEhValido = false;
+     if(usuario?.nome?.length > 0) {
+       const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(usuario.nome);
 
-    (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
-
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+       if(!nomeJaUtilizado) {
+         nomeEhValido = true;
+       }
+     }
+    const urlEhValida = await this.isURLValida(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -48,22 +58,16 @@ class Usuarios {
     ];
 
     const erros = validacoes.filter((campo) => !campo.valido);
-    const existemErros = erros.length;
+    const existemErros = erros.length > 0;
 
     if (existemErros) {
-      res.status(400).json(erros);
-    } else {
-      const sql = "INSERT INTO Usuarios SET ?";
-
-      pool.query(sql, usuario, (erro) => {
-        if (erro) {
-          next(erro);
-        } else {
-          res.status(201).json(usuario);
-        }
-      });
+     throw {erroApp: erros};
+      } else {
+        const resp = await repositorio.adicionar(usuario);
+        return { id: resp.insertId, ...usuario };
+      }
     }
-  }
+    
 
   alterar(id, valores, res, next) {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
@@ -87,53 +91,11 @@ class Usuarios {
     });
   }
 
-  buscarPorNome(nome, res, next) {
-    const sql = "SELECT * FROM Usuarios WHERE nome like ?";
-    pool.query(sql, "%" + nome + "%", (erro, resultados) => {
-      if (erro) {
-        next(erro);
-      } else {
-        res.status(200).json(resultados);
-      }
-    });
+  buscarPorNome(nome) {
+    return repositorio.buscarPorNome(nome);
   }
 
-  async validarURLFotoPerfil(url) {
-    try {
-      const regex =
-        /https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/gm;
-      const verificaUrl = url.match(regex);
-      if (!verificaUrl) {
-        return false;
-      }
-      const response = await fetch(url);
-      if (response.status !== 200) {
-        return false;
-      } else {
-        return true;
-      }
-    } catch {
-      return false;
-    }
-  }
-
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
-  }
-
+ 
   async atualizaUsuarioId(usuarioId, valores) {
     await repositorio.atualizaUsuarioId(usuarioId, valores);
   }
@@ -142,8 +104,29 @@ class Usuarios {
     return await repositorio.buscarUsuarioId(usuarioId);
     
   }
+
+  async obterContatos(usuarioId) {
+    return await repositorio.buscarContatos(usuarioId);
+  }
+
+  async atualizaContatoUsuarioId(usuarioId, valores) {
+    return await repositorio.atualizaContato(usuarioId,valores);
+  }
+
+  async senhaUsuarioId(usuarioId, valores) {
+    return await repositorio.senhaUsuario(usuarioId, valores);
+  }
+
+  async obterEndereco(usuarioId) {
+    return await repositorio.buscarEndereco(usuarioId);
+  }
+
+  async atualizaEnderecoUsuarioId(usuarioId, valores) {
+    return await repositorio.atualizaEndereco(usuarioId,valores);
+  }
 }
 
 
 
 module.exports = new Usuarios();
+  
