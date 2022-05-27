@@ -138,7 +138,7 @@ describe("API de usuário", () => {
     });
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual({
-      "senha": "Senha inserida com sucesso"
+      "senha": "Senha alterada com sucesso"
     });
   });
 });
