@@ -80,6 +80,16 @@ class Usuarios {
     return repositorio.alterarSenha(senha, id);
   }
 
+  // endereço
+
+  listarEndereco(id) {
+    return repositorio.listarEndereco(id);
+  }
+
+  alterarEndereco(valores, id) {
+    return repositorio.alterarEndereco(valores, id);
+  }
+
 
 
 

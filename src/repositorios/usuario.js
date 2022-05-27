@@ -64,6 +64,23 @@ class UsuarioRepositorio {
     return query(sql, [senha, id]);
   }
   
+  // endereço
+
+  listarEndereco(id) {
+    const sql = `SELECT 
+    cep, endereco, numero, complemento, bairro
+    from Usuarios WHERE id = ?`;
+
+    return query(sql, id);
+  }
+
+
+  alterarEndereco(valores, id) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+    return query(sql, [valores, id]);
+  }
+
+
 }
 
 module.exports = new UsuarioRepositorio();

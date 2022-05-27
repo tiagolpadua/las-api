@@ -92,5 +92,21 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
+  // endereço
+
+  app.get("/usuarios/:id/endereco", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    Usuarios.listarEndereco(id)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
+
+  app.put("/usuarios/:id/endereco", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuarios.alterarEndereco(valores, id)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
 
 };
