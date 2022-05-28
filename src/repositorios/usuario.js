@@ -13,7 +13,7 @@ class Usuario {
 
   buscarPorId(id) {
     const sql = "SELECT * FROM usuarios WHERE id = ?";
-    return query(sql, id);
+    return query(sql, id).then((data) => data[0]);
   }
 
   alterar(id, usuarioAlterado) {
@@ -29,6 +29,17 @@ class Usuario {
   buscarPorNome(nome) {
     const sql = "SELECT * FROM Usuarios WHERE nome like ?";
     return query(sql, nome);
+  }
+
+  async isNomeUsuarioUtilizado(nome) {
+    const sql = "SELECT * FROM Usuarios WHERE nome = ?";
+    return query(sql, nome).then((data) => {
+      if (data.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 }
 

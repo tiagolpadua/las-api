@@ -1,4 +1,4 @@
-const pool = require("../infraestrutura/database/conexao");
+//const { response } = require("express");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 //const moment = require("moment");
@@ -13,9 +13,17 @@ class Usuarios {
   }
 
   async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nome.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+    let nomeEhValido = false;
+
+    if (usuario.nome.length > 0) {
+      const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
+        usuario.nome
+      );
+
+      if (!nomeJaUtilizado) {
+        nomeEhValido = true;
+      }
+    }
 
     const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
 
@@ -36,7 +44,7 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      throw erros;
     } else {
       // const sql = "INSERT INTO Usuarios SET ?";
 
@@ -47,7 +55,8 @@ class Usuarios {
       //     res.status(201).json(usuario);
       //   }
       // });
-      return repositorio.adicionar(usuario);
+      const resp = await repositorio.adicionar(usuario);
+      return { id: resp.insertId, ...usuario };
     }
   }
 
@@ -80,23 +89,6 @@ class Usuarios {
     } catch {
       return false;
     }
-  }
-
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
   }
 
   // isDatasValidas(dataInicio, dataFim) {

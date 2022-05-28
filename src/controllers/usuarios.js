@@ -11,7 +11,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     // Usuario.buscarPorId(id, res, next);
     Usuario.buscarPorId(id)
-      .then((resultados) => res.json(resultados))
+      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).send()))
       .catch((erros) => next(erros));
   });
 
@@ -19,7 +19,7 @@ module.exports = (app) => {
     const usuarios = req.body;
     //Usuario.adicionar(usuarios, res, next);
     Usuario.adicionar(usuarios)
-      .then((resultados) => res.json({ id: resultados.insertId, ...usuarios }))
+      .then((resultados) => res.status(201).json(resultados))
       .catch((erros) => next(erros));
   });
 
