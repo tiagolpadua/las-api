@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "nome": "Welbert Araujo",
+    "urlFotoPerfil": "https://avatars.githubusercontent.com/u/32554572"
+  },
+  {
+    "id": 2,
+    "nome": "Jessica Laranjeiras",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/22.jpg"
+  },
+  {
+    "id": 3,
+    "nome": "Paulo Francisco",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/22.jpg"
+  },
+  {
+    "id": 4,
+    "nome": "Murilo Benicio",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/23.jpg"
+  }
+]
