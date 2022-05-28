@@ -119,7 +119,7 @@ describe("API de Usuarios", () => {
     expect(resp.body).toEqual(
       {
       "id":90,
-      "nomeCompleto": "Leonardo",
+      "nomeCompleto": "Leonarda",
       "rg": "1357174500",
       "cpf": "07828625510",
       "dataNascimento": "1999-10-05",
