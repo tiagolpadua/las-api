@@ -6,8 +6,23 @@ class Usuario {
     return Promise.resolve(usuariosMock);
   }
 
+  alterar(id) {
+    return Promise.resolve(usuariosMock[0] && { ...id });
+  }
+
   adicionar(usuario) {
     return Promise.resolve(usuario && { insertId: 99 });
+  }
+
+  excluir(id) {
+    return Promise.resolve(usuariosMock[id - 1].id);
+    //return repositorio.excluir(id);
+  }
+
+  buscarPorNome(nome) {
+    return Promise.resolve(
+      usuariosMock.find((usuario) => usuario.nome === nome)
+    );
   }
 
   buscarPorId(id) {
@@ -23,7 +38,14 @@ class Usuario {
   //API DADOS PESSOAIS
 
   obterDadosPessoais(id) {
-    return Promise.resolve(dadosPessoaisMock[id] ? dadosPessoaisMock[0] : []);
+    return Promise.resolve(
+      dadosPessoaisMock[id - 1] ? dadosPessoaisMock[id - 1] : []
+    );
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  atualizarDadosPessoais(id, dadosPessoaisAlterado) {
+    return Promise.resolve(dadosPessoaisMock[id - 1] && { ...id });
   }
 
   // alterar(id, usuarioAlterado) {

@@ -101,16 +101,70 @@ describe("API de usuários", () => {
     ]);
   });
 
-  test("Adicionar usuário com Dados inválidos", async () => {});
+  test("Alterar dados com dados Válidos", async () => {
+    const resp = await request.put("/usuarios/1").send({
+      nome: "Welbert Henrique Araujo",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/men/22.jpg",
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      id: 1,
+      nome: "Welbert Henrique Araujo",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/men/22.jpg",
+    });
+  });
+
+  test("Buscar usuário valido por nome", async () => {
+    const resp = await request.get("/usuarios/nome/Welbert Araujo");
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      id: 1,
+      nome: "Welbert Araujo",
+      urlFotoPerfil: "https://avatars.githubusercontent.com/u/32554572",
+    });
+  });
+
+  test("Excluir usuário existente", async () => {
+    const resp = await request.delete("/usuarios/4");
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({ id: 4 });
+  });
 });
+
+//######################### API DE DADOS PESSOAIS #########################
 
 describe("API de Dados Pesosais do Usuário", () => {
   test("Buscar dados pessoais do usuarios", async () => {
     const resp = await request.get("/usuarios/1/dados-pessoais");
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual({
+      id: "1",
       nomeCompleto: "Welbert Henrique Santana Araújo",
       dataNascimento: "1995-05-28",
+      rg: "1144455533 SSP BA",
+      cpf: "12312312312",
+    });
+  });
+
+  test("Buscar dados pessoais do usuarios por id inexistente", async () => {
+    const resp = await request.get("/usuarios/999/dados-pessoais");
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual([]);
+  });
+
+  test("Alterar dados pessoais com dados Válidos", async () => {
+    const resp = await request.put("/usuarios/2/dados-pessoais").send({
+      nomeCompleto: "Malcolm Viana",
+      dataNascimento: "1995-10-10",
+      rg: "1144455533 SSP BA",
+      cpf: "12312312312",
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      id: 2,
+      nomeCompleto: "Malcolm Viana",
+      dataNascimento: "1995-10-10",
       rg: "1144455533 SSP BA",
       cpf: "12312312312",
     });

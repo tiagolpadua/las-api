@@ -3,6 +3,7 @@ const URLS_VALIDAS = [
   "https://randomuser.me/api/portraits/men/23.jpg",
   "https://randomuser.me/api/portraits/men/22.jpg",
   "https://randomuser.me/api/portraits/women/22.jpg",
+  "https://avatars.githubusercontent.com/u/32554572",
 ];
 
 function fetch(url) {
