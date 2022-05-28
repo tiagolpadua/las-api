@@ -88,6 +88,32 @@ class Usuarios {
       });
     });
   }
+  ///Atualização e consulta de dados pessoais
+
+  consultarDadosPessoais(id) {
+    return repositorio.consultarDadosPessoais(id);
+  }
+  atualizaDadosPessoais(id, dadosPessoais) {
+    return repositorio.atualizarDadosPessoais(id, dadosPessoais);
+  }
+
+  //Atualização e consulta de contatos
+
+  consultaContatos(id) {
+    return repositorio.consultaContatos(id);
+  }
+  atualizarContatos(id, dadosContatos) {
+    return repositorio.atualizarContatos(id, dadosContatos);
+  }
+
+  //Inclusão e consulta de endereço
+  consultarEndereco(id) {
+    return repositorio.consultarEndereco(id);
+  }
+
+  alterarEndereco(id, dadosEndereco) {
+    return repositorio.alterarEndereco(id, dadosEndereco);
+  }
 }
 
 module.exports = new Usuarios();

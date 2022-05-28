@@ -39,7 +39,7 @@ class Tabelas {
 
       -- restricoes
       UNIQUE (nome), 
-        PRIMARY KEY(id))`;
+      PRIMARY KEY(id))`;
 
     this.pool.query(sql, (erro) => {
       if (erro) {
