@@ -1,5 +1,6 @@
 const repositorio = require("../repositorios/usuario");
 const fetch = require("node-fetch");
+const moment = require("moment");
 const {cpf} = require("cpf-cnpj-validator");
 
 class Usuarios {
@@ -16,9 +17,13 @@ class Usuarios {
   //ok
   async adicionar(usuario) {
     let nomeEhValido = false;
+    let rgEhValido = false;
+    let cepEhValido = false;
+    let emailEhValido = false;
+    let senhaEhValida = false;
 
-    if (usuario?.nomeCompleto?.length > 0) {
-      const nomeJaUtilizado = await !repositorio.isNomeUsuarioUtilizado(
+    if (usuario?.nomeCompleto?.length > 4) {
+      const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
         usuario.nomeCompleto
       );
 
@@ -26,24 +31,58 @@ class Usuarios {
         nomeEhValido = true;
       }
     }
+   if(usuario?.rg?.length>4){
+      rgEhValido = true;
+    }
+    if(usuario?.cep?.length>7){
+      cepEhValido = true;
+    }
+    if(usuario?.email?.length>4){
+      emailEhValido = true;
+    }
+    if(usuario?.senha?.length>4){
+      senhaEhValida = true;
+    }
 
     const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
     const cpfEhValida = this.validaCPF(usuario.cpf);
+    const dataNasc = this.isDataValidas(usuario.dataNascimento);
     const validacoes = [
       {
-        nome: "nomeCompleto",
+        nome: "Nome Completo",
         valido: nomeEhValido,
         mensagem: "Nome deve ser informado e deve ser único",
       },
       {
-        nome: "urlFotoPerfil",
+        nome: "UrlFotoPerfil",
         valido: urlEhValida,
         mensagem: "URL deve uma URL válida",
       },{
-        nome: "cpf",
+        nome: "Cpf",
         valido: cpfEhValida,
         mensagem: "CPF informado deve ser válido",
       },
+      {
+        nome: "RG",
+        valido: rgEhValido,
+        mensagem: "RG informado deve ser válido",
+      },{
+        nome: "CEP",
+        valido: cepEhValido,
+        mensagem: "CEP informado deve ser válido",
+      },{
+        nome: "Email",
+        valido: emailEhValido,
+        mensagem: "Email informado deve ser válido",
+      },{
+        nome: "Senha",
+        valido: senhaEhValida,
+        mensagem: "Senha informada deve ser válida",
+      },{
+        nome: "Data de Nascimento",
+        valido: dataNasc,
+        mensagem: "Data de Nascimento informada deve ser válida",
+      }
     ];
 
     const erros = validacoes.filter((campo) => !campo.valido);
@@ -59,8 +98,86 @@ class Usuarios {
   }
 
   //ok
-  alterar(id, valores) {
-    return repositorio.alterar(id, valores);
+  async alterar(id, valores) {
+    let nomeEhValido = false;
+    let rgEhValido = false;
+    let cepEhValido = false;
+    let emailEhValido = false;
+    let senhaEhValida = false;
+
+    if (valores?.nomeCompleto?.length > 4) {
+      const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
+        valores.nomeCompleto
+      );
+
+      if (!nomeJaUtilizado) {
+        nomeEhValido = true;
+      }
+    }
+   if(valores?.rg?.length>4){
+      rgEhValido = true;
+    }
+    if(valores?.cep?.length>7){
+      cepEhValido = true;
+    }
+    if(valores?.email?.length>4){
+      emailEhValido = true;
+    }
+    if(valores?.senha?.length>4){
+      senhaEhValida = true;
+    }
+
+    const urlEhValida = await this.validarURLFotoPerfil(valores.urlFotoPerfil);
+    const cpfEhValida = this.validaCPF(valores.cpf);
+    const dataNasc = this.isDataValidas(valores.dataNascimento);
+    const validacoes = [
+      {
+        nome: "Nome Completo",
+        valido: nomeEhValido,
+        mensagem: "Nome deve ser informado e deve ser único",
+      },
+      {
+        nome: "UrlFotoPerfil",
+        valido: urlEhValida,
+        mensagem: "URL deve uma URL válida",
+      },{
+        nome: "Cpf",
+        valido: cpfEhValida,
+        mensagem: "CPF informado deve ser válido",
+      },
+      {
+        nome: "RG",
+        valido: rgEhValido,
+        mensagem: "RG informado deve ser válido",
+      },{
+        nome: "CEP",
+        valido: cepEhValido,
+        mensagem: "CEP informado deve ser válido",
+      },{
+        nome: "Email",
+        valido: emailEhValido,
+        mensagem: "Email informado deve ser válido",
+      },{
+        nome: "Senha",
+        valido: senhaEhValida,
+        mensagem: "Senha informada deve ser válida",
+      },{
+        nome: "Data de Nascimento",
+        valido: dataNasc,
+        mensagem: "Data de Nascimento informada deve ser válida",
+      }
+    ];
+
+    const erros = validacoes.filter((campo) => !campo.valido);
+    const existemErros = erros.length > 0;
+
+    if (existemErros) {
+      console.log(erros);
+      throw { erroApp: erros };
+    } else {
+      const resp = await repositorio.alterar(id, valores);
+      return { id: resp.insertId, ...valores };
+    }
   }
 
   //ok
@@ -82,8 +199,38 @@ class Usuarios {
   }
 
   //ok
-  alterarDadosPessoais(id, valores) {
-    return repositorio.alterarDadosPessoais(id, valores);
+  alterarDadosPessoais(id, valores) { 
+    let nomeEhValido = false;
+    const cpfEhValida = this.validaCPF(valores.cpf);
+
+    if (valores?.nomeCompleto?.length > 4) {
+      const nomeJaUtilizado = !repositorio.isNomeUsuarioUtilizado(valores.nomeCompleto);
+      if (!nomeJaUtilizado) {
+        nomeEhValido = true;
+      }
+    }
+    const validacoes = [
+      {
+        nome: "nomeCompleto",
+        valido: nomeEhValido,
+        mensagem: "Nome deve ser informado e deve ser único",
+      },
+      {
+        nome: "cpf",
+        valido: cpfEhValida,
+        mensagem: "CPF informado deve ser válido",
+      },
+    ];
+    const erros = validacoes.filter((campo) => !campo.valido);
+    const existemErros = erros.length > 0;
+
+    if (existemErros) {
+      console.log(erros);
+      throw { erroApp: erros };
+    } else {
+      const resp =  repositorio.alterarDadosPessoais(id, valores);
+      return { id: resp.insertId, ...valores };
+    } 
   }
 
   //ok
@@ -134,6 +281,14 @@ class Usuarios {
     return cpf.isValid(pessoaCPF);
   }
 
+  isDataValidas(data){
+    const dataAtual = moment().format("YYYY-MM-DD");
+    const dataNascimento =moment(data).format("YYYY-MM-DD");
+    
+    const isDataEhValida= moment(dataNascimento).isBefore(dataAtual);
+
+    return isDataEhValida;
+  }
 }
 
 module.exports = new Usuarios();

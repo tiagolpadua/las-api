@@ -30,5 +30,18 @@ class TiposVendas{
         const sql = "DELETE FROM TiposVendas WHERE id = ?";
         return query(sql, id);
     }
+
+    isDescricaoTipoVendaUtilizado(descricao){
+        descricao = "%" + descricao + "%";
+        const sql = "SELECT * FROM TiposVendas WHERE descricao like ?";
+        return query(sql, descricao)
+        .then(data=>{
+            if (data.length > 0) { 
+                return true;
+            } else {
+                return false;
+            }
+        }); 
+    }
 }
 module.exports = new TiposVendas();

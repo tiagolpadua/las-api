@@ -31,7 +31,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterar(id, valores)
-      .then(() => res.status(200).json({ id, ...valores }))
+      .then((resultado) => res.status(200).json(resultado))
       .catch((erros) => res.status(400).json(erros));
   });
 
