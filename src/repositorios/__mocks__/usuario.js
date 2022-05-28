@@ -1,4 +1,4 @@
-const usuariosMock = require("./usuarios.json");
+const usuariosMock = require("../../../usuarios.json");
 
 class Usuario {
   listar() {
