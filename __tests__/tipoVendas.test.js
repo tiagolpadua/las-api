@@ -42,19 +42,23 @@ describe("API de Tipo de vendas", () => {
       expect(resp.statusCode).toBe(404);
   });
     
-  //ok
-  test("Adicionar Tipo de vendas com dados Validos",async () => {
-    const resp = await request.post("/tipos-vendas").send(
-      {
-        "descricao": "Sobremesa"
-      });
+  test("Adicionar Tipo de Vendas com Dados validos", async () => {
+    const resp = await request.post("/tipos-vendas").send({ 
+      "descricao":"Sobremesa"
+    });
     expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual(
-      {
-        "id": 4,
-        "descricao": "Sobremesa"
-      });
+    expect(resp.body).toEqual({
+      "descricao":"Sobremesa"
+    });
   });
+
+  test("Adicionar Tipo de Vendas com Dados Invalidos", async () => {
+      const resp = await request.post("/tipos-vendas").send({ 
+        "descricao":"glu"
+      });
+    expect(resp.statusCode).toBe(400);
+  });
+
 
   //ok
   test("Alterar Tipo de vendas",async () => {

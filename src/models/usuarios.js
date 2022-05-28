@@ -199,16 +199,25 @@ class Usuarios {
   }
 
   //ok
-  alterarDadosPessoais(id, valores) { 
+  async alterarDadosPessoais(id, valores) { 
     let nomeEhValido = false;
     const cpfEhValida = this.validaCPF(valores.cpf);
+    const dataNasc = this.isDataValidas(valores.dataNascimento);
+    let rgEhValido = false;
 
     if (valores?.nomeCompleto?.length > 4) {
-      const nomeJaUtilizado = !repositorio.isNomeUsuarioUtilizado(valores.nomeCompleto);
+      const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
+        valores.nomeCompleto
+      );
+
       if (!nomeJaUtilizado) {
         nomeEhValido = true;
       }
     }
+   if(valores?.rg?.length>4){
+      rgEhValido = true;
+    }
+
     const validacoes = [
       {
         nome: "nomeCompleto",
@@ -220,6 +229,15 @@ class Usuarios {
         valido: cpfEhValida,
         mensagem: "CPF informado deve ser válido",
       },
+      {
+        nome: "RG",
+        valido: rgEhValido,
+        mensagem: "RG informado deve ser válido",
+      },{
+        nome: "Data de Nascimento",
+        valido: dataNasc,
+        mensagem: "Data de Nascimento informada deve ser válida",
+      }
     ];
     const erros = validacoes.filter((campo) => !campo.valido);
     const existemErros = erros.length > 0;

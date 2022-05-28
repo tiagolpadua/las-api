@@ -12,55 +12,55 @@ describe("API de Usuarios", () => {
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual([
       {
-          "id": 1,
-          "nomeCompleto": "Alexandre",
-          "rg": "1357174780",
-          "cpf": "07828625510",
-          "dataNascimento": "05101999",
-          "telefone": "7132121422",
-          "celular": "71999663589",
-          "email": "etsvaldo@gmail.com",
-          "urlFotoPerfil": "./assets/salsicha.jpg",
-          "senha": "admin",
-          "cep": "43700000",
-          "endereco": "rua dois de julho",
-          "numero": 256,
-          "complemento": "",
-          "bairro": "cia 3"
+        "id": 1,
+        "nomeCompleto": "Alexandre",
+        "rg": "1357174500",
+        "cpf": "07828625510",
+        "dataNascimento": "1999-10-05",
+        "telefone": "7132121422",
+        "celular": "71999663589",
+        "email": "etsvaldo@gmail.com",
+        "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
+        "senha": "321123a",
+        "cep": "43700000",
+        "endereco": "rua dois de julho",
+        "numero": 256,
+        "complemento": "",
+        "bairro": "cia 30"
       },
       {
-          "id": 2,
-          "nomeCompleto": "Maiure",
-          "rg": "1357174500",
-          "cpf": "07828625510",
-          "dataNascimento": "05101999",
-          "telefone": "7132121422",
-          "celular": "71999663589",
-          "email": "etsvaldo",
-          "urlFotoPerfil": "./assets/salsicha.jpg",
-          "senha": "123",
-          "cep": "43700000",
-          "endereco": "rua dois de julho",
-          "numero": 256,
-          "complemento": "",
-          "bairro": "cia 1"
+        "id": 2,
+        "nomeCompleto": "Maiure",
+        "rg": "1357174500",
+        "cpf": "07828625510",
+        "dataNascimento": "1999-10-05",
+        "telefone": "7132121422",
+        "celular": "71999663589",
+        "email": "etsvaldo@gmail.com",
+        "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
+        "senha": "321123a",
+        "cep": "43700000",
+        "endereco": "rua dois de julho",
+        "numero": 256,
+        "complemento": "",
+        "bairro": "cia 30"
       },
       {
-          "id": 3,
-          "nomeCompleto": "Zelda",
-          "rg": "1357174500",
-          "cpf": "07828625510",
-          "dataNascimento": "05101999",
-          "telefone": "7132121422",
-          "celular": "71999663589",
-          "email": "etsvaldo",
-          "urlFotoPerfil": "./assets/salsicha.jpg",
-          "senha": "123",
-          "cep": "43700000",
-          "endereco": "rua dois de julho",
-          "numero": 256,
-          "complemento": "",
-          "bairro": "cia 1"
+        "id": 3,
+        "nomeCompleto": "Zelda",
+        "rg": "1357174500",
+        "cpf": "07828625510",
+        "dataNascimento": "1999-10-05",
+        "telefone": "7132121422",
+        "celular": "71999663589",
+        "email": "etsvaldo@gmail.com",
+        "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
+        "senha": "321123a",
+        "cep": "43700000",
+        "endereco": "rua dois de julho",
+        "numero": 256,
+        "complemento": "",
+        "bairro": "cia 30"
       }
   ]);
   });
@@ -71,22 +71,22 @@ describe("API de Usuarios", () => {
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual(
       {
-          "id": 1,
-          "nomeCompleto": "Alexandre",
-          "rg": "1357174780",
-          "cpf": "07828625510",
-          "dataNascimento": "05101999",
-          "telefone": "7132121422",
-          "celular": "71999663589",
-          "email": "etsvaldo@gmail.com",
-          "urlFotoPerfil": "./assets/salsicha.jpg",
-          "senha": "admin",
-          "cep": "43700000",
-          "endereco": "rua dois de julho",
-          "numero": 256,
-          "complemento": "",
-          "bairro": "cia 3"
-      }
+        "id": 1,
+        "nomeCompleto": "Alexandre",
+        "rg": "1357174500",
+        "cpf": "07828625510",
+        "dataNascimento": "1999-10-05",
+        "telefone": "7132121422",
+        "celular": "71999663589",
+        "email": "etsvaldo@gmail.com",
+        "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
+        "senha": "321123a",
+        "cep": "43700000",
+        "endereco": "rua dois de julho",
+        "numero": 256,
+        "complemento": "",
+        "bairro": "cia 30"
+    }
     );
   });
 
@@ -100,39 +100,39 @@ describe("API de Usuarios", () => {
   test("Adicionar Usuario com dados Validos",async () => {
     const resp = await request.post("/usuarios").send(
       {
-      "nomeCompleto": "JOAO",
-      "rg": "1357174500",
-      "cpf": "07828625510",
-      "dataNascimento": "05101999",
-      "telefone": "7132121422",
-      "celular": "71999663589",
-      "email": "etsvaldo",
-      "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
-      "senha": "123",
-      "cep": "43700000",
-      "endereco": "rua dois de julho",
-      "numero": 256,
-      "complemento": "",
-      "bairro": "cia 1"
+        "nomeCompleto": "Leonardo",
+        "rg": "1357174500",
+        "cpf": "07828625510",
+        "dataNascimento": "1999-10-05",
+        "telefone": "7132121422",
+        "celular": "71999663589",
+        "email": "etsvaldo@gmail.com",
+        "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
+        "senha": "321123a",
+        "cep": "43700000",
+        "endereco": "rua dois de julho",
+        "numero": 256,
+        "complemento": "",
+        "bairro": "cia 30"
     });
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual(
       {
       "id":90,
-      "nomeCompleto": "JOAO",
+      "nomeCompleto": "Leonardo",
       "rg": "1357174500",
       "cpf": "07828625510",
-      "dataNascimento": "05101999",
+      "dataNascimento": "1999-10-05",
       "telefone": "7132121422",
       "celular": "71999663589",
-      "email": "etsvaldo",
+      "email": "etsvaldo@gmail.com",
       "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
-      "senha": "123",
+      "senha": "321123a",
       "cep": "43700000",
       "endereco": "rua dois de julho",
       "numero": 256,
       "complemento": "",
-      "bairro": "cia 1"
+      "bairro": "cia 30"
     });
   });
 
@@ -141,35 +141,34 @@ describe("API de Usuarios", () => {
         "nomeCompleto": "Maiure Brito",
         "rg": "1357174500",
         "cpf": "07828625510",
-        "dataNascimento": "05101999",
+        "dataNascimento": "1999-10-05",
         "telefone": "7132121422",
         "celular": "71999663589",
-        "email": "etsvaldo",
+        "email": "etsvaldo@gmail.com",
         "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
-        "senha": "123",
+        "senha": "321123a",
         "cep": "43700000",
         "endereco": "rua dois de julho",
         "numero": 256,
         "complemento": "",
-        "bairro": "cia 1"
+        "bairro": "cia 30"
     });
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual({
-        "id": 2,
         "nomeCompleto": "Maiure Brito",
         "rg": "1357174500",
         "cpf": "07828625510",
-        "dataNascimento": "05101999",
+        "dataNascimento": "1999-10-05",
         "telefone": "7132121422",
         "celular": "71999663589",
-        "email": "etsvaldo",
+        "email": "etsvaldo@gmail.com",
         "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
-        "senha": "123",
+        "senha": "321123a",
         "cep": "43700000",
         "endereco": "rua dois de julho",
         "numero": 256,
         "complemento": "",
-        "bairro": "cia 1"
+        "bairro": "cia 30"
     });
   });
 
@@ -187,22 +186,22 @@ describe("API de Usuarios", () => {
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual(
       {
-          "id": 3,
-          "nomeCompleto": "Zelda",
-          "rg": "1357174500",
-          "cpf": "07828625510",
-          "dataNascimento": "05101999",
-          "telefone": "7132121422",
-          "celular": "71999663589",
-          "email": "etsvaldo",
-          "urlFotoPerfil": "./assets/salsicha.jpg",
-          "senha": "123",
-          "cep": "43700000",
-          "endereco": "rua dois de julho",
-          "numero": 256,
-          "complemento": "",
-          "bairro": "cia 1"
-      }
+        "id": 3,
+        "nomeCompleto": "Zelda",
+        "rg": "1357174500",
+        "cpf": "07828625510",
+        "dataNascimento": "1999-10-05",
+        "telefone": "7132121422",
+        "celular": "71999663589",
+        "email": "etsvaldo@gmail.com",
+        "urlFotoPerfil": "https://randomuser.me/api/portraits/women/55.jpg",
+        "senha": "321123a",
+        "cep": "43700000",
+        "endereco": "rua dois de julho",
+        "numero": 256,
+        "complemento": "",
+        "bairro": "cia 30"
+    }
   );
   });
 
@@ -211,29 +210,29 @@ describe("API de Usuarios", () => {
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual(
       {
-        "id":1,
+        "id": 1,
         "nomeCompleto": "Alexandre",
-        "rg": "1357174780",
+        "rg": "1357174500",
         "cpf": "07828625510",
-        "dataNascimento": "05101999",
+        "dataNascimento": "1999-10-05"
       }
   );
   });
 
   test("Alterar Dados pessoais do Usuario",async () => {
     const resp = await request.put("/usuarios/2/dados-pessoais").send({
-      "nomeCompleto": "Maiure Brito15",
+      "nomeCompleto": "Maiure Brito",
       "rg": "1357174500",
       "cpf": "07828625510",
-      "dataNascimento": "05101999"}
-    );
+      "dataNascimento": "1999-10-05"
+    });
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual({
       "id": 2,
-      "nomeCompleto": "Maiure Brito15",
+      "nomeCompleto": "Maiure Brito",
       "rg": "1357174500",
       "cpf": "07828625510",
-      "dataNascimento": "05101999"
+      "dataNascimento": "1999-10-05"
   });
   });
 
@@ -288,7 +287,7 @@ describe("API de Usuarios", () => {
         "endereco": "rua dois de julho",
         "numero": 256,
         "complemento": "",
-        "bairro": "cia 3"
+        "bairro": "cia 30"
       }
   );
   });

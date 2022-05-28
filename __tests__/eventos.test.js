@@ -15,29 +15,29 @@ describe("API de Eventos", () => {
         "id": 1,
         "nome": "Carnaval",
         "descricao": "Melhor festa do Mundo",
-        "urlFoto": "teste",
+        "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
         "dataInicio": "2022-05-29",
         "dataFim": "2022-05-30",
         "status": "agendado"
-      },
-      {
+    },
+    {
         "id": 2,
         "nome": "Sao Joao",
         "descricao": "Melhor festa do Mundo",
-        "urlFoto": "teste",
+        "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
         "dataInicio": "2022-05-29",
         "dataFim": "2022-08-29",
         "status": "em-andamento"
-      },
-      {
+    },
+    {
         "id": 3,
         "nome": "Show da Virada",
         "descricao": "Melhor festa do Mundo",
-        "urlFoto": "teste",
+        "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
         "dataInicio": "2022-02-25",
         "dataFim": "2022-04-29",
         "status": "finalizado"
-      }
+    }
     ]);
   });
 
@@ -49,11 +49,11 @@ describe("API de Eventos", () => {
       "id": 1,
       "nome": "Carnaval",
       "descricao": "Melhor festa do Mundo",
-      "urlFoto": "teste",
+      "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
       "dataInicio": "2022-05-29",
       "dataFim": "2022-05-30",
       "status": "agendado"
-    });
+  });
   });
 
   //ok
@@ -69,7 +69,7 @@ describe("API de Eventos", () => {
   {
     "nome": "Balada",
     "descricao": "Melhor Balada do Mundo",
-    "urlFoto": "teste",
+    "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
     "dataInicio": "2022-05-29",
     "dataFim": "2022-05-30",
     "status": "agendado"
@@ -77,10 +77,9 @@ describe("API de Eventos", () => {
   expect(resp.statusCode).toBe(200);
   expect(resp.body).toEqual(
     {
-      "id":4,
       "nome": "Balada",
       "descricao": "Melhor Balada do Mundo",
-      "urlFoto": "teste",
+      "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
       "dataInicio": "2022-05-29",
       "dataFim": "2022-05-30",
       "status": "agendado"
@@ -92,7 +91,7 @@ describe("API de Eventos", () => {
     const resp = await request.put("/eventos/2").send({
         "nome": "Sao JOao",
         "descricao": "Melhor festa do Mundo",
-        "urlFoto": "teste",
+        "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
         "dataInicio": "2022-05-29",
         "dataFim": "2022-08-29",
         "status": "em-andamento"
@@ -102,7 +101,7 @@ describe("API de Eventos", () => {
       "id": 2,
       "nome": "Sao JOao",
       "descricao": "Melhor festa do Mundo",
-      "urlFoto": "teste",
+      "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
       "dataInicio": "2022-05-29",
       "dataFim": "2022-08-29",
       "status": "em-andamento"
@@ -127,7 +126,7 @@ describe("API de Eventos", () => {
           "id": 1,
           "nome": "Carnaval",
           "descricao": "Melhor festa do Mundo",
-          "urlFoto": "teste",
+          "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
           "dataInicio": "2022-05-29",
           "dataFim": "2022-05-30",
           "status": "agendado"
@@ -138,7 +137,7 @@ describe("API de Eventos", () => {
       "id": 2,
       "nome": "Sao Joao",
       "descricao": "Melhor festa do Mundo",
-      "urlFoto": "teste",
+      "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
       "dataInicio": "2022-05-29",
       "dataFim": "2022-08-29",
       "status": "em-andamento"
@@ -149,7 +148,7 @@ describe("API de Eventos", () => {
       "id": 3,
       "nome": "Show da Virada",
       "descricao": "Melhor festa do Mundo",
-      "urlFoto": "teste",
+      "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
       "dataInicio": "2022-02-25",
       "dataFim": "2022-04-29",
       "status": "finalizado"

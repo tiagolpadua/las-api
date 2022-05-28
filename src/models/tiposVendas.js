@@ -10,11 +10,8 @@ class TiposVendas{
     async adicionar(tipoVendas) {
         let descricaoEhValida = false;
         
-        if(tipoVendas?.descricao?.length >4){
-            const descricaoJaUtilizado = await repositorio.isDescricaoTipoVendaUtilizado(tipoVendas.descricao);
-            if (!descricaoJaUtilizado) {
-                descricaoEhValida = true;
-            }
+        if(tipoVendas?.descricao?.length>4){
+            descricaoEhValida = true;
         }
         const validacoes = [
             {
@@ -45,16 +42,13 @@ class TiposVendas{
         let descricaoEhValida = false;
         
         if(valores?.descricao?.length >4){
-            const descricaoJaUtilizado = await repositorio.isDescricaoTipoVendaUtilizado(valores.descricao);
-            if (!descricaoJaUtilizado) {
-                descricaoEhValida = true;
-            }
+            descricaoEhValida = true;
         }
         const validacoes = [
             {
               nome: "Descricao",
               valido: descricaoEhValida,
-              mensagem: "Descricao deve ser informada e deve ser única",
+              mensagem: "Descricao deve ser informada",
             }
         ];
         const erros = validacoes.filter((campo) => !campo.valido);

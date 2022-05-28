@@ -10,12 +10,12 @@ class TiposVenda{
     buscaPorId(id) {
         return Promise.resolve(tipoVendasMock.find((tipoVenda) => tipoVenda.id === id));
     }
-    
-    adicionar(tipoVenda) {
+
+    adicionar(tipoVenda){
         return Promise.resolve(tipoVenda && {insertId:4});
     }
     
-    //ok
+    
     alterar(id,valores){
         return Promise.resolve(tipoVendasMock && [valores,id]);
     }
