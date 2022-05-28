@@ -35,7 +35,8 @@ class Tabelas {
       numero int, 
       complemento varchar(100), 
       bairro varchar(100), 
-       
+      
+      -- endereço
       UNIQUE (nome),  
       PRIMARY KEY(id))`;
 

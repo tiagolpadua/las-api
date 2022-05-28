@@ -91,6 +91,13 @@ class Usuarios {
     }
   }
 
+  obterDadosPessoais(id) {
+    return repositorio.obterDadosPessoais(id);
+  }
+  atualizarDadosPessoais(id, dadosPessoais) {
+    return repositorio.atualizarDadosPessoais(id, dadosPessoais);
+  }
+
   // isDatasValidas(dataInicio, dataFim) {
   //   //Obter a data atual - var now = moment();
   //   //var day = moment("1995-12-25")

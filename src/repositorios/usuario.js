@@ -7,12 +7,12 @@ class Usuario {
   }
 
   listar() {
-    const sql = "SELECT * FROM usuarios";
+    const sql = "SELECT id, nome, urlFotoPerfil FROM usuarios";
     return query(sql);
   }
 
   buscarPorId(id) {
-    const sql = "SELECT * FROM usuarios WHERE id = ?";
+    const sql = "SELECT id, nome, urlFotoPerfil FROM usuarios WHERE id = ?";
     return query(sql, id).then((data) => data[0]);
   }
 
@@ -27,8 +27,22 @@ class Usuario {
   }
 
   buscarPorNome(nome) {
-    const sql = "SELECT * FROM Usuarios WHERE nome like ?";
+    const sql =
+      "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE nome like ?";
     return query(sql, nome);
+  }
+
+  //dados pessoais
+  atualizarDadosPessoais(id, dadosPessoais) {
+    const sql = "UPDATE usuarios SET ? WHERE id = ?";
+    return query(sql, [dadosPessoais, id]);
+    // return query(sql, id); O DE TIAGO ESTAVA DESSA FORMA SE DER ERRO OU NÃO FUINCIONAR, VERIFICAR
+  }
+
+  obterDadosPessoais(id) {
+    const sql =
+      "SELECT nomeCompleto, dataNascimento, rg, cpf FROM usuarios WHERE id = ?";
+    return query(sql, id).then((data) => data[0]);
   }
 
   async isNomeUsuarioUtilizado(nome) {

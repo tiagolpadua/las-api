@@ -61,3 +61,16 @@ describe("API de usuários", () => {
     });
   });
 });
+
+describe("API de Dados Pesosais do Usuário", () => {
+  test("Buscar dados pessoais do usuarios", async () => {
+    const resp = await request.get("/usuarios/1/dados-pessoais");
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      nomeCompleto: "Welbert Henrique Santana Araújo",
+      dataNascimento: "1995-05-28",
+      rg: "1144455533 SSP BA",
+      cpf: "12312312312",
+    });
+  });
+});

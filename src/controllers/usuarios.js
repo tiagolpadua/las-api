@@ -47,4 +47,24 @@ module.exports = (app) => {
       .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
+
+  //DADOS PESSOAIS
+  app.get("/usuarios/:id/dados-pessoais", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    // Usuario.buscarPorId(id, res, next);
+    Usuario.obterDadosPessoais(id)
+      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).send()))
+      .catch((erros) => next(erros));
+  });
+
+  app.put("/usuarios/:id/dados-pessoais", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    //Usuario.alterar(id, valores, res, next);
+    Usuario.atualizarDadosPessoais(id, valores)
+      .then(() => res.json({ id, ...valores }))
+      .catch((erros) => next(erros));
+  });
+
+  //CONTATOS
 };

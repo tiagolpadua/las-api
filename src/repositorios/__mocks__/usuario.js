@@ -1,4 +1,5 @@
-const usuariosMock = require("../../../usuarios.json");
+const usuariosMock = require("../../../dados-mock/usuarios.json");
+const dadosPessoaisMock = require("../../../dados-mock/dados-pessoais.json");
 
 class Usuario {
   listar() {
@@ -17,6 +18,12 @@ class Usuario {
     return Promise.resolve(
       !!usuariosMock.find((usuario) => usuario.nome === nome)
     );
+  }
+
+  //API DADOS PESSOAIS
+
+  obterDadosPessoais(id) {
+    return Promise.resolve(dadosPessoaisMock[id] ? dadosPessoaisMock[0] : []);
   }
 
   // alterar(id, usuarioAlterado) {
