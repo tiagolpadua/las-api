@@ -14,7 +14,7 @@ module.exports = (app) => {
     
         TiposVendas.buscaPorId(id)
         .then((resultado) => (resultado ? res.json(resultado) : res.status(404).send()))
-          .catch((erros) => res.status(400).json(erros));
+          .catch((erros) => res.status(404).json(erros));
       });
     
     //ok

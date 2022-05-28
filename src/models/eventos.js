@@ -35,14 +35,14 @@ class Eventos{
 
     //ok
     listarPorStatus(status){
-        if(status ==="STATUS_AGENDADO"){
-            return repositorio.listarAgendado(status);
+        if(status ==="agendado"){
+            return repositorio.listarAgendado();
         }
-        if(status ==="STATUS_EM_ANDAMENTO"){
-            return repositorio.listarEmAndamento(status);
+        if(status ==="em-andamento"){
+            return repositorio.listarEmAndamento();
         }
-        if(status ==="STATUS_FINALIZADO"){
-            return repositorio.listarFinalizado(status);
+        if(status ==="finalizado"){
+            return repositorio.listarFinalizado();
         }
 
         return Promise.reject(`Status inválido: ${status}`); 

@@ -12,8 +12,8 @@ class Evento{
     }
   
     //
-    adiciona(evento){
-        return Promise.resolve(evento && {insertId:90});
+    adicionar(evento){
+        return Promise.resolve(evento && {insertId:4});
     }
     
     //
@@ -24,6 +24,18 @@ class Evento{
     //
     excluir(id){
         return Promise.resolve(eventosMock && id);
+    }
+
+    listarAgendado(){
+        return Promise.resolve(eventosMock.filter((evento) => evento.status === "agendado"));
+    }
+
+    listarEmAndamento(){
+        return Promise.resolve(eventosMock.filter((evento) => evento.status === "em-andamento"));
+    }
+
+    listarFinalizado(){
+        return Promise.resolve(eventosMock.filter((evento) => evento.status === "finalizado"));
     }
 }
 module.exports = new Evento();

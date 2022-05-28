@@ -12,7 +12,7 @@ module.exports = (app) => {
     app.get("/eventos/:id", (req, res) =>{
         const id = parseInt(req.params.id);
         eventos.buscarPorId(id)
-        .then((resultados) => res.json(resultados))
+        .then((resultados) => (resultados ? res.json(resultados) : res.status(404).send()))
         .catch((erros) => res.status(400).json(erros));
     });
 
