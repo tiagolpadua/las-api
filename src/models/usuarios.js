@@ -15,7 +15,7 @@ class Usuarios {
   async adicionar(usuario) {
     let nomeEhValido = false;
 
-    if (usuario.nome.length > 0) {
+    if (usuario?.nome?.length > 0) {
       const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
         usuario.nome
       );
@@ -25,7 +25,7 @@ class Usuarios {
       }
     }
 
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    const urlEhValida = await this.isURLValida(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -36,7 +36,7 @@ class Usuarios {
       {
         nome: "urlFotoPerfil",
         valido: urlEhValida,
-        mensagem: "URL deve uma URL válida",
+        mensagem: "URL deve ser uma URL válida",
       },
     ];
 
@@ -44,7 +44,7 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      throw erros;
+      throw { erroApp: erros };
     } else {
       // const sql = "INSERT INTO Usuarios SET ?";
 
@@ -72,7 +72,7 @@ class Usuarios {
     return repositorio.buscarPorNome(nome);
   }
 
-  async validarURLFotoPerfil(url) {
+  async isURLValida(url) {
     try {
       const regex =
         /https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/gm;

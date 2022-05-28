@@ -60,6 +60,48 @@ describe("API de usuários", () => {
       urlFotoPerfil: "https://randomuser.me/api/portraits/men/22.jpg",
     });
   });
+
+  test("Adicionar usuário com Dados inválidos", async () => {
+    const respNomeJaUtilizado = await request.post("/usuarios").send({
+      nome: "Welbert Araujo",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/men/22.jpg",
+    });
+    expect(respNomeJaUtilizado.statusCode).toBe(400);
+    expect(respNomeJaUtilizado.body).toEqual([
+      {
+        mensagem: "Nome deve ser informado e deve ser único",
+        nome: "nome",
+        valido: false,
+      },
+    ]);
+
+    const respNomeInvalido = await request.post("/usuarios").send({
+      urlFotoPerfil: "https://randomuser.me/api/portraits/men/22.jpg",
+    });
+    expect(respNomeInvalido.statusCode).toBe(400);
+    expect(respNomeInvalido.body).toEqual([
+      {
+        mensagem: "Nome deve ser informado e deve ser único",
+        nome: "nome",
+        valido: false,
+      },
+    ]);
+
+    const respUrlInvalida = await request.post("/usuarios").send({
+      nome: "Marcos",
+      urlFotoPerfil: "xxxxxts/mxxxexn/xx2x2.xxjpxxxxg",
+    });
+    expect(respUrlInvalida.statusCode).toBe(400);
+    expect(respUrlInvalida.body).toEqual([
+      {
+        mensagem: "URL deve ser uma URL válida",
+        nome: "urlFotoPerfil",
+        valido: false,
+      },
+    ]);
+  });
+
+  test("Adicionar usuário com Dados inválidos", async () => {});
 });
 
 describe("API de Dados Pesosais do Usuário", () => {
