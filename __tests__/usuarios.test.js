@@ -35,6 +35,11 @@ describe("API de Usuários", () => {
         nome: "Domingosxxxx",
         urlFotoPerfil: "https://randomuser.me/api/portraits/women/63.jpg",
       },
+      {
+        id: 6,
+        nome: "Gemini",
+        urlFotoPerfil: "https://randomuser.me/api/portraits/women/63.jpg",
+      },
     ]);
   });
 
