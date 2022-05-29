@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "nome": "Lavagem do Bonfim",
+    "descricao": "Festa do Bonfim",
+    "urlFoto": "https://randomuser.me/api/portraits/men/91.jpg"
+  },
+  {
+    "id": 2,
+    "nome": "Carnaval",
+    "descricao": "Carnaval",
+    "urlFoto": "https://randomuser.me/api/portraits/men/91.jpg"
+  }
+]
