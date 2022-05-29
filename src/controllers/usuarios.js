@@ -1,5 +1,6 @@
 const Usuarios = require("../models/usuarios");
 const valida = require("../models/validacoes.js");
+const usuario = require("../repositorios/usuario");
 
 module.exports = (app) => {
   app.get("/usuarios", (req, res, next) => {
@@ -44,10 +45,8 @@ module.exports = (app) => {
   });
 
   app.post("/usuarios", (req, res, next) => {
-    console.log(req.body);
-    const camposValidos = valida.postBodyUsuarios(req.body);
-    console.log(camposValidos);
-    Usuarios.adicionar(camposValidos)
+    const usuario = req.body;
+    Usuarios.adicionar(usuario)
       .then((resultados) => res.status(201).json(resultados))
       .catch((erros) => next(erros));
   });
@@ -88,7 +87,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const camposValidos = valida.putBodyDadosPessoais(req.body);
     Usuarios.alterarDadosPessoais(id, camposValidos)
-      .then((resultados) => res.json(resultados))
+      .then((resultados) => res.status(204).json(resultados))
       .catch((erros) => next(erros));
   });
 

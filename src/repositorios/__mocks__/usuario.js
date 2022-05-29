@@ -1,5 +1,6 @@
 const usuariosMock = require("./usuariosMock.json");
 const valida = require("../../models/validacoes.js");
+const { Promise } = require("node-fetch");
 
 class UsuariosRepositorio {
   listar() {
@@ -8,56 +9,76 @@ class UsuariosRepositorio {
 
   buscarPorNome(nome) {
     const encontrado = usuariosMock.find((usuario) => usuario.nome === nome);
-    return Promise.resolve(encontrado ? [encontrado] : []);
+    return encontrado ? Promise.resolve([encontrado]) : Promise.reject([]);
   }
 
   buscarPorId(id) {
-    return Promise.resolve([usuariosMock.find((usuario) => usuario.id === id)]);
+    const encontrado = usuariosMock.find((usuario) => usuario.id === id);
+    return encontrado ? Promise.resolve([encontrado]) : Promise.reject([]);
   }
 
   buscarEndereco(id) {
-    const usuario = usuariosMock.find((usuario) => usuario.id === id);
-    return Promise.resolve([usuario.endereco]);
+    const encontrado = usuariosMock.find((usuario) => usuario.id === id);
+    const campos = ["cep", "endereco", "numero", "complemento", "bairro"];
+    if (encontrado) {
+      return Promise.resolve([valida.objCamposAceitos(encontrado, campos)]);
+    } else {
+      return Promise.reject([]);
+    }
   }
 
   buscarDadosContatos(id) {
-    const usuario = usuariosMock.find((usuario) => usuario.id === id);
+    const encontrado = usuariosMock.find((usuario) => usuario.id === id);
     const campos = ["telefone", "celular", "email"];
-    return Promise.resolve([valida.objCamposAceitos(usuario, campos)]);
+    if (encontrado) {
+      return Promise.resolve([valida.objCamposAceitos(encontrado, campos)]);
+    } else {
+      return Promise.reject([]);
+    }
   }
 
   buscarDadosPessoais(id) {
-    const usuario = usuariosMock.find((usuario) => usuario.id === id);
+    const encontrado = usuariosMock.find((usuario) => usuario.id === id);
     const campos = ["nomeCompleto", "dataNascimento", "rg", "cpf"];
-    return Promise.resolve([valida.objCamposAceitos(usuario, campos)]);
+    if (encontrado) {
+      return Promise.resolve([valida.objCamposAceitos(encontrado, campos)]);
+    } else {
+      return Promise.reject([]);
+    }
   }
 
   adicionar(usuario) {
-    return [{ ...usuario, id: 4 }];
+    return Promise.resolve([{ ...usuario }]);
   }
 
-  alterar() {
-    return Promise.resolve([]);
+  alterar(id) {
+    const encontrado = usuariosMock.find((usuario) => usuario.id === id);
+    return encontrado ? Promise.resolve([encontrado]) : Promise.reject([]);
   }
 
-  alterarContatos() {
-    return Promise.resolve([]);
+  alterarContatos(id) {
+    const encontrado = usuariosMock.find((usuario) => usuario.id === id);
+    return encontrado ? Promise.resolve([encontrado]) : Promise.reject([]);
   }
 
-  alterarSenha() {
-    return Promise.resolve([]);
+  alterarSenha(id) {
+    const encontrado = usuariosMock.find((usuario) => usuario.id === id);
+    return encontrado ? Promise.resolve([encontrado]) : Promise.reject([]);
   }
 
-  alterarDadosPessoais() {
-    return Promise.resolve([]);
+  alterarDadosPessoais(id) {
+    const encontrado = usuariosMock.find((usuario) => usuario.id === id);
+    return encontrado ? Promise.resolve([encontrado]) : Promise.reject([]);
   }
 
-  alterarEndereco() {
-    return Promise.resolve([]);
+  alterarEndereco(id) {
+    const encontrado = usuariosMock.find((usuario) => usuario.id === id);
+    return encontrado ? Promise.resolve([encontrado]) : Promise.reject([]);
   }
 
-  excluir() {
-    return Promise.resolve([]);
+  excluir(id) {
+    const encontrado = usuariosMock.find((usuario) => usuario.id === id);
+    return encontrado ? Promise.resolve([encontrado]) : Promise.reject([]);
   }
 }
 

@@ -32,27 +32,36 @@ class Usuarios {
   }
 
   async adicionar(usuario) {
+    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<eu");
     const validacoes = [
       {
         nome: `${usuario.nome}`,
         valido:
-          valida.isNomeValido(usuario.nome) &&
-          (await this.validarNomeUsuarioNaoUtilizado(usuario.nome)),
+          valida.isNomeValido(usuario?.nome) &&
+          (await this.validarNomeUsuarioNaoUtilizado(usuario?.nome)),
         mensagem: "Nome informado deve ser único e não vazio",
       },
       {
         url: `${usuario.urlFotoPerfil}`,
         valido:
-          valida.isFormatoUrlFotoValido(usuario.urlFotoPerfil) &&
-          (await valida.isStatusFotoValido(usuario.urlFotoPerfil)),
+          valida.isFormatoUrlFotoValido(usuario?.urlFotoPerfil) &&
+          (await valida.isStatusFotoValido(usuario?.urlFotoPerfil)),
         mensagem: "URL informada deve  ser uma URL válida",
       },
     ];
-
     const erros = validacoes.filter((campo) => !campo.valido);
-    const novoUsuario = await repositorio.adicionar(usuario);
 
-    return erros.length > 0 ? Promise.reject(erros) : novoUsuario[0];
+    // console.log(erros.length);
+
+    // // return erros.length > 0
+    // //   ? Promise.reject({ erroApp: erros })
+    // //   : repositorio.adicionar(usuario);
+    const resultados = await repositorio.adicionar(usuario);
+    if (erros.length > 0) {
+      return Promise.reject({ erro: "caiu no resolve" });
+    } else {
+      return resultados;
+    }
   }
 
   alterar(id, valores) {
@@ -87,7 +96,7 @@ class Usuarios {
 
   async validarNomeUsuarioNaoUtilizado(nome) {
     const resultados = await repositorio.buscarPorNome(nome);
-    return resultados.length > 0 ? false : true;
+    return resultados?.length > 0 ? false : true;
   }
 }
 

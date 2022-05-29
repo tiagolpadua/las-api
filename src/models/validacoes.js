@@ -3,7 +3,7 @@ const { EM_ANDAMENTO, AGENDADO, FINALIZADO } = require("../enums/eventoStatus");
 
 class Valida {
   isNomeValido(nome) {
-    return nome.length > 5;
+    return nome.length > 2;
   }
 
   isFormatoUrlFotoValido(urlFoto) {
