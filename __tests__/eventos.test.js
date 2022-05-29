@@ -69,7 +69,7 @@ describe("API de Eventos", () => {
   {
     "nome": "Balada",
     "descricao": "Melhor Balada do Mundo",
-    "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
+    "urlFoto": "https://randomuser.me/api/portraits/men/50.jpg",
     "dataInicio": "2022-05-29",
     "dataFim": "2022-05-30",
     "status": "agendado"
@@ -79,7 +79,7 @@ describe("API de Eventos", () => {
     {
       "nome": "Balada",
       "descricao": "Melhor Balada do Mundo",
-      "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
+      "urlFoto": "https://randomuser.me/api/portraits/men/50.jpg",
       "dataInicio": "2022-05-29",
       "dataFim": "2022-05-30",
       "status": "agendado"
@@ -91,7 +91,7 @@ describe("API de Eventos", () => {
     const resp = await request.put("/eventos/2").send({
         "nome": "Sao JOao",
         "descricao": "Melhor festa do Mundo",
-        "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
+        "urlFoto": "https://randomuser.me/api/portraits/men/50.jpg",
         "dataInicio": "2022-05-29",
         "dataFim": "2022-08-29",
         "status": "em-andamento"
@@ -101,7 +101,7 @@ describe("API de Eventos", () => {
       "id": 2,
       "nome": "Sao JOao",
       "descricao": "Melhor festa do Mundo",
-      "urlFoto": "https://randomuser.me/api/portraits/women/55.jpg",
+      "urlFoto": "https://randomuser.me/api/portraits/men/50.jpg",
       "dataInicio": "2022-05-29",
       "dataFim": "2022-08-29",
       "status": "em-andamento"
