@@ -55,6 +55,16 @@ class Usuario {
       }
     });
   }
+
+  buscarContatos(id) {
+    const sql = "SELECT telefone, celular, email FROM usuarios WHERE id = ?";
+    return query(sql, id).then((data) => data[0]);
+  }
+
+  alterarContatos(id, usuarioAlterado) {
+    const sql = "UPDATE usuarios SET ? WHERE id = ?";
+    return query(sql, [usuarioAlterado, id]);
+  }
 }
 
 module.exports = new Usuario();

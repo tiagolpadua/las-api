@@ -67,4 +67,18 @@ module.exports = (app) => {
   });
 
   //CONTATOS
+  app.get("/usuarios/:id/contatos", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    Usuario.buscarContatos(id)
+      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).send()))
+      .catch((erros) => next(erros));
+  });
+
+  app.put("/usuarios/:id/contatos", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuario.alterarContatos(id, valores)
+      .then(() => res.json({ id, ...valores }))
+      .catch((erros) => next(erros));
+  });
 };

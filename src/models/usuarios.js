@@ -98,6 +98,14 @@ class Usuarios {
     return repositorio.atualizarDadosPessoais(id, dadosPessoais);
   }
 
+  buscarContatos(id) {
+    return repositorio.buscarContatos(id);
+  }
+
+  alterarContatos(id, valores) {
+    return repositorio.alterarContatos(id, valores);
+  }
+
   // isDatasValidas(dataInicio, dataFim) {
   //   //Obter a data atual - var now = moment();
   //   //var day = moment("1995-12-25")

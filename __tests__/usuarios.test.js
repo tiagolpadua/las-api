@@ -5,6 +5,7 @@ const request = supertest(customExpress());
 
 jest.mock("../src/repositorios/usuario");
 
+//######################### API DE USUÁRIOS #########################
 describe("API de usuários", () => {
   test("Listar usuarios", async () => {
     const resp = await request.get("/usuarios");
@@ -124,7 +125,6 @@ describe("API de usuários", () => {
     });
   });
 
-  //############### PAREI AQUI EM BUSCAR USUARIO INEXISTENTE POR NOME ###################################
   test("Buscar usuário inexistente por nome", async () => {
     const resp = await request.get("/usuarios/nome/Mary");
 
