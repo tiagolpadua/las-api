@@ -124,6 +124,14 @@ describe("API de usuários", () => {
     });
   });
 
+  //############### PAREI AQUI EM BUSCAR USUARIO INEXISTENTE POR NOME ###################################
+  test("Buscar usuário inexistente por nome", async () => {
+    const resp = await request.get("/usuarios/nome/Mary");
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual("");
+  });
+
   test("Excluir usuário existente", async () => {
     const resp = await request.delete("/usuarios/4");
     expect(resp.statusCode).toBe(200);
