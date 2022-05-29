@@ -25,12 +25,10 @@ class TiposVendas {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return Promise.reject(erros);
+      throw { erroApp: erros };
     } else {
-      return repositorio.adicionar(tipoVenda).then((resultados) => {
-        const id = resultados.insertId;
-        return { ...tipoVenda, id };
-      });
+      const resp = await repositorio.adicionar(tipoVenda);
+      return { id: resp.insertId, ...tipoVenda };
     }
   }
 
