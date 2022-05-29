@@ -11,9 +11,9 @@ class TiposVendas {
     return query(sql, id);
   }
 
-  incluirTiposVendas(evento) {
+  incluirTiposVendas(tipoVenda) {
     const sql = "INSERT INTO tiposVendas SET ?";
-    return query(sql, evento);
+    return query(sql, tipoVenda);
   }
 
   alterarTiposVendas(id, valores) {

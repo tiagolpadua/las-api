@@ -5,6 +5,7 @@ class Tabelas {
     this.criarUsuarios();
     this.criarEventos();
     this.criarTiposVendas();
+    this.criarUFs();
   }
 
   criarUsuarios() {
@@ -71,6 +72,19 @@ class Tabelas {
         console.log(erro);
       } else {
         console.log("Tabela TiposVendas criada com sucesso");
+      }
+    });
+  }
+
+  criarUFs() {
+    const sql =
+      "CREATE TABLE IF NOT EXISTS UFs(id INT NOT NULL, sigla varchar(2) NOT NULL, nome varchar(30), PRIMARY KEY(id))";
+
+    this.pool.query(sql, (erro) => {
+      if (erro) {
+        console.log(erro);
+      } else {
+        console.log("Tabela UFs criada com sucesso");
       }
     });
   }

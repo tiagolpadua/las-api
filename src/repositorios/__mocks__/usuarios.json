@@ -2,16 +2,53 @@
   {
     "id": 1,
     "nome": "Joaquina",
-    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/50.jpg"
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/50.jpg",
+    "nomeCompleto": "Ana Joaquina",
+    "dataNascimento": "2002-05-02",
+    "rg": "123456789",
+    "cpf": "12345678912",
+    "telefone": "71987658248",
+    "celular": "71965843548",
+    "email": "nome@email.com.br",
+    "senha": "123456",
+    "cep": "41280070",
+    "endereco": "rua de cima",
+    "numero": 280,
+    "complemento": "3º andar",
+    "bairro": "Americanas"
   },
   {
     "id": 2,
     "nome": "Fernandina",
-    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/32.jpg"
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/32.jpg",
+    "nomeCompleto": "Ana Joaquina",
+    "dataNascimento": "2002-05-02",
+    "rg": "123456789",
+    "cpf": "12345678912",
+    "telefone": "71987658248",
+    "celular": "71965843548",
+    "email": "nome@email.com.br",
+    "senha": "123456",
+    "endereco": "rua de cima",
+    "numero": 280,
+    "complemento": "3º andar",
+    "bairro": "Americanas"
   },
   {
     "id": 3,
     "nome": "Clara",
-    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/31.jpg"
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/31.jpg",
+    "nomeCompleto": "Ana Joaquina",
+    "dataNascimento": "2002-05-02",
+    "rg": "123456789",
+    "cpf": "12345678912",
+    "telefone": "71987658248",
+    "celular": "71965843548",
+    "email": "nome@email.com.br",
+    "senha": "123456",
+    "endereco": "rua de cima",
+    "numero": 280,
+    "complemento": "3º andar",
+    "bairro": "Americanas"
   }
 ]

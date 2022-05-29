@@ -10,21 +10,33 @@ module.exports = (app) => {
   app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarPorId(id)
-      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).send()))
+      .then((usuario) => {
+        usuario ? res.json(usuario) : res.status(404).send();
+      })
       .catch((erros) => next(erros));
   });
 
   app.post("/usuarios", (req, res, next) => {
     const usuario = req.body;
     Usuarios.adicionar(usuario)
-      .then((resultados) => res.status(201).json({ id: resultados.insertId }))
+      .then((resultados) => res.status(201).json(resultados))
       .catch((erros) => {
-        if (erros.find((error) => !error.valido)) {
-          res.status(406).send({ error: { message: "Usuário inválido" } });
-        }
         next(erros);
       });
   });
+
+  // app.post("/usuarios", (req, res, next) => {
+  //   const usuario = req.body;
+  //   Usuarios.adicionar(usuario)
+  //     .then((resultados) => res.status(201).json({ id: resultados.insertId }))
+  //     .catch((erros) => {
+  //       console.log(erros);
+  //       if (erros.find((error) => !error.valido)) {
+  //         res.status(406).send({ error: { message: "Usuário inválido" } });
+  //       }
+  //       next(erros);
+  //     });
+  // });
 
   app.put("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
@@ -51,9 +63,11 @@ module.exports = (app) => {
   //Dados pessoais
 
   app.get("/usuarios/:id/dados-pessoais", (req, res, next) => {
-    const { id } = req.params;
+    const id = parseInt(req.params.id);
     Usuarios.buscarDadosPessoaisPorId(id)
-      .then((resultados) => res.json(resultados))
+      .then((resultado) => {
+        resultado ? res.json(resultado) : res.status(404).send();
+      })
       .catch((erros) => next(erros));
   });
 
@@ -68,9 +82,11 @@ module.exports = (app) => {
   //Contatos
 
   app.get("/usuarios/:id/contatos", (req, res, next) => {
-    const { id } = req.params;
+    const id = parseInt(req.params.id);
     Usuarios.buscarContatosPorId(id)
-      .then((resultados) => res.json(resultados))
+      .then((resultado) => {
+        resultado ? res.json(resultado) : res.status(404).send();
+      })
       .catch((erros) => next(erros));
   });
 
@@ -95,9 +111,11 @@ module.exports = (app) => {
   //Endereco
 
   app.get("/usuarios/:id/endereco", (req, res, next) => {
-    const { id } = req.params;
+    const id = parseInt(req.params.id);
     Usuarios.buscarEnderecoPorId(id)
-      .then((resultados) => res.json(resultados))
+      .then((resultado) => {
+        resultado ? res.json(resultado) : res.status(404).send();
+      })
       .catch((erros) => next(erros));
   });
 

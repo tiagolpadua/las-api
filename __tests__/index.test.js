@@ -1,5 +1,5 @@
 const supertest = require("supertest");
-const customExpress = require("../config/customExpress.js");
+const customExpress = require("../src/config/customExpress.js");
 
 const request = supertest(customExpress());
 

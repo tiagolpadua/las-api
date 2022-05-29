@@ -1,5 +1,5 @@
 const repositorio = require("../repositorios/usuario");
-const validarURL = require("../validators/validators");
+const validarURL = require("../infraestrutura/validators/validators");
 
 class Usuarios {
   listar() {
@@ -11,10 +11,16 @@ class Usuarios {
   }
 
   async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nome.length > 0 && (await this.usuarioNaoExiste(usuario.nome));
+    let nomeEhValido = false;
 
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    if (usuario?.nome?.length > 0) {
+      const nomeJaUtilizado = await this.isUsuarioUtilizado(usuario.nome);
+      if (!nomeJaUtilizado) {
+        nomeEhValido = true;
+      }
+    }
+
+    const urlEhValida = await this.validarURLFotoPerfil(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -33,14 +39,52 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise((resolve, reject) => reject(erros));
+      throw { erroApp: erros };
     } else {
-      return repositorio.adicionaUsuario(usuario);
+      const resp = await repositorio.adicionaUsuario(usuario);
+      return { id: resp.insertId, ...usuario };
     }
   }
 
-  alterar(id, valores) {
-    return repositorio.alterarUsuario(id, valores);
+  async alterar(id, valores) {
+    let nomeEhValido = false;
+
+    if (valores?.nome?.length > 0) {
+      const nomeJaUtilizado = await this.isUsuarioUtilizado(valores.nome);
+      if (!nomeJaUtilizado) {
+        nomeEhValido = true;
+      }
+    }
+
+    const urlEhValida = await this.validarURLFotoPerfil(valores?.urlFotoPerfil);
+
+    const validacoes = [
+      {
+        nome: "nome",
+        valido: nomeEhValido,
+        mensagem: "Nome deve ser informado e deve ser único",
+      },
+      {
+        nome: "urlFotoPerfil",
+        valido: urlEhValida,
+        mensagem: "URL deve uma URL válida",
+      },
+    ];
+
+    const erros = validacoes.filter((campo) => !campo.valido);
+    const existemErros = erros.length;
+
+    if (existemErros) {
+      throw { erroApp: erros };
+    } else {
+      return repositorio
+        .alterarUsuario(id, valores)
+        .then((resultado) =>
+          resultado.changedRows > 0
+            ? { resultado: "Alteração feita com sucesso" }
+            : resultado
+        );
+    }
   }
 
   excluir(id) {
@@ -55,19 +99,20 @@ class Usuarios {
     return validarURL(url);
   }
 
-  async usuarioNaoExiste(nome) {
-    const usuarios = await repositorio.vericaNomeUsuario(nome);
-    if (usuarios.length > 0) {
-      return false;
-    } else {
-      return true;
-    }
+  async isUsuarioUtilizado(nome) {
+    return repositorio.vericaNomeUsuario(nome);
   }
 
   //Dados pessoais
 
   atualizarDadosPessoais(id, dadosPessoais) {
-    return repositorio.atualizarDadosPessoais(id, dadosPessoais);
+    return repositorio
+      .atualizarDadosPessoais(id, dadosPessoais)
+      .then((resultado) =>
+        resultado.changedRows > 0
+          ? { resultado: "Alteração feita com sucesso" }
+          : resultado
+      );
   }
 
   buscarDadosPessoaisPorId(id) {
@@ -77,7 +122,13 @@ class Usuarios {
   //Contatos
 
   atualizarContatos(id, contatos) {
-    return repositorio.atualizarContatos(id, contatos);
+    return repositorio
+      .atualizarContatos(id, contatos)
+      .then((resultado) =>
+        resultado.changedRows > 0
+          ? { resultado: "Alteração feita com sucesso" }
+          : resultado
+      );
   }
 
   buscarContatosPorId(id) {
@@ -87,7 +138,13 @@ class Usuarios {
   //Senha
 
   atualizarSenha(id, novaSenha) {
-    return repositorio.atualizarSenha(id, novaSenha);
+    return repositorio
+      .atualizarSenha(id, novaSenha)
+      .then((resultado) =>
+        resultado.changedRows > 0
+          ? { resultado: "Alteração feita com sucesso" }
+          : resultado
+      );
   }
 
   //Endereco
@@ -97,7 +154,13 @@ class Usuarios {
   }
 
   atualizarEndereco(id, endereco) {
-    return repositorio.atualizarEndereco(id, endereco);
+    return repositorio
+      .atualizarEndereco(id, endereco)
+      .then((resultado) =>
+        resultado.changedRows > 0
+          ? { resultado: "Alteração feita com sucesso" }
+          : resultado
+      );
   }
 }
 
