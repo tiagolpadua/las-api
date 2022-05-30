@@ -12,6 +12,18 @@ class Evento {
     return Promise.resolve(eventosMock.find((evento) => evento.id === id));    
   }
 
+  // listarEventosAgendados() {
+  //   return Promise.resolve(eventosMock);
+  // }
+
+  // listarEventosEmAndamento() {
+  //   return Promise.resolve(eventosMock);
+  // }
+
+  // listarEventosFinalizados() {
+  //   return Promise.resolve(eventosMock);
+  // }
+
   buscarEventoPorStatus() {
     return Promise.resolve(eventosMock);
   }

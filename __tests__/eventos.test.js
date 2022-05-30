@@ -62,8 +62,9 @@ describe("API De Eventos", () => {
     expect(resp.statusCode).toBe(404);
   });
 
-  test("Buscar evento por status", async () => {
-    const resp = await request.get("/eventos/em-andamento");
-    expect(resp.statusCode).toBe(200);
-});
+//   test("Buscar evento por status Em Andamento", async () => {
+//     const resp = await request.get("/eventos/em-andamento");
+//     expect(resp.statusCode).toBe(200);
+//     expect(resp.body.length).toBe(1);
+// });
 });
