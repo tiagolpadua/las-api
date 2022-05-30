@@ -3,13 +3,13 @@ const query = require("../infraestrutura/database/queries.js");
 class UsuarioRepositorio {
   listar() {
     const sql = `SELECT 
-    nomeCompleto, urlFotoPerfil, email
+    id, nomeCompleto, urlFotoPerfil
     FROM Usuarios`;
     return query(sql);
   }
   buscarPorId(id) {
     const sql = `SELECT 
-    nomeCompleto, urlFotoPerfil, email
+    id, nomeCompleto, urlFotoPerfil
     FROM Usuarios WHERE id = ?`;
     return query(sql, id);
   }

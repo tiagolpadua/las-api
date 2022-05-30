@@ -1,7 +1,7 @@
 const tipoVenda = require("../models/tiposVendas");
 
 module.exports = (app) => {
-  app.get("/tipos-vendas", (req, res, next) => {
+  app.get("/tipos-vendas", (_req, res, next) => {
     tipoVenda.listar()
       .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => next(erros));

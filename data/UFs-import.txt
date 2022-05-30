@@ -1,0 +1,10 @@
+- importar json para mysql pelo workbench
+https://www.youtube.com/watch?v=BiaOAz8zWYw 
+
+
+- json com um nivel de hierarquia e ordenado por nome de UF
+https://servicodados.ibge.gov.br/api/v1/localidades/estados?view=nivelado&orderBy=name 
+
+
+- municipio-id, municipio-nome, uf-nome
+https://servicodados.ibge.gov.br/api/v1/localidades/municipios?view=nivelado

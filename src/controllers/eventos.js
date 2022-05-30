@@ -8,7 +8,7 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
-  app.get("/eventos", (req, res, next) => {
+  app.get("/eventos", (_req, res, next) => {
     Eventos.listar()
       .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => next(erros));
