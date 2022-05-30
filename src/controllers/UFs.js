@@ -6,4 +6,12 @@ module.exports = (app) => {
       .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => next(erros));
   });
+
+  app.get("/ufs/:uf/municipios", (req, res, next) => {
+    const uf = req.params.uf;
+    console.log(uf);
+    UFs.listarMunicipios(uf)
+      .then((resultados) => res.status(200).json(resultados))
+      .catch((erros) => next(erros));
+  });
 };
