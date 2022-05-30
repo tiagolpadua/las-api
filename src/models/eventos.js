@@ -6,11 +6,23 @@ const STATUS_EM_ANDAMENTO = "em-andamento";
 const STATUS_FINALIZADO = "finalizado";
 
 class Eventos {
-  listar() {
-    return repositorio.listar();
+  async listar() {
+    const eventos = await repositorio.listar();
+    return eventos.map((evento) => this.insereStatusNoEvento(evento));
   }
 
-  async adicionar(evento) {
+  adicionar(evento) {
+    const dataEventoEhValida = this.isDatasValidas(
+      evento.dataInicio,
+      evento.dataFim
+    );
+
+    if (!dataEventoEhValida) {
+      return new Promise((resolve, reject) =>
+        reject({ erro: "Evento com datas inválidas" })
+      );
+    }
+
     return repositorio.adicionar(evento);
   }
 
@@ -22,35 +34,38 @@ class Eventos {
     return repositorio.excluir(id);
   }
 
-  buscarPorId(id) {
-    return repositorio.buscaPorId(id);
+  async buscaPorId(id) {
+    const resultado = await repositorio.buscaPorId(id);
+    return this.insereStatusNoEvento(resultado);
   }
 
   buscaPorStatus(status) {
-    return repositorio.buscaPorStatus(status);
+    switch (status) {
+      case STATUS_AGENDADO:
+        return repositorio.buscarEventosAgendado();
+      case STATUS_EM_ANDAMENTO:
+        return repositorio.buscarEventosEmAndamento();
+      case STATUS_FINALIZADO:
+        return repositorio.buscarEventosFinalizado();
+      default:
+        return new Promise((resolve, reject) =>
+          reject({ erro: `O Status ${status} não é válido` })
+        );
+    }
   }
 
-  isDatasValidas(datas) {
-    const { dataInicio, dataFim } = datas;
-    return (
-      moment().isBefore(dataInicio) && moment(dataInicio).isBefore(dataFim)
-    );
+  isDatasValidas({ dataInicio, dataFim }) {
+    const dataCriacao = moment().format("YYYY-MM-DD");
+    const dataInicioEvento = moment(dataInicio).format("YYYY-MM-DD");
+    const dataFimEvento = moment(dataFim).format("YYYY-MM-DD");
+
+    const dataEventoEhValida =
+      moment(dataInicioEvento).isSameOrAfter(dataCriacao) &&
+      moment(dataFimEvento).isSameOrAfter(dataInicioEvento);
+    return dataEventoEhValida;
   }
 
-  listaStatus(status) {
-    if (status === STATUS_AGENDADO) {
-      return repositorio.statusAgendado();
-    }
-    if (status === STATUS_EM_ANDAMENTO) {
-      return repositorio.statusEmAndamento();
-    }
-    if (status === STATUS_FINALIZADO) {
-      return repositorio.statusFinalizado();
-    }
-    throw new Error(`Status inválido:${status} `);
-  }
-
-  insereStatus(evento) {
+  insereStatusNoEvento(evento) {
     const status = this.obterStatusEvento(evento);
     return { ...evento, status };
   }
@@ -58,13 +73,13 @@ class Eventos {
   obterStatusEvento(evento) {
     const dataInicio = moment(evento.dataInicio);
     const dataFim = moment(evento.dataFim);
-    const hoje = moment();
+    const dataAtual = moment();
 
-    if (dataInicio.isAfter(hoje)) {
+    if (dataInicio.isAfter(dataAtual)) {
       return STATUS_AGENDADO;
-    } else if (dataInicio.isSameOrBefore(hoje) && dataFim.isSameOrAfter(hoje)) {
+    } else if (dataAtual.isBetween(dataInicio, dataFim)) {
       return STATUS_EM_ANDAMENTO;
-    } else if (dataFim.isBefore(hoje)) {
+    } else if (dataFim.isBefore(dataAtual)) {
       return STATUS_FINALIZADO;
     }
 

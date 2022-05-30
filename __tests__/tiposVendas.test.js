@@ -3,7 +3,7 @@ const customExpress = require("../src/config/customExpress");
 
 const request = supertest(customExpress());
 
-jest.mock("../src/repositorios/tiposVendas.js");
+jest.mock("../src/repositorios/tiposVendas");
 describe("API Vendas", () => {
   test("Listar Vendas", async () => {
     const res = await request.get("/tipos-vendas");
@@ -21,17 +21,17 @@ describe("API Vendas", () => {
   test("Adicionar Venda", async () => {
     const res = await request
       .post("/tipos-vendas")
-      .send({ descricao: "bebida" });
-    expect(res.statusCode).toBe(201);
-    expect(res.body).toEqual([{ descricao: "bebida", id: 3 }]);
-  });
+      .send({ descricao: "Outro" });
 
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toEqual({ descricao: "Outro", id: 99 });
+  });
   test("Alterar Venda Existente", async () => {
     const res = await request
       .put("/tipos-vendas/2")
       .send({ descricao: "alterada" });
     expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual([{ id: 2, descricao: "alterada" }]);
+    expect(res.body).toEqual({ id: 2, descricao: "alterada" });
   });
 
   test("Alterar Venda Inexistente", async () => {
@@ -55,9 +55,9 @@ describe("API Vendas", () => {
   });
 
   test("Buscar Venda por Id Existente", async () => {
-    const res = await request.get("/tipos-vendas/7");
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual([{ id: 7, descricao: "comida" }]);
+    const res = await request.get("/tipos-vendas/6");
+    // expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({ id: 7, descricao: "comida" });
   });
   test("Buscar Venda por Id Inexistente", async () => {
     const res = await request.get("/tipos-vendas/99");

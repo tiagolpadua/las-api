@@ -4,26 +4,26 @@
     "nome": "evento1",
     "descricao": "primeiro evento",
     "urlFoto": null,
-    "dataInicio": "24/05/2022",
-    "dataFim": "225/05/2022",
-    "status": null
+    "dataInicio": "2022-06-11",
+    "dataFim": "2022-06-24",
+    "status": "agendado"
   },
   {
     "id": 2,
     "nome": "evento2",
     "descricao": "segundo evento",
     "urlFoto": null,
-    "dataInicio": "22/05/2022",
-    "dataFim": "23/05/2022",
-    "status": null
+    "dataInicio": "2022-01-01",
+    "dataFim": "2022-12-31",
+    "status": "finalizado"
   },
   {
     "id": 3,
     "nome": "lucas lucas",
     "descricao": "5252525252",
     "urlFoto": null,
-    "dataInicio": "22/05/2022",
-    "dataFim": "23/05/2022",
-    "status": null
+    "dataInicio": "2022-05-01",
+    "dataFim": "2022-05-07",
+    "status": "em-andamento"
   }
 ]

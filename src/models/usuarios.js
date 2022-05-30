@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
+const { cpf } = require("cpf-cnpj-validator");
 
 class Usuarios {
   listar() {
@@ -41,6 +42,7 @@ class Usuarios {
       return { id: resp.insertId, ...usuario };
     }
   }
+
   alterar(id, valores) {
     return repositorio.alterar(id, valores);
   }
@@ -56,16 +58,24 @@ class Usuarios {
     return repositorio.buscaPorNome(nome);
   }
 
-  //dados-pessoais
+  ///////////////////////////////////////////////dados-pessoais
   listaDadosPessoais(id) {
     return repositorio.listaDadosPessoais(id);
   }
 
   alterarDadosPessoais(id, valores) {
+    const cpfEhValido = this.isCPFValido(valores.cpf);
+    if (!cpfEhValido) {
+      return Promise.reject({
+        nome: "cpf",
+        valido: cpfEhValido,
+        mensagem: "CPF informado deve ser válido",
+      });
+    }
     return repositorio.alterarDadosPessoais(id, valores);
   }
 
-  //contatos
+  /////////////////////////////////////////////////////contatos
   listaContatos(id) {
     return repositorio.listaContatos(id);
   }
@@ -74,7 +84,7 @@ class Usuarios {
     return repositorio.alterarContatos(id, valores);
   }
 
-  //endereco
+  //////////////////////////////////////////////////////endereco
   listaEndereco(id) {
     return repositorio.listaEndereco(id);
   }
@@ -83,12 +93,12 @@ class Usuarios {
     return repositorio.alterarEndereco(id, valores);
   }
 
-  //senha
+  ///////////////////////////////////////////////////////////senha
   alterarSenha(id, senha) {
     return repositorio.alterarSenha(id, senha);
   }
 
-  //validações
+  //////////////////////////////////////////////////////////validações
 
   async validarURLFotoPerfil(url) {
     try {
@@ -107,6 +117,9 @@ class Usuarios {
     } catch {
       return false;
     }
+  }
+  isCPFValido(numCpf) {
+    return cpf.isValid(numCpf);
   }
 }
 

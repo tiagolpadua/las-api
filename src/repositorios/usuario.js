@@ -18,9 +18,10 @@ class Usuario {
     const sql = "DELETE FROM Usuarios WHERE id = ?";
     return query(sql, id);
   }
-  buscaPorId(id) {
+  async buscaPorId(id) {
     const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE id = ?";
-    return query(sql, id);
+    const resultados = await query(sql, id);
+    return resultados[0];
   }
   buscaPorNome(nome) {
     const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE nome = ?";
@@ -47,18 +48,19 @@ class Usuario {
 
   alterarDadosPessoais(id, valores) {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-    return query(sql, [id, valores]);
+    return query(sql, [valores, id]);
   }
 
   //contatos
-  listaContatos(id) {
+  async listaContatos(id) {
     const sql = "SELECT telefone, celular, email FROM Usuarios WHERE id = ?";
-    return query(sql, id);
+    const resultados = await query(sql, id);
+    return resultados[0];
   }
 
   alterarContatos(id, valores) {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-    return query(sql, [id, valores]);
+    return query(sql, [valores, id]);
   }
 
   //endereco
@@ -70,7 +72,7 @@ class Usuario {
 
   alterarEndereco(id, valores) {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-    return query(sql, [id, valores]);
+    return query(sql, [valores, id]);
   }
   //senha
   alterarSenha(id, senha) {

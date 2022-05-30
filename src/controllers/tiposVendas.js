@@ -9,15 +9,11 @@ module.exports = (app) => {
   });
   //oq ta acontecendo com o status code?????????????????
   app.post("/tipos-vendas", (req, res) => {
-    const tiposVendasDadoRequest = req.body;
+    const tipoVenda = req.body;
     tiposVendas
-      .adicionar(tiposVendasDadoRequest)
-      .then((resultados) =>
-        res
-          .status(201)
-          .res.json({ id: resultados.insertId, ...tiposVendasDadoRequest })
-      )
-      .catch((erros) => res.status(400).json(erros));
+      .adicionar(tipoVenda)
+      .then((resultados) => res.status(201).json(resultados))
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.put("/tipos-vendas/:id", (req, res) => {
@@ -25,8 +21,8 @@ module.exports = (app) => {
     const valores = req.body;
     tiposVendas
       .alterar(id, valores)
-      .then((resultados) => res.status(204).json(resultados))
-      .catch((erros) => res.status(405).json(erros));
+      .then(() => res.json({ id, ...valores }))
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.delete("/tipos-vendas/:id", (req, res) => {
@@ -42,6 +38,6 @@ module.exports = (app) => {
     tiposVendas
       .buscarPorId(id)
       .then((resultados) => res.status(200).json(resultados))
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => res.status(404).json(erros));
   });
 };

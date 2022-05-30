@@ -14,9 +14,9 @@ module.exports = (app) => {
       .catch((erros) => res.status(400).json(erros));
   });
 
-  app.get("/ufs/:estado", (req, res) => {
-    const estado = req.params.estado;
-    UFs.buscaEstado(estado)
+  app.get("/ufs/:sigla", (req, res) => {
+    const sigla = req.params.sigla;
+    UFs.buscaSigla(sigla)
       .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => res.status(400).json(erros));
   });

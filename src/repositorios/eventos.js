@@ -23,9 +23,18 @@ class Eventos {
     const sql = "SELECT * FROM Eventos WHERE id = ?";
     return query(sql, id);
   }
-  buscaPorStatus(status) {
-    const sql = "SELECT * FROM Eventos WHERE status like ?";
-    return query(sql, status);
+  buscarEventosAgendado() {
+    const sql = "SELECT * FROM Eventos WHERE dataInicio > CURDATE()";
+    return query(sql);
+  }
+  buscarEventosEmAndamento() {
+    const sql =
+      "SELECT * FROM Eventos WHERE dataInicio < CURDATE() && dataFim > CURDATE()";
+    return query(sql);
+  }
+  buscarEventosFinalizado() {
+    const sql = "SELECT * FROM Eventos WHERE dataFim < CURDATE()";
+    return query(sql);
   }
 }
 

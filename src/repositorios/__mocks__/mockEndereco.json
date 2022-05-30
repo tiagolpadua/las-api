@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "cep": "74040233",
+    "endereco": "rua x",
+    "numero": 11,
+    "complemento": "bairro"
+  },
+
+  {
+    "id": 3,
+    "cep": "74040233",
+    "endereco": "rua x",
+    "numero": 11,
+    "complemento": "bairro"
+  },
+  {
+    "id": 4,
+    "cep": "74040233",
+    "endereco": "rua x",
+    "numero": 11,
+    "complemento": "bairro"
+  }
+]

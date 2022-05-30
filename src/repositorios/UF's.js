@@ -11,9 +11,9 @@ class UFs {
     return query(sql, cidade);
   }
 
-  buscaEstado(estado) {
-    const sql = "SELECT estado FROM UFs WHERE estado = ?";
-    return query(sql, estado);
+  buscaSigla(sigla) {
+    const sql = "SELECT * FROM UFs WHERE sigla = ?";
+    return query(sql, sigla);
   }
 }
 

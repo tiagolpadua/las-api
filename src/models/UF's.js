@@ -7,9 +7,14 @@ class UFs {
   buscaCidade(cidade) {
     return repositorio.buscaCidade(cidade);
   }
-  buscaEstado(estado) {
-    return repositorio.buscaEstado(estado);
+  buscaSigla(sigla) {
+    return repositorio.buscaSigla(sigla);
   }
+  // inserirr(lista){
+  //   lista.forEach(element => {
+  //     return repositorio
+  //   });
+  // }
 }
 
 module.exports = new UFs();
