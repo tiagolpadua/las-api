@@ -19,7 +19,10 @@ module.exports = (app) => {
     const eventos = req.body;
     //Usuario.adicionar(usuarios, res, next);
     Evento.adicionar(eventos)
-      .then((resultados) => res.json({ id: resultados.insertId, ...eventos }))
+      .then((resultados) =>
+        res.status(201).json({ id: resultados.insertId, ...eventos })
+      )
+      //res.json({ id: resultados.insertId, ...eventos }))
       .catch((erros) => next(erros));
   });
 
@@ -36,7 +39,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     //Usuario.excluir(id, res, next);
     Evento.excluir(id)
-      .then(() => res.json({ id }))
+      .then(() => res.json({ id }).end())
       .catch((erros) => next(erros));
   });
 

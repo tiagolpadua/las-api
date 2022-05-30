@@ -20,7 +20,7 @@ module.exports = (app) => {
     //Usuario.adicionar(usuarios, res, next);
     TipoVenda.adicionar(tiposVendas)
       .then((resultados) =>
-        res.json({ id: resultados.insertId, ...tiposVendas })
+        res.status(201).json({ id: resultados.insertId, ...tiposVendas })
       )
       .catch((erros) => next(erros));
   });
@@ -38,7 +38,9 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     //Usuario.excluir(id, res, next);
     TipoVenda.excluir(id)
-      .then(() => res.json({ id }))
+      .then((resultado) =>
+        resultado ? res.json({ id }).end() : res.stauts(204).end()
+      )
       .catch((erros) => next(erros));
   });
 };

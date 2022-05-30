@@ -3,14 +3,13 @@ const repositorio = require("../repositorios/uf");
 class Ufs {
   async listar() {
     //    return repositorio.listar();
-    const sigla = await repositorio.listar();
-    return sigla.map((uf) => uf.sigla);
+    return repositorio.listar();
   }
 
   async buscarMunicipio(listaUf) {
-    //return repositorio.buscarMunicipios(id);
+    // return repositorio.buscarMunicipios(listaUf);
 
-    const listaMunicipio = await repositorio.listar(listaUf);
+    const listaMunicipio = await repositorio.buscarMunicipio(listaUf);
     return listaMunicipio.map((municipio) => municipio.nome);
   }
 }
