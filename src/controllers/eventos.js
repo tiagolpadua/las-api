@@ -26,9 +26,10 @@ module.exports = (app) => {
   app.post("/eventos", (req, res, next) => {
     const evento = req.body;
     Eventos.adicionar(evento)
-      .then((resultados) =>
-        res.status(201).json({ id: resultados.insertId, ...evento })
-      )
+      .then((resultados) => 
+      resultados ?
+      res.status(201).json({ id: resultados.insertId, ...evento }) :
+      res.status(400).send())
       .catch((erros) => next(erros));
   });
 

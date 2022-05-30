@@ -63,4 +63,40 @@ describe("API de eventos", () => {
     expect(resp.body).toEqual({id: 3, ...evento });
   });
 
+
+  test("Alterar evento com dados válidos", async () => {
+    const alteracao = {nome: "Carnaval"};
+    const resp = await request.put("/eventos/2").send(alteracao);
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      "id": 2,
+      "nome": "Carnaval",
+      "descricao": "descrição",
+      "urlFoto": "https://randomuser.me/api/portraits/women/7.jpg",
+      "dataInicio": "2022-05-20T03:00:00.000Z",
+      "dataFim": "2022-05-25T03:00:00.000Z",
+      "status": "finalizado"
+    });
+  });
+
+  test("Deletar evento", async () => {
+    const resp = await request.delete("/eventos/1");
+    expect(resp.statusCode).toBe(204);
+  });
+
+  test("Buscar evento por status", async () => {
+    const resp = await request.get("/eventos/status/agendado");
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual([
+      {
+        "id": 1,
+        "nome": "Carnaval",
+        "descricao": "descrição",
+        "urlFoto": "https://randomuser.me/api/portraits/women/5.jpg",
+        "dataInicio": "2022-09-20T03:00:00.000Z",
+        "dataFim": "2022-09-25T03:00:00.000Z",
+        "status": "agendado"
+      }
+    ]);
+  });
 });
