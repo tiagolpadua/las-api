@@ -1,14 +1,14 @@
-const ufsMockados = require("./dados_mockados/ufs.json");
-const municipiosMockados = require("./dados_mockados/municipios.json");
+const ufsMock = require("../__mocks__/dados-mockados/ufs.json");
+const municipiosMock = require("./dados-mockados/municipios.json");
 
 class Ufs {
   listar() {
-    return Promise.resolve(ufsMockados);
+    return Promise.resolve(ufsMock);
   }
 
   buscarMunicipiosPorUf(uf) {
     return Promise.resolve(
-        municipiosMockados
+      municipiosMock
         .filter((municipio) => municipio.UF === uf)
         .map((nomeMunicipio) => nomeMunicipio.nome)
     );

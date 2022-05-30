@@ -1,14 +1,14 @@
-const repositorio = require("../repositorios/ufs");
+const repositorio = require("../repositorios/uf");
 
 class Ufs {
-  async listar() {
-    const ufs = await repositorio.listar();
-    return ufs.map((uf) => uf.sigla);
+    listar() {
+      return repositorio.listar();
   }
 
-  async buscarMunicipiosPorUf(uf) {
-    const municipios = await repositorio.buscarMunicipiosPorUf(uf);
-    return municipios.map((municipio) => municipio.nome);
+  async buscarMunicipiosPorUf(uf, res) {
+    return repositorio.buscarMunicipiosPorUf(uf, res);
+    // const municipios = await repositorio.buscarMunicipiosPorUf(uf);
+    // return municipios.map((municipio) => municipio.nome);
   }
 }
 
