@@ -17,7 +17,7 @@ class Eventos {
 
   async adicionar(evento) {
     const eventoEhValido = evento.nome.length > 4;
-    const descricaoEhValida = evento.descricao.length > 4;
+    const descricaoEhValida = evento.descricao.length >= 4;
     const urlEhValida = await Validacoes.validarUrl(evento.urlFoto);
     const dataEhValida = this.isDatasValidas(evento);
 
@@ -71,18 +71,16 @@ class Eventos {
     return repositorio.buscaPorStatus(status);
   }
 
-  isDatasValidas(evento) {
-    let datasSaoValidas = false;
+  isDatasValidas({ dataInicio, dataFim }) {
+    const dataCriacao = moment().format("YYYY-MM-DD");
+    const dataInicioEvento = moment(dataInicio).format("YYYY-MM-DD");
+    const dataFimEvento = moment(dataFim).format("YYYY-MM-DD");
 
-    if (evento.dataInicio && evento.dataFim) {
-      const dataInicio = moment(evento.dataInicio).format("YYYY-MM-DD");
-      const dataFim = moment(evento.dataFim).format("YYYY-MM-DD");
-      const hoje = moment().format("YYYY-MM-DD");
-
-      datasSaoValidas =
-        moment(dataInicio).isAfter(hoje) && moment(dataFim).isAfter(dataInicio);
-      return datasSaoValidas;
-    }
+    const dataEventoEhValida =
+      moment(dataInicioEvento).isSameOrAfter(dataCriacao) &&
+      moment(dataFimEvento).isSameOrAfter(dataInicioEvento);
+    return dataEventoEhValida;
+    
   }
 
   listarPorStatus(status) {
