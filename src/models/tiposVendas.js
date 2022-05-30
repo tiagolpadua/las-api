@@ -7,21 +7,10 @@ class Venda {
     return repositorio.listar();
   }
 
-  buscarTiposDeVendasPorId(id, res, next) {
-    const sql = "SELECT * FROM tiposVendas WHERE id = ?";
-    pool.query(sql, id, (erro, resultados) => {
-      const venda = resultados[0];
-      if (erro) {
-        next(erro);
-      } else {
-        if (venda) {
-          res.status(200).json(venda);
-        } else {
-          res.status(404).end();
-        }
-      }
-    });
+  buscarPorId(id) {
+    return repositorio.buscarPorId(id);
   }
+  
   async incluir(venda, res, next) {
     const descricaoEhValida = venda.descricao.length >= 5;
     (await this.validarDescricaoVenda(venda.descricao));

@@ -9,7 +9,9 @@ app.get("/tipos-vendas",(req, res, next) => {
 
   app.get("/tipos-vendas/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    Venda.buscarPorId(id, res, next);
+    Venda.buscarPorId(id)
+    .then((venda) => (venda ? res.json(venda) : res.status(404).send()))
+    .catch((erros) => next(erros));
   });  
 
   app.post("/tipos-vendas", (req, res, next) => {
