@@ -29,11 +29,17 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterar(id, valores)
-      .then((resultado) => res.json(resultado))
+      .then((resultado) =>
+        resultado ? res.json(resultado) : res.status(404).send()
+      )
       .catch((erros) => next(erros));
   });
 
   //Refatoração - OK
+  /*
+  | Verificar com Tiago como podemos checar esses metodos
+  |
+  */
   app.delete("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.excluir(id)
@@ -45,7 +51,27 @@ module.exports = (app) => {
   app.get("/usuarios/nome/:nome", (req, res, next) => {
     const nome = req.params.nome;
     Usuarios.buscaPorNome(nome)
-      .then((resultado) => res.json(resultado))
+      .then((resultado) =>
+        resultado ? res.json(resultado) : res.status(404).send()
+      )
+      .catch((erros) => next(erros));
+  });
+
+  app.get("/usuarios/:id/dados-pessoais", (req, res, next) => {
+    const nome = req.params.nome;
+    Usuarios.buscarDadosPessoaisDoUsuario(nome)
+      .then((resultado) =>
+        resultado ? res.json(resultado) : res.status(404).send()
+      )
+      .catch((erros) => next(erros));
+  });
+
+  app.put("/usuarios/:id/dados-pessoais", (req, res, next) => {
+    const nome = req.params.nome;
+    Usuarios.atualizarDadosPessoaisDoUsuario(nome)
+      .then((resultado) =>
+        resultado ? res.json(resultado) : res.status(404).send()
+      )
       .catch((erros) => next(erros));
   });
 };

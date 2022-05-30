@@ -69,10 +69,13 @@ class Usuarios {
     return await repositorio.buscaPorNome(nome);
   }
 
-  // async isNomeUsuarioUtilizado(nome) {
-  //   const resultado = await repositorio.isNomeUsuarioUtilizado(nome);
-  //   return !(resultado > 0);
-  // }
+  async buscarDadosPessoaisDoUsuario(id){
+    return await repositorio.buscarDadosPessoaisDoUsuario(id);
+  }
+
+  async atualizarDadosPessoaisDoUsuario(id, valores){
+    return await repositorio.atualizarDadosPessoaisDoUsuario(id, valores);
+  }
 }
 
 module.exports = new Usuarios();

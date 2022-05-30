@@ -1,0 +1,1 @@
+LOAD DATA LOCAL INFILE 'ufs.csv' INTO TABLE ufs fields terminated by ',' (id,sigla,nome);

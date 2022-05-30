@@ -105,4 +105,34 @@ describe("API de Usuários", () => {
       },
     ]);
   });
+
+  test("Alterar usuário por id existente", async() => {
+    const usuarioAtualizado = await request.put("/usuarios/2");
+    expect(usuarioAtualizado.statusCode).toBe(200);
+  });
+
+  test("Alterar usuário por id Inexistente", async() => {
+    const usuarioAtualizado = await request.put("/usuarios/10");
+    expect(usuarioAtualizado.statusCode).toBe(404);
+  });
+
+  // test("Deletar usuário por id existente", async() => {
+  //   const usuarioAtualizado = await request.put("/usuarios/2");
+  //   expect(usuarioAtualizado.statusCode).toBe(204);
+  // });
+
+  // test("Deletar usuário por id Inexistente", async() => {
+  //   const usuarioAtualizado = await request.delete("/usuarios/20");
+  //   expect(usuarioAtualizado.statusCode).toBe(404);
+  // });
+
+  // test("Buscar usuário por nome existente", async() => {
+  //   const usuarioAtualizado = await request.get("/usuarios/Domingos");
+  //   expect(usuarioAtualizado.statusCode).toBe(200);
+  // });
+
+  test("Buscar usuário por nome Inexistente", async()=> {
+    const usuario = await request.get("/usuarios/Carlos");
+    expect(usuario.statusCode).toBe(404);
+  });
 });

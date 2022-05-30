@@ -49,6 +49,23 @@ class Usuario {
 
     return query(sql, `'${nome}'`);
   }
+
+  buscarDadosPessoaisDoUsuario(id) {
+    const sql =
+      "SELECT nomeCompleto, dataNascimento, rg, cpf FROM Usuarios WHERE id = ?";
+
+    return query(sql, id);
+  }
+
+  /*
+  |Ver com Tiago ou com o mentor
+  |Como atualizar essa tabela
+  */
+  atualizarDadosPessoaisDoUsuario(id, valores) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+
+    return query(sql, [valores, id]);
+  }
 }
 
 module.exports = new Usuario();

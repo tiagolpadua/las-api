@@ -18,6 +18,10 @@ class Usuario {
       !!usuariosMock.find((usuario) => usuario.nome === nome)
     );
   }
+
+  alterar(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
+  }
 }
 
 module.exports = new Usuario();
