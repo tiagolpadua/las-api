@@ -52,7 +52,7 @@ describe("API de usuários", () => {
     };
     const resp = await request.post("/usuarios").send(usuario);
     expect(resp.statusCode).toBe(201);
-    // expect(resp.body).toEqual({ id: 99, ...usuario }); // há algo errado :(
+    expect(resp.body).toEqual({ id: 99, ...usuario}); // há algo errado :(
   });
   test("Adicionar usuário com dados inválidos", () => {});
 });

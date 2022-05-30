@@ -8,7 +8,7 @@ class UsuarioRepositorio {
     return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
   }
   adicionar(usuario) {
-    return Promise.resolve(usuario && { id: 99 });
+    return Promise.resolve({ id: 99, ...usuario });
   }
   async isNomeUsuarioUtilizado(nome) {
     return Promise.resolve(
