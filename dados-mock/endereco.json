@@ -1,0 +1,16 @@
+[
+  {
+    "cep": "72980000",
+    "endereco": "Rua 123",
+    "numero": 23,
+    "complemento": "Apartamento 509",
+    "bairro": "Zona Norte"
+  },
+  {
+    "cep": "42980000",
+    "endereco": "Rua 12345",
+    "numero": 75,
+    "complemento": "Apartamento 202",
+    "bairro": "Zona Sul"
+  }
+]

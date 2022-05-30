@@ -106,12 +106,17 @@ class Usuarios {
     return repositorio.alterarContatos(id, valores);
   }
 
-  // isDatasValidas(dataInicio, dataFim) {
-  //   //Obter a data atual - var now = moment();
-  //   //var day = moment("1995-12-25")
-  //   const objDataInicio = moment(dataInicio);
-  //   const objDataFim = moment(dataFim);
-  // }
+  alterarSenha(id, senhaAlterada) {
+    return repositorio.alterarSenha(id, senhaAlterada);
+  }
+
+  buscarEndereco(id) {
+    return repositorio.buscarEndereco(id);
+  }
+
+  alterarEndereco(id, valores) {
+    return repositorio.alterarEndereco(id, valores);
+  }
 }
 
 module.exports = new Usuarios();

@@ -36,7 +36,9 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     //Usuario.excluir(id, res, next);
     Usuario.excluir(id)
-      .then(() => res.json({ id }))
+      .then((id) => (id ? res.status(204).end() : res.status(404).end()))
+      //.then(() => (id ? res.json({ id }) : res.status(404)))
+      //.then(() => res.json({ id }))
       .catch((erros) => next(erros));
   });
 
@@ -78,6 +80,32 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuario.alterarContatos(id, valores)
+      .then(() => res.json({ id, ...valores }))
+      .catch((erros) => next(erros));
+  });
+
+  //SENHA
+  app.put("/usuarios/:id/senha", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuario.alterarContatos(id, valores)
+      .then(() => res.json({ id, status: "senha alterada com sucesso." }))
+      .catch((erros) => next(erros));
+  });
+
+  //ENDEREÇO
+
+  app.get("/usuarios/:id/endereco", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    Usuario.buscarEndereco(id)
+      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).send()))
+      .catch((erros) => next(erros));
+  });
+
+  app.put("/usuarios/:id/endereco", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const valores = req.body;
+    Usuario.alterarEndereco(id, valores)
       .then(() => res.json({ id, ...valores }))
       .catch((erros) => next(erros));
   });

@@ -1,5 +1,7 @@
 const usuariosMock = require("../../../dados-mock/usuarios.json");
 const dadosPessoaisMock = require("../../../dados-mock/dados-pessoais.json");
+const contatosMock = require("../../../dados-mock/contatos.json");
+const enderecoMock = require("../../../dados-mock/endereco.json");
 
 class Usuario {
   listar() {
@@ -15,8 +17,10 @@ class Usuario {
   }
 
   excluir(id) {
-    return Promise.resolve(usuariosMock[id - 1].id);
+    //contatosMock[id - 1] ? contatosMock[id - 1] : []
+    // return Promise.resolve(usuariosMock[id - 1] ? usuariosMock[id - 1].id : []);
     //return repositorio.excluir(id);
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id == id));
   }
 
   buscarPorNome(nome) {
@@ -48,20 +52,33 @@ class Usuario {
     return Promise.resolve(dadosPessoaisMock[id - 1] && { ...id });
   }
 
-  // alterar(id, usuarioAlterado) {
-  //   const sql = "UPDATE usuarios SET ? WHERE id = ?";
-  //   return query(sql, [usuarioAlterado, id]);
-  // }
+  //API DE CONTATOS
 
-  // excluir(id) {
-  //   const sql = "DELETE FROM Usuarios WHERE id = ?";
-  //   return query(sql, id);
-  // }
+  buscarContatos(id) {
+    return Promise.resolve(contatosMock[id - 1] ? contatosMock[id - 1] : []);
+  }
 
-  // buscarPorNome(nome) {
-  //   const sql = "SELECT * FROM Usuarios WHERE nome like ?";
-  //   return query(sql, nome);
-  // }
+  // eslint-disable-next-line no-unused-vars
+  alterarContatos(id, dadosPessoaisAlterado) {
+    return Promise.resolve(contatosMock[id - 1] && { ...id });
+  }
+
+  //API DE SENHAS
+
+  alterarSenha(id, senhaAlterada) {
+    return Promise.resolve(senhaAlterada ? id : []);
+  }
+
+  //API DE ENDEREÇOS
+
+  buscarEndereco(id) {
+    return Promise.resolve(enderecoMock[id - 1] ? enderecoMock[id - 1] : []);
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  alterarEndereco(id, enderecoAlterado) {
+    return Promise.resolve(enderecoMock[id - 1] && { ...id });
+  }
 }
 
 module.exports = new Usuario();

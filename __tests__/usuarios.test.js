@@ -5,7 +5,7 @@ const request = supertest(customExpress());
 
 jest.mock("../src/repositorios/usuario");
 
-//######################### API DE USUÁRIOS #########################
+//######################### TESTES API DE USUÁRIOS #########################
 describe("API de usuários", () => {
   test("Listar usuarios", async () => {
     const resp = await request.get("/usuarios");
@@ -62,7 +62,7 @@ describe("API de usuários", () => {
     });
   });
 
-  test("Adicionar usuário com Dados inválidos", async () => {
+  test("Adicionar usuário com nome já utilizado", async () => {
     const respNomeJaUtilizado = await request.post("/usuarios").send({
       nome: "Welbert Araujo",
       urlFotoPerfil: "https://randomuser.me/api/portraits/men/22.jpg",
@@ -75,7 +75,9 @@ describe("API de usuários", () => {
         valido: false,
       },
     ]);
+  });
 
+  test("Adicionar usuário com nome inválido", async () => {
     const respNomeInvalido = await request.post("/usuarios").send({
       urlFotoPerfil: "https://randomuser.me/api/portraits/men/22.jpg",
     });
@@ -87,13 +89,34 @@ describe("API de usuários", () => {
         valido: false,
       },
     ]);
-
+  });
+  test("Adicionar usuário com url inválida", async () => {
     const respUrlInvalida = await request.post("/usuarios").send({
       nome: "Marcos",
       urlFotoPerfil: "xxxxxts/mxxxexn/xx2x2.xxjpxxxxg",
     });
     expect(respUrlInvalida.statusCode).toBe(400);
     expect(respUrlInvalida.body).toEqual([
+      {
+        mensagem: "URL deve ser uma URL válida",
+        nome: "urlFotoPerfil",
+        valido: false,
+      },
+    ]);
+  });
+
+  test("Adicionar usuário com nome e url inválida", async () => {
+    const respUrlInvalida = await request.post("/usuarios").send({
+      nome: "Welbert Araujo",
+      urlFotoPerfil: "xxxxxts/mxxxexn/xx2x2.xxjpxxxxg",
+    });
+    expect(respUrlInvalida.statusCode).toBe(400);
+    expect(respUrlInvalida.body).toEqual([
+      {
+        mensagem: "Nome deve ser informado e deve ser único",
+        nome: "nome",
+        valido: false,
+      },
       {
         mensagem: "URL deve ser uma URL válida",
         nome: "urlFotoPerfil",
@@ -134,12 +157,18 @@ describe("API de usuários", () => {
 
   test("Excluir usuário existente", async () => {
     const resp = await request.delete("/usuarios/4");
-    expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual({ id: 4 });
+    expect(resp.statusCode).toBe(204);
+    //expect(resp.body).toEqual({ id: 4 });
+    //expect(resp.statusCode).toBe(404);
+  });
+
+  test("Deletar Usuários com ID Inexistente", async () => {
+    const resp = await request.delete("/usuarios/99");
+    expect(resp.statusCode).toBe(404);
   });
 });
 
-//######################### API DE DADOS PESSOAIS #########################
+//######################### TESTES API DE DADOS PESSOAIS #########################
 
 describe("API de Dados Pesosais do Usuário", () => {
   test("Buscar dados pessoais do usuarios", async () => {
@@ -176,5 +205,98 @@ describe("API de Dados Pesosais do Usuário", () => {
       rg: "1144455533 SSP BA",
       cpf: "12312312312",
     });
+  });
+});
+
+//######################### TESTES API DE CONTATOS #########################
+
+describe("API de contatos do Usuário", () => {
+  test("Buscar contatos do usuarios", async () => {
+    const resp = await request.get("/usuarios/1/contatos");
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      telefone: "7111111111",
+      celular: "71888888888",
+      email: "welbert@gmail.com",
+    });
+  });
+
+  test("Alterar contato de usuário com dados Válidos", async () => {
+    const resp = await request.put("/usuarios/1/contatos").send({
+      telefone: "7111111112",
+      celular: "71888888888",
+      email: "welbert@gmail.com",
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      id: 1,
+      telefone: "7111111112",
+      celular: "71888888888",
+      email: "welbert@gmail.com",
+    });
+  });
+
+  test("Buscar contatos do usuarios por id inexistente", async () => {
+    const resp = await request.get("/usuarios/999/contatos");
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual([]);
+  });
+});
+
+//######################### TESTES API DE SENHAS #########################
+
+describe("API de atualização de senhas", () => {
+  test("Alterar senha de usuário com id Válidos", async () => {
+    const resp = await request.put("/usuarios/1/senha").send({
+      senha: "123456",
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      id: 1,
+      status: "senha alterada com sucesso.",
+    });
+  });
+});
+
+//######################### TESTES API DE ENDEREÇO #########################
+
+describe("API de endereço do Usuário", () => {
+  test("Buscar endereço do usuarios", async () => {
+    const resp = await request.get("/usuarios/1/endereco");
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      cep: "72980000",
+      endereco: "Rua 123",
+      numero: 23,
+      complemento: "Apartamento 509",
+      bairro: "Zona Norte",
+    });
+  });
+
+  test("Alterar endereço de usuário com dados Válidos", async () => {
+    const resp = await request.put("/usuarios/1/endereco").send({
+      cep: "72980000",
+      endereco: "Rua 4",
+      numero: 23,
+      complemento: "Apartamento 630",
+      bairro: "Zona Norte",
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      id: 1,
+      cep: "72980000",
+      endereco: "Rua 4",
+      numero: 23,
+      complemento: "Apartamento 630",
+      bairro: "Zona Norte",
+    });
+  });
+
+  test("Buscar endereço de usuário com id inválido", async () => {
+    const resp = await request.get("/usuarios/99/endereco");
+
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual([]);
   });
 });

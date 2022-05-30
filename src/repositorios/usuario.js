@@ -65,6 +65,22 @@ class Usuario {
     const sql = "UPDATE usuarios SET ? WHERE id = ?";
     return query(sql, [usuarioAlterado, id]);
   }
+
+  alterarSenha(id, senhaAlterada) {
+    const sql = "UPDATE usuarios SET ? WHERE id = ?";
+    return query(sql, [senhaAlterada, id]);
+  }
+
+  buscarEndereco(id) {
+    const sql =
+      "SELECT cep, endereco, numero, complemento, bairro FROM usuarios WHERE id = ?";
+    return query(sql, id).then((data) => data[0]);
+  }
+
+  alterarEndereco(id, enderecoAlterado) {
+    const sql = "UPDATE usuarios SET ? WHERE id = ?";
+    return query(sql, [enderecoAlterado, id]);
+  }
 }
 
 module.exports = new Usuario();
