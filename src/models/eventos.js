@@ -11,7 +11,11 @@ class Eventos {
   }
 
   adicionar(evento) {
-    return repositorio.adicionar(evento);
+    if (this.isDatasValidas(evento)) {
+      return repositorio.adicionar(evento);
+    }
+    
+    return Promise.reject({erro: "Datas inválidas, tente novamente."});
   }
 
   alterar(valores, id) {
