@@ -3,15 +3,15 @@ const query = require("../infraestrutura/database/queries.js");
 class UsuarioRepositorio {
   listar() {
     const sql = `SELECT 
-    id, nomeCompleto, urlFotoPerfil
+    nomeCompleto, urlFotoPerfil, email
     FROM Usuarios`;
     return query(sql);
   }
   buscarPorId(id) {
     const sql = `SELECT 
-    id, nomeCompleto, urlFotoPerfil
+    nomeCompleto, urlFotoPerfil, email
     FROM Usuarios WHERE id = ?`;
-    return query(sql, id);
+    return query(sql, id).then((data) => data[0]);
   }
   adicionar(usuario) {
     const sql = "INSERT INTO Usuarios SET ?";
@@ -32,7 +32,6 @@ class UsuarioRepositorio {
     return query(sql, nome);
   }
 
-  
   // dados pessoais
 
   listarDadosPessoais(id) {
@@ -69,7 +68,7 @@ class UsuarioRepositorio {
     const sql = "UPDATE Usuarios SET senha = ? WHERE id = ?";
     return query(sql, [senha, id]);
   }
-  
+
   // endereço
 
   listarEndereco(id) {
@@ -80,13 +79,21 @@ class UsuarioRepositorio {
     return query(sql, id);
   }
 
-
   alterarEndereco(valores, id) {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
     return query(sql, [valores, id]);
   }
 
-
+  async isNomeUsuarioUtilizado(nome) {
+    const sql = "SELECT * FROM Usuarios WHERE nome = ?";
+    query(sql, nome).then((data) => {
+      if (data.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
 }
 
 module.exports = new UsuarioRepositorio();

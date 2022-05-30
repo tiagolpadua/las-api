@@ -1,24 +1,25 @@
 const Usuarios = require("../models/usuarios");
 
 module.exports = (app) => {
-
-  app.get("/usuarios", (_req, res, next) => {
+  app.get("/usuarios", (req, res, next) => {
     Usuarios.listar()
       .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.get("/usuarios/:id", (req, res , next) => {
+  app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarPorId(id)
-      .then((resultados) => res.status(200).json(resultados[0]))
-      .catch((erros) => next (erros));
+      .then((usuario) =>
+        usuario ? res.status(200).json(usuario) : res.status(404).send()
+      )
+      .catch((erros) => next(erros));
   });
 
   app.post("/usuarios", (req, res, next) => {
     const usuario = req.body;
     Usuarios.adicionar(usuario)
-      .then((resultados) => res.status(200).json({id : resultados.insertId, ...usuario}))
+      .then((resultados) => res.status(201).json(resultados))
       .catch((erros) => next(erros));
   });
 
@@ -44,8 +45,6 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
-
-
   // dados pessoais
   app.get("/usuarios/:id/dados-pessoais", (req, res, next) => {
     const id = parseInt(req.params.id);
@@ -53,7 +52,6 @@ module.exports = (app) => {
       .then((resultados) => res.status(200).json(resultados[0]))
       .catch((erros) => next(erros));
   });
-
 
   app.put("/usuarios/:id/dados-pessoais", (req, res, next) => {
     const id = parseInt(req.params.id);
@@ -63,7 +61,6 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
-
   // contatos
 
   app.get("/usuarios/:id/contatos", (req, res, next) => {
@@ -72,7 +69,6 @@ module.exports = (app) => {
       .then((resultados) => res.status(200).json(resultados[0]))
       .catch((erros) => next(erros));
   });
-
 
   app.put("/usuarios/:id/contatos", (req, res, next) => {
     const id = parseInt(req.params.id);
@@ -108,5 +104,4 @@ module.exports = (app) => {
       .then((resultados) => res.status(200).json(resultados))
       .catch((erros) => next(erros));
   });
-
 };

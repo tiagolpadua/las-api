@@ -5,31 +5,30 @@ class Tabelas {
     this.criarUsuarios();
     this.criarEventos();
     this.criarTiposVendas();
-    this.criarUFs();
   }
 
   criarUsuarios() {
-    const sql =
-      `CREATE TABLE IF NOT EXISTS Usuarios(
+    const sql = `CREATE TABLE IF NOT EXISTS Usuarios(
         id INT AUTO_INCREMENT NOT NULL,
         urlFotoPerfil text,
-        UNIQUE (nomeCompleto), PRIMARY KEY(id),
+        nome varchar(50) NOT NULL,
+        UNIQUE (nome), PRIMARY KEY(id),
 
         nomeCompleto varchar(200) NOT NULL,
-        dataNascimento date NOT NULL,
-        rg varchar(20) NOT NULL,
-        cpf varchar(20) NOT NULL,
+        dataNascimento date,
+        rg varchar(20),
+        cpf varchar(20),
         
-        telefone varchar(20) NOT NULL,
-        celular varchar(20) NOT NULL,
-        email varchar(50) NOT NULL,
+        telefone varchar(20),
+        celular varchar(20),
+        email varchar(50),
 
-        senha varchar(50) NOT NULL,
+        senha varchar(50),
 
-        cep varchar(10) NOT NULL,
-        endereco varchar(70) NOT NULL,
-        numero int NOT NULL,
-        bairro varchar(30) NOT NULL,
+        cep varchar(10),
+        endereco varchar(70),
+        numero int ,
+        bairro varchar(30),
         complemento varchar(30)
       )`;
 
@@ -43,8 +42,7 @@ class Tabelas {
   }
 
   criarEventos() {
-    const sql =
-      `CREATE TABLE IF NOT EXISTS Eventos(
+    const sql = `CREATE TABLE IF NOT EXISTS Eventos(
         id INT AUTO_INCREMENT NOT NULL,
         nome varchar(100) NOT NULL,
         descricao text NOT NULL,
@@ -63,28 +61,14 @@ class Tabelas {
     });
   }
 
-
   criarTiposVendas() {
-    const sql =
-     `CREATE TABLE IF NOT EXISTS tipoVendas(
+    const sql = `CREATE TABLE IF NOT EXISTS tipoVendas(
         id INT NOT NULL,
         descricao text NOT NULL)`;
-        
+
     this.pool.query(sql, (erro) => {
       if (erro) console.log(erro);
       else console.log("Tabela tipoVendas criada com sucesso");
-    });
-  }
-
-  criarUFs() {
-    const sql =
-     `CREATE TABLE IF NOT EXISTS UFs(
-        id INT NOT NULL PRIMARY KEY,
-        sigla varchar(3) NOT NULL)`;
-        
-    this.pool.query(sql, (erro) => {
-      if (erro) console.log(erro);
-      else console.log("Tabela UFs criada com sucesso");
     });
   }
 }
