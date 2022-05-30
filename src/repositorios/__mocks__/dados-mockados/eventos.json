@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "nome": "Show da Virada",
+    "descricao": "Melhor virada da bahia",
+    "urlFoto": "https://randomuser.me/api/portraits/women/63.jpg",
+    "dataInicio": "2022-05-29",
+    "dataFim": "2022-05-30",
+    "status": "agendado"
+  },
+  {
+    "id": 2,
+    "nome": "Sao Joao",
+    "descricao": "Melhor carnaval de todo brasil",
+    "urlFoto": "https://randomuser.me/api/portraits/women/63.jpg",
+    "dataInicio": "2022-05-29",
+    "dataFim": "2022-08-29",
+    "status": "em-andamento"
+  },
+  {
+    "id": 3,
+    "nome": "Carnaval",
+    "descricao": "Melhor carnaval de todo brasil",
+    "urlFoto": "https://randomuser.me/api/portraits/women/63.jpg",
+    "dataInicio": "2022-02-29",
+    "dataFim": "2022-03-30",
+    "status": "finalizado"
+  }
+]
