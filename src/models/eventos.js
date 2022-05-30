@@ -53,7 +53,7 @@ class Eventos {
     if (status === STATUS_FINALIZADO) {
       return repositorio.statusFinalizado();
     }
-    throw new Error(`Status inválido:${status} `);
+    throw new Error(`Status inválido: ${status} `);
   }
   insereStatusNoEvento(evento) {
     const status = this.obterStatusEvento(evento);

@@ -31,13 +31,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterar(valores, id)
-      .then((resultado) => {
-        if (resultado) {
-          res.json(resultado);
-        } else {
-          res.status(404).end();
-        }
-      })
+      .then((resultado) => res.json(resultado))
       .catch((erros) => next(erros));
   });
 
@@ -51,52 +45,28 @@ module.exports = (app) => {
   app.get("/usuarios/nome/:nome", (req, res, next) => {
     const nome = req.params.nome;
     Usuarios.buscarPorNome(nome)
-      .then((resultado) => {
-        if (resultado) {
-          return res.json(resultado);
-        } else {
-          return res.status(404).send();
-        }
-      })
+      .then((resultado) => res.json(resultado))
       .catch((erros) => next(erros));
   });
 
   app.get("/usuarios/:id/dados-pessoais", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarDadosPessoais(id)
-      .then((resultado) => {
-        if (resultado) {
-          res.json(resultado);
-        } else {
-          res.status(404).end();
-        }
-      })
+      .then((resultado) => res.json(resultado))
       .catch((erros) => next(erros));
   });
 
   app.get("/usuarios/:id/contatos", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarContatos(id)
-      .then((resultado) => {
-        if (resultado) {
-          res.json(resultado);
-        } else {
-          res.status(404).end();
-        }
-      })
+      .then((resultado) => res.json(resultado))
       .catch((erros) => next(erros));
   });
 
   app.get("/usuarios/:id/endereco", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarEndereco(id)
-      .then((resultado) => {
-        if (resultado) {
-          res.json(resultado);
-        } else {
-          res.status(404).end();
-        }
-      })
+      .then((resultado) => res.json(resultado))
       .catch((erros) => next(erros));
   });
 
@@ -104,13 +74,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterarDadosPessoais(valores, id)
-      .then((resultado) => {
-        if (resultado) {
-          res.json(resultado);
-        } else {
-          res.status(404).end();
-        }
-      })
+      .then((resultado) => res.json(resultado))
       .catch((erros) => next(erros));
   });
 
@@ -118,13 +82,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterarContatos(valores, id)
-      .then((resultado) => {
-        if (resultado) {
-          res.json(resultado);
-        } else {
-          res.status(404).end();
-        }
-      })
+      .then((resultado) => res.json(resultado))
       .catch((erros) => next(erros));
   });
 
@@ -132,13 +90,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterarEndereco(valores, id)
-      .then((resultado) => {
-        if (resultado) {
-          res.json(resultado);
-        } else {
-          res.status(404).end();
-        }
-      })
+      .then((resultado) => res.json(resultado))
       .catch((erros) => next(erros));
   });
 
@@ -146,13 +98,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterarSenha(valores, id)
-      .then((resultado) => {
-        if (resultado) {
-          res.json({ "senha": "Senha alterada com sucesso" });
-        } else {
-          res.status(404).end();
-        }
-      })
+      .then(() => res.json({ "senha": "Senha alterada com sucesso" }))
       .catch((erros) => next(erros));
   });
 };

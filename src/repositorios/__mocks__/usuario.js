@@ -18,8 +18,9 @@ class Usuario {
     alterar(valores, id) {
         if (valores.nome) {
             usuariosMock[id - 1].nome = valores.nome;
+            return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
         }
-        return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
+        return undefined;
     }
     excluir(id) {
         const novaLista = usuariosMock.filter((usuario) => usuario.id !== id);

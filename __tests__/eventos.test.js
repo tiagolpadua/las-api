@@ -70,4 +70,41 @@ describe("API de Eventos", () => {
         expect(resp.statusCode).toBe(200);
         expect(resp.body).toEqual([{ "dataFim": "2022-06-25T03:00:00.000Z", "dataInicio": "2022-06-22T03:00:00.000Z", "descricao": "Sao Joao da cidade de Pojuca do ano de 2022", "id": 1, "nome": "Sao Joao 2022", "status": "agendado", "urlFoto": "https://blog.gazinatacado.com.br/wp-content/uploads/2016/06/como-preparar-a-loja-para-festas-juninas.png" }]);
     });
+    test("Consultar eventos por status", async () => {
+        const resp = await request.get("/eventos/status/agendado");
+        expect(resp.statusCode).toBe(200);
+        expect(resp.body).toEqual([
+            {
+                "id": 1,
+                "nome": "Sao Joao 2022",
+                "descricao": "Sao Joao da cidade de Pojuca do ano de 2022",
+                "urlFoto": "https://blog.gazinatacado.com.br/wp-content/uploads/2016/06/como-preparar-a-loja-para-festas-juninas.png",
+                "dataInicio": "2022-06-22T03:00:00.000Z",
+                "dataFim": "2022-06-25T03:00:00.000Z",
+                "status": "agendado"
+            },
+            {
+                "id": 2,
+                "nome": "Carnaval 2022",
+                "descricao": "Carnaval de Salvador do ano de 2022",
+                "urlFoto": "https://blog.gazinatacado.com.br/wp-content/uploads/2016/06/como-preparar-a-loja-para-festas-juninas.png",
+                "dataInicio": "2022-06-22T03:00:00.000Z",
+                "dataFim": "2022-06-25T03:00:00.000Z",
+                "status": "agendado"
+            }
+        ]
+        );
+
+        const resp2 = await request.get("/eventos/status/finalizado");
+        expect(resp2.statusCode).toBe(200);
+        expect(resp2.body).toEqual("");
+
+        const resp3 = await request.get("/eventos/status/em-andamento");
+        expect(resp3.statusCode).toBe(200);
+        expect(resp3.body).toEqual("");
+
+        const resp4 = await request.get("/eventos/status/invalido");
+        expect(resp4.statusCode).toBe(500);
+        expect(resp4.body).toEqual({ "error": "Status inválido: invalido " });
+    });
 });

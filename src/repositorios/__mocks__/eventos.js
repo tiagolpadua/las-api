@@ -21,26 +21,17 @@ class Eventos {
         const novaLista = eventosMock.filter((evento) => evento.id !== id);
         return Promise.resolve(novaLista);
     }
-    // statusAgendado() {
-    //     const dataHoje = moment().format("YYYY-MM-DD");
-    //     const sql = "SELECT * FROM eventos WHERE dataInicio >= ?";
-    //     return query(sql, dataHoje);
-    // }
+    statusAgendado() {
+        return Promise.resolve(eventosMock.filter((eventos) => eventos.status === "agendado"));
+    }
 
-    // statusEmAndamento() {
-    //     const dataHoje = {
-    //       inicio: moment().startOf("day").format("YYYY-MM-DD"),
-    //       fim: moment().endOf("day").format("YYYY-MM-DD"),
-    //     };
-    //     const sql = "SELECT * FROM eventos WHERE dataInicio <= ? AND dataFim >= ?";
-    //     return query(sql, [dataHoje.inicio, dataHoje.fim]);
-    // }
+    statusEmAndamento() {
+        return Promise.resolve(eventosMock.find((eventos) => eventos.status === "em-andamento"));
+    }
 
-    // statusFinalizado() {
-    //     const dataHoje = moment().format("YYYY-MM-DD");
-    //     const sql = "SELECT * FROM eventos WHERE dataFim < ?";
-    //     return query(sql, dataHoje);
-    // }
+    statusFinalizado() {
+        return Promise.resolve(eventosMock.find((eventos) => eventos.status === "finalizado"));
+    }
 }
 
 module.exports = new Eventos();
