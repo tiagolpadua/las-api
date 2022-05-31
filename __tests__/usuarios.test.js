@@ -13,21 +13,21 @@ describe("API de usuários", () => {
         id: 1,
         nome: "user1",
         nomeCompleto: "user1",
-        urlFotoPerfil: "https://randomuser.me/api/portraits/women/75.jpg",
+        urlFotoPerfil: "https://randomuser.me/api/portraits/women/55.jpg",
         email: "email1",
       },
       {
         id: 2,
         nome: "user2",
         nomeCompleto: "user2",
-        urlFotoPerfil: "https://randomuser.me/api/portraits/women/74.jpg",
+        urlFotoPerfil: "https://randomuser.me/api/portraits/women/55.jpg",
         email: "email2",
       },
       {
         id: 3,
         nome: "user3",
         nomeCompleto: "user3",
-        urlFotoPerfil: "https://randomuser.me/api/portraits/women/90.jpg",
+        urlFotoPerfil: "https://randomuser.me/api/portraits/women/55.jpg",
         email: "email3",
       },
     ]);
@@ -39,7 +39,7 @@ describe("API de usuários", () => {
       id: 2,
       nome: "user2",
       nomeCompleto: "user2",
-      urlFotoPerfil: "https://randomuser.me/api/portraits/women/74.jpg",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/women/55.jpg",
       email: "email2",
     });
   });
@@ -52,7 +52,7 @@ describe("API de usuários", () => {
     const usuario = {
       nome: "NomeNuncaUsado",
       nomeCompleto: "marcos paz",
-      urlFotoPerfil: "https://randomuser.me/api/portraits/women/90.jpg",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/women/55.jpg",
       cpf: "95033324004",
     };
     const resp = await request.post("/usuarios").send(usuario);
@@ -63,7 +63,7 @@ describe("API de usuários", () => {
   test("Adicionar usuário com nome já utilizado", async () => {
     const respNomeJaUtilizado = await request.post("/usuarios").send({
       nome: "user1",
-      urlFotoPerfil: "https://randomuser.me/api/portraits/women/90.jpg",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/women/55.jpg",
       cpf: "95033324004",
     });
     expect(respNomeJaUtilizado.statusCode).toBe(400);
@@ -90,6 +90,7 @@ describe("API de usuários", () => {
       },
     ]);
   });
+
   test("Adicionar usuário com dados inválidos", async () => {
     const respURLInvalida = await request.post("/usuarios").send({
       nome: "nomeValido",
@@ -105,17 +106,18 @@ describe("API de usuários", () => {
       },
     ]);
   });
+
   test("Adicionar usuário com cpf inválido", async () => {
     const respCPFInvalido = await request.post("/usuarios").send({
       nome: "nomeValido",
-      urlFotoPerfil: "xxxxxxxxxxxxxxxxxxxx",
-      cpf: "95033324004",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/women/55.jpg",
+      cpf: "XXXXXXXXXXXXXXXXXX",
     });
     expect(respCPFInvalido.statusCode).toBe(400);
     expect(respCPFInvalido.body).toEqual([
       {
-        mensagem: "URL deve ser uma URL válida",
-        nome: "urlFotoPerfil",
+        mensagem: "CPF deve ser válido",
+        nome: "cpf",
         valido: false,
       },
     ]);
