@@ -1,3 +1,4 @@
+//const { json } = require("express/lib/response");
 const Eventos = require("../models/eventos");
 
 module.exports = (app) => {
@@ -10,21 +11,15 @@ module.exports = (app) => {
     app.get("/eventos/:id", (req, res, next) => {
         const id = parseInt(req.params.id);
         Eventos.buscarPorId(id)
-            .then((resultado) => {
-                if (resultado) {
-                    res.json(resultado);
-                } else {
-                    res.status(404).end();
-                }
-            })
+            .then((evento) => (evento ? res.json(evento) : res.status(404).send()))
             .catch((erros) => next(erros));
     });
 
     app.post("/eventos", (req, res, next) => {
         const evento = req.body;
         Eventos.adicionar(evento)
-            .then(() => res.json({...evento}))
-            .catch((erros) => next(erros));  
+            .then(() => res.status(201).json({ ...evento }))
+            .catch((erros) => next(erros));
     });
 
     app.put("/eventos/:id", (req, res, next) => {
@@ -38,14 +33,14 @@ module.exports = (app) => {
                     res.status(400).end();
                 }
             })
-            .catch((erros) => next(erros));       
+            .catch((erros) => next(erros));
     });
 
     app.delete("/eventos/:id", (req, res, next) => {
         const id = parseInt(req.params.id);
         Eventos.excluir(id)
-        .then((resultado) => res.json(resultado))
-        .catch((erros) => next(erros));
+            .then((resultado) => res.json(resultado))
+            .catch((erros) => next(erros));
     });
 
     app.get("/eventos/status/:status", (req, res, next) => {

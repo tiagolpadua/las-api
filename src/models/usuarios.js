@@ -1,4 +1,3 @@
-const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 
@@ -9,15 +8,22 @@ class Usuarios {
 
   buscarPorId(id) {
     return repositorio.buscarPorId(id)
-      .then(resultados => resultados[0]);
+      .then(resultados => resultados);
   }
 
   async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nome.length > 4 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+    let nomeEhValido = false;
+    let nomeJaUtilizado = false;
 
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    if (usuario?.nome?.length > 0) {
+      nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(usuario.nome);
+    }
+
+    if (!nomeJaUtilizado && usuario?.nome?.length > 4) {
+      nomeEhValido = true;
+    }
+
+    const urlEhValida = await this.validarURLFotoPerfil(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -33,16 +39,13 @@ class Usuarios {
     ];
 
     const erros = validacoes.filter((campo) => !campo.valido);
-    const existemErros = erros.length;
+    const existemErros = erros.length > 0;
 
     if (existemErros) {
-      return Promise.reject(erros);
+      throw { erroApp: erros };
     } else {
-      return repositorio.adicionar(usuario)
-        .then(resultado => {
-          const id = resultado.insertId;
-          return { ...usuario, id };
-        });
+      const resp = await repositorio.adicionar(usuario);
+      return { id: resp.insertId, ...usuario };
     }
   }
 
@@ -77,27 +80,33 @@ class Usuarios {
     }
   }
 
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
-  }
-
   listarDadosPessoais(id) {
     return repositorio.listarDadosPessoais(id);
   }
 
+  alterarDadosPessoais(id, dadosPessoais) {
+    return repositorio.alterarDadosPessoais(id, dadosPessoais);
+  }
+
+  listarContatos(id) {
+    return repositorio.listarContatos(id);
+  }
+
+  alterarContatos(id, contatos) {
+    return repositorio.alterarContatos(id, contatos);
+  }
+
+  alterarSenha(id, senha) {
+    return repositorio.alterarSenha(id, senha);
+  }
+
+  listarEndereco(id) {
+    return repositorio.listarEndereco(id);
+  }
+
+  alterarEndereco(id, endereco) {
+    return repositorio.alterarEndereco(id, endereco);
+  }
 }
 
 module.exports = new Usuarios();

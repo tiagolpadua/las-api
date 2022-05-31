@@ -7,8 +7,7 @@ class Eventos {
     }
 
     buscarPorId(id) {
-        return repositorio.buscarPorId(id)
-            .then(resultados => resultados[0]);
+        return repositorio.buscarPorId(id);
     }
 
     adicionar(evento) {
@@ -28,7 +27,7 @@ class Eventos {
         return repositorio.excluir(id);
     }
 
-        isDatasValidas({dataInicio, dataFim}) {
+    isDatasValidas({dataInicio, dataFim}) {
         const dataCriacao = moment().format("YYYY-MM-DD");
         const dataInicioFormatada = moment(dataInicio).format("YYYY-MM-DD");
         const dataFimFormatada = moment(dataFim).format("YYYY-MM-DD");

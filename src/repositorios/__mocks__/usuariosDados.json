@@ -1,0 +1,20 @@
+[
+    {
+        "id": 3,
+        "nome": "Carlos",
+        "urlFotoPerfil": "https://randomuser.me/api/portraits/women/77.jpg",
+        "nomeCompleto": "Carlos Eduardo Souza",
+        "dataNascimento": "1997-05-07T03:00:00.000Z",
+        "rg": "1465891110",
+        "cpf": "05540550577",
+        "telefone": "7133885531",
+        "celular": "71999905655",
+        "email": "carlinhos@email.com",
+        "senha": "bolaoito",
+        "cep": "40050456",
+        "endereco": "Rua do Carmo",
+        "numero": 150,
+        "complemento": "casa",
+        "bairro": "Ribeira"
+    }
+]
