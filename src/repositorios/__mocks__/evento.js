@@ -26,6 +26,12 @@ class Evento {
   buscarPorNome(nome) {
     return Promise.resolve(eventosMock.find((evento) => evento.nome === nome));
   }
+
+  buscaPorStatus(status) {
+    return Promise.resolve(
+      eventosMock.find((evento) => evento.status === status)
+    );
+  }
 }
 
 module.exports = new Evento();

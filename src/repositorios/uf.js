@@ -9,11 +9,6 @@ class UF {
       respostas.map((resposta) => resposta.sigla)
     );
   }
-
-  buscarMunicipio(nomeUF) {
-    const sql = "SELECT nome FROM Municipios WHERE uf_sigla = ?";
-    return query(sql, nomeUF);
-  }
 }
 
 module.exports = new UF();
