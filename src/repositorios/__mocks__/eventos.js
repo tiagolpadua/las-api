@@ -1,6 +1,6 @@
 // const query = require("../infraestrutura/database/queries");
 
-const eventosMock = require("./eventoss");
+const eventosMock = require("./eventoss.json");
 
 class Eventos {
     listar() {

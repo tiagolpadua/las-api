@@ -1,7 +1,7 @@
 // const query = require("../infraestrutura/database/queries");
 
-const usuariosMock = require("./usuarios");
-const usuariosDadosMock = require("./usuariosDados");
+const usuariosMock = require("./usuarios.json");
+const usuariosDadosMock = require("./usuariosDados.json");
 
 class Usuario {
     listar() {
