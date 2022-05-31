@@ -3,22 +3,24 @@ const tipoVenda = require("../models/tiposVendas");
 module.exports = (app) => {
   app.get("/tipos-vendas", (_req, res, next) => {
     tipoVenda.listar()
-      .then((resultados) => res.status(200).json(resultados))
+      .then((resultados) => resultados ? res.status(200).json(resultados)
+      : res.status(404).send())
       .catch((erros) => next(erros));
   });
 
   app.post("/tipos-vendas", (req, res, next) => {
     const tipoVendaReq = req.body;
     tipoVenda.adicionar(tipoVendaReq)
-      .then((resultados) => res.status(201).json(resultados))
-      .catch((erros) => next(erros));
+    .then((resultados) => res.status(201).json(resultados))
+    .catch((erros) => next(erros));
   });
 
   app.get("/tipos-vendas/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     tipoVenda.buscaPorId(id)
-      .then((resultados) => res.status(200).json(resultados))
-      .catch((erros) => next(erros));
+    .then((resultados) => resultados ? res.status(200).json(resultados)
+    : res.status(404).send())
+    .catch((erros) => next(erros));
   });
 
   app.put("/tipos-vendas/:id", (req, res, next) => {

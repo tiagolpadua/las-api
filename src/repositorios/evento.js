@@ -7,7 +7,7 @@ class EventoRepositorio {
 
   buscaPorId(id) {
     const sql = "SELECT * FROM Eventos WHERE id = ?";
-    return query(sql, id);
+    return query(sql, id).then((data) => data[0]);
   }
 
   adicionar(evento) {

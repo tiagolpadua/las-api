@@ -7,7 +7,7 @@ class TipoVendasRepositorio {
   }
   buscaPorId(id) {
     const sql = "SELECT * FROM tipoVendas WHERE id = ?";
-    return query(sql, id);
+    return query(sql, id).then((data) => data[0]);
   }
   adicionar(tipoVenda) {
     const sql = "INSERT INTO tipoVendas SET ?";
