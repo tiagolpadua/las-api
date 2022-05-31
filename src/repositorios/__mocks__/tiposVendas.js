@@ -15,15 +15,15 @@ class TiposVendas {
     return Promise.resolve(tipoVenda);
   }
 
-  //   alterarTiposVendas(id, valores) {
-  //     const sql = "UPDATE tiposVendas SET ? WHERE id = ?";
-  //     return query(sql, [valores, id]);
-  //   }
+  alterarTiposVendas(id, valores) {
+    if (!!id && !!valores) {
+      return Promise.resolve({ changedRows: 1 });
+    }
+  }
 
-  //   excluirTiposVendas(id) {
-  //     const sql = "DELETE FROM tiposVendas WHERE id = ?";
-  //     return query(sql, id);
-  //   }
+  excluirTiposVendas(id) {
+    return Promise.resolve(id);
+  }
 }
 
 module.exports = new TiposVendas();

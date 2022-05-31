@@ -1,5 +1,5 @@
 const repositorio = require("../repositorios/usuario");
-const validarURL = require("../infraestrutura/validators/validators");
+const validacao = require("../infraestrutura/validators/validators");
 
 class Usuarios {
   listar() {
@@ -96,7 +96,7 @@ class Usuarios {
   }
 
   async validarURLFotoPerfil(url) {
-    return validarURL(url);
+    return validacao.validarURL(url);
   }
 
   async isUsuarioUtilizado(nome) {
@@ -106,13 +106,30 @@ class Usuarios {
   //Dados pessoais
 
   atualizarDadosPessoais(id, dadosPessoais) {
-    return repositorio
-      .atualizarDadosPessoais(id, dadosPessoais)
-      .then((resultado) =>
-        resultado.changedRows > 0
-          ? { resultado: "Alteração feita com sucesso" }
-          : resultado
-      );
+    const cpfEhValido = validacao.cpfEhValido(dadosPessoais.cpf);
+
+    const validacoes = [
+      {
+        nome: "cpf",
+        valido: cpfEhValido,
+        mensagem: "CPF informado não é válido",
+      },
+    ];
+
+    const erros = validacoes.filter((campo) => !campo.valido);
+    const existemErros = erros.length;
+
+    if (existemErros) {
+      throw { erroApp: erros };
+    } else {
+      return repositorio
+        .atualizarDadosPessoais(id, dadosPessoais)
+        .then((resultado) =>
+          resultado.changedRows > 0
+            ? { resultado: "Alteração feita com sucesso" }
+            : resultado
+        );
+    }
   }
 
   buscarDadosPessoaisPorId(id) {

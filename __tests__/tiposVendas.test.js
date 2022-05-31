@@ -53,4 +53,22 @@ describe("API de tipos de venda", () => {
       descricao: "Abadá/Ingressos",
     });
   });
+
+  //PUT alterar tipos de venda
+  test("Alterar tipo de venda com dados válidos", async () => {
+    const resp = await request.put("/tipos-venda/1").send({
+      descricao: "Diversos",
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      resultado: "Alteração feita com sucesso",
+    });
+  });
+
+  //DELETE exluir tipo de venda
+  test("Excluir tipo de venda", async () => {
+    const resp = await request.delete("/tipos-venda/1");
+    expect(resp.statusCode).toBe(204);
+    expect(resp.body).toEqual({});
+  });
 });

@@ -1,11 +1,11 @@
 // const supertest = require("supertest");
 
-const validarURL = require("../src/infraestrutura/validators/validators");
+const validacoes = require("../src/infraestrutura/validators/validators");
 
 describe("Validação URL", () => {
   test("Deve retornar verdadeiro quando a URL for válida", async () => {
     const URL = "https://randomuser.me/api/portraits/women/50.jpg";
-    const validacao = await validarURL(URL);
+    const validacao = await validacoes.validarURL(URL);
     expect(validacao).toBe(true);
   });
 

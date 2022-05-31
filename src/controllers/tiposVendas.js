@@ -30,9 +30,7 @@ module.exports = (app) => {
     const valores = req.body;
 
     TiposVendas.alterar(id, valores)
-      .then((resultado) => {
-        resultado ? res.json(resultado) : res.status(404).send();
-      })
+      .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
 

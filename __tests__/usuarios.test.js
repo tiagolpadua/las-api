@@ -152,7 +152,7 @@ describe("API de Usuários", () => {
   });
 
   //DELETE exluir usuário
-  test("Alterar usuário com dados inválidos", async () => {
+  test("Exluir usuário", async () => {
     const resp = await request.delete("/usuarios/1");
     expect(resp.statusCode).toBe(204);
     expect(resp.body).toEqual({});
@@ -219,7 +219,37 @@ describe("API de dados pessoais", () => {
       nomeCompleto: "Ana Catarina",
       dataNascimento: "2002-05-02",
       rg: "123456789",
-      cpf: "12514789635",
+      cpf: "13156182494",
+    });
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual({
+      resultado: "Alteração feita com sucesso",
+    });
+  });
+
+  test("Alterar dados pessoais com dados inválidos", async () => {
+    const resp = await request.put("/usuarios/1/dados-pessoais").send({
+      nomeCompleto: "Ana Catarina",
+      dataNascimento: "2002-05-02",
+      rg: "123456789",
+      cpf: "12345678915",
+    });
+    expect(resp.statusCode).toBe(400);
+    expect(resp.body).toEqual([
+      {
+        nome: "cpf",
+        valido: false,
+        mensagem: "CPF informado não é válido",
+      },
+    ]);
+  });
+
+  test("Alterar dados pessoais com dados válidos", async () => {
+    const resp = await request.put("/usuarios/1/dados-pessoais").send({
+      nomeCompleto: "Ana Catarina",
+      dataNascimento: "2002-05-02",
+      rg: "123456789",
+      cpf: "13156182494",
     });
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual({

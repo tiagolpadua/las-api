@@ -14,7 +14,13 @@ class TiposVendas {
   }
 
   alterar(id, valores) {
-    return repositorio.alterarTiposVendas(id, valores);
+    return repositorio
+      .alterarTiposVendas(id, valores)
+      .then((resultado) =>
+        resultado.changedRows > 0
+          ? { resultado: "Alteração feita com sucesso" }
+          : resultado
+      );
   }
 
   excluir(id) {

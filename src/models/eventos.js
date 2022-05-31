@@ -13,20 +13,30 @@ class Eventos {
 
   async buscarPorId(id) {
     let evento = await repositorio.buscarPorIdEvento(id);
-    return this.insereStatusNoEvento(evento);
+    if (evento) {
+      return this.insereStatusNoEvento(evento);
+    } else {
+      return;
+    }
   }
 
-  incluir(evento) {
-    if (this.isDatasValidas(evento)) {
-      return repositorio.incluirEvento(evento);
+  async incluir(evento) {
+    const resp = await repositorio.incluirEvento(evento);
+    if (this.isDatasValidas(resp)) {
+      return { id: resp.insertId, ...evento };
     } else {
       return { erro: "Data invalida" };
     }
   }
 
-  async alterar(id, valores) {
-    const evento = await repositorio.alterarEvento(id, valores);
-    return evento;
+  alterar(id, valores) {
+    return repositorio
+      .alterarEvento(id, valores)
+      .then((resultado) =>
+        resultado.changedRows > 0
+          ? { resultado: "Alteração feita com sucesso" }
+          : resultado
+      );
   }
 
   excluir(id) {
@@ -37,7 +47,7 @@ class Eventos {
 
   isDatasValidas(evento) {
     return (
-      moment(evento.dataInicio).isAfter(moment().format("YYYY-MM-DD")) &&
+      moment(evento.dataInicio).isAfter(moment()) &&
       moment(evento.dataFim).isAfter(moment(evento.dataInicio))
     );
   }

@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const { cpf } = require("cpf-cnpj-validator");
 
 const validarURL = async (url) => {
   try {
@@ -19,4 +20,8 @@ const validarURL = async (url) => {
   }
 };
 
-module.exports = validarURL;
+const cpfEhValido = (numeroCPF) => {
+  return cpf.isValid(numeroCPF);
+};
+
+module.exports = { validarURL, cpfEhValido: cpfEhValido };

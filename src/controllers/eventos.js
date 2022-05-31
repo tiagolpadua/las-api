@@ -11,7 +11,9 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
 
     Eventos.buscarPorId(id)
-      .then((resultados) => res.json(resultados))
+      .then((evento) => {
+        evento ? res.json(evento) : res.status(404).send();
+      })
       .catch((erros) => next(erros));
   });
 

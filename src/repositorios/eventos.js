@@ -28,22 +28,22 @@ class Evento {
   }
 
   statusAgendado() {
-    const dataHoje = moment().format("YYYY-MM-DD HH:MM:ss");
+    const dataHoje = moment();
     const sql = "SELECT * FROM eventos WHERE dataInicio >= ?";
     return query(sql, dataHoje);
   }
 
   statusEmAndamento() {
     const dataHoje = {
-      inicio: moment().startOf("day").format("YYYY-MM-DD HH:MM:ss"),
-      fim: moment().endOf("day").format("YYYY-MM-DD HH:MM:ss"),
+      inicio: moment().startOf("day"),
+      fim: moment().endOf("day"),
     };
     const sql = "SELECT * FROM eventos WHERE dataInicio <= ? AND dataFim >= ?";
     return query(sql, [dataHoje.inicio, dataHoje.fim]);
   }
 
   statusFinalizado() {
-    const dataHoje = moment().format("YYYY-MM-DD HH:MM:ss");
+    const dataHoje = moment();
     const sql = "SELECT * FROM eventos WHERE dataFim < ?";
     return query(sql, dataHoje);
   }
