@@ -66,6 +66,36 @@ class Usuario {
 
     return query(sql, [valores, id]);
   }
+
+  buscarContatosDoUsuario(id) {
+    const sql = "SELECT telefone, celular, email FROM Usuarios WHERE id = ?";
+
+    return query(sql, id);
+  }
+
+  atualizarContatosDoUsuario(id, valores) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+
+    return query(sql, [valores, id]);
+  }
+
+  atualizarSenhaDoUsuario(id, senha) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+
+    return query(sql, [senha, id]);
+  }
+
+  buscarEnderecoDoUsuario(id){
+    const sql = "SELECT cep, endereco, numero, complemento, bairro";
+
+    return query(sql, id);
+  }
+
+  atualizarEnderecoDoUsuario(id, valores){
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+
+    return query(sql, [valores, id]);
+  }
 }
 
 module.exports = new Usuario();

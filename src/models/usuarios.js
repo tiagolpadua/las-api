@@ -69,12 +69,32 @@ class Usuarios {
     return await repositorio.buscaPorNome(nome);
   }
 
-  async buscarDadosPessoaisDoUsuario(id){
+  async buscarDadosPessoaisDoUsuario(id) {
     return await repositorio.buscarDadosPessoaisDoUsuario(id);
   }
 
-  async atualizarDadosPessoaisDoUsuario(id, valores){
+  async atualizarDadosPessoaisDoUsuario(id, valores) {
     return await repositorio.atualizarDadosPessoaisDoUsuario(id, valores);
+  }
+
+  async buscarContatosDoUsuario(id) {
+    return await repositorio.buscarContatosDoUsuario(id);
+  }
+
+  async atualizarContatosDoUsuario(id, valores) {
+    return await repositorio.atualizarContatosDoUsuario(id, valores);
+  }
+
+  async atualizarSenhaDoUsuario(id, senha) {
+    return await repositorio.atualizarSenhaDoUsuario(id, senha);
+  }
+
+  async buscarEndereçoDoUsuario(id){
+    return await repositorio.buscarEnderecoDoUsuario(id);
+  }
+
+  async atualizarEnderecoDoUsuario(id, valores){
+    return await repositorio.atualizarEnderecoDoUsuario(id, valores);
   }
 }
 

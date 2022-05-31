@@ -7,7 +7,7 @@ class Ufs {
   }
 
   buscarMunicipiosPorUf(uf) {
-    const sql = "SELECT nome FROM Municipios WHERE uf_sigla = ?";
+    const sql = "SELECT nome FROM Municipios WHERE siglaEstado = ?";
     return query(sql, uf);
   }
 }

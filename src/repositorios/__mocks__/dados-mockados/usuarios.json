@@ -7,7 +7,11 @@
   {
     "id": 2,
     "nome": "Domingosx",
-    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/63.jpg"
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/63.jpg",
+    "nomeCompleto": "Domingos 123",
+    "dataNascimento": "1977-01-16",
+    "rg": 123456789,
+    "cpf": 12345678911
   },
   {
     "id": 3,
@@ -29,4 +33,4 @@
     "nome": "Gemini",
     "urlFotoPerfil": "https://randomuser.me/api/portraits/women/63.jpg"
   }
-];
+]

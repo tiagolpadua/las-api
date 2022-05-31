@@ -58,8 +58,8 @@ module.exports = (app) => {
   });
 
   app.get("/usuarios/:id/dados-pessoais", (req, res, next) => {
-    const nome = req.params.nome;
-    Usuarios.buscarDadosPessoaisDoUsuario(nome)
+    const id = parseInt(req.params.id);
+    Usuarios.buscarDadosPessoaisDoUsuario(id)
       .then((resultado) =>
         resultado ? res.json(resultado) : res.status(404).send()
       )
@@ -67,11 +67,61 @@ module.exports = (app) => {
   });
 
   app.put("/usuarios/:id/dados-pessoais", (req, res, next) => {
-    const nome = req.params.nome;
-    Usuarios.atualizarDadosPessoaisDoUsuario(nome)
+    const id = req.params.id;
+    const valores = req.body;
+    Usuarios.atualizarDadosPessoaisDoUsuario(id, valores)
       .then((resultado) =>
         resultado ? res.json(resultado) : res.status(404).send()
       )
       .catch((erros) => next(erros));
   });
+
+  app.get("/usuarios/:id/contatos", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    Usuarios.buscarContatosDoUsuario(id)
+      .then((resultado) =>
+        resultado ? res.json(resultado) : res.status(404).send()
+      )
+      .catch((erros) => next(erros));
+  });
+
+  app.put("/usuarios/:id/contatos", (req, res, next) => {
+    const id = req.params.id;
+    const valores = req.body;
+    Usuarios.atualizarContatosDoUsuario(id, valores)
+      .then((resultado) =>
+        resultado ? res.status(204).json(resultado) : res.status(405).send()
+      )
+      .catch((erros) => next(erros));
+  });
+
+  app.put("/usuarios/:id/senha", (req, res, next) => {
+    const id = req.params.id;
+    const senha = req.params.senha;
+    Usuarios.atualizarSenhaDoUsuario(id, senha)
+      .then((resultado) =>
+        resultado ? res.status(204).json(resultado) : res.status(405).send()
+      )
+      .catch((erros) => next(erros));
+  });
+
+  app.get("/usuarios/:id/endereco", (req, res, next) => {
+    const id = parseInt(req.params.id);
+    Usuarios.buscarEnderecoDoUsuario(id)
+      .then((resultado) =>
+        resultado ? res.json(resultado) : res.status(404).send()
+      )
+      .catch((erros) => next(erros));
+  });
+
+  app.put("/usuarios/:id/endereco", (req, res, next) => {
+    const id = req.params.id;
+    const valores = req.body;
+    Usuarios.atualizarEnderecoDoUsuario(id, valores)
+      .then((resultado) =>
+        resultado ? res.status(204).json(resultado) : res.status(405).send()
+      )
+      .catch((erros) => next(erros));
+  });
+
 };

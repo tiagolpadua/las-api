@@ -121,23 +121,34 @@ describe("API de Usuários", () => {
     expect(usuarioAtualizado.statusCode).toBe(404);
   });
 
-  // test("Deletar usuário por id existente", async() => {
-  //   const usuarioAtualizado = await request.put("/usuarios/2");
-  //   expect(usuarioAtualizado.statusCode).toBe(204);
-  // });
+  test("Deletar usuário por id existente", async() => {
+    const usuarioDeletado = await request.delete("/usuarios/2");
+    expect(usuarioDeletado.statusCode).toBe(204);
+  });
 
-  // test("Deletar usuário por id Inexistente", async() => {
-  //   const usuarioAtualizado = await request.delete("/usuarios/20");
-  //   expect(usuarioAtualizado.statusCode).toBe(404);
-  // });
+  test("Deletar usuário por id Inexistente", async() => {
+    const usuarioDeletado = await request.delete("/usuarios/20");
+    expect(usuarioDeletado.statusCode).toBe(404);
+  });
 
-  // test("Buscar usuário por nome existente", async() => {
-  //   const usuarioAtualizado = await request.get("/usuarios/Domingos");
-  //   expect(usuarioAtualizado.statusCode).toBe(200);
-  // });
+  test("Buscar usuário por nome existente", async() => {
+    const usuario = await request.get("/usuarios/nome/Domingos");
+    expect(usuario.statusCode).toBe(200);
+  });
 
   test("Buscar usuário por nome Inexistente", async()=> {
     const usuario = await request.get("/usuarios/Carlos");
     expect(usuario.statusCode).toBe(404);
   });
+
+  test("Buscar dados pessoais de usuário por id existente", async()=> {
+    const usuario = await request.get("/usuarios/2/dados-pessoais");
+    expect(usuario.statusCode).toBe(200);
+  });
+
+  test("Buscar dados pessoais de usuário por id Inexistente", async()=> {
+    const usuario = await request.get("/usuarios/13/dados-pessoais");
+    expect(usuario.statusCode).toBe(200);
+  });
+
 });

@@ -6,10 +6,7 @@ class Tabelas {
     this.criarEventos();
     this.criarTiposVendas();
     this.criarUFs();
-<<<<<<< HEAD
-=======
     this.criarMunicipios();
->>>>>>> cbe0f77fd28bd222d3f9f7bbdd21ea6743475153
   }
 
   criarUsuarios() {
@@ -44,11 +41,7 @@ class Tabelas {
         PRIMARY KEY(id))`;
 
     this.pool.query(sql, (erro) => {
-      if (erro) {
-        console.log(erro);
-      } else {
-        console.log("Tabela Usuarios criada com sucesso");
-      }
+      console.log(erro ? erro : "Tabela Usuarios criada com sucesso");
     });
   }
 
@@ -69,40 +62,22 @@ class Tabelas {
       console.log(erro ? erro : "Tabela TipoVendas criada com sucesso");
     });
   }
-<<<<<<< HEAD
-  
+
   criarUFs() {
     const sql =
-      "CREATE TABLE IF NOT EXISTS  UFs(id INT NOT NULL, sigla VARCHAR(2), nome VARCHAR(30))";
+      "CREATE TABLE IF NOT EXISTS  UFs(id INT NOT NULL, sigla VARCHAR(2))";
 
     this.pool.query(sql, (erro) => {
       console.log(erro ? erro : "Tabela UFs criada com sucesso");
-=======
-
-  criarUFs() {
-    const sql =
-      "CREATE TABLE IF NOT EXISTS UFs(id INT NOT NULL, sigla varchar(2) NOT NULL, nome varchar(50), primary key(id))";
-
-    this.pool.query(sql, (erro) => {
-      if (erro) {
-        console.log(erro);
-      } else {
-        console.log("Tabela UFs criada com sucesso");
-      }
     });
   }
 
   criarMunicipios() {
     const sql =
-      "CREATE TABLE IF NOT EXISTS Municipios(id INT NOT NULL, nome varchar(75) NOT NULL, uf_id int NOT NULL, uf_sigla varchar(2) NOT NULL, uf_nome varchar(30) NOT NULL, regiao_id int NOT NULL, regiao_sigla varchar(2) NOT NULL, regiao_nome varchar(20) NOT NULL , primary key(id))";
+      "CREATE TABLE IF NOT EXISTS  Municipios(id INT NOT NULL, siglaEstado VARCHAR(2), nome VARCHAR(50))";
 
     this.pool.query(sql, (erro) => {
-      if (erro) {
-        console.log(erro);
-      } else {
-        console.log("Tabela Municipio criada com sucesso");
-      }
->>>>>>> cbe0f77fd28bd222d3f9f7bbdd21ea6743475153
+      console.log(erro ? erro : "Tabela Municipios criada com sucesso");
     });
   }
 }

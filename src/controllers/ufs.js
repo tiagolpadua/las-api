@@ -9,14 +9,12 @@ module.exports = (app) => {
       .catch((erros) => next(erros));
   });
 
-  app.get("/ufs/:uf", (req, res) => {
+  app.get("/ufs/:uf/municipios", (req, res, next) => {
     const uf = req.params.uf;
     UFs.buscarMunicipiosPorUf(uf)
-      .then((resultados) => {
-        res.json(resultados);
-      })
-      .catch(() => {
-        res.status(404).end();
-      });
+      .then((resultado) =>
+        resultado ? res.json(resultado) : res.status(404).send()
+      )
+      .catch((erros) => next(erros));
   });
 };

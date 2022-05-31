@@ -17,7 +17,11 @@ module.exports = (app) => {
   app.post("/eventos", (req, res, next) => {
     const evento = req.body;
     Eventos.adicionar(evento)
-      .then((eventosAdicionado) => res.status(201).json(eventosAdicionado))
+      .then((eventosAdicionado) =>
+        eventosAdicionado
+          ? res.status(201).json(eventosAdicionado)
+          : res.status(404).send()
+      )
       .catch((erros) => next(erros));
   });
 
@@ -39,9 +43,9 @@ module.exports = (app) => {
   app.get("/eventos/status/:status", (req, res, next) => {
     const status = req.params.status;
     Eventos.listarPorStatus(status)
-    .then((evento) => (evento ? res.json(evento) : res.status(404).send()))
+      .then((evento) => (evento ? res.json(evento) : res.status(404).send()))
       .catch((erros) => next(erros));
-      // .then((resultados) => res.json(resultados))
-      // .catch((erros) => next(erros));
+    // .then((resultados) => res.json(resultados))
+    // .catch((erros) => next(erros));
   });
 };
