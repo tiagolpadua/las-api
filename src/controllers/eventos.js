@@ -17,16 +17,19 @@ module.exports = (app) => {
   app.get("/eventos/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Eventos.buscaPorId(id)
-      .then((resultados) => res.status(200).json(resultados))
+      .then((evento) => evento ?
+        res.status(200).json(evento) :
+        res.status(404).send())
       .catch((erros) => next(erros));
   });
 
   app.post("/eventos", (req, res, next) => {
     const evento = req.body;
     Eventos.adicionar(evento)
-      .then((resultados) =>
-        res.status(201).json({ id: resultados.insertId, ...evento })
-      )
+      .then((resultados) => 
+      resultados ?
+      res.status(201).json({ id: resultados.insertId, ...evento }) :
+      res.status(400).send())
       .catch((erros) => next(erros));
   });
 

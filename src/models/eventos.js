@@ -11,7 +11,12 @@ class Eventos {
   }
 
   adicionar(evento) {
-    return repositorio.adicionar(evento);
+    if (this.isDatasValidas(evento)) {
+      const eventoComStatus = this.inserirStatus(evento);
+      return repositorio.adicionar(eventoComStatus);
+    }
+    
+    return Promise.reject("Datas inválidas, tente novamente.");
   }
 
   alterar(valores, id) {
@@ -62,11 +67,11 @@ class Eventos {
   listarPorStatus(status) {
     switch (status) {
       case "agendado":
-        return this.inserirStatus(repositorio.listarEventosAgendados());
+        return repositorio.listarEventosAgendados();
       case "em-andamento":
-        return this.inserirStatus(repositorio.listarEventosEmAndamento());
+        return repositorio.listarEventosEmAndamento();
       case "finalizado":
-        return this.inserirStatus(repositorio.listarEventosFinalizados());
+        return repositorio.listarEventosFinalizados();
       default:
         throw new Error(`Status inválido: ${status}`);
     }
