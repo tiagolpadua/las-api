@@ -12,19 +12,29 @@ class Eventos {
     return query(sql);
   }
 
-  listarPorId(id){
-    const sql = "SELECT * FROM Eventos WHERE id = ?";
-    return query(sql,id).then((resultados) => resultados[0]);
+  async listarPorId(id){
+    const sql =  "SELECT * FROM Eventos WHERE id = ?";
+    return query(sql,id).then((evento) => evento[0]);
   }
 
-  listarPorStatus(status){
-    const sql = "SELECT * FROM Eventos WHERE status = ?";
-    return query(sql, status);
+  async listarPorStatusAgendado(){
+    const sql = "SELECT * FROM Eventos WHERE dataInicio > CURDATE()";
+    return query(sql);
+  }
+
+  async listarPorStatusEmAndamento(){
+    const sql = "SELECT * FROM Eventos WHERE dataInicio < CURDATE() and dataFim > CURDATE()";
+    return query(sql);
+  }
+
+  async listarPorStatusFinalizado(){
+    const sql = "SELECT * FROM Eventos WHERE dataFim < CURDATE()";
+    return query(sql);
   }
 
   alterar(id, dadosAtualizados){
     const sql = "UPDATE Eventos SET ? WHERE id = ?";
-    return query(sql, [id, dadosAtualizados]);
+    return query(sql, [dadosAtualizados, id]);
   }
 
   excluir(id){

@@ -18,7 +18,7 @@ class TiposVendas {
 
   alterar(id, dadosAtualizado){
     const sql = "UPDATE TiposVendas SET ? WHERE id = ?";
-    return query(sql, id, dadosAtualizado);
+    return query(sql, [dadosAtualizado, id]);
   }
 
   excluir(id){

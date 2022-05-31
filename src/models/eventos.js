@@ -6,27 +6,41 @@ const STATUS_EM_ANDAMENTO = "em-andamento";
 const STATUS_FINALIZADO = "finalizado";
 
 class Eventos {
-  adicionar(evento){
+  async adicionar(evento){
     const validaData = this.isDatasValidas(evento.dataInicio, evento.dataFim);
   
     if(validaData){
-      return repositorio.adicionar(evento);
+      const resp = await repositorio.adicionar(evento);
+      return {id: resp.insertId, ...evento};
     }else{
-      return new Promise((reject) => reject({erro: "As datas do evento estão inválidas"}));
+      throw {erro: "As datas do evento estão inválidas"};
     }    
   }
 
   async listar(){
     const eventos = await repositorio.listar();
     return eventos.map((evento) => this.insereStatusNoEvento(evento));
+    // return repositorio.listar();
   }
 
   async listarPorId(id){
-    return this.insereStatusEvento(await repositorio.listarPorId(id));
+    let evento = await repositorio.listarPorId(id);
+    return this.insereStatusNoEvento(evento);
   }
 
-  listarPorStatus(status){
-    return repositorio.listarPorStatus(status);
+  async listarPorStatus(status){
+    if(status === STATUS_AGENDADO) {
+      const eventos = await repositorio.listarPorStatusAgendado();
+      return eventos.map((evento) => this.insereStatusNoEvento(evento));
+    }else if(status === STATUS_EM_ANDAMENTO){
+      const eventos = await repositorio.listarPorStatusEmAndamento();
+      return eventos.map((evento) => this.insereStatusNoEvento(evento));
+    }else if(status === STATUS_FINALIZADO){
+      const eventos = await repositorio.listarPorStatusFinalizado();
+      return eventos.map((evento) => this.insereStatusNoEvento(evento));
+    }else{
+      return Promise.reject({erro: "Status Inválido"});
+    }
   }
 
   alterar(id, dadosAtualizado){
@@ -60,13 +74,13 @@ class Eventos {
   }
 
   obterStatusEvento(evento) {
-    const dataInicio = moment(evento.dataInicio).format("YYYY-MM-DD");
-    const dataFim = moment(evento.dataFim).format("YYYY-MM-DD");
-    const hoje = moment().format("YYYY-MM-DD");
+    const dataInicio = moment(evento.dataInicio);
+    const dataFim = moment(evento.dataFim);
+    const hoje = moment();
 
     if (dataInicio.isAfter(hoje)) {
       return STATUS_AGENDADO;
-    } else if (hoje.isbetween(dataInicio,dataFim)) {
+    } else if (hoje.isBetween(dataInicio,dataFim)) {
       return STATUS_EM_ANDAMENTO;
     } else if (dataFim.isBefore(hoje)) {
       return STATUS_FINALIZADO;

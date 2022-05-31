@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "nome": "Carnaval 2022", 
+    "descricao": "O carnaval mais animado do Brasil", 
+    "urlFoto": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bloco_da_capoeira_circuito_Campo_Grande_Salvador.jpg/1920px-Bloco_da_capoeira_circuito_Campo_Grande_Salvador.jpg", 
+    "dataInicio": "2023-02-28", 
+    "dataFim": "2023-03-05",
+    "status": "agendado"
+  },
+  {
+    "id": 2,
+    "nome": "Só track boa", 
+    "descricao": "A festa mais punk do mundo", 
+    "urlFoto": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bloco_da_capoeira_circuito_Campo_Grande_Salvador.jpg/1920px-Bloco_da_capoeira_circuito_Campo_Grande_Salvador.jpg", 
+    "dataInicio": "2022-05-27", 
+    "dataFim": "2022-05-28",
+    "status": "finalizado"
+  },
+  {
+    "id": 3,
+    "nome": "Festa de Santo Antonio", 
+    "descricao": "Evento em comemoração ao padroeiro da cidade de Jequié", 
+    "urlFoto": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bloco_da_capoeira_circuito_Campo_Grande_Salvador.jpg/1920px-Bloco_da_capoeira_circuito_Campo_Grande_Salvador.jpg", 
+    "dataInicio": "2022-05-31", 
+    "dataFim": "2022-06-13",
+    "status": "em-andamento"
+  }
+]

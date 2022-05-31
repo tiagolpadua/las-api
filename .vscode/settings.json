@@ -1,11 +1,19 @@
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "[javascript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    }
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#0f626d",
+    "titleBar.inactiveBackground": "#0f626d",
+    "titleBar.activeForeground": "#ffffff",
+    "titleBar.inactiveForeground": "#000000"
+  }
+
+    
+}
   

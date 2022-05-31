@@ -1,16 +1,23 @@
-const pool = require("../infraestrutura/database/conexao");
+const { isURLValida } = require("../infraestrutura/validacoes");
 const repositorio = require("../repositorios/usuarios");  
-const fetch = require("node-fetch");
-
 
 class Usuarios {
   
   async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nome.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+    
+    let nomeEhValido = false;
+    
+    if(usuario?.nome?.length > 0) {
+      const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
+        usuario.nome
+      );
 
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+      if(!nomeJaUtilizado){
+        nomeEhValido = true;
+      }
+    }
+
+    const urlEhValida = await isURLValida(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -26,12 +33,13 @@ class Usuarios {
     ];
 
     const erros = validacoes.filter((campo) => !campo.valido);
-    const existemErros = erros.length;
+    const existemErros = erros.length > 0;
 
     if (existemErros) {
-      return new Promise(reject => reject(erros));
+      throw { erroApp: erros };
     } else {
-      return repositorio.adiciona(usuario);
+      const resp = await repositorio.adicionar(usuario);
+      return { id: resp.insertId, ...usuario };
     }
   }
 
@@ -55,40 +63,40 @@ class Usuarios {
     return repositorio.buscarPorNome(nome);
   }
 
-  async validarURLFotoPerfil(url) {
-    try {
-      const regex =
-        /https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/gm;
-      const verificaUrl = url.match(regex);
-      if (!verificaUrl) {
-        return false;
-      }
-      const response = await fetch(url);
-      if (response.status !== 200) {
-        return false;
-      } else {
-        return true;
-      }
-    } catch {
-      return false;
-    }
+
+  // Dados Pessoais
+  listarDadosPessoais(id){
+    return repositorio.listarDadosPessoais(id);
   }
 
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
+  alterarDadosPessoais(id, valores) {
+    return repositorio.alterarDadosPessoais(id, valores);
+  }
+
+
+  // Contatos
+  listarContatos(id){
+    return repositorio.listarContatos(id);
+  }
+
+  alterarContatos(id, valores) {
+    return repositorio.alterarContatos(id,valores);
+  }
+
+
+  // Senha
+  alterarSenha(id, valores){
+    return repositorio.alterarSenha(id, valores);
+  }
+  
+
+  // Endereco
+  listarEndereco(id) {
+    return repositorio.listarEndereco(id);
+  }
+
+  alterarEndereco(id, valores) {
+    return repositorio.alterarEndereco(id,valores);
   }
 }
 

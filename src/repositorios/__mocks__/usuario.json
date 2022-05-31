@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "nome": "Socorro",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/30.jpg"
+  },
+  {
+    "id": 2,
+    "nome": "Paolla",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/65.jpg"
+  },
+  {
+    "id": 3,
+    "nome": "Jonas",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/men/98.jpg"
+  },
+  {
+    "id": 4,
+    "nome": "Rodrigo",
+    "urlFotoPerfil": "https://randomuser.me/api/portraits/women/101.jpg"
+  }  
+]

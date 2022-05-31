@@ -1,0 +1,23 @@
+[
+  {
+    "cep": "45200-565",
+    "endereco": "Av. Lomanto Junior",
+    "numero": 114,
+    "complemento": "Casa",
+    "bairro": "Joaquim Romao"
+  },
+  {
+    "cep": "45205-555",
+    "endereco": "Av. Antonio Brito",
+    "numero": 116,
+    "complemento": "Apartamento",
+    "bairro": "Joaquim das Flores"
+  },
+  {
+    "cep": "45605-555",
+    "endereco": "Av. Santa Luzia",
+    "numero": 1145,
+    "complemento": "Apartamento",
+    "bairro": "Osvaldo Silva"
+  }
+]
