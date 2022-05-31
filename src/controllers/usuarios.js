@@ -1,6 +1,5 @@
 const Usuarios = require("../models/usuarios");
 const valida = require("../models/validacoes.js");
-const usuario = require("../repositorios/usuario");
 
 module.exports = (app) => {
   app.get("/usuarios", (req, res, next) => {
@@ -12,42 +11,62 @@ module.exports = (app) => {
   app.get("/usuarios/nome/:nome", (req, res, next) => {
     const nome = req.params.nome;
     Usuarios.buscarPorNome(nome)
-      .then((resultados) => res.json(resultados))
+      .then((resultados) =>
+        resultados.length > 0
+          ? res.json(resultados[0])
+          : res.status(404).json({})
+      )
       .catch((erros) => next(erros));
   });
 
   app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarPorId(id)
-      .then((resultados) => res.json(resultados))
+      .then((resultados) =>
+        resultados.length > 0
+          ? res.json(resultados[0])
+          : res.status(404).json({})
+      )
       .catch((erros) => next(erros));
   });
 
   app.get("/usuarios/:id/endereco", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarEndereco(id)
-      .then((resultados) => res.json(resultados))
+      .then((resultados) =>
+        resultados.length > 0
+          ? res.json(resultados[0])
+          : res.status(404).json({})
+      )
       .catch((erros) => next(erros));
   });
 
   app.get("/usuarios/:id/contatos", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarDadosContatos(id)
-      .then((resultados) => res.json(resultados))
+      .then((resultados) =>
+        resultados.length > 0
+          ? res.json(resultados[0])
+          : res.status(404).json({})
+      )
       .catch((erros) => next(erros));
   });
 
   app.get("/usuarios/:id/dados-pessoais", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarDadosPessoais(id)
-      .then((resultados) => res.json(resultados))
+      .then((resultados) =>
+        resultados.length > 0
+          ? res.json(resultados[0])
+          : res.status(404).json({})
+      )
       .catch((erros) => next(erros));
   });
 
   app.post("/usuarios", (req, res, next) => {
     const usuario = req.body;
     Usuarios.adicionar(usuario)
-      .then((resultados) => res.status(201).json(resultados))
+      .then((resultados) => res.status(201).json(resultados[0]))
       .catch((erros) => next(erros));
   });
 

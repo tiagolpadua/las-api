@@ -6,39 +6,33 @@ class Usuarios {
     return repositorio.listar();
   }
 
-  async buscarPorNome(nome) {
-    const resutados = await repositorio.buscarPorNome(nome);
-    return resutados[0];
+  buscarPorNome(nome) {
+    return repositorio.buscarPorNome(nome);
   }
 
-  async buscarPorId(id) {
-    const resp = await repositorio.buscarPorId(id);
-    return resp[0];
+  buscarPorId(id) {
+    return repositorio.buscarPorId(id);
   }
 
-  async buscarEndereco(id) {
-    const resp = await repositorio.buscarEndereco(id);
-    return resp[0];
+  buscarEndereco(id) {
+    return repositorio.buscarEndereco(id);
   }
 
-  async buscarDadosContatos(id) {
-    const resp = await repositorio.buscarDadosContatos(id);
-    return resp[0];
+  buscarDadosContatos(id) {
+    return repositorio.buscarDadosContatos(id);
   }
 
-  async buscarDadosPessoais(id) {
-    const resp = await repositorio.buscarDadosPessoais(id);
-    return resp[0];
+  buscarDadosPessoais(id) {
+    return repositorio.buscarDadosPessoais(id);
   }
 
   async adicionar(usuario) {
-    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<eu");
     const validacoes = [
       {
         nome: `${usuario.nome}`,
         valido:
           valida.isNomeValido(usuario?.nome) &&
-          (await this.validarNomeUsuarioNaoUtilizado(usuario?.nome)),
+          !(await this.isNomeUltilizado(usuario?.nome)),
         mensagem: "Nome informado deve ser único e não vazio",
       },
       {
@@ -50,17 +44,10 @@ class Usuarios {
       },
     ];
     const erros = validacoes.filter((campo) => !campo.valido);
-
-    // console.log(erros.length);
-
-    // // return erros.length > 0
-    // //   ? Promise.reject({ erroApp: erros })
-    // //   : repositorio.adicionar(usuario);
-    const resultados = await repositorio.adicionar(usuario);
     if (erros.length > 0) {
-      return Promise.reject({ erro: "caiu no resolve" });
+      return Promise.reject(erros);
     } else {
-      return resultados;
+      return repositorio.adicionar(usuario);
     }
   }
 
@@ -94,9 +81,9 @@ class Usuarios {
     return repositorio.excluir(id);
   }
 
-  async validarNomeUsuarioNaoUtilizado(nome) {
+  async isNomeUltilizado(nome) {
     const resultados = await repositorio.buscarPorNome(nome);
-    return resultados?.length > 0 ? false : true;
+    return resultados?.length > 0 ? true : false;
   }
 }
 

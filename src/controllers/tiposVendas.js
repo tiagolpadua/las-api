@@ -1,42 +1,37 @@
-const tiposVendas = require("../models/tiposVendas");
+const TiposVendas = require("../models/tiposVendas");
 
 module.exports = (app) => {
-  app.get("/tipos-vendas", (req, res, next) => {
-    tiposVendas
-      .listar()
-      .then((resultados) => res.status(200).json(resultados))
+  app.get("/tipos-venda", (req, res, next) => {
+    TiposVendas.listar()
+      .then((resultados) => res.json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.get("/tipos-vendas/:id", (req, res, next) => {
+  app.get("/tipos-venda/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    tiposVendas
-      .buscaPorId(id)
-      .then((resultados) => res.status(200).json(resultados))
+    TiposVendas.buscarPorId(id)
+      .then((resultados) => res.json(resultados[0]))
       .catch((erros) => next(erros));
   });
 
-  app.post("/tipos-vendas", (req, res, next) => {
+  app.post("/tipos-venda", (req, res, next) => {
     const tipoVenda = req.body;
-    tiposVendas
-      .adicionar(tipoVenda, next)
+    TiposVendas.adicionar(tipoVenda)
       .then((resultados) => res.status(201).json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.put("/tipos-vendas/:id", (req, res, next) => {
+  app.put("/tipos-venda/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
-    tiposVendas
-      .alterar(id, valores)
+    TiposVendas.alterar(id, valores)
       .then((resultados) => res.status(204).json(resultados))
       .catch((erros) => next(erros));
   });
 
-  app.delete("/tipos-vendas/:id", (req, res, next) => {
+  app.delete("/tipos-venda/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
-    tiposVendas
-      .excluir(id)
+    TiposVendas.excluir(id)
       .then((resultados) => res.status(204).json(resultados))
       .catch((erros) => next(erros));
   });

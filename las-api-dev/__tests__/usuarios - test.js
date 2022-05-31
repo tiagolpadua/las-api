@@ -7,13 +7,11 @@ jest.mock("../../src/repositorios/usuario.js");
 
 describe("testa GET /usuarios", () => {
   it("Deve Listar usuarios", async () => {
-    const listaDeUsuarios = usuarios;
-    usuarios.pop();
+    const listaDeUsuarios = [usuarios[0], usuarios[1], usuarios[2]];
     const resp = await request.get("/usuarios");
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual(listaDeUsuarios);
   });
-
   it("Deve buscar usuario pelo NOME", async () => {
     const resp = await request.get("/usuarios/nome/Lilian");
     expect(resp.statusCode).toBe(200);
@@ -21,7 +19,7 @@ describe("testa GET /usuarios", () => {
   });
   it("Não deve achar usuario com NOME não cadastrado", async () => {
     const resp = await request.get("/usuarios/nome/fooo");
-    expect(resp.statusCode).toBe(500);
+    expect(resp.statusCode).toBe(404);
   });
 
   it("Deve buscar usuario pelo ID", async () => {
@@ -32,7 +30,7 @@ describe("testa GET /usuarios", () => {
 
   it("Não deve achar usuario com ID inexistente ", async () => {
     const resp = await request.get("/usuarios/99");
-    expect(resp.statusCode).toBe(500);
+    expect(resp.statusCode).toBe(404);
   });
 
   it("Deve buscar endereco pelo ID", async () => {
@@ -60,7 +58,6 @@ describe("testa GET /usuarios", () => {
   it("Não deve achar contatos pelo ID inexistente", async () => {
     const resp = await request.get("/usuarios/99/contatos");
     expect(resp.statusCode).toBe(500);
-    // expect(resp.body).toEqual({});
   });
 
   it("Deve buscar dados-pessoais pelo ID", async () => {
@@ -70,7 +67,7 @@ describe("testa GET /usuarios", () => {
       dataNascimento: "2000-01-01",
       nomeCompleto: "Fulana de Tal",
       rg: "123321 SSP BA",
-      cpf: "3516546546354",
+      cpf: "97551353089",
     });
   });
 
@@ -81,11 +78,11 @@ describe("testa GET /usuarios", () => {
 });
 
 describe("Testa POST /usuarios", () => {
-  const novoUsuario = usuarios[3];
   it("Cria usuarios com dados válidos com sucesso", async () => {
+    const novoUsuario = usuarios[3];
     const resp = await request.post("/usuarios").send(novoUsuario);
     expect(resp.statusCode).toBe(201);
-    expect(resp.body).toEqual({ ...novoUsuario, id: 4 });
+    expect(resp.body).toEqual({ ...novoUsuario, id: 5 });
   });
 
   it("Nao cria novo usuario com dados inválidos ", async () => {

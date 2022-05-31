@@ -1,6 +1,5 @@
 const usuariosMock = require("./usuariosMock.json");
 const valida = require("../../models/validacoes.js");
-const { Promise } = require("node-fetch");
 
 class UsuariosRepositorio {
   listar() {
@@ -9,12 +8,12 @@ class UsuariosRepositorio {
 
   buscarPorNome(nome) {
     const encontrado = usuariosMock.find((usuario) => usuario.nome === nome);
-    return encontrado ? Promise.resolve([encontrado]) : Promise.reject([]);
+    return encontrado ? Promise.resolve([encontrado]) : Promise.resolve([]);
   }
 
   buscarPorId(id) {
     const encontrado = usuariosMock.find((usuario) => usuario.id === id);
-    return encontrado ? Promise.resolve([encontrado]) : Promise.reject([]);
+    return encontrado ? Promise.resolve([encontrado]) : Promise.resolve([]);
   }
 
   buscarEndereco(id) {
@@ -48,7 +47,7 @@ class UsuariosRepositorio {
   }
 
   adicionar(usuario) {
-    return Promise.resolve([{ ...usuario }]);
+    return Promise.resolve([{ ...usuario, id: 5 }]);
   }
 
   alterar(id) {

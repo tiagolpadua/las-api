@@ -24,7 +24,7 @@ module.exports = () => {
       } else {
         res.status(500).send({ error: err });
       }
-      //console.log(err);
+      // console.log(err);
     }
   });
 
