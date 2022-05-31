@@ -1,18 +1,21 @@
 [
     {
-        "id":1,
+        "id": 1,
+        "nome": "user1",
         "nomeCompleto": "user1",
         "urlFotoPerfil": "https://randomuser.me/api/portraits/women/75.jpg",
         "email": "email1"
     },
     {
-        "id":2,
+        "id": 2,
+        "nome": "user2",
         "nomeCompleto": "user2",
         "urlFotoPerfil": "https://randomuser.me/api/portraits/women/74.jpg",
         "email": "email2"
     },
     {
-        "id":3,
+        "id": 3,
+        "nome": "user3",
         "nomeCompleto": "user3",
         "urlFotoPerfil": "https://randomuser.me/api/portraits/women/90.jpg",
         "email": "email3"

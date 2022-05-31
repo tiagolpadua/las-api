@@ -1,4 +1,3 @@
-const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 const { cpf } = require("cpf-cnpj-validator");
@@ -13,38 +12,47 @@ class Usuarios {
   }
 
   async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nomeCompleto.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nomeCompleto));
+    let nomeEhValido = false;
+
+    if (usuario?.nome?.length > 0) {
+      const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
+        usuario.nome
+      );
+
+      if (!nomeJaUtilizado) {
+        nomeEhValido = true;
+      }
+    }
 
     const cpfEhValido = cpf.isValid(usuario.cpf);
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+    const urlEhValida = await this.validarURLFotoPerfil(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
         nome: "nome",
         valido: nomeEhValido,
-        mensagem: "Nome deve ser informado e deve ser único"
+        mensagem: "Nome deve ser informado e deve ser único",
       },
       {
         nome: "urlFotoPerfil",
         valido: urlEhValida,
-        mensagem: "URL deve uma URL válida"
+        mensagem: "URL deve ser uma URL válida",
       },
       {
         nome: "cpf",
         valido: cpfEhValido,
-        mensagem: "CPF deve ser válido"
-      }
+        mensagem: "CPF deve ser válido",
+      },
     ];
 
     const erros = validacoes.filter((campo) => !campo.valido);
     const existemErros = erros.length;
 
     if (existemErros) {
-      return Promise.reject(erros);
+      throw { erroApp: erros };
     } else {
-        return repositorio.adicionar(usuario);
+      const resposta = await repositorio.adicionar(usuario);
+      return { id: resposta.insertId, ...usuario };
     }
   }
 
@@ -69,7 +77,6 @@ class Usuarios {
   alterarDadosPessoais(valores, id) {
     return repositorio.alterarDadosPessoais(valores, id);
   }
-
 
   // contatos
 
@@ -97,9 +104,6 @@ class Usuarios {
     return repositorio.alterarEndereco(valores, id);
   }
 
-
-
-
   async validarURLFotoPerfil(url) {
     try {
       const regex =
@@ -118,23 +122,5 @@ class Usuarios {
       return false;
     }
   }
-
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nomeCompleto = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
-  }
 }
-
 module.exports = new Usuarios();
