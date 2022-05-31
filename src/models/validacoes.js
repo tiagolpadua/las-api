@@ -1,7 +1,12 @@
 const fetch = require("node-fetch");
 const { EM_ANDAMENTO, AGENDADO, FINALIZADO } = require("../enums/eventoStatus");
+const CPF = require("cpf-check");
 
 class Valida {
+  isCpfValido(cpfUsuario) {
+    return CPF.validate(cpfUsuario);
+  }
+
   isNomeValido(nome) {
     return nome.length > 2;
   }

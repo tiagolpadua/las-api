@@ -49,17 +49,21 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "./src/**"
+      "./src/**",
+      "!./src/repositorios/*"
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 90
+        "lines": 80
       }
     }
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "consign": "^0.1.6",
+    "cpf-check": "^3.0.0",
+    "cpf-cnpj-validator": "^1.0.3",
     "express": "^4.17.3",
     "moment": "^2.29.3",
     "mysql": "^2.18.1",

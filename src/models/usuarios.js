@@ -42,7 +42,14 @@ class Usuarios {
           (await valida.isStatusFotoValido(usuario?.urlFotoPerfil)),
         mensagem: "URL informada deve  ser uma URL válida",
       },
+
+      {
+        cpf: `${usuario.cpf}`,
+        valido: valida.isCpfValido(usuario?.cpf),
+        mensagem: "CPF informado deve ser válido",
+      },
     ];
+
     const erros = validacoes.filter((campo) => !campo.valido);
     if (erros.length > 0) {
       return Promise.reject(erros);
