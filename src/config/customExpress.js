@@ -10,30 +10,23 @@ module.exports = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  app.get("/",(req, res) => res.send("Bem-Vindo ao LAS-API"));
+  app.get("/",(req, res) => {
+    res.send("Bem-Vindo ao LAS-API");
+  });
 
   consign().include("src/controllers").into(app);
 
   
-  app.use((err, req, res) => {
-    //Erro interno
-    if(err.erroApp){
-      console.log("Erro interno");
-      res.status(400).send(err.erroApp);
-
-      //Error em Ambiente que nao eh de produçao
-    }else if (ENV !== "production") {
-      console.log("Error em Ambiente que nao eh de produçao");
-      res.status(500).send({ error: "err.message" });
-
-      //Error em produçao
-    }else{
-      console.log("Error em produçao");
-      res.status(500).send({ error: "Algo deu errado..." });
+  // eslint-disable-next-line no-unused-vars
+  app.use((err, req, res, next) => {
+    if (err) {
+      if (ENV === "production") {
+        res.status(500).send("erro");
+      } else {
+        res.status(500).send("erro");
+      }
+      console.log(err);
     }
-    
-    console.log(err);
   });
-
   return app;
 };
