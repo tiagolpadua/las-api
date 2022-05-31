@@ -7,7 +7,7 @@
     "start": "nodemon src/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint src/**",
+    "lint": "eslint src/**.js",
     "lint:fix": "eslint src/** --fix",
     "cli:produtos": "node src/cli.js produtos",
     "cli:produtos-formatados": "node src/cli.js produtos-formatados",
