@@ -10,7 +10,18 @@ module.exports = (app) => {
 
       app.get("/eventos/:id", (req, res, next) => {
         const id = parseInt(req.params.id);
-        Eventos.buscarPorId(id, res, next);
+        Eventos.buscarPorId(id)
+          .then((resultado) => {
+          console.log("Sucesso"); 
+          if(resultado.length === 0) {
+            return res.status(404).end();
+          }
+            return res.json(resultado[0]);
+          })
+          .catch((erros) => {
+            console.log("Error" , erros);
+            return next(erros);
+          });
       });
       
       app.get("/eventos/status/:status",(req,res,next) => {

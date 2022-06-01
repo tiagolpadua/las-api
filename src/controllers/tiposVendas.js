@@ -16,7 +16,9 @@ app.get("/tipos-vendas",(req, res, next) => {
 
   app.post("/tipos-vendas", (req, res, next) => {
     const venda = req.body;
-    Venda.adicionar(venda, res, next);
+    Venda.adicionar(venda)
+    .then((resultados) => res.status(201).json(resultados))
+    .catch((erros) => next(erros));
   });
 
   app.put("/tipos-vendas/:id", (req, res, next) => {
@@ -29,4 +31,6 @@ app.get("/tipos-vendas",(req, res, next) => {
     const id = parseInt(req.params.id);
     Venda.excluir(id, res, next);
   });
+
+  
 };

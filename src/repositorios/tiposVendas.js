@@ -16,6 +16,9 @@ class Venda {
       "SELECT descricao FROM tiposVendas WHERE id = ?";
     return query(sql, id).then((data) => data[0]);
 }
+
+  
+
 }
 
 module.exports = new Venda();

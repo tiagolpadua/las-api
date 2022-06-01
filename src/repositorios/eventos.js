@@ -12,6 +12,11 @@ class Evento {
       return query(sql);
   }
 
+  buscarPorId(id) {
+    const sql = "SELECT * FROM Eventos WHERE id = ?";
+    return query(sql,id);
+  }
+
   listarEventosAgendados() {
     const sql = "SELECT * FROM Eventos WHERE dataInicio >= CURDATE()";
     return query(sql);
@@ -26,13 +31,6 @@ class Evento {
     const sql = "SELECT * FROM Eventos WHERE dataFim < CURDATE()";
     return query(sql);
   }
-    
-  
-  listarEventosPorStatus(status) {
-    const sql =`SELECT * FROM Eventos WHERE status= "${status}"`;
-    return query(sql);
-    
-  }
-}
+ }
 
 module.exports = new Evento();

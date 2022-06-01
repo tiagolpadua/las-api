@@ -6,6 +6,10 @@ class UF {
       return query(sql).then((respostas) => respostas.map((resposta) => resposta.sigla));
   }
 
+  listarMunicipio() {
+    const sql = "SELECT nome FROM municipios";
+    return query(sql).then((respostas) => respostas.map((resposta) => resposta.nome));
+  }
  }
 
 module.exports = new UF();

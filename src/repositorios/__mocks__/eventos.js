@@ -2,6 +2,8 @@
 
 const eventosMock = require("./eventos.json");
 
+const moment = require("moment");
+
 class Evento {
   
   listarEventos() {
@@ -9,24 +11,42 @@ class Evento {
   }
 
   buscarPorId(id) {
-    return Promise.resolve(eventosMock.find((evento) => evento.id === id));    
+    return Promise.resolve(eventosMock.filter((evento) => evento.id === id));    
   }
 
-  // listarEventosAgendados() {
-  //   return Promise.resolve(eventosMock);
-  // }
-
-  // listarEventosEmAndamento() {
-  //   return Promise.resolve(eventosMock);
-  // }
-
-  // listarEventosFinalizados() {
-  //   return Promise.resolve(eventosMock);
-  // }
-
-  buscarEventoPorStatus() {
-    return Promise.resolve(eventosMock);
+  listarEventosAgendados() {
+    return Promise.resolve(eventosMock.filter((evento) => {
+      const dataAtual = moment();
+      const dataInicio = moment(evento.dataInicio);
+      return dataInicio.isAfter(dataAtual);
+    }
+    ));
   }
+
+  listarEventosEmAndamento() {
+    return Promise.resolve(eventosMock.filter((evento) => {
+      const dataAtual = moment();
+      const dataInicio = moment(evento.dataInicio);
+      const dataFim = moment(evento.dataFim);
+      return dataInicio.isBefore(dataAtual) && dataFim.isAfter(dataAtual);
+    }));
+  }
+
+  listarEventosFinalizados() {
+    return Promise.resolve(eventosMock.filter((evento) => {
+      const dataAtual = moment();
+      const dataFim = moment(evento.dataFim);
+      return dataFim.isBefore(dataAtual);
+    }));
+  }
+
+//   buscarEventoPorStatus() {
+//     return Promise.resolve(eventosMock);
+//   }
+
+//   listarEventosFinalizados() {
+//     return Promise.resolve(eventosMock.find((evento) => evento.status === "finalizado"));
+// }
 }
 
 module.exports = new Evento();

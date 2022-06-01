@@ -28,5 +28,6 @@ describe("API De Tipos de Vendas", () => {
     const resp = await request.get("/tipos-vendas/9999");
     expect(resp.statusCode).toBe(404);
     });
-  });
+   
+   });
   
