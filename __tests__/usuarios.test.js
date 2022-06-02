@@ -200,7 +200,7 @@ describe("API de Dados Pessoais", () => {
     expect(resp.body).toEqual([]);
   });
 
-  test("Atualizar Dados Pessoais de um Usuário com Id Existente", async () => {
+  test("Atualizar Dados Pessoais de um Usuário", async () => {
     const dadosPessoaisUsuario = {
       nomeCompleto: "Mauricio Menezes",
       dataNascimento: "1995-07-30",
@@ -217,6 +217,9 @@ describe("API de Dados Pessoais", () => {
       .put("/usuarios/2/dados-pessoais")
       .send(dadosPessoaisUsuario);
     const resp02 = await request
+      .put("/usuarios/99/dados-pessoais")
+      .send(dadosPessoaisUsuario);
+    const resp03 = await request
       .put("/usuarios/2/dados-pessoais")
       .send(dadosPessoaisCpfInvalido);
 
@@ -224,7 +227,9 @@ describe("API de Dados Pessoais", () => {
     expect(resp01.body).toEqual(dadosPessoaisUsuario);
 
     expect(resp02.statusCode).toBe(404);
-    expect(resp02.body).toEqual({
+
+    expect(resp03.statusCode).toBe(404);
+    expect(resp03.body).toEqual({
       mensagem: "CPF informado deve ser válido",
       nome: "cpf",
       valido: false,

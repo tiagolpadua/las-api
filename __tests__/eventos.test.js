@@ -150,7 +150,7 @@ describe("API Eventos", () => {
     expect(resp02.statusCode).toBe(404);
   });
 
-  test("Apagar um Tipo de Venda", async () => {
+  test("Apagar um Evento", async () => {
     const resp01 = await request.delete("/eventos/1");
     const resp02 = await request.delete("/eventos/99");
 
