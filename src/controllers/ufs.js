@@ -16,10 +16,12 @@ module.exports = (app) => {
 
     UFs.buscarMunicipiosPorUf(uf)
       .then((resultados) => {
-        res.json(resultados);
+        resultados.length
+          ? res.json(resultados)
+          : res.status(404).json({ message: "UF não encontrada" });
       })
       .catch(() => {
-        res.status(404).end();
+        res.status(500).end();
       });
   });
 };

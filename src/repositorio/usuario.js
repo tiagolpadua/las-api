@@ -34,10 +34,11 @@ class Usuario {
     return query(sql, nome);
   }
 
-  buscarDadosPessoais(id) {
+  async buscarDadosPessoais(id) {
     const sql =
       "SELECT nomeCompleto, dataNascimento, rg, cpf FROM Usuarios WHERE id = ?";
-    return query(sql, id);
+    const resultados = await query(sql, id);
+    return resultados[0];
   }
 
   atualizarDadosPessoais(id, dadosPessoais) {
@@ -61,10 +62,11 @@ class Usuario {
     return query(sql, [senha, id]);
   }
 
-  buscarEndereco(id) {
+  async buscarEndereco(id) {
     const sql =
       "SELECT cep, endereco, numero, complemento, bairro FROM Usuarios WHERE id = ?";
-    return query(sql, id);
+    const resultado = await query(sql, id);
+    return resultado[0];
   }
 
   atualizarEndereco(id, endereco) {

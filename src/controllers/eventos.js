@@ -11,8 +11,10 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
 
     Eventos.buscaPorId(id)
-      .then((resultados) => res.json(resultados))
-      .catch((erros) => res.status(404).json(erros));
+      .then((resultado) => {
+        resultado ? res.json(resultado) : res.status(404).end();
+      })
+      .catch((erros) => res.status(500).json(erros));
   });
 
   app.get("/eventos/status/:status", (req, res) => {
@@ -29,21 +31,29 @@ module.exports = (app) => {
       .then((resultados) =>
         res.status(201).json({ id: resultados.insertId, ...evento })
       )
-      .catch((erros) => res.status(400).json(erros));
+      .catch((erros) => res.status(500).json(erros));
   });
 
   app.put("/eventos/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Eventos.alterar(id, valores)
-      .then(() => res.json({ id, ...valores }))
-      .catch((erros) => res.status(404).json(erros));
+      .then((resultado) =>
+        resultado.affectedRows !== 0
+          ? res.json({ id, ...valores })
+          : res.status(404).end()
+      )
+      .catch((erros) => res.status(500).json(erros));
   });
 
   app.delete("/eventos/:id", (req, res) => {
     const id = parseInt(req.params.id);
     Eventos.excluir(id)
-      .then(() => res.status(204).end())
+      .then((resultado) =>
+        resultado.affectedRows !== 0
+          ? res.status(204).end()
+          : res.status(404).end()
+      )
       .catch((erros) => res.status(404).json(erros));
   });
 };

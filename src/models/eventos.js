@@ -28,7 +28,10 @@ class Eventos {
 
   async buscaPorId(id) {
     const resultado = await repositorio.buscaPorId(id);
-    return this.insereStatusNoEvento(resultado);
+    if (resultado[0] == undefined) {
+      return false;
+    }
+    return this.insereStatusNoEvento(resultado[0]);
   }
 
   buscaPorStatus(status) {

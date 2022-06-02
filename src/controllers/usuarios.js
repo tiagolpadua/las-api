@@ -11,7 +11,7 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarPorId(id)
       .then((usuario) => (usuario ? res.json(usuario) : res.status(404).end()))
-      .catch((erros) => res.status(404).json(erros));
+      .catch((erros) => res.status(500).json(erros));
   });
 
   app.post("/usuarios", (req, res) => {
@@ -26,18 +26,22 @@ module.exports = (app) => {
     const valores = req.body;
     Usuarios.alterar(id, valores)
       .then((resultados) =>
-        resultados ? res.json({ id, ...valores }) : res.status(404).end()
+        resultados.affectedRows !== 0
+          ? res.json({ id, ...valores })
+          : res.status(404).end()
       )
-      .catch((erros) => res.status(404).json(erros));
+      .catch((erros) => res.status(500).json(erros));
   });
 
   app.delete("/usuarios/:id", (req, res) => {
     const id = parseInt(req.params.id);
     Usuarios.excluir(id)
-      .then((resposta) =>
-        resposta ? res.status(204).end() : res.status(404).end()
+      .then((resultado) =>
+        resultado.affectedRows !== 0
+          ? res.status(204).end()
+          : res.status(404).end()
       )
-      .catch((erros) => res.status(404).json(erros));
+      .catch((erros) => res.status(500).json(erros));
   });
 
   app.get("/usuarios/nome/:nome", (req, res) => {
@@ -52,16 +56,18 @@ module.exports = (app) => {
   app.get("/usuarios/:usuarioId/dados-pessoais", (req, res) => {
     const id = req.params.usuarioId;
     Usuarios.buscarDadosPessoais(id)
-      .then((resultado) => res.json(resultado))
-      .catch((erros) => res.status(404).json(erros));
+      .then((resultado) =>
+        resultado ? res.json(resultado) : res.status(404).end()
+      )
+      .catch((erros) => res.status(500).json(erros));
   });
 
   app.put("/usuarios/:usuarioId/dados-pessoais", (req, res) => {
     const id = req.params.usuarioId;
     const valores = req.body;
     Usuarios.atualizarDadosPessoais(id, valores)
-      .then((resultados) =>
-        resultados ? res.json(valores) : res.status(404).end()
+      .then((resultado) =>
+        resultado.affectedRows !== 0 ? res.json(valores) : res.status(404).end()
       )
       .catch((erros) => res.status(404).json(erros));
   });
@@ -71,7 +77,9 @@ module.exports = (app) => {
   app.get("/usuarios/:usuarioId/contatos", (req, res) => {
     const id = req.params.usuarioId;
     Usuarios.buscarContatos(id)
-      .then((resultado) => res.json(resultado))
+      .then((resultado) =>
+        resultado ? res.json(resultado) : res.status(404).end()
+      )
       .catch((erros) => res.status(404).json(erros));
   });
 
@@ -79,10 +87,10 @@ module.exports = (app) => {
     const id = req.params.usuarioId;
     const valores = req.body;
     Usuarios.atualizarContatos(id, valores)
-      .then((resultados) =>
-        resultados ? res.json(valores) : res.status(404).end()
+      .then((resultado) =>
+        resultado.affectedRows !== 0 ? res.json(valores) : res.status(404).end()
       )
-      .catch((erros) => res.status(404).json(erros));
+      .catch((erros) => res.status(500).json(erros));
   });
 
   // SENHA
@@ -91,10 +99,10 @@ module.exports = (app) => {
     const id = req.params.usuarioId;
     const valores = req.body;
     Usuarios.atualizarSenha(id, valores)
-      .then((resultados) =>
-        resultados ? res.json(valores) : res.status(404).end()
+      .then((resultado) =>
+        resultado.affectedRows !== 0 ? res.json(valores) : res.status(404).end()
       )
-      .catch((erros) => res.status(404).json(erros));
+      .catch((erros) => res.status(500).json(erros));
   });
 
   // ENDEREÇO
@@ -102,8 +110,10 @@ module.exports = (app) => {
   app.get("/usuarios/:usuarioId/endereco", (req, res) => {
     const id = req.params.usuarioId;
     Usuarios.buscarEndereco(id)
-      .then((resultado) => res.json(resultado))
-      .catch((erros) => res.status(404).json(erros));
+      .then((resultado) =>
+        resultado ? res.json(resultado) : res.status(404).end()
+      )
+      .catch((erros) => res.status(500).json(erros));
   });
 
   app.put("/usuarios/:usuarioId/endereco", (req, res) => {
@@ -111,8 +121,10 @@ module.exports = (app) => {
     const valores = req.body;
     Usuarios.atualizarEndereco(id, valores)
       .then((resultados) =>
-        resultados ? res.json(valores) : res.status(404).end()
+        resultados.affectedRows !== 0
+          ? res.json(valores)
+          : res.status(404).end()
       )
-      .catch((erros) => res.status(404).json(erros));
+      .catch((erros) => res.status(500).json(erros));
   });
 };

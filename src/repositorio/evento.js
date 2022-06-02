@@ -11,10 +11,9 @@ class Evento {
     return query(sql, evento);
   }
 
-  async buscaPorId(id) {
+  buscaPorId(id) {
     const sql = "SELECT * FROM Eventos WHERE id = ?";
-    const resultados = await query(sql, id);
-    return resultados[0];
+    return query(sql, id);
   }
 
   buscarEventosAgendado() {

@@ -8,6 +8,9 @@ class Ufs {
 
   async buscarMunicipiosPorUf(uf) {
     const municipios = await repositorio.buscarMunicipiosPorUf(uf);
+    if (!municipios.length) {
+      return municipios;
+    }
     return municipios.map((municipio) => municipio.nome);
   }
 }

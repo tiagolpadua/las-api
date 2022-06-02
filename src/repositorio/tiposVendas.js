@@ -11,9 +11,10 @@ class TiposVendas {
     return query(sql, tipoVenda);
   }
 
-  buscaPorId(id) {
+  async buscaPorId(id) {
     const sql = "SELECT * FROM TiposVendas WHERE id = ?";
-    return query(sql, id);
+    const result = await query(sql, id);
+    return result[0];
   }
 
   alterar(id, tipoVendaAtualizada) {
