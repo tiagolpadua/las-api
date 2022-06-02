@@ -17,12 +17,14 @@ class TiposVendas {
 
   alterar(id, tipoVendaAtualizada) {
     return id && tipoVendaAtualizada && tiposVendasMockados[id - 1]
-      ? Promise.resolve()
-      : Promise.reject();
+      ? Promise.resolve({ affectedRows: 1 })
+      : Promise.resolve({ affectedRows: 0 });
   }
 
   excluir(id) {
-    return tiposVendasMockados[id - 1] ? Promise.resolve() : Promise.reject();
+    return id <= tiposVendasMockados.length
+      ? Promise.resolve({ affectedRows: 1 })
+      : Promise.resolve({ affectedRows: 0 });
   }
 }
 

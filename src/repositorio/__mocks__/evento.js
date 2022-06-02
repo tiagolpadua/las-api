@@ -11,18 +11,20 @@ class Evento {
 
   buscaPorId(id) {
     return eventosMockados[id - 1]
-      ? Promise.resolve(eventosMockados[id - 1])
-      : Promise.reject();
+      ? Promise.resolve([eventosMockados[id - 1]])
+      : [];
   }
 
   alterar(id, tipoVendaAtualizada) {
     return id && tipoVendaAtualizada && eventosMockados[id - 1]
-      ? Promise.resolve()
-      : Promise.reject();
+      ? Promise.resolve({ affectedRows: 1 })
+      : Promise.resolve({ affectedRows: 0 });
   }
 
   excluir(id) {
-    return eventosMockados[id - 1] ? Promise.resolve() : Promise.reject();
+    return eventosMockados[id - 1]
+      ? Promise.resolve({ affectedRows: 1 })
+      : Promise.resolve({ affectedRows: 0 });
   }
   buscarEventosAgendado() {
     return Promise.resolve(

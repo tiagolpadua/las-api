@@ -24,15 +24,15 @@ class Usuario {
 
   // eslint-disable-next-line no-unused-vars
   alterar(id, usuarioAtualizado) {
-    return Promise.resolve(
-      usuariosMockados.find((usuario) => usuario.id == id)
-    );
+    return id <= usuariosMockados.length && usuarioAtualizado
+      ? Promise.resolve({ affectedRows: 1 })
+      : Promise.resolve({ affectedRows: 0 });
   }
 
   excluir(id) {
-    return Promise.resolve(
-      usuariosMockados.find((usuario) => usuario.id == id)
-    );
+    return id <= usuariosMockados.length
+      ? Promise.resolve({ affectedRows: 1 })
+      : Promise.resolve({ affectedRows: 0 });
   }
 
   buscarPorNome(nome) {
@@ -56,8 +56,8 @@ class Usuario {
   atualizarDadosPessoais(id, dadosPessoais) {
     return Promise.resolve(
       dadosPessoaisMockados[id - 1] && dadosPessoais
-        ? dadosPessoaisMockados[id - 1]
-        : []
+        ? Promise.resolve({ affectedRows: 1 })
+        : Promise.resolve({ affectedRows: 0 })
     );
   }
 
