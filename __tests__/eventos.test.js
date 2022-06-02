@@ -46,6 +46,7 @@ describe("API Eventos", () => {
   test("Buscar Evento por Id", async () => {
     const resp01 = await request.get("/eventos/1");
     const resp02 = await request.get("/eventos/99");
+    const resp03 = await request.get("/eventos/xx");
     const evento = {
       id: 1,
       nome: "Carnaval 2021",
@@ -61,6 +62,7 @@ describe("API Eventos", () => {
     expect(resp01.body).toEqual(evento);
     // Id Inválido
     expect(resp02.statusCode).toBe(404);
+    expect(resp03.statusCode).toBe(500);
   });
 
   test("Buscar Evento por Status", async () => {
@@ -116,7 +118,7 @@ describe("API Eventos", () => {
   });
 
   test("Inserir um Evento", async () => {
-    const evento = {
+    const eventoValido = {
       nome: "São João",
       descricao: "São João de Salvador",
       urlFoto:
@@ -124,10 +126,23 @@ describe("API Eventos", () => {
       dataInicio: "2022-06-11",
       dataFim: "2022-06-24",
     };
-    const resp = await request.post("/eventos").send(evento);
+    const eventoDatasInvalidas = {
+      nome: "São João",
+      descricao: "São João de Salvador",
+      urlFoto:
+        "https://trello.com/1/cards/6270532f00826702fcde8c27/attachments/6270532f00826702fcde8d83/download/image.png",
+      dataInicio: "2022-06-24",
+      dataFim: "2022-06-11",
+    };
+    const resp01 = await request.post("/eventos").send(eventoValido);
+    const resp02 = await request.post("/eventos").send(eventoDatasInvalidas);
+    const resp03 = await request.post("/eventos");
 
-    expect(resp.statusCode).toBe(201);
-    expect(resp.body).toEqual({ id: 99, ...evento });
+    expect(resp01.statusCode).toBe(201);
+    expect(resp01.body).toEqual({ id: 99, ...eventoValido });
+
+    expect(resp02.statusCode).toBe(500);
+    expect(resp03.statusCode).toBe(500);
   });
 
   test("Atualizar um Evento", async () => {
@@ -141,6 +156,7 @@ describe("API Eventos", () => {
     };
     const resp01 = await request.put("/eventos/1").send(eventoAtualizado);
     const resp02 = await request.put("/eventos/99");
+    const resp03 = await request.get("/eventos/xx");
 
     // ID VÁLIDO
     expect(resp01.statusCode).toBe(200);
@@ -148,15 +164,18 @@ describe("API Eventos", () => {
 
     // ID INVÁLIDO
     expect(resp02.statusCode).toBe(404);
+    expect(resp03.statusCode).toBe(500);
   });
 
   test("Apagar um Evento", async () => {
     const resp01 = await request.delete("/eventos/1");
     const resp02 = await request.delete("/eventos/99");
+    const resp03 = await request.get("/eventos/xx");
 
     // ID VÁLIDO
     expect(resp01.statusCode).toBe(204);
     // ID INVÁLIDO
     expect(resp02.statusCode).toBe(404);
+    expect(resp03.statusCode).toBe(500);
   });
 });

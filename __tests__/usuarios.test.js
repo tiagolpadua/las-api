@@ -40,9 +40,11 @@ describe("API de Usuários", () => {
     expect(resp.body).toEqual(usuario);
   });
   test("Buscar Usuários por Id Inexistente", async () => {
-    const resp = await request.get("/usuarios/999");
+    const resp01 = await request.get("/usuarios/999");
+    const resp02 = await request.get("/usuarios/xx");
 
-    expect(resp.statusCode).toBe(404);
+    expect(resp01.statusCode).toBe(404);
+    expect(resp02.statusCode).toBe(500);
   });
   test("Inserir um Usuário com os Dados Válidos", async () => {
     const usuario = {
@@ -152,9 +154,11 @@ describe("API de Usuários", () => {
       nome: "Aleatório",
       urlFotoPerfil: "https://randomuser.me/api/portraits/men/16.jpg",
     };
-    const resp = await request.put("/usuarios/999").send(usuario);
+    const resp01 = await request.put("/usuarios/999").send(usuario);
+    const resp02 = await request.put("/usuarios/xx").send(usuario);
 
-    expect(resp.statusCode).toBe(404);
+    expect(resp01.statusCode).toBe(404);
+    expect(resp02.statusCode).toBe(500);
   });
 
   test("Buscar Usuários por Nome Existente", async () => {
@@ -174,8 +178,7 @@ describe("API de Usuários", () => {
   test("Buscar Usuários por Nome Inexistente", async () => {
     const resp = await request.get("/usuarios/nome/pedro");
 
-    expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual([]);
+    expect(resp.statusCode).toBe(404);
   });
 });
 
@@ -239,22 +242,21 @@ describe("API de Dados Pessoais", () => {
 
 describe("API de Contatos", () => {
   test("Buscar Contatos do Usuários com Id Existente", async () => {
-    const resp = await request.get("/usuarios/1/contatos");
+    const resp01 = await request.get("/usuarios/1/contatos");
     const contatosUsuario = {
       telefone: "99999999",
       celular: "999999999",
       email: "m@m.com.br",
     };
 
-    expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual(contatosUsuario);
+    expect(resp01.statusCode).toBe(200);
+    expect(resp01.body).toEqual(contatosUsuario);
   });
 
   test("Buscar Contatos do Usuários com Id Inexistente", async () => {
     const resp = await request.get("/usuarios/99/contatos");
 
-    expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual([]);
+    expect(resp.statusCode).toBe(404);
   });
 
   test("Atualizar Contatos de um Usuário com Id Existente", async () => {
@@ -263,24 +265,35 @@ describe("API de Contatos", () => {
       celular: "999999999",
       email: "m@m.com",
     };
-    const resp = await request
+    const resp01 = await request
       .put("/usuarios/2/contatos")
       .send(contatosUsuario);
 
-    expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual(contatosUsuario);
+    const resp02 = await request
+      .put("/usuarios/99/contatos")
+      .send(contatosUsuario);
+    const resp03 = await request
+      .put("/usuarios/xx/contatos")
+      .send(contatosUsuario);
+
+    expect(resp01.statusCode).toBe(200);
+    expect(resp01.body).toEqual(contatosUsuario);
+    expect(resp02.statusCode).toBe(404);
+    expect(resp03.statusCode).toBe(500);
   });
 });
 
 describe("API de Senhas", () => {
-  test("Atualizar Senha de um Usuário com Id Existente", async () => {
+  test("Atualizar Senha de um Usuário", async () => {
     const senhaUsuario = {
       senha: "admin",
     };
-    const resp = await request.put("/usuarios/1/senha").send(senhaUsuario);
+    const resp01 = await request.put("/usuarios/1/senha").send(senhaUsuario);
+    const resp02 = await request.put("/usuarios/xx/senha").send(senhaUsuario);
 
-    expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual(senhaUsuario);
+    expect(resp01.statusCode).toBe(200);
+    expect(resp01.body).toEqual(senhaUsuario);
+    expect(resp02.statusCode).toBe(500);
   });
 });
 
@@ -306,17 +319,19 @@ describe("API de Endereços", () => {
     expect(resp.body).toEqual([]);
   });
 
-  test("Atualizar Endereço de um Usuário com Id Existente", async () => {
+  test("Atualizar Endereço de um Usuário", async () => {
     const contatosUsuario = {
       telefone: "99999999",
       celular: "999999999",
       email: "m@m.com",
     };
-    const resp = await request
+    const resp01 = await request
       .put("/usuarios/2/endereco")
       .send(contatosUsuario);
+    const resp02 = await request.put("/usuarios/xx/endereco");
 
-    expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual(contatosUsuario);
+    expect(resp01.statusCode).toBe(200);
+    expect(resp01.body).toEqual(contatosUsuario);
+    expect(resp02.statusCode).toBe(500);
   });
 });

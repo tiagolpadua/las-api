@@ -5,23 +5,32 @@ class Evento {
     return Promise.resolve(eventosMockados);
   }
 
-  adicionar(tipoVenda) {
-    return Promise.resolve(tipoVenda && { insertId: 99 });
+  adicionar(evento) {
+    return Promise.resolve(evento && { insertId: 99 });
   }
 
   buscaPorId(id) {
+    if (isNaN(id)) {
+      return Promise.reject();
+    }
     return eventosMockados[id - 1]
       ? Promise.resolve([eventosMockados[id - 1]])
       : [];
   }
 
-  alterar(id, tipoVendaAtualizada) {
-    return id && tipoVendaAtualizada && eventosMockados[id - 1]
+  alterar(id, eventoAtualizado) {
+    if (isNaN(id)) {
+      return Promise.reject();
+    }
+    return id && eventoAtualizado && eventosMockados[id - 1]
       ? Promise.resolve({ affectedRows: 1 })
       : Promise.resolve({ affectedRows: 0 });
   }
 
   excluir(id) {
+    if (isNaN(id)) {
+      return Promise.reject();
+    }
     return eventosMockados[id - 1]
       ? Promise.resolve({ affectedRows: 1 })
       : Promise.resolve({ affectedRows: 0 });

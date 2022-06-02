@@ -81,10 +81,16 @@ class Usuarios {
   }
 
   atualizarContatos(id, valores) {
+    if (isNaN(id)) {
+      return Promise.reject();
+    }
     return repositorio.atualizarContatos(id, valores);
   }
 
   atualizarSenha(id, valores) {
+    if (isNaN(id)) {
+      return Promise.reject();
+    }
     return repositorio.atualizarSenha(id, valores);
   }
 
@@ -93,6 +99,9 @@ class Usuarios {
   }
 
   atualizarEndereco(id, valores) {
+    if (isNaN(id)) {
+      return Promise.reject();
+    }
     return repositorio.atualizarEndereco(id, valores);
   }
 
