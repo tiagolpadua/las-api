@@ -81,11 +81,7 @@ class Usuario {
       if (erro) {
         throw erro;
       } else {
-        if (resultados.length > 0) {
-          return true;
-        } else {
-          return false;
-        }
+        return resultados.length > 0 ? true : false;
       }
     });
   }

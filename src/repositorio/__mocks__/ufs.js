@@ -7,7 +7,7 @@ class Ufs {
   }
 
   buscarMunicipiosPorUf(uf) {
-    return uf == "ba" ? Promise.resolve(municipiosBaMockados) : [];
+    return Promise.resolve(uf == "ba" ? municipiosBaMockados : []);
   }
 }
 

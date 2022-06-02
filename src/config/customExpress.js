@@ -12,7 +12,7 @@ module.exports = () => {
 
   consign().include("src/controllers").into(app);
 
-  app.get("/", (req, res) => {
+  app.get("/", (_req, res) => {
     res.send("Bem Vindo ao Las-API");
   });
 

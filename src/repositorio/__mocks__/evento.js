@@ -13,18 +13,20 @@ class Evento {
     if (isNaN(id)) {
       return Promise.reject();
     }
-    return eventosMockados[id - 1]
-      ? Promise.resolve([eventosMockados[id - 1]])
-      : [];
+    return Promise.resolve(
+      eventosMockados[id - 1] ? [eventosMockados[id - 1]] : []
+    );
   }
 
   alterar(id, eventoAtualizado) {
     if (isNaN(id)) {
       return Promise.reject();
     }
-    return id && eventoAtualizado && eventosMockados[id - 1]
-      ? Promise.resolve({ affectedRows: 1 })
-      : Promise.resolve({ affectedRows: 0 });
+    return Promise.resolve(
+      id && eventoAtualizado && eventosMockados[id - 1]
+        ? { affectedRows: 1 }
+        : { affectedRows: 0 }
+    );
   }
 
   excluir(id) {
