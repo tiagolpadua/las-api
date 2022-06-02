@@ -16,7 +16,7 @@ module.exports = () => {
   app.get("/api-docs", swaggerUi.setup(swaggerConfig));
 
   app.get("/", (req, res) => {
-    res.send("Bem vindo");
+    res.send("Bem vindo ao las-api");
   });
 
   consign().include("src/controllers").into(app);
