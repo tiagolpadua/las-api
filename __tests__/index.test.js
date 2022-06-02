@@ -6,6 +6,6 @@ describe("Trivial", () => {
   test("Um teste trivial", async () => {
     const resp = await request.get("/");
     expect(resp.statusCode).toBe(200);
-    expect(resp.text).toBe("Bem vindo");
+    expect(resp.text).toBe("Bem vindo ao las-api");
   });
 });
