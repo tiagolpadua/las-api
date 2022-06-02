@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
+const cpfValidator = require("cpf-cnpj-validator").cpf;
 
 class Usuarios {
   listar() {
@@ -67,7 +68,13 @@ class Usuarios {
     return repositorio.buscarEndereco(id);
   }
   alterarDadosPessoais(valores, id) {
-    return repositorio.alterarDadosPessoais(valores, id);
+    if (valores.cpf) {
+      const { cpf } = valores;
+      return cpfValidator.isValid(cpf) ? repositorio.alterarDadosPessoais(valores, id) : Promise.reject({ codigo: 1 });
+    } else {
+      return repositorio.alterarDadosPessoais(valores, id);
+    }
+
   }
   alterarContatos(valores, id) {
     return repositorio.alterarContatos(valores, id);

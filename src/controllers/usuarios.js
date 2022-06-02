@@ -75,7 +75,7 @@ module.exports = (app) => {
     const valores = req.body;
     Usuarios.alterarDadosPessoais(valores, id)
       .then((resultado) => res.json(resultado))
-      .catch((erros) => next(erros));
+      .catch((erros) => erros.codigo == 1 ? res.status(400).json({ cpf: "Cpf inválido" }) : next(erros));
   });
 
   app.put("/usuarios/:id/contatos", (req, res, next) => {

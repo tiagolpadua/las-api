@@ -48,7 +48,10 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "./src/**"
+      "./src/**/*.js",
+      "!./src/repositorios/**",
+      "!./src/infraestrutura/database/**",
+      "!./src/index.js"
     ],
     "coverageThreshold": {
       "global": {
@@ -60,11 +63,13 @@
   "dependencies": {
     "body-parser": "^1.20.0",
     "consign": "^0.1.6",
+    "cpf-cnpj-validator": "^1.0.3",
     "express": "^4.17.3",
     "moment": "^2.29.3",
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.7",
     "nodemon": "^2.0.15",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "swagger-ui-express": "^4.4.0"
   }
 }

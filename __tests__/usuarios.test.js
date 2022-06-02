@@ -97,7 +97,7 @@ describe("API de usuário", () => {
   test("Consultar dados pessoais de um usuário", async () => {
     const resp = await request.get("/usuarios/1/dados-pessoais");
     expect(resp.statusCode).toBe(200);
-    expect(resp.body).toEqual({ "cpf": "12312312312", "dataNascimento": "1998-07-02T03:00:00.000Z", "nomeCompleto": "Leonardo Gomes da Silva", "rg": "123321 SSP BA" });
+    expect(resp.body).toEqual({ "cpf": "46778776021", "dataNascimento": "1998-07-02T03:00:00.000Z", "nomeCompleto": "Leonardo Gomes da Silva", "rg": "123321 SSP BA" });
   });
   test("Consultar contato de um usuário", async () => {
     const resp = await request.get("/usuarios/1/contatos");
@@ -115,7 +115,7 @@ describe("API de usuário", () => {
     });
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual({
-      "cpf": "12312312312", "dataNascimento": "1998-07-02T03:00:00.000Z", "nomeCompleto": "Pedro Alcantara", "rg": "123321 SSP BA"
+      "cpf": "46778776021", "dataNascimento": "1998-07-02T03:00:00.000Z", "nomeCompleto": "Pedro Alcantara", "rg": "123321 SSP BA"
     });
   });
   test("Alterar contatos de um usuario com dados válidos", async () => {
