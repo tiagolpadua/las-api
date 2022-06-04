@@ -6,18 +6,16 @@ class Venda {
     return query(sql, {id, descricao});
   }
 
-  listar() {
-      const sql ="SELECT * FROM tiposVendas";
-      return query(sql);
-  }
+//   listar() {
+//       const sql ="SELECT * FROM tiposVendas";
+//       return query(sql);
+//   }
 
-  buscarPorId(id) {
-    const sql =
-      "SELECT descricao FROM tiposVendas WHERE id = ?";
-    return query(sql, id).then((data) => data[0]);
-}
-
-  
+//   buscarPorId(id) {
+//     const sql =
+//       "SELECT descricao FROM tiposVendas WHERE id = ?";
+//     return query(sql, id).then((data) => data[0]);
+// }
 
 }
 

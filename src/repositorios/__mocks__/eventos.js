@@ -40,13 +40,10 @@ class Evento {
     }));
   }
 
-//   buscarEventoPorStatus() {
-//     return Promise.resolve(eventosMock);
-//   }
-
-//   listarEventosFinalizados() {
-//     return Promise.resolve(eventosMock.find((evento) => evento.status === "finalizado"));
-// }
+  isNomeEventoUtilizado(nome) {
+    return Promise.resolve(
+      !!eventosMock.find((evento) => evento.nome === nome));  
+  }
 }
 
 module.exports = new Evento();

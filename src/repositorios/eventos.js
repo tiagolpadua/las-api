@@ -31,6 +31,17 @@ class Evento {
     const sql = "SELECT * FROM Eventos WHERE dataFim < CURDATE()";
     return query(sql);
   }
+
+  isNomeEventoUtilizado(nome) {
+    const sql = "SELECT * FROM eventos WHERE nome = ?";
+    return query(sql, nome).then((data) => {
+        if (data.length > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    }
  }
 
 module.exports = new Evento();

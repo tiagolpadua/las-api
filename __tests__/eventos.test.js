@@ -118,4 +118,25 @@ describe("API De Eventos", () => {
     const resp = eventoModel.isDatasValidas({"dataInicio":"2021-05-28T03:00:00.000Z","dataFim":"2021-05-20T03:00:00.000Z"});
      expect(resp).toBe(false);
       });
-});
+
+      
+  test("Excluir Evento",async () => {
+     const resp = await request.delete("/eventos/3");
+     expect(resp.statusCode).toBe(200);
+     expect(resp.body).toEqual({
+            "id": 3
+          });
+        });
+
+        test("Alterar evento pelo ID valido ", async () => {
+          const alteracoes = { descricao: "carnaval meio do ano" };
+          const resp = await request.put("/eventos/1").send(alteracoes);
+          expect(resp.statusCode).toBe(200);
+        });
+
+        test("Não alterar evento com ID invalido ", async () => {
+          const alteracoes = { nome: "carnaval Savador" };
+          const resp = await request.put("/eventos/99").send(alteracoes);
+          expect(resp.statusCode).toBe(200);
+        });
+      });

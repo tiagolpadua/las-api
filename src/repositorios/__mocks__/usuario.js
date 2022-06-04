@@ -23,7 +23,7 @@ class Usuario {
   buscarPorNome(nome) {
     return Promise.resolve(usuariosMock.filter((usuario) => usuario.nome === nome));    
   }
-     
+  
 }
 
 module.exports = new Usuario();

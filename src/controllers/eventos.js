@@ -4,22 +4,19 @@ const Eventos = require("../models/eventos");
 module.exports = (app) => {
     app.get("/eventos", (req, res, next) => {
         Eventos.listar()
-          .then((resultados) => res.json(resultados))
-          .catch((erros) => next(erros));
+          .then((resultados) => res.json(resultados)).catch((erros) => next(erros));
       });
 
       app.get("/eventos/:id", (req, res, next) => {
         const id = parseInt(req.params.id);
         Eventos.buscarPorId(id)
           .then((resultado) => {
-          console.log("Sucesso"); 
-          if(resultado.length === 0) {
+            if(resultado.length === 0) {
             return res.status(404).end();
           }
             return res.json(resultado[0]);
           })
           .catch((erros) => {
-            console.log("Error" , erros);
             return next(erros);
           });
       });
@@ -27,9 +24,7 @@ module.exports = (app) => {
       app.get("/eventos/status/:status",(req,res,next) => {
         const status = req.params.status;
         Eventos.listarEventosPorStatus(status)
-        .then((resultados) => res.json(resultados))
-        .catch((erros) => next(erros));
-      
+        .then((resultados) => res.json(resultados)).catch((erros) => next(erros));
       });
 
       app.post("/eventos", (req, res, next) => {
@@ -48,13 +43,8 @@ module.exports = (app) => {
         Eventos.excluir(id, res, next);
       });
 
-      // app.get("/eventos/status/:status",(req,res,next) => {
-      //   const status = req.params.status;
-      //   Eventos.listarEventosPorStatus(status)
-      //   .then((resultados) => res.json(resultados))
-      //   .catch((erros) => next(erros));
-      
-      // });
-      
-
+      app.post("/eventos/nome", (req, res, next) => {
+        const eventos = req.body;
+        Eventos.incluir(eventos, res, next);
+      });
 };

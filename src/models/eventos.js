@@ -1,7 +1,7 @@
 
 const moment = require("moment");
 const pool = require("../infraestrutura/database/conexao");
-//const fetch = require("node-fetch");
+const fetch = require("node-fetch");
 const repositorio = require("../repositorios/eventos");
 
 class Eventos {
@@ -9,18 +9,39 @@ class Eventos {
     return repositorio.listarEventos();
   }
 
-
-buscarPorId(id) {
+  buscarPorId(id) {
   return repositorio.buscarPorId(id);
 }
 
-  
+async isURLValida(url) {
+  try {
+  const regex =
+    /https?:\/\/(www.)?[-a-zA-Z0-9@:%.+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&//=]*)/gm;
+  const verificaUrl = url.match(regex);
+  if (!verificaUrl) {
+    return false;
+  }
+  const response = await fetch(url);
+  if (response.status !== 200) {
+    return false;
+  } else {
+    return true;
+  }
+} catch {
+  return false;
+}
+}
 
  async incluir(evento,res,next) {
-  const nomeEhValido = evento.nome.length >= 5;
-  (await this.validarNomeEvento(evento.nome));
+  let nomeEhValido = false;
+     if(evento?.nome?.length > 0) {
+       const nomeJaUtilizado = await repositorio.isNomeEventoUtilizado(evento.nome);
 
-  const urlEhValida = await this.validarURLFotoPerfil(evento.urlFotoPerfil);
+       if(!nomeJaUtilizado) {
+         nomeEhValido = true;
+       }
+     }
+  const urlEhValida = await this.isURLValida(evento.urlFotoPerfil);
 
   const validacoes = [
     {
@@ -52,6 +73,7 @@ buscarPorId(id) {
       });
     }
   }
+  
   alterar(id, valores, res, next) {
     const sql = "UPDATE Eventos SET ? WHERE id = ?";
     pool.query(sql, [valores, id], (erro) => {
@@ -68,7 +90,7 @@ buscarPorId(id) {
     pool.query(sql, id, (erro) => {
       if (erro) {
         next(erro);
-      } else {
+      } else { 
         res.status(200).json({ id });
       }
     });
@@ -103,12 +125,6 @@ buscarPorId(id) {
           throw new Error(`Status inválido: ${status}`);  
       }
     }
-  // listaEventosPorStatus(status) {
-  //   return repositorio.listaEventosPorStatus(status);
-  // }
-
  } 
-
-
 
 module.exports = new Eventos();

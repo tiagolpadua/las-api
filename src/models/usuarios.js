@@ -4,10 +4,8 @@ const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 
 class Usuarios {
-
   listar() {
     return repositorio.listar();
-
    }
 
   buscarPorId(id) {
@@ -80,7 +78,7 @@ class Usuarios {
     });
   }
 
-  excluir(id, res, next) {
+    excluir(id, res, next) {
     const sql = "DELETE FROM Usuarios WHERE id = ?";
     pool.query(sql, id, (erro) => {
       if (erro) {
@@ -94,29 +92,27 @@ class Usuarios {
   buscarPorNome(nome) {
     return repositorio.buscarPorNome(nome);
   }
-
  
   async atualizaUsuarioId(usuarioId, valores) {
     await repositorio.atualizaUsuarioId(usuarioId, valores);
   }
-
+  
   async obterUsuarioId(usuarioId) {
     return await repositorio.buscarUsuarioId(usuarioId);
-    
   }
-
+  
   async obterContatos(usuarioId) {
     return await repositorio.buscarContatos(usuarioId);
   }
-
+  
   async atualizaContatoUsuarioId(usuarioId, valores) {
     return await repositorio.atualizaContato(usuarioId,valores);
   }
-
+  
   async senhaUsuarioId(usuarioId, valores) {
     return await repositorio.senhaUsuario(usuarioId, valores);
   }
-
+  
   async obterEndereco(usuarioId) {
     return await repositorio.buscarEndereco(usuarioId);
   }
@@ -125,8 +121,5 @@ class Usuarios {
     return await repositorio.atualizaEndereco(usuarioId,valores);
   }
 }
-
-
-
 module.exports = new Usuarios();
   

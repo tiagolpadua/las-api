@@ -1,17 +1,9 @@
 const Usuarios = require("../models/usuarios");
 
-
-
-
-
 module.exports = (app) => {
-  // app.get("/usuarios", (req, res, next) => {
-  //   Usuarios.listar(res, next);
-  // });
   app.get("/usuarios", (req, res, next) => {
     Usuarios.listar()
-      .then((resultados) => res.json(resultados))
-      .catch((erros) => next(erros));
+      .then((resultados) => res.json(resultados)).catch((erros) => next(erros));
   });
 
   app.get("/usuarios/:id", (req, res, next) => {
@@ -42,8 +34,7 @@ module.exports = (app) => {
   app.get("/usuarios/nome/:nome", (req, res, next) => {
     const nome = req.params.nome;
     Usuarios.buscarPorNome(nome)
-    .then((resultados) => res.json(resultados))
-      .catch((erros) => next(erros));
+    .then((resultados) => res.json(resultados)).catch((erros) => next(erros));
     
   });
 
@@ -120,5 +111,4 @@ module.exports = (app) => {
       return next(erro);
     }
   });
-
 };

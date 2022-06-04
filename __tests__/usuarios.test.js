@@ -1,5 +1,8 @@
 const supertest = require("supertest");
 const customExpress = require("../src/config/customExpress");
+// const usuarios = require("../src/controllers/usuarios");
+// const { senhaUsuarioId } = require("../src/models/usuarios");
+// const { senhaUsuario } = require("../src/repositorios/usuario");
 const request = supertest(customExpress());
 
 jest.mock("../src/repositorios/usuario");
@@ -122,8 +125,59 @@ describe("API De Usuários", () => {
       expect(resp.body).toEqual([]);
     });
 
-
+    test("Excluir Usuário",async () => {
+      const resp = await request.delete("/usuarios/3");
+      expect(resp.statusCode).toBe(200);
+      expect(resp.body).toEqual({
+        "id": 3
+      });
+    });
+   
+  test("Alterar senha pelo ID", async () => {
+    const alteracoes = { senha: "lililala" };
+    const resp = await request.put("/usuarios/1").send(alteracoes);
+    expect(resp.statusCode).toBe(200);
   });
+
+  test("Alterar contato pelo ID", async () => {
+    const alteracoes = { telefone: "7132988899" };
+    const resp = await request.put("/usuarios/1").send(alteracoes);
+    expect(resp.statusCode).toBe(200);
+  });
+
+  test("Alterar usuario pelo ID valido ", async () => {
+    const alteracoes = { nomeCompleto: "Pedro Silva" };
+    const resp = await request.put("/usuarios/1").send(alteracoes);
+    expect(resp.statusCode).toBe(200);
+  });
+
+  test("Não alterar usuario com ID invalido ", async () => {
+    const alteracoes = { nomeCompleto: "Pedro da Silva" };
+    const resp = await request.put("/usuarios/99").send(alteracoes);
+    expect(resp.statusCode).toBe(200);
+  });
+
+  test("Alterar endereço pelo ID valido ", async () => {
+    const alteracoes = { endereco: "Rua da Videira" };
+    const resp = await request.put("/usuarios/1").send(alteracoes);
+    expect(resp.statusCode).toBe(200);
+  });
+  
+
+  test("Não alterar endereço com ID invalido ", async () => {
+    const alteracoes = { endereco: "Rua da Vide" };
+    const resp = await request.put("/usuarios/99").send(alteracoes);
+    expect(resp.statusCode).toBe(200);
+  });
+
+ 
+
+  test("Não deve achar dados-pessoais pelo ID inexistente", async () => {
+    const resp = await request.get("/usuarios/99/dados-pessoais");
+    expect(resp.statusCode).toBe(500);
+  });
+});
+
 
 
   

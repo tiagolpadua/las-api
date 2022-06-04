@@ -7,7 +7,6 @@ class Tabelas {
       this.criarTiposVendas();
       this.criarUFs();
       this.criarMunicipios();
-  
     }
   
     criarUsuarios() {
