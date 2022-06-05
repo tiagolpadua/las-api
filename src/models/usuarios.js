@@ -15,7 +15,7 @@ class Usuarios {
   async adicionar(usuario) {
     let nomeEhValido = false;
 
-    if (usuario.nome.length > 0) {
+    if (usuario?.nome?.length > 0) {
       const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
         usuario.nome
       );
