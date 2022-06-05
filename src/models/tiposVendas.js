@@ -4,8 +4,8 @@ class TiposVendas {
   listar() {
     return repositorio.listar();
   }
-  detalhar(id) {
-    return repositorio.datalhar(id);
+  buscarPorId(id) {
+    return repositorio.buscarPorId(id);
   }
   incluir(tipoVenda) {
     return repositorio.incluir(tipoVenda);

@@ -1,4 +1,3 @@
-const res = require("express/lib/response");
 const supertest = require("supertest");
 const customExpress = require("../src/config/customExpress");
 

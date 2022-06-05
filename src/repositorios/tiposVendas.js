@@ -5,7 +5,7 @@ class TiposVendas {
     const sql = "SELECT * FROM TiposVendas";
     return queries(sql);
   }
-  detalhar(id) {
+  buscarPorId(id) {
     const sql = "SELECT * FROM TiposVendas WHERE id = ?";
     return queries(sql, id);
   }
