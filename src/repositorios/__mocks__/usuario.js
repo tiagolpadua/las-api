@@ -22,6 +22,44 @@ class Usuario {
   alterar(id) {
     return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
   }
+
+  excluir(id) {
+    return Promise.resolve(usuariosMock.pop((usuario) => usuario.id === id));
+  }
+
+  buscarPorNome(nome) {
+    return Promise.resolve(
+      usuariosMock.find((usuario) => usuario.nome.includes(nome))
+    );
+  }
+
+  buscarDadosPessoaisDoUsuario(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
+  }
+
+  atualizarDadosPessoaisDoUsuario(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
+  }
+
+  buscarContatosDoUsuario(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
+  }
+
+  atualizarContatosDoUsuario(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
+  }
+
+  atualizarSenhaDoUsuario(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
+  }
+
+  buscarEnderecoDoUsuario(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
+  }
+
+  atualizarEnderecoDoUsuario(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id === id));
+  }
 }
 
 module.exports = new Usuario();

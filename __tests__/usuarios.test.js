@@ -111,44 +111,103 @@ describe("API de Usuários", () => {
     ]);
   });
 
-  test("Alterar usuário por id existente", async() => {
+  test("Alterar usuário por id existente", async () => {
     const usuarioAtualizado = await request.put("/usuarios/2");
     expect(usuarioAtualizado.statusCode).toBe(200);
   });
 
-  test("Alterar usuário por id Inexistente", async() => {
+  test("Alterar usuário por id Inexistente", async () => {
     const usuarioAtualizado = await request.put("/usuarios/10");
     expect(usuarioAtualizado.statusCode).toBe(404);
   });
 
-  test("Deletar usuário por id existente", async() => {
-    const usuarioDeletado = await request.delete("/usuarios/2");
+  test("Deletar usuário por id existente", async () => {
+    const usuarioDeletado = await request.delete("/usuarios/6");
     expect(usuarioDeletado.statusCode).toBe(204);
   });
 
-  test("Deletar usuário por id Inexistente", async() => {
+  test("Deletar usuário por id Inexistente", async () => {
     const usuarioDeletado = await request.delete("/usuarios/20");
     expect(usuarioDeletado.statusCode).toBe(404);
   });
 
-  test("Buscar usuário por nome existente", async() => {
+  test("Buscar usuário por nome existente", async () => {
     const usuario = await request.get("/usuarios/nome/Domingos");
     expect(usuario.statusCode).toBe(200);
   });
 
-  test("Buscar usuário por nome Inexistente", async()=> {
+  test("Buscar usuário por nome Inexistente", async () => {
     const usuario = await request.get("/usuarios/Carlos");
     expect(usuario.statusCode).toBe(404);
   });
 
-  test("Buscar dados pessoais de usuário por id existente", async()=> {
+  test("Buscar dados pessoais de usuário por id existente", async () => {
     const usuario = await request.get("/usuarios/2/dados-pessoais");
     expect(usuario.statusCode).toBe(200);
   });
 
-  test("Buscar dados pessoais de usuário por id Inexistente", async()=> {
+  test("Buscar dados pessoais de usuário por id Inexistente", async () => {
     const usuario = await request.get("/usuarios/13/dados-pessoais");
-    expect(usuario.statusCode).toBe(200);
+    expect(usuario.statusCode).toBe(404);
   });
 
+  test("Atualizar dados pessoais do usuario por id existente", async () => {
+    const usuarioAtualizado = await request.put("/usuarios/2/dados-pessoais");
+    expect(usuarioAtualizado.statusCode).toBe(200);
+  });
+
+  test("Atualizar dados pessoais do usuario por id Inexistente", async () => {
+    const usuarioAtualizado = await request.put("/usuarios/20/dados-pessoais");
+    expect(usuarioAtualizado.statusCode).toBe(404);
+  });
+
+  test("Buscar contatos do Usuario por Id existente", async () => {
+    const contatos = await request.get("/usuarios/2/contatos");
+    expect(contatos.statusCode).toBe(200);
+  });
+
+  test("Buscar contatos do Usuario por Id Inexistente", async () => {
+    const contatos = await request.get("/usuarios/20/contatos");
+    expect(contatos.statusCode).toBe(404);
+  });
+
+  test("Atualizar Contatos do Usuario por Id Existente", async () => {
+    const contatoAtualizado = await request.put("/usuarios/5/contatos");
+    expect(contatoAtualizado.statusCode).toBe(204);
+  });
+
+  test("Atualizar Contatos do Usuario por Id Inexistente", async () => {
+    const contatoAtualizado = await request.put("/usuarios/15/contatos");
+    expect(contatoAtualizado.statusCode).toBe(405);
+  });
+
+  test("Atualizar senha do Usuario por Id Existente", async () => {
+    const senhaAtualizada = await request.put("/usuarios/3/senha");
+    expect(senhaAtualizada.statusCode).toBe(204);
+  });
+
+  test("Atualizar senha do Usuario por Id Inexistente", async () => {
+    const senhaAtualizada = await request.put("/usuarios/30/senha");
+    expect(senhaAtualizada.statusCode).toBe(405);
+  });
+
+  test("Buscar Endereço do Usuario por Id Existente", async () => {
+    const enderecoUsuario = await request.get("/usuarios/3/endereco");
+    expect(enderecoUsuario.statusCode).toBe(200);
+  });
+
+  test("Buscar Endereço do Usuario por Id Inexistente", async () => {
+    const enderecoUsuario = await request.get("/usuarios/30/endereco");
+    expect(enderecoUsuario.statusCode).toBe(405);
+  });
+
+  test("Atualizar Endereço do Usuario por Id Existente", async () => {
+    const enderecoAtualizada = await request.put("/usuarios/3/endereco");
+    expect(enderecoAtualizada.statusCode).toBe(204);
+  });
+
+  test("Atualizar senha do Usuario por Id Inexistente", async () => {
+    const enderecoAtualizada = await request.put("/usuarios/30/endereco");
+    expect(enderecoAtualizada.statusCode).toBe(405);
+  });
 });
