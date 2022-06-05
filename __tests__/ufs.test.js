@@ -94,5 +94,19 @@ describe("API de UF e Municipios", () => {
     ]);
   });
 
+  test("Listar Municipio",async () => {
+    const resp = await request.get("/ufs/ba/municipios");
+    expect(resp.statusCode).toBe(200);
+    expect(resp.body).toEqual([
+        "Abaíra",
+        "Abaré",
+        "Acajutiba",
+        "Adustina",
+        "Água Fria",
+        "Érico Cardoso",
+        "Aiquara",
+        "Alagoinhas"
+    ]);
+});
 
 });
