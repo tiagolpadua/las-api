@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "cep": "40000000",
+    "endereco": "rua vitor",
+    "numero": 6,
+    "complemento": "sem",
+    "bairro": "garcia"
+  },
+  {
+    "id": 2,
+    "cep": "40000000",
+    "endereco": "rua vitor",
+    "numero": 6,
+    "complemento": "sem",
+    "bairro": "garcia"
+  },
+  {
+    "id": 3,
+    "cep": "4000000",
+    "endereco": "rua vitor",
+    "numero": 6,
+    "complemento": "sem",
+    "bairro": "garcia"
+  }
+];

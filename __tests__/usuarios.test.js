@@ -1,3 +1,4 @@
+const res = require("express/lib/response");
 const supertest = require("supertest");
 const customExpress = require("../src/config/customExpress");
 
@@ -143,5 +144,191 @@ describe("API de Usuários", () => {
         valido: false,
       },
     ]);
+  });
+  test("Alterar usuário", async () => {
+    const res = await request.put("/usuarios/3").send({
+      id: 3,
+      nome: "Zara",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/men/71.jpg",
+      nomeCompleto: "Zara Souza Farias",
+      dataNascimento: "2021-07-24T03:00:00.000Z",
+      rg: "78965412",
+      cpf: "65498732199",
+      telefone: "7133011581",
+      celular: "71991895666",
+      email: "zara@mail.com",
+      senha: "livre",
+      cep: "4000000",
+      endereco: "rua vitor",
+      numero: 6,
+      complemento: "sem",
+      bairro: "garcia",
+    });
+    expect(res.body).toEqual({
+      id: 3,
+      nome: "Zara",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/men/71.jpg",
+      nomeCompleto: "Zara Souza Farias",
+      dataNascimento: "2021-07-24T03:00:00.000Z",
+      rg: "78965412",
+      cpf: "65498732199",
+      telefone: "7133011581",
+      celular: "71991895666",
+      email: "zara@mail.com",
+      senha: "livre",
+      cep: "4000000",
+      endereco: "rua vitor",
+      numero: 6,
+      complemento: "sem",
+      bairro: "garcia",
+    });
+
+    expect(res.statusCode).toBe(200);
+  });
+  test("Alterar Usuário Inexistente", async () => {
+    const res = await request.put("/usuarios/99").send({
+      nome: "Zara",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/men/71.jpg",
+    });
+    expect(res.statusCode).toBe(404);
+  });
+  test("Deletar Usuário", async () => {
+    const res = await request.delete("/usuarios/3");
+    expect(res.statusCode).toBe(204);
+  });
+  test("Deletar Usuário inexistente", async () => {
+    const res = await request.delete("/usuarios/99");
+    expect(res.statusCode).toBe(404);
+  });
+
+  test("Buscar usuário pelo nome", async () => {
+    const res = await request.get("/usuarios/nome/Zara");
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({
+      id: 3,
+      nome: "Zara",
+      urlFotoPerfil: "https://randomuser.me/api/portraits/men/71.jpg",
+      nomeCompleto: "Zara Souza Farias",
+      dataNascimento: "2021-07-24T03:00:00.000Z",
+      rg: "78965412",
+      cpf: "65498732199",
+      telefone: "7133011581",
+      celular: "71991895666",
+      email: "zara@mail.com",
+      senha: "livre",
+      cep: "4000000",
+      endereco: "rua vitor",
+      numero: 6,
+      complemento: "sem",
+      bairro: "garcia",
+    });
+  });
+  test("Buscar usuario por nome inexistente", async () => {
+    const res = await request.get("/usuarios/nome/dagobar");
+    expect(res.statusCode).toBe(404);
+  });
+  //Testes de dados pessoais
+
+  describe("API de dados Pessoais", () => {
+    test("Buscar dados pessoais de usuário (id)", async () => {
+      const res = await request.get("/usuarios/3/dados-pessoais");
+      expect(res.body).toEqual({
+        id: 3,
+        nomeCompleto: "Zara Souza Farias",
+        dataNascimento: "2021-07-24T03:00:00.000Z",
+        rg: "78965412",
+        cpf: "65498732199",
+      });
+      expect(res.statusCode).toBe(200);
+    });
+
+    test("Buscar Dados Pessoais por Id Inexistente", async () => {
+      const res = await request.get("/usuarios/2022/dados-pessoais");
+      expect(res.statusCode).toBe(404);
+    });
+
+    test("Atualizar dados pessoais", async () => {
+      const res = await request.put("/usuarios/3").send({
+        id: 3,
+        nomeCompleto: "Zara Souza Farias",
+        dataNascimento: "2021-07-24T03:00:00.000Z",
+        rg: "78965412",
+        cpf: "65498732199",
+      });
+      expect(res.body).toEqual({
+        id: 3,
+        nomeCompleto: "Zara Souza Farias",
+        dataNascimento: "2021-07-24T03:00:00.000Z",
+        rg: "78965412",
+        cpf: "65498732199",
+      });
+      expect(res.statusCode).toBe(200);
+    });
+  });
+
+  describe("API de Contatos", () => {
+    test("Buscar contato por id", async () => {
+      const res = await request.get("/usuarios/2/contatos");
+      expect(res.body).toEqual({
+        id: 2,
+        telefone: "7133017310",
+        celular: "71991895189",
+        email: "bela@email.com",
+      });
+      expect(res.statusCode).toBe(200);
+    });
+    test("Atualizar contatos por id", async () => {
+      const res = await request.put("/usuarios/3/contatos");
+      expect(res.body).toEqual({
+        id: 3,
+        telefone: "7133011581",
+        celular: "71991895666",
+        email: "zara@mail.com",
+      });
+      expect(res.body).toEqual({
+        id: 3,
+        telefone: "7133011581",
+        celular: "71991895666",
+        email: "zara@mail.com",
+      });
+      expect(res.statusCode).toBe(200);
+    });
+  });
+  describe("Api de endereços", () => {
+    test("Inclusão de endereço", async () => {
+      const res = await request.get("/usuarios/1/endereco");
+      expect(res.body).toEqual({
+        id: 1,
+        cep: "40000000",
+        endereco: "rua vitor",
+        numero: 6,
+        complemento: "sem",
+        bairro: "garcia",
+      });
+      expect(res.statusCode).toBe(200);
+    });
+  });
+  test("Atualização de endereço", async () => {
+    const res = await request.put("/usuarios/2/endereco").send({
+      id: 2,
+      cep: "40000000",
+      endereco: "rua vitor",
+      numero: 6,
+      complemento: "sem",
+      bairro: "garcia",
+    });
+    expect(res.body).toEqual({
+      id: 2,
+      cep: "40000000",
+      endereco: "rua vitor",
+      numero: 6,
+      complemento: "sem",
+      bairro: "garcia",
+    });
+    expect(res.statusCode).toBe(200);
+  });
+  test("Buscar por endereço inexistente", async () => {
+    const res = await request.get("/usuarios/99/dados-pessoais");
+    expect(res.statusCode).toBe(404);
   });
 });

@@ -25,22 +25,27 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const valores = req.body;
     Usuarios.alterar(id, valores)
-      .then((usuario) => res.status(200).json(usuario))
-      .catch((erro) => res.status(400).json(erro));
+      .then((resultados) =>
+        resultados ? res.json({ id, ...valores }) : res.status(404).end()
+      )
+      .catch((erros) => res.status(404).json(erros));
   });
 
   app.delete("/usuarios/:id", (req, res) => {
     const id = parseInt(req.params.id);
     Usuarios.excluir(id)
-      .then((usuario) => res.status(200).json(usuario))
-      .then((erro) => res.status(400).json(erro));
+      .then((resultados) =>
+        resultados ? res.status(204).end() : res.status(404).end()
+      )
+
+      .catch((erros) => res.status(400).json(erros));
   });
 
   app.get("/usuarios/nome/:nome", (req, res) => {
     const nome = req.params.nome;
     Usuarios.buscarPorNome(nome)
-      .then((usuario) => res.status(200).json(usuario))
-      .catch((erro) => res.status(400).json(erro));
+      .then((nome) => (nome ? res.json(nome) : res.status(404).end()))
+      .catch((erros) => res.status(400).json(erros));
   });
 
   ///Atualização e consulta de dados pessoais
@@ -48,15 +53,17 @@ module.exports = (app) => {
   app.get("/usuarios/:id/dados-pessoais", (req, res) => {
     const id = parseInt(req.params.id);
     Usuarios.consultarDadosPessoais(id)
-      .then((resultados) => res.status(200).json(resultados))
+      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).end()))
       .catch((erros) => res.status(400).json(erros));
   });
   app.put("/usuarios/:id/dados-pessoais", (req, res) => {
     const id = parseInt(req.params.id);
     const dadosPessoais = req.body;
     Usuarios.atualizaDadosPessoais(id, dadosPessoais)
-      .then((resultados) => res.status(200).json(resultados))
-      .catch((erro) => res.status(400).json(erro));
+      .then((resultados) =>
+        resultados ? res.json(dadosPessoais) : res.status(400).end()
+      )
+      .catch((erros) => res.status(400).json(erros));
   });
 
   //Atualização e consulta de contatos
@@ -96,7 +103,9 @@ module.exports = (app) => {
   app.get("/usuarios/:id/endereco", (req, res) => {
     const id = parseInt(req.params.id);
     Usuarios.consultarEndereco(id)
-      .then((resultado) => res.status(200).json(resultado))
+      .then((resultado) =>
+        resultado ? res.status(200).json(resultado) : res.json(400).end()
+      )
       .catch((erro) => res.status(400).json(erro));
   });
 
@@ -104,7 +113,9 @@ module.exports = (app) => {
     const id = parseInt(req.params.id);
     const dadosEndereco = req.body;
     Usuarios.alterarEndereco(id, dadosEndereco)
-      .then((resultado) => res.status(200).json(resultado))
+      .then((resultado) =>
+        resultado ? res.status(200).json(dadosEndereco) : res.json(400).end()
+      )
       .catch((erro) => res.status(400).json(erro));
   });
 };

@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nomeCompleto": "Izaque farias",
+    "dataNascimento": "1987-04-27T03:00:00.000Z",
+    "rg": "12365411",
+    "cpf": "12365478911"
+  },
+  {
+    "id": 2,
+    "nomeCompleto": "Isabela Souza",
+    "dataNascimento": "1992-05-30T03:00:00.000Z",
+    "rg": "78965412",
+    "cpf": "98745632199"
+  },
+  {
+    "id": 3,
+    "nomeCompleto": "Zara Souza Farias",
+    "dataNascimento": "2021-07-24T03:00:00.000Z",
+    "rg": "78965412",
+    "cpf": "65498732199"
+  }
+];

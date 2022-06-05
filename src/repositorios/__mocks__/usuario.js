@@ -1,6 +1,9 @@
 // const query = require("../infraestrutura/database/queries");
 
 const usuariosMock = require("./usuarios.json");
+const dadosPessoaisMock = require("./dadosPessoais.json");
+const contatosMock = require("./contatos.json");
+const enderecoMock = require("./endereco.json");
 
 class Usuario {
   listar() {
@@ -20,51 +23,48 @@ class Usuario {
     );
   }
 
-  // alterar(id, valores) {
-  //   const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-  //   return query(sql, [id, valores]);
-  // }
-  // excluir(id) {
-  //   const sql = "DELETE FROM Usuarios WHERE id = ?";
-  //   return query(sql, id);
-  // }
-  // buscarPorNome(nome) {
-  //   const sql = "SELECT * FROM Usuarios WHERE nome like ?";
-  //   return query(sql, nome);
-  // }
+  alterar(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id == id));
+  }
+  excluir(id) {
+    return Promise.resolve(usuariosMock.find((usuario) => usuario.id == id));
+  }
+  buscarPorNome(nome) {
+    return Promise.resolve(
+      usuariosMock.find((usuario) => usuario.nome == nome)
+    );
+  }
   // ///Atualização e consulta de dados pessoais
 
-  // consultarDadosPessoais(id) {
-  //   const sql =
-  //     "SELECT nomeCompleto, dataNascimento, rg, cpf FROM Usuarios WHERE id = ?";
-  //   return query(sql, id);
-  // }
-  // atualizarDadosPessoais(id, dadosPessoais) {
-  //   const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-  //   return query(sql, [id, dadosPessoais]);
-  // }
+  consultarDadosPessoais(id) {
+    return Promise.resolve(dadosPessoaisMock.find((dados) => dados.id == id));
+  }
+  atualizarDadosPessoais(id) {
+    return Promise.resolve(dadosPessoaisMock.find((dados) => dados.id == id));
+  }
 
   // //Atualização e consulta de contatos
 
-  // consultaContatos(id) {
-  //   const sql = "SELECT telefone, celular, email FROM Usuarios WHERE id = ?";
-  //   return query(sql, id);
-  // }
-  // atualizarContatos(id, dadosContatos) {
-  //   const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-  //   return query(sql, [id, dadosContatos]);
-  // }
+  consultaContatos(id) {
+    return Promise.resolve(
+      contatosMock.find((usuarioContatos) => usuarioContatos.id == id)
+    );
+  }
+  atualizarContatos(id) {
+    return Promise.resolve(
+      contatosMock.find((usuarioContatos) => usuarioContatos.id == id)
+    );
+  }
 
   // //Inclusão e consulta de endereço
 
-  // consultarEndereco(id) {
-  //   const sql =
-  //     "SELECT cep, endereco, numero, complemento, bairro FROM Usuarios WHERE id = ?";
-  //   return query(sql, id);
-  // }
-  // alterarEndereco(id, dadosEndereco) {
-  //   const sql = "UPDATE Usuarios SET ? WHERE id = ?";
-  //   return query(sql, [id, dadosEndereco]);
-  // }
+  consultarEndereco(id) {
+    return Promise.resolve(
+      enderecoMock.find((enderecos) => enderecos.id == id)
+    );
+  }
+  alterarEndereco(id) {
+    return Promise.resolve((endereco) => endereco.id == id);
+  }
 }
 module.exports = new Usuario();

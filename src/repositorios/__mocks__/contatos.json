@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "telefone": "7133011581",
+    "celular": "71991895189",
+    "email": "zac@email.com"
+  },
+  {
+    "id": 2,
+    "telefone": "7133017310",
+    "celular": "71991895189",
+    "email": "bela@email.com"
+  },
+  {
+    "id": 3,
+    "telefone": "7133011581",
+    "celular": "71991895666",
+    "email": "zara@mail.com"
+  }
+];
