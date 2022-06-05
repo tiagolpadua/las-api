@@ -6,12 +6,12 @@ class Usuario {
     return query(sql);
   }
   buscarPorId(id) {
-    const sql = "SELECT * FROM Usuarios WHERE id = ?";
-    return query(sql, id);
+    const sql = "SELECT id, nome, urlFotoPerfil FROM Usuarios WHERE id = ?";
+    return query(sql, id).then((resultado) => resultado[0]);
   }
-  adicionar(usuario) {
+  adicionar({ nome, urlFotoPerfil }) {
     const sql = "INSERT INTO Usuarios SET ?";
-    return query(sql, usuario);
+    return query(sql, { nome, urlFotoPerfil });
   }
   alterar(id, valores) {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
@@ -59,5 +59,15 @@ class Usuario {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
     return query(sql, [id, dadosEndereco]);
   }
+
+  isNomeUsuarioUtilizado(nome) {
+    const sql = "SELECT * FROM Usuarios WHERE nome = ?";
+    return query(sql, nome).then((data) => {
+      if (data.length > 0) {
+        return true;
+      } else return false;
+    });
+  }
 }
+
 module.exports = new Usuario();

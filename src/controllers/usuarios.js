@@ -7,18 +7,18 @@ module.exports = (app) => {
       .catch((erro) => res.status(400).json(erro));
   });
 
-  app.get("/usuarios/:id", (req, res) => {
+  app.get("/usuarios/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     Usuarios.buscarPorId(id)
-      .then((usuario) => res.status(200).json(usuario))
-      .catch((erro) => res.status(400).json(erro));
+      .then((usuario) => (usuario ? res.json(usuario) : res.status(404).send()))
+      .catch((erros) => next(erros));
   });
 
-  app.post("/usuarios", (req, res) => {
+  app.post("/usuarios", (req, res, next) => {
     const novoUsuario = req.body;
     Usuarios.adicionar(novoUsuario)
-      .then((usuario) => res.status(200).json(usuario))
-      .catch((erro) => res.status(400).json(erro));
+      .then((usuario) => res.status(201).json(usuario))
+      .catch((erros) => next(erros));
   });
 
   app.put("/usuarios/:id", (req, res) => {

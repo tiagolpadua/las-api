@@ -1,4 +1,3 @@
-const pool = require("../infraestrutura/database/conexao");
 const fetch = require("node-fetch");
 const repositorio = require("../repositorios/usuario");
 
@@ -8,15 +7,25 @@ class Usuarios {
   }
 
   buscarPorId(id) {
-    return repositorio.listar(id);
+    return repositorio.buscarPorId(id);
   }
 
-  async adicionar(usuario) {
-    const nomeEhValido =
-      usuario.nome.length > 0 &&
-      (await this.validarNomeUsuarioNaoUtilizado(usuario.nome));
+  ///Adicionar usuário!!!
 
-    const urlEhValida = await this.validarURLFotoPerfil(usuario.urlFotoPerfil);
+  async adicionar(usuario) {
+    let nomeEhValido = false;
+
+    if (usuario.nome.length > 0) {
+      const nomeJaUtilizado = await repositorio.isNomeUsuarioUtilizado(
+        usuario.nome
+      );
+
+      if (!nomeJaUtilizado) {
+        nomeEhValido = true;
+      }
+    }
+
+    const urlEhValida = await this.validarURLFotoPerfil(usuario?.urlFotoPerfil);
 
     const validacoes = [
       {
@@ -35,9 +44,10 @@ class Usuarios {
     const existemErros = erros.length;
 
     if (existemErros) {
-      return new Promise.reject(erros);
+      throw { erroApp: erros };
     } else {
-      return repositorio.adicionar(usuario);
+      const resp = await repositorio.adicionar(usuario);
+      return { id: resp.insertId, ...usuario };
     }
   }
 
@@ -72,22 +82,6 @@ class Usuarios {
     }
   }
 
-  async validarNomeUsuarioNaoUtilizado(nome) {
-    return new Promise((resolve) => {
-      const sql = "SELECT * FROM Usuarios WHERE nome = ?";
-      pool.query(sql, nome, (erro, resultados) => {
-        if (erro) {
-          resolve(false);
-        } else {
-          if (resultados.length > 0) {
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        }
-      });
-    });
-  }
   ///Atualização e consulta de dados pessoais
 
   consultarDadosPessoais(id) {
