@@ -1,52 +1,42 @@
 [
   {
-    "id": "1",
-    "UF": "BA",
+    "id":"1",
+    "UF":"ba",
     "nome": "Abaíra"
-  },
-  {
-    "id": "2",
-    "UF": "BA",
+},
+{
+    "id":"2",
+    "UF":"ba",
     "nome": "Abaré"
-  },
-  {
-    "id": "3",
-    "UF": "BA",
+},
+{
+    "id":"3",
+    "UF":"ba",
     "nome": "Acajutiba"
-  },
-  {
-    "id": "4",
-    "UF": "BA",
+},
+{
+    "id":"4",
+    "UF":"ba",
     "nome": "Adustina"
-  },
-  {
-    "id": "5",
-    "UF": "BA",
+},
+{
+    "id":"5",
+    "UF":"ba",
     "nome": "Água Fria"
-  },
-  {
-    "id": "6",
-    "UF": "BA",
+},
+{
+    "id":"6",
+    "UF":"ba",
     "nome": "Érico Cardoso"
-  },
-  {
-    "id": "7",
-    "UF": "BA",
+},
+{
+    "id":"7",
+    "UF":"ba",
     "nome": "Aiquara"
-  },
-  {
-    "id": "8",
-    "UF": "BA",
+},
+{
+    "id":"8",
+    "UF":"ba",
     "nome": "Alagoinhas"
-  },
-  {
-    "id": "9",
-    "UF": "BA",
-    "nome": "Alcobaça"
-  },
-  {
-    "id": "10",
-    "UF": "BA",
-    "nome": "Almadina"
-  }
-]
+}
+];
