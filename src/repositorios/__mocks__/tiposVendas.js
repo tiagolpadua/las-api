@@ -10,7 +10,7 @@ class TiposVendas {
     );
   }
   incluir(tipoVenda) {
-    return Promise.resolve(tipoVenda);
+    return Promise.resolve(tipoVenda && { insertId: 99 });
   }
   alterar(id, valores) {
     return Promise.resolve(tiposVendasMock && [valores, id]);

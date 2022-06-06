@@ -43,6 +43,10 @@ class Usuario {
     return Promise.resolve(dadosPessoaisMock.find((dados) => dados.id == id));
   }
 
+  alterarSenha(id, valores) {
+    return Promise.resolve(usuariosMock && [valores, id]);
+  }
+
   // //Atualização e consulta de contatos
 
   consultaContatos(id) {

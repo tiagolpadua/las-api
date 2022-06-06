@@ -1,4 +1,3 @@
-const req = require("express/lib/request");
 const supertest = require("supertest");
 const customExpress = require("../src/config/customExpress");
 
@@ -79,7 +78,7 @@ describe("Testes API Eventos", () => {
       status: "agendado",
     });
   });
-  test("Alterar Evento Existente", async () => {
+  test("Alterar evento", async () => {
     const resp01 = await request.put("/eventos/1").send({
       id: 1,
       nome: "São Pedro",
@@ -110,6 +109,24 @@ describe("Testes API Eventos", () => {
   });
   test("Excluir um evento inválido", async () => {
     const res = await request.delete("/eventos/999");
+    expect(res.statusCode).toBe(400);
+  });
+
+  test("Buscar Evento por id", async () => {
+    const res = await request.get("/eventos/3");
+    expect(res.body).toEqual({
+      id: 3,
+      nome: "São João",
+      descricao: "Maior festa nordestina do ano",
+      urlFoto: null,
+      dataInicio: "2022-06-01",
+      dataFim: "2022-06-28",
+      status: "em-andamento",
+    });
+    expect(res.statusCode).toBe(200);
+  });
+  test("Buscar Evento inválido", async () => {
+    const res = await request.get("/eventos/99");
     expect(res.statusCode).toBe(400);
   });
   test("Buscar Evento por Status Agendado", async () => {
@@ -156,5 +173,9 @@ describe("Testes API Eventos", () => {
         status: "finalizado",
       },
     ]);
+  });
+  test("Buscar Evento por Status inválido", async () => {
+    const res = await request.get("/eventos/invalidstate");
+    expect(res.statusCode).toBe(400);
   });
 });

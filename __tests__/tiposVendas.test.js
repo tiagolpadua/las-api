@@ -33,18 +33,27 @@ describe("Testes API de Vendas", () => {
     });
   });
   test("Buscar tipo de venda inexistente", async () => {
-    const resp = await request.get("/tipos-vendas/9999");
+    const resp = await request.get("/tipos-vendas/2022");
     expect(resp.statusCode).toBe(400);
   });
-  test("incluir tipo Venda", async () => {
-    const res = await request.post("/tipos-vendas").send({
+  test("Adicionar tipo venda", async () => {
+    const resp = await request.post("/tipos-vendas").send({
       descricao: "Limpeza",
     });
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual({
+    expect(resp.statusCode).toBe(201);
+    expect(resp.body).toEqual({
       descricao: "Limpeza",
+      id: 99,
     });
   });
+
+  test("Adicionar tipo venda inválida", async () => {
+    const resp = await request.post("/tipos-vendas").send({
+      descricao: "ivns",
+    });
+    expect(resp.statusCode).toBe(404);
+  });
+
   test("Alterar Venda", async () => {
     const res = await request.put("/tipos-vendas/2").send({
       descricao: "novo tipo venda",
@@ -55,6 +64,7 @@ describe("Testes API de Vendas", () => {
       descricao: "novo tipo venda",
     });
   });
+
   test("Excluir Tipo de venda", async () => {
     const resp = await request.delete("/tipos-vendas/3");
     expect(resp.statusCode).toBe(200);

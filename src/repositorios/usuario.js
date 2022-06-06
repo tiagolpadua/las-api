@@ -36,6 +36,10 @@ class Usuario {
     const sql = "UPDATE Usuarios SET ? WHERE id = ?";
     return query(sql, [id, dadosPessoais]);
   }
+  alterarSenha(id, valores) {
+    const sql = "UPDATE Usuarios SET ? WHERE id = ?";
+    return query(sql, [valores, id]);
+  }
 
   //Atualização e consulta de contatos
 

@@ -191,11 +191,11 @@ describe("API de Usuários", () => {
     });
     expect(res.statusCode).toBe(404);
   });
-  test("Deletar Usuário", async () => {
+  test("Excluir Usuário", async () => {
     const res = await request.delete("/usuarios/3");
     expect(res.statusCode).toBe(204);
   });
-  test("Deletar Usuário inexistente", async () => {
+  test("Excluir Usuário inexistente", async () => {
     const res = await request.delete("/usuarios/99");
     expect(res.statusCode).toBe(404);
   });
@@ -262,6 +262,19 @@ describe("API de Usuários", () => {
         cpf: "65498732199",
       });
       expect(res.statusCode).toBe(200);
+    });
+  });
+
+  describe("API de senhas", () => {
+    test("Alterar senha do usuário", async () => {
+      const res = await request.put("/usuarios/2/senha").send({
+        senha: "kakaroto",
+      });
+      expect(res.statusCode).toBe(200);
+      expect(res.body).toEqual({
+        id: 2,
+        senha: "kakaroto",
+      });
     });
   });
 

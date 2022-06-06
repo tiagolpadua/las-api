@@ -90,6 +90,9 @@ class Usuarios {
   atualizaDadosPessoais(id, dadosPessoais) {
     return repositorio.atualizarDadosPessoais(id, dadosPessoais);
   }
+  alterarSenha(id, valores) {
+    return repositorio.alterarSenha(id, valores);
+  }
 
   //Atualização e consulta de contatos
 

@@ -14,14 +14,13 @@ module.exports = (app) => {
       )
       .catch((erros) => next(erros));
   });
-  app.post("/tipos-vendas", (req, res, next) => {
+  app.post("/tipos-vendas", (req, res) => {
     const tipoVenda = req.body;
     TiposVendas.incluir(tipoVenda)
-      .then((resultado) =>
-        resultado ? res.status(200).json(resultado) : res.status(400).end()
-      )
-      .catch((erros) => next(erros));
+      .then((resultados) => res.status(201).json(resultados))
+      .catch((erros) => res.status(404).json(erros));
   });
+
   app.put("/tipos-vendas/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const valores = req.body;

@@ -83,19 +83,12 @@ module.exports = (app) => {
   });
 
   //Atualização de senhas
-
-  app.put("usuarios/:id/senha", (req, res) => {
+  app.put("/usuarios/:id/senha", (req, res) => {
     const id = parseInt(req.params.id);
-    const key = req.body;
-    Usuarios.alterarSenha(id, key)
-      .then((resultado) => {
-        if (resultado) {
-          res.status(200).json({ resultado: "Senha alterada com sucesso" });
-        } else {
-          res.status(400).json({ resultado: "Entrada inválida" });
-        }
-      })
-      .catch((erro) => res.status(400).json(erro));
+    const valores = req.body;
+    Usuarios.alterarSenha(id, valores)
+      .then(() => res.status(200).json({ id, ...valores }))
+      .catch((erros) => res.status(400).json(erros));
   });
 
   //Inclusão e consulta de endereço
