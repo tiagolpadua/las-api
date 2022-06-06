@@ -53,7 +53,7 @@ class Tabelas {
     const sql = `CREATE TABLE IF NOT EXISTS Eventos (
         id INT AUTO_INCREMENT NOT NULL, 
         nome VARCHAR (100) NOT NULL, 
-        decricao TEXT, urlfoto TEXT, 
+        descricao TEXT, urlfoto TEXT, 
         dataInicio DATE, dataFim DATE, 
         status ENUM ('agendado, em-andamento, finalizado'), 
         

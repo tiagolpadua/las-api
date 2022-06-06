@@ -2,20 +2,20 @@ const repositorio = require("../repositorios/eventos");
 const moment = require("moment");
 
 class Eventos {
-  listar() {
+  listarEventos() {
     return repositorio.listarEventos();
   }
   detalharEvento(id) {
-    return repositorio.buscarEvento(id);
+    return repositorio.detalharEvento(id);
   }
   incluirEvento(evento) {
-    return repositorio.incluir(evento);
+    return repositorio.incluirEvento(evento);
   }
   alterarEvento(id, valores) {
-    return repositorio.alterar(id, valores);
+    return repositorio.alterarEvento(id, valores);
   }
   excluirEvento(id) {
-    return repositorio.excluir(id);
+    return repositorio.excluirEvento(id);
   }
   isDatasValidas(evento) {
     let checkData = false;
@@ -45,17 +45,17 @@ class Eventos {
     const status = this.statusEvento(evento);
     return { ...evento, status: status };
   }
-  listarEventosPorStatus(status) {
-    switch (status) {
-      case "agendado":
-        return this.inserirStatus(repositorio.listarEventosAgendados());
-      case "em-andamento":
-        return this.inserirStatus(repositorio.listarEventosEmAndamento());
-      case "finalizado":
-        return this.inserirStatus(repositorio.listarEventosFinalizados());
-      default:
-        throw new Error(`Status inválido: ${status}`);
+  buscarEventosPorStatus(status) {
+    if (status === "agendado") {
+      return repositorio.listarEventosAgendados();
     }
+    if (status === "em-andamento") {
+      return repositorio.listarEventosEmAndamento();
+    }
+    if (status === "finalizado") {
+      return repositorio.listarEventosFinalizados();
+    }
+    return Promise.reject(`Status inválido: ${status}`);
   }
 }
 

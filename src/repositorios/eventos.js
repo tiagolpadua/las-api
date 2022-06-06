@@ -9,30 +9,31 @@ class Eventos {
     const sql = "SELECT * FROM Eventos WHERE id = ?";
     return queries(sql, id);
   }
-  incluir(evento) {
+  incluirEvento(evento) {
     const sql = "INSERT INTO Eventos SET ?";
     return queries(sql, evento);
   }
-  alterar(id, valores) {
+  alterarEvento(id, valores) {
     const sql = "UPDATE Eventos SET ? WHERE id = ?";
     return queries(sql, [id, valores]);
   }
-  excluir(id) {
+  excluirEvento(id) {
     const sql = "DELETE FROM Eventos WHERE id = ?";
     return queries(sql, id);
   }
   listarEventosAgendados() {
-    const sql = "SELECT * FROM Eventos WHERE status = 'agendado' ";
+    const sql = "SELECT * FROM Eventos WHERE dataInicio > CURDATE()";
     return queries(sql);
   }
 
   listarEventosEmAndamento() {
-    const sql = "SELECT * FROM Eventos WHERE status = 'em-andamento' ";
+    const sql =
+      "SELECT * FROM Eventos WHERE dataInicio < CURDATE() && dataFim > CURDATE()";
     return queries(sql);
   }
 
   listarEventosFinalizados() {
-    const sql = "SELECT * FROM Eventos WHERE status = 'finalizado' ";
+    const sql = "SELECT * FROM Eventos WHERE dataFim < CURDATE()";
     return queries(sql);
   }
 }

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "nome": "São Pedro",
+    "descricao": "Festa que sucede o são joão",
+    "urlFoto": null,
+    "dataInicio": "2022-06-29",
+    "dataFim": "2022-06-30",
+    "status": "agendado"
+  },
+  {
+    "id": 2,
+    "nome": "Carnaval",
+    "descricao": "7 dias de festa em salvador",
+    "urlFoto": null,
+    "dataInicio": "2022-02-28",
+    "dataFim": "2022-03-03",
+    "status": "finalizado"
+  },
+  {
+    "id": 3,
+    "nome": "São João",
+    "descricao": "Maior festa nordestina do ano",
+    "urlFoto": null,
+    "dataInicio": "2022-06-01",
+    "dataFim": "2022-06-28",
+    "status": "em-andamento"
+  }
+];
