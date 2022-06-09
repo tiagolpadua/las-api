@@ -47,7 +47,10 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "./src/**"
+      "./src/**/*.js",
+      "!./src/repositorios/**",
+      "!./src/infraestrutura/database/**",
+      "!./src/index.js"
     ],
     "coverageThreshold": {
       "global": {
